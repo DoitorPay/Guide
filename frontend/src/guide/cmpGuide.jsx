@@ -1,14 +1,14 @@
-import React from "react"
+import React from "react";
+import CmpSidebar from "../component/cmpSidebar";
 
 function CmpGuide() {
-
   return (
     <>
       <div>
-         컴포넌트 목록
+        <CmpSidebar />{" "}
       </div>
     </>
-  )
+  );
 }
 
-export default CmpGuide
+export default CmpGuide;

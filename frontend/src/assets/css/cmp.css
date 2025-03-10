@@ -1,0 +1,39 @@
+.cmp-sidebar {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  flex: 1 1 0%;
+}
+.cmp-sidebar__itemList ul {
+  width: 200px;
+  position: sticky;
+  min-height: 500px;
+  top: 100px;
+  border: 1px solid #c6c6c6;
+  border-radius: 12px;
+  padding: 20px;
+  white-space: nowrap;
+}
+.cmp-sidebar__itemList li {
+  display: block;
+  font-size: 18px;
+  line-height: 18px;
+  color: #222;
+  padding: 24px 0;
+  border-bottom: 1px solid #c6c6c6;
+}
+.cmp-sidebar__components {
+  padding: 2rem;
+  width: 100%;
+  border: 1px solid #e2e8f0;
+}
+.cmp-sidebar__components h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  padding: 12px 0;
+}
+.cmp-sidebar__components .cmp-channel {
+  border: 1px solid #c6c6c6;
+  border-radius: 6px;
+  padding: 16px;
+}

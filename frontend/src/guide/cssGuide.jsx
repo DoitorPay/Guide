@@ -1,14 +1,7 @@
-import React from "react"
+import React, { useState } from "react";
 
 function CssGuide() {
-
-  return (
-    <>
-      <div>
-         스타일 가이드
-      </div>
-    </>
-  )
+  return <div className="inner-wrap">asdf</div>;
 }
 
-export default CssGuide
+export default CssGuide;
