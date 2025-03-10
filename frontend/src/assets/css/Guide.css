@@ -1,0 +1,27 @@
+.inner-wrap {
+  padding: 0 2rem;
+}
+.inner-wrap .pub-guide h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  padding: 12px 0;
+}
+.inner-wrap .pub-guide ul {
+  width: 100%;
+}
+.inner-wrap .pub-guide ul li {
+  padding: 12px 0;
+  border-bottom: 1px solid #bdbdbd;
+}
+.inner-wrap .pub-guide ul li h3 {
+  font-size: 18px;
+  line-height: 18px;
+  font-weight: 500;
+}
+.inner-wrap .pub-guide ul li span {
+  font-size: 14px;
+  line-height: 16px;
+  color: #999;
+  font-weight: 300;
+  margin-top: 8px;
+}
