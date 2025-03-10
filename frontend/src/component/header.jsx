@@ -1,17 +1,22 @@
-import '../assets/css/Header.css'
-import '../assets/css/reset.css'
+// Header.jsx
+import React from "react";
+import { Link } from "react-router-dom";
+import '../assets/css/Header.scss'
 
 function Header() {
-
   return (
     <>
       <div>
         <header>
           <ul>
-            <li>Do it or Pay</li>
-            <li>스타일 가이드</li>
-            <li>컴포넌트</li>
-            <li>퍼블리싱 목록</li>
+            <div>
+              <li className="header-title"><Link to='/'>Do it or Pay</Link></li>
+            </div>
+            <div className="header-menu">
+              <li><Link to='/cssGuide'>스타일 가이드</Link></li>
+              <li><Link to='/cmpguide'>컴포넌트</Link></li>
+              <li><Link to='/pubGuide'>퍼블리싱 목록</Link></li>
+            </div>
           </ul>
         </header>
       </div>
@@ -19,4 +24,4 @@ function Header() {
   )
 }
 
-export default Header
+export default Header;
