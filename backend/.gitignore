@@ -1,0 +1,23 @@
+# Python 가상환경 (venv)
+venv/
+
+# Pycache 및 임시 파일
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# 환경변수 파일 (.env)
+.env
+
+# IDE 설정 파일 (VSCode, JetBrains, Sublime Text 등)
+.vscode/
+
+# Flask 관련 로그 파일
+instance/
+*.log
+*.sqlite3
+
+# Docker 및 배포 관련
+*.dockerignore
+docker-compose.override.yml
