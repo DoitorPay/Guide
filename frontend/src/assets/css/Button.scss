@@ -1,0 +1,8 @@
+// Button.scss
+.cmp-button {
+    &__button-wrap {
+        button {
+            border: solid 1px red;
+        }
+    }
+}
