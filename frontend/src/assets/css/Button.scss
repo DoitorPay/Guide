@@ -2,7 +2,28 @@
 .cmp-button {
     &__button-wrap {
         button {
-            border: solid 1px red;
+            width: 100px;
+            height: 40px;
+            border-radius: 5px;
+            border: none;
+            background-color: #121212;
+            color: #fff;
+            font-weight: 600;
+            &:hover {
+                background-color: #505050;
+            }
+            &:active {
+                background-color: #303030;
+            }
+            &.loading {
+                opacity: 0.7;
+                cursor: not-allowed;
+            }
+            
+            &:disabled {
+                opacity: 0.5;
+                cursor: not-allowed;
+            }
         }
     }
 }
