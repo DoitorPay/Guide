@@ -8,7 +8,7 @@ import Button from "../component/button";
 const itemList = [
   { id: 1, name: "헤더", path: "../component/header", component: <Header /> },
   { id: 2, name: "푸터", path: "../component/footer", component: <Footer /> },
-  { id: 3, name: "buttonItem", path: "../component/button", component: <Button /> },
+  { id: 3, name: "buttonItem", path: "../component/button", component: <Button buttonName="Button" /> },
 ];
 
 export default function CmpSidebar() {
