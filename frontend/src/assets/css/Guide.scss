@@ -7,26 +7,41 @@
          font-weight: 700;
          padding: 12px 0;
       }
+      h2{
+         font-size: 1.25rem;
+         font-weight: 600;
+         padding: 12px 0;
+      }
       ul{
          width: 100%;
          li{
             padding: 12px 0;
             border-bottom: 1px solid #bdbdbd;
-
-            h3{
-               font-size: 18px;
-               line-height: 18px;
-               font-weight: 500;
-            }
-
-            span{
-               font-size: 14px;
-               line-height: 16px;
-               color: #999;
-               font-weight: 300;
-               margin-top: 8px;
-            }
          }
+
+      }
+
+      span{
+         font-size: 14px;
+         line-height: 16px;
+         color: #999;
+         font-weight: 300;
+         margin-top: 8px;
+      }
+
+      h3{
+         font-size: 18px;
+         line-height: 18px;
+         font-weight: 500;
+      }
+
+      .code-wrap {
+         padding: 6px 6px;
+         margin: 5px 0;
+         width: fit-content;
+         border: none;
+         border-radius: 3px;
+         background-color: #e1e2e3;
       }
    }
 }
