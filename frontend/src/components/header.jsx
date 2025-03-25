@@ -11,7 +11,7 @@ function Header() {
           <ul>
             <div>
               <li className="header-title">
-                <Link to="/">Do it or Pay</Link>
+                <Link to="/">딱!대</Link>
               </li>
             </div>
             <div className="header-menu">
