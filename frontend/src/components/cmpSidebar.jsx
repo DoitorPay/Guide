@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import "../assets/css/cmp.scss";
+import "@/assets/css/cmp.scss";
 // 컴포넌트 목록
-import Header from "../component/header";
-import Footer from "../component/footer";
+import Header from "@/components/header";
+import Footer from "@/components/footer";
 
 const itemList = [
-  { id: 1, name: "헤더", path: "../component/header", component: <Header /> },
-  { id: 2, name: "푸터", path: "../component/footer", component: <Footer /> },
+  { id: 1, name: "헤더", path: "@/components/header", component: <Header /> },
+  { id: 2, name: "푸터", path: "@/components/footer", component: <Footer /> },
 ];
 
 export default function CmpSidebar() {

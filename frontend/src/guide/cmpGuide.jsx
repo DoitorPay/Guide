@@ -1,5 +1,5 @@
 import React from "react";
-import CmpSidebar from "../component/cmpSidebar";
+import CmpSidebar from "@/components/cmpSidebar";
 
 function CmpGuide() {
   return (

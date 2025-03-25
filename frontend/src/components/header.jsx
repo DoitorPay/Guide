@@ -1,9 +1,9 @@
 // Header.jsx
 import React from "react";
 import { Link } from "react-router-dom";
-import "../assets/css/Header.scss";
+import "@/assets/css/Header.scss";
 
-function Footer() {
+function Header() {
   return (
     <>
       <div>
@@ -15,6 +15,9 @@ function Footer() {
               </li>
             </div>
             <div className="header-menu">
+              <li>
+                <Link to="/frontGuide">코딩 가이드</Link>
+              </li>
               <li>
                 <Link to="/cssGuide">스타일 가이드</Link>
               </li>
@@ -32,4 +35,4 @@ function Footer() {
   );
 }
 
-export default Footer;
+export default Header;
