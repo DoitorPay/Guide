@@ -1,19 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
+import CssSidebar from "@/guide/cssSidebar";
 
 function CssGuide() {
-  return(
-    <div className="inner-wrap">
-    <div className="pub-guide">
-    <h1>Style Guide</h1>
-      <h2>SCSS</h2>
-      <ul style={{border:'1px solid #bdbdbd', padding: '15px', borderRadius: '5px', margin: '10px 0 0 0'}}>
-        <li>asdf</li>
-        
-      </ul>
-    <br/>
-    </div>
+  return (
+    <div>
+      <CssSidebar />
     </div>
   );
-}
 
-export default CssGuide;
+}export default CssGuide;
