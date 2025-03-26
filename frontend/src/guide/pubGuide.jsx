@@ -1,6 +1,6 @@
 import React, { useEffect, useState}  from "react"
 import { Link } from "react-router-dom";
-import '../assets/css/Guide.scss'
+import '@/assets/css/Guide.scss'
 
 function PubGuide() {
   const [items, setItems] = useState([]);

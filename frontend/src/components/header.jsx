@@ -1,7 +1,7 @@
 // Header.jsx
 import React from "react";
 import { Link } from "react-router-dom";
-import "../assets/css/Header.scss";
+import "@/assets/css/Header.scss";
 
 function Header() {
   return (
@@ -11,7 +11,7 @@ function Header() {
           <ul>
             <div>
               <li className="header-title">
-                <Link to="/">Do it or Pay</Link>
+                <Link to="/">딱!대</Link>
               </li>
             </div>
             <div className="header-menu">

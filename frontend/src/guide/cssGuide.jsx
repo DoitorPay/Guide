@@ -1,7 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
+import CssSidebar from "@/guide/cssSidebar";
 
 function CssGuide() {
-  return <div className="inner-wrap">asdf</div>;
-}
+  return (
+    <div>
+      <CssSidebar />
+    </div>
+  );
 
-export default CssGuide;
+}export default CssGuide;
