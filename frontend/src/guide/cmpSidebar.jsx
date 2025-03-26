@@ -3,10 +3,12 @@ import "@/assets/css/cmp.scss";
 // 컴포넌트 목록
 import Header from "@/components/header";
 import Footer from "@/components/footer";
+import Button from "@/components/button";
 
 const itemList = [
   { id: 1, name: "헤더", path: "@/components/header", component: <Header /> },
   { id: 2, name: "푸터", path: "@/components/footer", component: <Footer /> },
+  { id: 3, name: "buttonItem", path: "@/component/button", component: <Button buttonName="Button" /> },
 ];
 
 export default function CmpSidebar() {

@@ -1,7 +1,7 @@
 // button.jsx
 import React from "react";
 // import { Link } from "react-router-dom";
-import "../assets/css/Button.scss";
+import "../assets/css/button.scss";
 
 function Button({ 
     buttonName = "Button", 
@@ -28,13 +28,6 @@ function Button({
         </div>
     );
 }
-// 사용 예시
-{/* <Button 
-    buttonName="로그인" 
-    onClick={handleLogin} 
-    type="submit"
-    isLoading={isLoading}
-    disabled={!isValid}
-/> */}
+
 
 export default Button;
