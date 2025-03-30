@@ -1,7 +1,7 @@
 // button.jsx
 import React from "react";
 // import { Link } from "react-router-dom";
-import "../assets/css/button.scss";
+import "@/assets/css/button.scss";
 
 function Button({ 
     buttonName = "Button", 
