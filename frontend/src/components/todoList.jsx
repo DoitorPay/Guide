@@ -1,30 +1,31 @@
 import React, { useState } from 'react';
 
-function TodoList() {
+function todoList() {
   const [todos, setTodos] = useState([]);
-  const [inputValue, setInputValue] = useState('');
+  const [todoValue, setTodoValue] = useState('');
 
   const handleChange = (e) => {
-    setInputValue(e.target.value);
+    setTodoValue(e.target.value);
   };
 
   const handleAddTodo = (e) => {
     e.preventDefault();
 
-    const trimmed = inputValue.trim();
+    const trimmed = todoValue.trim();
     if (trimmed === '') return;
 
     // 새 항목을 리스트 맨 앞에 추가
     setTodos((prevTodos) => [trimmed, ...prevTodos]);
-    setInputValue('');
+    setTodoValue('');
   };
+
 
   return (
     <div style={{ maxWidth: '400px', margin: '0 auto' }}>
       <form onSubmit={handleAddTodo} style={{ display: 'flex', gap: '8px' }}>
         <input
           type="text"
-          value={inputValue}
+          value={todoValue}
           onChange={handleChange}
           placeholder="할 일을 입력하세요"
           style={{ flex: 1 }}
@@ -41,4 +42,4 @@ function TodoList() {
   );
 }
 
-export default TodoList;
+export default todoList;

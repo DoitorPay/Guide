@@ -4,13 +4,15 @@ import "@/assets/css/cmp.scss";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import Button from "@/components/button";
-import Todo from "@/components/todo";
+import TodoAdd from "@/components/todoAdd";
+import TodoList from "@/components/todoList";
 
 const itemList = [
   { id: 1, name: "헤더", path: "@/components/header", component: <Header /> },
   { id: 2, name: "푸터", path: "@/components/footer", component: <Footer /> },
   { id: 3, name: "buttonItem", path: "@/components/button", component: <Button buttonName="Button" aria="테스트버튼" /> },
-  { id: 4, name: "todoBox", path: "@/components/todo", component: <Todo /> },
+  { id: 4, name: "todoAdd", path: "@/components/todoAdd", component: <TodoAdd /> },
+  { id: 4, name: "todoList", path: "@/components/todoList", component: <TodoList /> },
 ];
 
 export default function CmpSidebar() {
