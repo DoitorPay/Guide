@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "@/assets/css/cmp.scss";
 // 컴포넌트 목록
 import Header from "@/components/header";
 import Footer from "@/components/footer";
