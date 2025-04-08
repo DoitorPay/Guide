@@ -1,0 +1,52 @@
+:root{
+   --typo-size-heading-1: 34;
+   --typo-size-heading-2: 28;
+   --typo-size-heading-3: 25;
+   --typo-size-heading-4: 22;
+   --typo-size-heading-6: 20;
+   --typo-size-heading-4: 18;
+   --typo-size-body-1: 16;
+   --typo-size-body-3: 14;
+   --typo-size-body-5: 12;
+   --typo-size-btn-1: 16;
+   --typo-size-btn-2: 14;
+
+   --typo-line-height: 140;
+
+   --typo-weight-bold: 700;
+   --typo-weight-semibold: 600;
+   --typo-weight-medium: 500;
+
+   --color-primary: #F05A39;
+
+   --color-secondary-sapphire: #9AD7D2;
+   --color-secondary-navy: #4D6375;
+   --color-secondary-indigo: #1A2933;
+   
+   --color-background: #F8F8F8;
+   --color-gray-scale-white:#FFF;
+   --color-gray-scale-50:#F1F1F1;
+   --color-gray-scale-100:#E5E5E5;
+   --color-gray-scale-200:#CBCBCB;
+   --color-gray-scale-300:#B2B2B2;
+   --color-gray-scale-400:#989898;
+   --color-gray-scale-500:#7F7F7F;
+   --color-gray-scale-600:#656565;
+   --color-gray-scale-700:#4C4C4C;
+   --color-gray-scale-800:#323232;
+   --color-gray-scale-black:#000;
+
+   --color-red-vari-50: #FEEFEB;
+   --color-red-vari-100: #FACCC2;
+   --color-red-vari-200: #F8B3A4;
+   --color-red-vari-300: #F5907A;
+   --color-red-vari-400: #F37B61;
+   --color-red-vari-500: #F05A39;
+   --color-red-vari-600: #DA5234;
+   --color-red-vari-700: #AA4028;
+   --color-red-vari-800: #84321F;
+   --color-red-vari-900: #652618;
+
+   --color-gradient-1: linear-gradient(180deg, var(--Red-Red-50, #FEEFEB) 32.86%, var(--Red-Red-100, #FACCC2) 59%, var(--Red-Red-500, #F05A39) 79.5%, var(--Red-Red-600, #DA5234) 100%);
+   --color-gradient-2: linear-gradient(180deg, var(--Indigo, #1A2933) 15%, var(--Navy, #4D6375) 51.92%, var(--Red, #F05A39) 100%);
+}

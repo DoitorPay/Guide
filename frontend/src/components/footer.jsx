@@ -1,7 +1,6 @@
 // Header.jsx
 import React from "react";
 import { Link } from "react-router-dom";
-import "@/assets/css/Header.scss";
 
 function Footer() {
   return (
