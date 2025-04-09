@@ -2,18 +2,14 @@ import React, { useState } from "react";
 // 컴포넌트 목록
 import Header from "@/components/header";
 import Footer from "@/components/footer";
-import Login from "@/pages/login"
-import Button from "@/components/button";
-import TodoAdd from "@/components/todoAdd";
-import TodoList from "@/components/todoList";
+import CmpButton from "@/guide/cmpButton"
+import Login from "@/pages/login";
 
 const itemList = [
   { id: 1, name: "헤더", path: "@/components/header", component: <Header /> },
   { id: 2, name: "푸터", path: "@/components/footer", component: <Footer /> },
-  { id: 3, name: "로그인", path: "@/pages/login", component: <Login /> },
-  { id: 4, name: "buttonItem", path: "@/components/button", component: <Button buttonName="Button" aria="테스트버튼" /> },
-  { id: 5, name: "todoAdd", path: "@/components/todoAdd", component: <TodoAdd /> },
-  { id: 6, name: "todoList", path: "@/components/todoList", component: <TodoList /> },
+  { id: 3, name: "buttonItem", path: "@/guide/cmpButton", component: <CmpButton /> },
+  { id: 4, name: "로그인", path: "@/pages/login", component: <Login /> },
 ];
 
 export default function CmpSidebar() {
