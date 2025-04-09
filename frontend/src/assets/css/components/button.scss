@@ -23,7 +23,7 @@
         }
     
         &primary {
-            min-width: calc(350 / 16 * 1rem);
+            width: 100%;
             height: calc(46 / 16 * 1rem);
             background-color: var(--color-primary);
             color: #fff;
@@ -35,6 +35,28 @@
                 opacity: .4;
                 cursor: not-allowed;
             }
+        }
+
+        &secondary {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            &__item {
+                // width: 100%;
+                height: calc(46 / 16 * 1rem);
+                background-color: var(--color-primary);
+                color: #fff;
+                font-size: calc(var(--typo-size-btn-1) / 16 * 1rem);
+                font-weight: var(--typo-weight-bold);
+                padding: calc(12 / 16 * 1rem) calc(16 / 16 * 1rem);
+                gap: 10px;
+        
+                &:disabled {
+                    opacity: .4;
+                    cursor: not-allowed;
+                }
+            }
+
         }
     }
 }
