@@ -1,22 +1,37 @@
 // Button.scss
-button {
-    width: calc(64 / 16 * 1rem);
-    height: calc(33 / 16 * 1rem);
-    border-radius: calc(8 / 16 * 1rem);
-    border: none;
-    background-color: #1A2933;   //디자인가이드 확정시 variables에 업데이트
-    color: #fff;
-    font-size: calc(var(--typo-size-body-5) / 16 * 1rem);
-    font-weight: var(--typo-weight-semibold);
-    &:hover {
-        background-color: #505050;
+.btn- {
+    &default {
+        width: calc(64 / 16 * 1rem);
+        height: calc(33 / 16 * 1rem);
+        border-radius: calc(8 / 16 * 1rem);
+        border: none;
+        background-color: #1A2933;   //디자인가이드 확정시 variables에 업데이트
+        color: #fff;
+        font-size: calc(var(--typo-size-body-5) / 16 * 1rem);
+        font-weight: var(--typo-weight-semibold);
+
+        &:active {
+            background-color: #303030;
+        }
+        &:disabled {
+            opacity: .4;
+            cursor: not-allowed;
+        }
     }
-    &:active {
-        background-color: #303030;
-    }
-    
-    &:disabled {
-        opacity: .4;
-        cursor: not-allowed;
+
+    &primary {
+        width: calc(350 / 16 * 1rem);
+        height: calc(46 / 16 * 1rem);
+        border-radius: calc(8 / 16 * 1rem);
+        border: none;
+        background-color: var(--color-primary);
+        color: #fff;
+        font-size: calc(var(--typo-size-btn-1) / 16 * 1rem);
+        font-weight: var(--typo-weight-bold);
+
+        &:disabled {
+            opacity: .4;
+            cursor: not-allowed;
+        }
     }
 }

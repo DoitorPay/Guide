@@ -5,21 +5,19 @@ import "@/assets/css/index.css";
 function Button({ 
     buttonName = "Button", 
     onClick, 
-    type = "button",
+    type = "default",
     aria = "아리아를 입력하세요",
     disabled = false,
     isLoading = false,
-    addClass = "btn-wrap",
 }) {
     return (
         <button
-            type={type}
             aria-label={aria}
             onClick={onClick}
             disabled={disabled || isLoading}
-            className={`${isLoading ? "loading" : ""} ${addClass ? addClass : ""}`.trim()}
+            className={`btn-${type}`.trim()}
         >
-            {isLoading ? "Loading..." : buttonName}
+            {buttonName}
         </button>
     );
 }
