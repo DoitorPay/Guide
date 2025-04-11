@@ -35,6 +35,7 @@ function Button({
     return (
         <button
             aria-label={aria}
+            aria-hidden={disabled}
             onClick={onClick}
             disabled={disabled}
             className={`btn btn-${type}`.trim()}
