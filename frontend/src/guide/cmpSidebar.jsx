@@ -4,11 +4,15 @@ import "@/assets/css/cmp.scss";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import Login from "@/pages/login";
+import ProfileCard from "@/components/profileCard";
+import Input from "@/components/input"; 
 
 const itemList = [
   { id: 1, name: "헤더", path: "@/components/header", component: <Header /> },
   { id: 2, name: "푸터", path: "@/components/footer", component: <Footer /> },
   { id: 3, name: "로그인", path: "@/pages/login", component: <Login /> },
+  { id: 4, name: "프로필 카드", path: "@/pages/profileCard", component: <ProfileCard /> },
+  { id: 5, name: "input", path: "@/components/input", component: <Input /> }
 ];
 
 export default function CmpSidebar() {
