@@ -25,9 +25,15 @@ function cmpButton() {
                 <Button type="primary" buttonName="버튼 활성화"/> &nbsp;
                 <Button type="primary" buttonName="버튼 비활성화" disabled />
 
+                <br></br>
+
                 <br></br><br></br>
                 <p className="guide-text-desc">type: secondary</p>
-                <p style={{color: 'red'}}>*버튼 두개를 컴포넌트 하나로 감쌀지 따로 분리할지 문의</p>
+                <Button type="secondary" buttonName="고객센터 연결"/> &nbsp;
+
+                <br></br>
+                <p className="guide-text-desc">type: close</p>
+                <Button type="close"/> &nbsp;
             </div>
     );
 }

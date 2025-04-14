@@ -8,28 +8,19 @@ function Button({
     aria = "아리아를 입력하세요",
     disabled = false,
 }) {
-    // if (type === "secondary") {
-    //     return (
-    //         <div className="btn-secondary">
-    //             <button
-    //                 aria-label={aria}
-    //                 onClick={onClick}
-    //                 disabled={disabled}
-    //                 className="btn btn-secondary__item"
-    //             >
-    //                 {buttonName} 1
-    //             </button>
-    //             <button
-    //                 aria-label={aria}
-    //                 onClick={onClick}
-    //                 disabled={disabled}
-    //                 className="btn btn-secondary__item"
-    //             >
-    //                 {buttonName} 2
-    //             </button>
-    //         </div>
-    //     );
-    // }
+    if (type == "close") {
+        return (
+            <button
+            aria-label="닫기"
+            aria-hidden={disabled}
+            onClick={onClick}
+            disabled={disabled}
+            className="btn btn-close"
+            >
+                닫기
+            </button>
+        );
+    }
 
     return (
         <button
