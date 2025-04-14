@@ -27,7 +27,7 @@ function cmpButton() {
 
                 <br></br><br></br>
                 <p className="guide-text-desc">type: secondary</p>
-                <Button type="secondary" buttonName="버튼 활성화"/>
+                <p style={{color: 'red'}}>*버튼 두개를 컴포넌트 하나로 감쌀지 따로 분리할지 문의</p>
             </div>
     );
 }
