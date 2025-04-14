@@ -2,6 +2,7 @@ import React, { useState } from "react";
 // 컴포넌트 목록
 import Header from "@/components/header";
 import Footer from "@/components/footer";
+import Input from "@/components/input";
 import CmpButton from "@/guide/cmpButton"
 import Login from "@/pages/login";
 
@@ -10,6 +11,7 @@ const itemList = [
   { id: 2, name: "푸터", path: "@/components/footer", component: <Footer /> },
   { id: 3, name: "buttonItem", path: "@/guide/cmpButton", component: <CmpButton /> },
   { id: 4, name: "로그인", path: "@/pages/login", component: <Login /> },
+  { id: 5, name: "Input", path: "@/components/input", component: <Input /> },
 ];
 
 export default function CmpSidebar() {
