@@ -5,6 +5,7 @@ import Footer from "@/components/footer";
 import Input from "@/components/input";
 import CmpButton from "@/guide/cmpButton"
 import Login from "@/pages/login";
+import MainLayout from "@/pages/mainLayout";
 
 const itemList = [
   { id: 1, name: "헤더", path: "@/components/header", component: <Header /> },
@@ -12,6 +13,7 @@ const itemList = [
   { id: 3, name: "buttonItem", path: "@/guide/cmpButton", component: <CmpButton /> },
   { id: 4, name: "로그인", path: "@/pages/login", component: <Login /> },
   { id: 5, name: "Input", path: "@/components/input", component: <Input /> },
+  { id: 6, name: "레이아웃", path: "@/pages/mainLayout", component: <MainLayout /> },
 ];
 
 export default function CmpSidebar() {
