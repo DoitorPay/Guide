@@ -1,6 +1,5 @@
 import React from "react";
 import Button from "@/components/button";
-import "@/assets/css/index.css";
 
 function guideClick() {
     console.log("버튼이 클릭되었습니다.");
