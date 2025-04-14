@@ -1,0 +1,52 @@
+.input-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.input-label {
+  font-size: calc(var(--typo-size-body-4) / 16 * 1rem);
+  font-weight: var(--typo-weight-semibold);
+  color: var(--color-gray-scale-black);
+}
+
+.input-field {
+  padding: 0.625rem 0.75rem;
+  border-radius: 0.5rem;
+  font-size: calc(var(--typo-size-body-3) / 16 * 1rem);
+  outline: none;
+  width: 21.875rem;
+}
+.input-field::-moz-placeholder {
+  font-size: calc(var(--typo-size-body-3) / 16 * 1rem);
+}
+.input-field::placeholder {
+  font-size: calc(var(--typo-size-body-3) / 16 * 1rem);
+}
+.input-field.empty {
+  border: 1px solid var(--color-gray-scale-100);
+  color: var(--color-gray-scale-100);
+}
+.input-field.empty::-moz-placeholder {
+  color: var(--color-gray-scale-100);
+  opacity: 1;
+}
+.input-field.empty::placeholder {
+  color: var(--color-gray-scale-100);
+  opacity: 1;
+}
+.input-field.focused {
+  border: 1px solid var(--color-gray-scale-600);
+  color: var(--color-gray-scale-800);
+}
+.input-field.filled {
+  border: 1px solid var(--color-gray-scale-100);
+}
+.input-field.filled::-moz-placeholder {
+  color: var(--color-gray-scale-100);
+  opacity: 1;
+}
+.input-field.filled::placeholder {
+  color: var(--color-gray-scale-100);
+  opacity: 1;
+}

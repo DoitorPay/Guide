@@ -1,0 +1,50 @@
+// src/components/Input.scss
+
+.input-wrapper {
+   display: flex;
+   flex-direction: column;
+   gap: calc(8/16*1rem);
+ }
+ 
+ .input-label {
+   font-size: calc(var(--typo-size-body-4)/16*1rem);
+   font-weight: var(--typo-weight-semibold);
+   color: var(--color-gray-scale-black);
+ }
+ 
+ .input-field {
+   padding: calc(10/16*1rem) calc(12/16*1rem);
+   border-radius: calc(8/16*1rem);
+   font-size: calc(var(--typo-size-body-3)/16*1rem);
+   outline: none;
+   width: calc(350/16*1rem);
+
+   &::placeholder {
+      font-size: calc(var(--typo-size-body-3)/16*1rem);
+    }
+
+   &.empty {
+     border: 1px solid var(--color-gray-scale-100);
+     color: var(--color-gray-scale-100);
+
+     &::placeholder {
+      color: var(--color-gray-scale-100);
+      opacity: 1; 
+    }
+   }
+ 
+   &.focused {
+     border: 1px solid var(--color-gray-scale-600);
+     color: var(--color-gray-scale-800);
+   }
+ 
+   &.filled {
+     border: 1px solid var(--color-gray-scale-100);
+
+     &::placeholder {
+      color: var(--color-gray-scale-100);
+      opacity: 1; 
+    }
+   }
+ }
+ 
