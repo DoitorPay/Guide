@@ -22,18 +22,18 @@ function cmpButton() {
 
                 <br></br><br></br>
                 <p className="guide-text-desc">type: primary</p>
-                <Button type="primary" buttonName="버튼 활성화"/> &nbsp;
+                <Button type="primary" onClick={guideClick} buttonName="버튼 활성화"/> &nbsp;
                 <Button type="primary" buttonName="버튼 비활성화" disabled />
 
                 <br></br>
 
                 <br></br><br></br>
                 <p className="guide-text-desc">type: secondary</p>
-                <Button type="secondary" buttonName="고객센터 연결"/> &nbsp;
+                <Button type="secondary" onClick={guideClick} buttonName="고객센터 연결"/> &nbsp;
 
                 <br></br>
                 <p className="guide-text-desc">type: close</p>
-                <Button type="close"/> &nbsp;
+                <Button type="close" onClick={guideClick} /> &nbsp;
             </div>
     );
 }
