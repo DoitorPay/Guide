@@ -1,25 +1,36 @@
 // button.jsx
 import React from "react";
-import "@/assets/css/index.css";
 
-function Button({ 
+function Button({
+    type = "default",
     buttonName = "Button", 
     onClick, 
-    type = "button",
     aria = "아리아를 입력하세요",
     disabled = false,
-    isLoading = false,
-    addClass = "btn-wrap",
 }) {
+    if (type == "close") {
+        return (
+            <button
+            aria-label="닫기"
+            aria-hidden={disabled}
+            onClick={onClick}
+            disabled={disabled}
+            className="btn btn-close"
+            >
+                닫기
+            </button>
+        );
+    }
+
     return (
         <button
-            type={type}
             aria-label={aria}
+            aria-hidden={disabled}
             onClick={onClick}
-            disabled={disabled || isLoading}
-            className={`${isLoading ? "loading" : ""} ${addClass ? addClass : ""}`.trim()}
+            disabled={disabled}
+            className={`btn btn-${type}`.trim()}
         >
-            {isLoading ? "Loading..." : buttonName}
+            {buttonName}
         </button>
     );
 }

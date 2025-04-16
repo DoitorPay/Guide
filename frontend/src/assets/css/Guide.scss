@@ -45,3 +45,17 @@
       }
    }
 }
+
+.cmp-guide {
+   .guide-text {
+      &-title {
+         font-weight: 700;
+         font-size: calc(var(--typo-size-heading-6) / 16 * 1rem);
+         margin-bottom: calc(20 / 16 * 1rem);
+      }
+      &-desc {
+         font-size: calc(var(--typo-size-heading-4) / 16 * 1rem);
+         margin-bottom: calc(8 / 16 * 1rem);
+      }
+   }
+}
