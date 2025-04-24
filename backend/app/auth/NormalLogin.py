@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-from flask_restx import Api, Resource, fields, Namespace, Model
+from flask_restx import Api, Resource, fields, Namespace
 from flask_cors import CORS
 from neo4j import GraphDatabase
 
@@ -22,7 +22,7 @@ driver = GraphDatabase.driver(NEO4J_URI, auth=(NEO4J_USER, NEO4J_PASSWORD))
 ns = Namespace('', description='인증 관련 API')
 
 # 요청/응답 모델 정의
-login_model = Model('Login', {
+login_model = ns.model('Login', {
     'username': fields.String(required=True, description='사용자 ID'),
     'password': fields.String(required=True, description='비밀번호')
 })
