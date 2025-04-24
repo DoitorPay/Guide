@@ -41,11 +41,20 @@
    --color-red-vari-200: #F8B3A4;
    --color-red-vari-300: #F5907A;
    --color-red-vari-400: #F37B61;
-   --color-red-vari-500: #F05A39;
    --color-red-vari-600: #DA5234;
    --color-red-vari-700: #AA4028;
    --color-red-vari-800: #84321F;
    --color-red-vari-900: #652618;
+
+   --color-navy-vari-50: #EDEFF1;
+   --color-navy-vari-100: #C8CFD4;
+   --color-navy-vari-200: #ADB7C0;
+   --color-navy-vari-300: #8896A3;
+   --color-navy-vari-400: #718291;
+   --color-navy-vari-600: #465A6A;
+   --color-navy-vari-700: #374653;
+   --color-navy-vari-800: #2A3640;
+   --color-navy-vari-900: #202A31;
 
    --color-gradient-1: linear-gradient(180deg, var(--Red-Red-50, #FEEFEB) 32.86%, var(--Red-Red-100, #FACCC2) 59%, var(--Red-Red-500, #F05A39) 79.5%, var(--Red-Red-600, #DA5234) 100%);
    --color-gradient-2: linear-gradient(180deg, var(--Indigo, #1A2933) 15%, var(--Navy, #4D6375) 51.92%, var(--Red, #F05A39) 100%);
