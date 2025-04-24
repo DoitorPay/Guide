@@ -6,7 +6,7 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 
-REDIRECT_URI = os.getenv('http://localhost:8000/auth/kakao/callback')
+REDIRECT_URI = 'http://localhost:8000/auth/kakao/callback'
 app = Flask(__name__)
 
 ns = Namespace('auth', description='인증 관련 API')
