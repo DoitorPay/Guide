@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import StyleGuide from "@/guide/styleGuide";
 import ColorGuide from "@/guide/colorGuide";
 import VariablesGuide from "@/guide/variablesGuide";
+import IconGuide from "@/guide/iconGuide"
 
 const guideList = [
   { id: 1, name: "Style Guide", component: <StyleGuide /> },
   { id: 2, name: "Color Guide", component: <ColorGuide /> },
   { id: 3, name: "SCSS Variables", component: <VariablesGuide /> },
+  { id: 4, name: "Icon Guide", component: <IconGuide /> }
 ];
 
 export default function CssSidebar() {
