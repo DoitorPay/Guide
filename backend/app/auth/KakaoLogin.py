@@ -6,7 +6,7 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 
-REDIRECT_URI = os.getenv('https://localhost:8000/auth/kakao/callback')
+REDIRECT_URI = os.getenv('http://localhost:8000/auth/kakao/callback')
 app = Flask(__name__)
 
 ns = Namespace('auth', description='인증 관련 API')
@@ -16,7 +16,7 @@ class KakaoLogin(Resource):
     def get(self):
         """카카오 로그인 시작"""
         kakao_auth_url = (
-            f"https://kauth.kakao.com/oauth/authorize"
+            f"http://kauth.kakao.com/oauth/authorize"
             f"?client_id={os.getenv('RESTAPI_KAKAO_KEY')}"
             f"&redirect_uri={REDIRECT_URI}"
             f"&response_type=code"
