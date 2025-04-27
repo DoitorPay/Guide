@@ -5,14 +5,14 @@ import CmpGuide from "@/guide/cmpGuide";
 import CssGuide from "@/guide/cssGuide";
 import PubGuide from "@/guide/pubGuide";
 import FrontGuide from "@/guide/frontGuide";
-import Header from "@/components/header";
+import GuideHeader from "@/components/guideHeader";
 
 const Home = () => <div>메인화면입니모</div>;
 
 const Router = () => {
   return (
     <BrowserRouter>
-      <Header />
+      <GuideHeader />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/cmpguide" element={<CmpGuide />} />

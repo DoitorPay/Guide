@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 // 컴포넌트 목록
-import Header from "@/components/header";
-import Footer from "@/components/footer";
+import GuideHeader from "@/components/guideHeader";
+import GuideFooter from "@/components/guideFooter";
 import Input from "@/components/input";
 import CmpButton from "@/guide/cmpButton"
 import Login from "@/pages/login";
 
 const itemList = [
-  { id: 1, name: "헤더", path: "@/components/header", component: <Header /> },
-  { id: 2, name: "푸터", path: "@/components/footer", component: <Footer /> },
+  { id: 1, name: "Guide헤더", path: "@/components/guideHeader", component: <GuideHeader /> },
+  { id: 2, name: "Guide푸터", path: "@/components/guideFooter", component: <GuideFooter /> },
   { id: 3, name: "buttonItem", path: "@/guide/cmpButton", component: <CmpButton /> },
   { id: 4, name: "로그인", path: "@/pages/login", component: <Login /> },
   { id: 5, name: "Input", path: "@/components/input", component: <Input /> },
