@@ -45,3 +45,73 @@
       }
    }
 }
+
+.cmp-guide {
+   .guide-text {
+      &-title {
+         font-weight: 700;
+         font-size: calc(var(--typo-size-heading-6) / 16 * 1rem);
+         margin-bottom: calc(20 / 16 * 1rem);
+      }
+      &-desc {
+         font-size: calc(var(--typo-size-heading-4) / 16 * 1rem);
+         margin-bottom: calc(8 / 16 * 1rem);
+      }
+   }
+}
+
+.icon-guide {
+   display: flex;
+   flex-wrap: wrap;
+   gap: calc(10 / 16 * 1rem);
+   margin-top: 20px;
+
+   &__item {
+      flex: 0 0 auto;
+
+      .box {
+         width: calc(150 / 16 * 1rem);
+         height: calc(150 / 16 * 1rem);
+         border: solid 1px #e0e0e0;
+         display: flex;
+         flex-direction: column;
+         align-items: center;
+         justify-content: center;
+         padding: calc(4 / 16 * 1rem);
+         cursor: pointer;
+         &:hover {
+            border: solid 1px black;
+         }
+
+         .display {
+            height: calc(40 / 16 * 1rem);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: calc(8 / 16 * 1rem);
+
+            img {
+               max-width: 100%;
+               max-height: 100%;
+            }
+         }
+
+         .name {
+            text-align: center;
+            margin-bottom: 8px;
+            word-break: break-word;
+         }
+         .copy-btn {
+            padding: 4px 8px;
+            background-color:rgb(227, 227, 227);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+
+            &:hover {
+               background-color: #e0e0e0;
+            }
+         }
+      }
+   }
+}
