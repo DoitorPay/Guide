@@ -5,6 +5,7 @@ import GuideFooter from "@/components/guideFooter";
 import Input from "@/components/input";
 import CmpButton from "@/guide/cmpButton"
 import Login from "@/pages/login";
+import CmpHeader from "@/guide/cmpHeader";
 
 const itemList = [
   { id: 1, name: "Guide헤더", path: "@/components/guideHeader", component: <GuideHeader /> },
@@ -12,6 +13,7 @@ const itemList = [
   { id: 3, name: "buttonItem", path: "@/guide/cmpButton", component: <CmpButton /> },
   { id: 4, name: "로그인", path: "@/pages/login", component: <Login /> },
   { id: 5, name: "Input", path: "@/components/input", component: <Input /> },
+  { id: 6, name: "Header", path: "@/guide/cmpHeader", component: <CmpHeader />}
 ];
 
 export default function CmpSidebar() {
