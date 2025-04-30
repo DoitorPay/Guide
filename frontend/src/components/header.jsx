@@ -15,7 +15,7 @@ function Header({
     
                     <div className="menu">
                         <ul className="menu__list">
-                            <li><a href="#"><i className="ico" style={{background: `url(/public/icons/${iconName}) no-repeat center center`}}></i></a></li>
+                            <li><a href="#"><i className="ico" style={{background: `url(/icons/${iconName}) no-repeat center center`}}></i></a></li>
                             <li></li>
                         </ul>
                     </div>
@@ -32,7 +32,7 @@ function Header({
     
                     <div className="menu">
                         <ul className="menu__list">
-                            <li><a href="#"><i className="ico" style={{background: `url(/public/icons/${iconName}) no-repeat center center`}}></i></a></li>
+                            <li><a href="#"><i className="ico" style={{background: `url(/icons/${iconName}) no-repeat center center`}}></i></a></li>
                             <li></li>
                         </ul>
                     </div>
@@ -45,7 +45,7 @@ function Header({
             <nav>
                 <div className="mid-title">
                     <div className="back-button">
-                        <a href="#"><i className="ico" style={{background: 'url(/public/icons/arrow-left.svg) no-repeat center center'}}></i></a>
+                        <a href="#"><i className="ico" style={{background: 'url(/icons/arrow-left.svg) no-repeat center center'}}></i></a>
                     </div>
     
                     <div className="text"></div>
@@ -61,7 +61,7 @@ function Header({
                 </div>
     
                 <div className="menu">
-                    <a href="#"><i className="ico" style={{background: `url(/public/icons/${iconName}) no-repeat center center`}}></i></a>
+                    <a href="#"><i className="ico" style={{background: `url(/icons/${iconName}) no-repeat center center`}}></i></a>
                 </div>
             </nav>
         </header>
