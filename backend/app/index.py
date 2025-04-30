@@ -4,7 +4,11 @@ from flask_cors import CORS
 
 from auth import NormalLogin, KakaoLogin
 
+import os
+from dotenv import load_dotenv
+load_dotenv()
 app = Flask(__name__)
+app.secret_key = os.getenv('APP_SECRET_KEY')
 api = Api(app, version='1.0', title='딱!대 API',
           description='딱!대 api')
 CORS(app, origins=["http://localhost:5173"])

@@ -50,7 +50,7 @@ class KakaoCallback(Resource):
         user_info = user_res.json()
 
         session['kakao_user'] = user_info
-        return jsonify(user_info)
+        return "HELLO from 딱!대"
 
 @ns.route('/logout')
 class Logout(Resource):
