@@ -1,4 +1,4 @@
-from flask import Flask, request, redirect, session, jsonify
+from flask import request, redirect, session, jsonify
 from flask_restx import Namespace, Resource
 import requests
 
@@ -6,9 +6,9 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 
-REDIRECT_URI = 'http://localhost:8000/auth/kakao/callback'
-app = Flask(__name__)
+from app.DB.NeoDriver import driver
 
+REDIRECT_URI = 'http://localhost:8000/auth/kakao/callback'
 ns = Namespace('auth', description='인증 관련 API')
 
 @ns.route('/kakao/login')
@@ -50,7 +50,15 @@ class KakaoCallback(Resource):
         user_info = user_res.json()
 
         session['kakao_user'] = user_info
-        return "HELLO from 딱!대"
+
+        with driver.session() as neo_session:
+            result = neo_session.run("""MATCH (n {id: $id})
+                                    RETURN n""",
+                                    id=user_info['properties']['nickname'])
+            user_info['registered'] = True if result.single() is not None \
+                else False
+
+        return jsonify(user_info)
 
 @ns.route('/logout')
 class Logout(Resource):

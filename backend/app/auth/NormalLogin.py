@@ -1,22 +1,7 @@
-from flask import Flask, request, jsonify
+from flask import jsonify, request
 from flask_restx import Api, Resource, fields, Namespace
-from flask_cors import CORS
-from neo4j import GraphDatabase
 
-import os
-from dotenv import load_dotenv
-
-app = Flask(__name__)
-api = Api(app, version='1.0', title='딱!대 API',
-          description='딱!대 api')
-CORS(app, origins=["http://localhost:5173"])
-load_dotenv()
-
-# neo4j 연결 설정
-NEO4J_URI = os.getenv("NEO4J_URI")
-NEO4J_USER = os.getenv("NEO4J_USERNAME")
-NEO4J_PASSWORD = os.getenv("NEO4J_PASSWORD")
-driver = GraphDatabase.driver(NEO4J_URI, auth=(NEO4J_USER, NEO4J_PASSWORD))
+from app.DB.NeoDriver import driver
 
 # 네임스페이스 정의
 ns = Namespace('', description='인증 관련 API')
@@ -32,7 +17,7 @@ class Login(Resource):
     @ns.expect(login_model)
     def post(self):
         """로그인 요청"""
-        data = api.payload
+        data = request.get_json()
         with driver.session() as session:
             result = session.run("""
                                         MATCH (n {id: $id, password: $password})
