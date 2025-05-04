@@ -1,5 +1,5 @@
 from flask import request, redirect, session, jsonify
-from flask_restx import Namespace, Resource
+from flask_restx import Resource, Namespace
 import requests
 
 import os
@@ -9,9 +9,10 @@ load_dotenv()
 from app.DB.NeoDriver import driver
 
 REDIRECT_URI = 'http://localhost:8000/auth/kakao/callback'
-ns = Namespace('auth', description='인증 관련 API')
 
-@ns.route('/kakao/login')
+KakaoNamespace = Namespace('auth/kakao', description='인증 관련 API')
+
+@KakaoNamespace.route('/login')
 class KakaoLogin(Resource):
     def get(self):
         """카카오 로그인 시작"""
@@ -23,7 +24,7 @@ class KakaoLogin(Resource):
         )
         return redirect(kakao_auth_url)
 
-@ns.route('/kakao/callback')
+@KakaoNamespace.route('/callback')
 class KakaoCallback(Resource):
     def get(self):
         """카카오 로그인 콜백 처리"""
@@ -60,7 +61,7 @@ class KakaoCallback(Resource):
 
         return jsonify(user_info)
 
-@ns.route('/logout')
+@KakaoNamespace.route('/logout')
 class Logout(Resource):
     def get(self):
         """세션 로그아웃"""

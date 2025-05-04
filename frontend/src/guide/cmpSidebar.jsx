@@ -6,6 +6,7 @@ import Input from "@/components/input";
 import CmpButton from "@/guide/cmpButton"
 import Login from "@/pages/login";
 import KaKaoLoginRedirectButton from "@/components/kakaoButton.jsx";
+import NaverLoginRedirectButton from "@/components/naverButton.jsx";
 
 const itemList = [
   { id: 1, name: "헤더", path: "@/components/header", component: <Header /> },
@@ -13,7 +14,8 @@ const itemList = [
   { id: 3, name: "buttonItem", path: "@/guide/cmpButton", component: <CmpButton /> },
   { id: 4, name: "로그인", path: "@/pages/login", component: <Login /> },
   { id: 5, name: "Input", path: "@/components/input", component: <Input /> },
-  { id: 6, name: "kakao", path: "@/components/kakao", component: <KaKaoLoginRedirectButton /> }
+  { id: 6, name: "kakao", path: "@/components/kakao", component: <KaKaoLoginRedirectButton /> },
+  { id: 7, name: "naver", path: "@/components/naver", component: <NaverLoginRedirectButton />}
 ];
 
 export default function CmpSidebar() {

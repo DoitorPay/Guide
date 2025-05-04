@@ -1,5 +1,5 @@
 from flask import jsonify, request
-from flask_restx import Api, Resource, fields, Namespace
+from flask_restx import Resource, fields, Namespace
 
 from app.DB.NeoDriver import driver
 
