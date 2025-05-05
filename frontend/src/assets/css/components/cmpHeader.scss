@@ -6,7 +6,8 @@ header.cmp-header {
 
 
     width: 100%;
-    height: calc(54 / 16 * 1rem);
+    // height: calc(54 / 16 * 1rem); 
+    // 로고 img box의 높이값 문제로 헤더 높이 하드코딩. 추후 해결예정
     background-color: #fff;
 
     nav {
@@ -15,16 +16,12 @@ header.cmp-header {
         justify-content: space-between;
         padding: calc(12 / 16 * 1rem) calc(20 / 16 * 1rem);
         .logo {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            // border: solid 1px red;
-  
 
             img {
                 width: calc(62 / 16 * 1rem);
                 object-fit: fill;
                 margin: 0;
+                display: block;
             }
             &__title {
                 // width: 100%;
