@@ -7,6 +7,8 @@ import CmpButton from "@/guide/cmpButton"
 import Login from "@/pages/login";
 import MainLayout from "@/pages/mainLayout";
 import CheckboxDemo from "@/components/CheckboxDemo";
+import SignUp from "@/pages/SignUp";
+
 
 const itemList = [
   { id: 1, name: "Guide헤더", path: "@/components/guideHeader", component: <GuideHeader /> },
@@ -15,7 +17,8 @@ const itemList = [
   { id: 4, name: "로그인", path: "@/pages/login", component: <Login /> },
   { id: 5, name: "Input", path: "@/components/input", component: <Input /> },
   { id: 6, name: "레이아웃", path: "@/pages/mainLayout", component: <MainLayout /> },
-  { id: 7, name: "체크박스", path: "@/pages/mainLayout", component: <CheckboxDemo /> },
+  { id: 7, name: "체크박스", path: "@/components/Checkbox", component: <CheckboxDemo /> },
+  { id: 8, name: "회원가입", path: "@/pages/SignUp", component: <SignUp /> },
 ];
 
 export default function CmpSidebar() {
