@@ -16,7 +16,6 @@ function Header({
                     <div className="menu">
                         <ul className="menu__list">
                             <li><a href="#"><i className="ico" style={{background: `url(/icons/${iconName}) no-repeat center center`}}></i></a></li>
-                            <li></li>
                         </ul>
                     </div>
                 </nav>
@@ -33,7 +32,7 @@ function Header({
                     <div className="menu">
                         <ul className="menu__list">
                             <li><a href="#"><i className="ico" style={{background: `url(/icons/${iconName}) no-repeat center center`}}></i></a></li>
-                            <li></li>
+                            <li><a href="#"><i className="ico" style={{background: `url(/icons/${iconName}) no-repeat center center`}}></i></a></li>
                         </ul>
                     </div>
                 </nav>
@@ -47,10 +46,6 @@ function Header({
                     <div className="back-button">
                         <a href="#"><i className="ico" style={{background: 'url(/icons/arrow-left.svg) no-repeat center center'}}></i></a>
                     </div>
-    
-                    <div className="text"></div>
-    
-                    <div className="close-button"></div>
     
                 </div>
     

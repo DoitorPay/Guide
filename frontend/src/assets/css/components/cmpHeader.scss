@@ -1,11 +1,12 @@
 // cmpHeader.scss
 header.cmp-header {
     // Dev
-    box-shadow: 0 0 15px rgba(0, 0, 0, .25);
+    // box-shadow: 0 0 15px rgba(0, 0, 0, .25);
+    border: solid .5px #000;
 
 
     width: 100%;
-    // height: calc(54 / 16 * 1rem);
+    height: calc(54 / 16 * 1rem);
     background-color: #fff;
 
     nav {
