@@ -1,8 +1,8 @@
 .checkbox {
-    width: 48px;
-    height: 48px;
-    border-radius: 6px;
-    border: 2px solid var(--color-gray-scale-100);
+    width: calc(48 / 16 * 1rem);
+    height: calc(48 / 16 * 1rem);
+    border-radius: calc(6/ 16 * 1rem);
+    border: calc(2/ 16 * 1rem) solid var(--color-gray-scale-100);
     background-color: var(--color-gray-scale-white);
     display: flex;
     align-items: center;
@@ -21,8 +21,8 @@
     }
   
     .check-icon {
-      width: 20px;
-      height: 20px;
+      width: calc(20 / 16 * 1rem);
+      height: calc(20 / 16 * 1rem);
       object-fit: contain;
       color: var(--color-gray-scale-white);
     }

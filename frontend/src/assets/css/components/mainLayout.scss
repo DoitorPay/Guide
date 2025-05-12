@@ -4,29 +4,29 @@
 
 .main-layout {
     width: 100%;
-    max-width: 480px;
+    max-width: calc(480 / 16 * 1rem);
     margin: 0 auto;
     background: #ffffff;
     height: 100vh;
     display: flex;
     flex-direction: column;
     position: relative;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 0 calc(20 / 16 * 1rem) rgba(0, 0, 0, 0.15);
   }
 
   .header {
-    height: 50px;
+    height: calc(50 / 16 * 1rem);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 12px;
+    padding: 0 calc(12 / 16 * 1rem);
     background: #fff;
   
     .menu,
     .logo,
     .icons {
-      width: 24px;
-      height: 24px;
+      width: calc(24 / 16 * 1rem);
+      height: calc(24 / 16 * 1rem);
       background: #ccc;
     }
   }
@@ -34,40 +34,40 @@
   .category-nav {
     display: flex;
     justify-content: space-around;
-    padding: 8px 0;
+    padding: calc(8 / 16 * 1rem) 0;
     background: #fff;
   
     .category-item {
-      width: 60px;
-      height: 60px;
+      width: calc(60 / 16 * 1rem);
+      height: calc(60 / 16 * 1rem);
       background: #eee;
-      border-radius: 8px;
+      border-radius: calc(8 / 16 * 1rem);
     }
   }
   
   .content-area {
     flex: 1;
-    padding: 12px;
+    padding: calc(12 / 16 * 1rem);
   
     .content-box {
-      height: 100px;
+      height: calc(100 / 16 * 1rem);
       background: #ddd;
-      margin-bottom: 12px;
-      border-radius: 10px;
+      margin-bottom: calc(12 / 16 * 1rem);
+      border-radius: calc(10 / 16 * 1rem);
     }
   }
   
   .bottom-nav {
-    height: 60px;
+    height: calc(60 / 16 * 1rem);
     display: flex;
     justify-content: space-around;
     align-items: center;
     background: #fff;
-    border-top: 1px solid #ccc;
+    border-top: calc(1 / 16 * 1rem) solid #ccc;
   
     .nav-item {
-      width: 24px;
-      height: 24px;
+      width: calc(24 / 16 * 1rem);
+      height: calc(24 / 16 * 1rem);
       background: #ccc;
       border-radius: 50%;
     }
