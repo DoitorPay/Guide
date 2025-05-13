@@ -53,8 +53,9 @@ class KakaoCallback(Resource):
 
         with driver.session() as neo_session:
             result = neo_session.run("""MATCH (n {id: $id})
+                                        WHERE n.sns = $sns
                                     RETURN n""",
-                                    id=user_info['properties']['nickname'])
+                                    id=user_info["id"], sns='kakao')
             user_info['registered'] = True if result.single() is not None \
                 else False
 

@@ -6,6 +6,7 @@ import uuid
 import os
 from dotenv import load_dotenv
 
+from app.DB.NeoDriver import driver
 from app.auth import ns_auth
 
 load_dotenv()
@@ -45,5 +46,13 @@ class NaverCallback(Resource):
         headers = {"Authorization": f"Bearer {access_token}"}
         profile_res = requests.get("https://openapi.naver.com/v1/nid/me", headers=headers)
         profile_data = profile_res.json()
+
+        with driver.session() as neo_session:
+            result = neo_session.run("""MATCH (n {id: $id})
+                                        WHERE n.sns = $sns
+                                    RETURN n""",
+                                    id=profile_data["response"]["id"], sns='naver')
+            profile_data['registered'] = True if result.single() is not None \
+                else False
 
         return profile_data
