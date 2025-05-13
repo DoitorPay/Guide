@@ -4,8 +4,9 @@ from flask_cors import CORS
 
 
 import app.auth.NormalLogin as NormalLogin
-import app.auth.NaverLogin as NaverLogin
 import app.auth.KakaoLogin as KakaoLogin
+import app.auth.NaverLogin as NaverLogin
+from app.auth import ns_auth
 
 import os
 from dotenv import load_dotenv
@@ -16,9 +17,7 @@ api = Api(server, version='1.0', title='딱!대 API',
           description='딱!대 api')
 CORS(server, origins=["http://localhost:5173"])
 
-api.add_namespace(NormalLogin.ns)
-api.add_namespace(NaverLogin.NaverNamespace)
-api.add_namespace(KakaoLogin.KakaoNamespace)
+api.add_namespace(ns_auth)
 
 if __name__ == "__main__":
     server.run(debug=True, port=8000)

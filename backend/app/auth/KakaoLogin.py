@@ -7,12 +7,11 @@ from dotenv import load_dotenv
 load_dotenv()
 
 from app.DB.NeoDriver import driver
+from app.auth import ns_auth
 
 REDIRECT_URI = 'http://localhost:8000/auth/kakao/callback'
 
-KakaoNamespace = Namespace('auth/kakao', description='인증 관련 API')
-
-@KakaoNamespace.route('/login')
+@ns_auth.route('/kakao/login')
 class KakaoLogin(Resource):
     def get(self):
         """카카오 로그인 시작"""
@@ -24,7 +23,7 @@ class KakaoLogin(Resource):
         )
         return redirect(kakao_auth_url)
 
-@KakaoNamespace.route('/callback')
+@ns_auth.route('/kakao/callback')
 class KakaoCallback(Resource):
     def get(self):
         """카카오 로그인 콜백 처리"""
@@ -61,7 +60,7 @@ class KakaoCallback(Resource):
 
         return jsonify(user_info)
 
-@KakaoNamespace.route('/logout')
+@ns_auth.route('/kakao/logout')
 class Logout(Resource):
     def get(self):
         """세션 로그아웃"""

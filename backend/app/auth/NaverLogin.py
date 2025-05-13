@@ -6,13 +6,13 @@ import uuid
 import os
 from dotenv import load_dotenv
 
+from app.auth import ns_auth
+
 load_dotenv()
 
 REDIRECT_URI = 'http://localhost:8000/auth/naver/callback'
 
-NaverNamespace = Namespace('auth/naver', description='인증 관련 API')
-
-@NaverNamespace.route('/login')
+@ns_auth.route('/naver/login')
 class NaverLogin(Resource):
     def get(self):
         """네이버 로그인 시작"""
@@ -23,7 +23,7 @@ class NaverLogin(Resource):
         )
         return redirect(naver_login_url)
 
-@NaverNamespace.route('/callback')
+@ns_auth.route('/naver/callback')
 class NaverCallback(Resource):
     def get(self):
         code = request.args.get('code')
