@@ -2,7 +2,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function Header() {
+function GuideHeader() {
   return (
     <>
       <div>
@@ -34,4 +34,4 @@ function Header() {
   );
 }
 
-export default Header;
+export default GuideHeader;

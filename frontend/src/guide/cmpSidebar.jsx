@@ -1,21 +1,25 @@
 import React, { useState } from "react";
 // 컴포넌트 목록
-import Header from "@/components/header";
-import Footer from "@/components/footer";
+import GuideHeader from "@/components/guideHeader";
+import GuideFooter from "@/components/guideFooter";
 import Input from "@/components/input";
 import CmpButton from "@/guide/cmpButton"
 import Login from "@/pages/login";
-import KaKaoLoginRedirectButton from "@/components/kakaoButton.jsx";
-import NaverLoginRedirectButton from "@/components/naverButton.jsx";
+import MainLayout from "@/pages/mainLayout";
+import Navigation from "@/components/nav"; 
+import CheckboxDemo from "@/components/CheckboxDemo";
+import SignUp from "@/pages/SignUp";
 
 const itemList = [
-  { id: 1, name: "헤더", path: "@/components/header", component: <Header /> },
-  { id: 2, name: "푸터", path: "@/components/footer", component: <Footer /> },
+  { id: 1, name: "Guide헤더", path: "@/components/guideHeader", component: <GuideHeader /> },
+  { id: 2, name: "Guide푸터", path: "@/components/guideFooter", component: <GuideFooter /> },
   { id: 3, name: "buttonItem", path: "@/guide/cmpButton", component: <CmpButton /> },
   { id: 4, name: "로그인", path: "@/pages/login", component: <Login /> },
   { id: 5, name: "Input", path: "@/components/input", component: <Input /> },
-  { id: 6, name: "kakao", path: "@/components/kakao", component: <KaKaoLoginRedirectButton /> },
-  { id: 7, name: "naver", path: "@/components/naver", component: <NaverLoginRedirectButton />}
+  { id: 6, name: "레이아웃", path: "@/pages/mainLayout", component: <MainLayout /> },
+  { id: 7, name: "네비게이션", path: "@/components/nav", component: <Navigation /> },
+  { id: 8, name: "체크박스", path: "@/components/Checkbox", component: <CheckboxDemo /> },
+  { id: 9, name: "회원가입", path: "@/pages/SignUp", component: <SignUp /> },
 ];
 
 export default function CmpSidebar() {
