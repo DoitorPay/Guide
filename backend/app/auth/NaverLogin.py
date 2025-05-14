@@ -52,7 +52,5 @@ class NaverCallback(Resource):
                                         WHERE n.sns = $sns
                                     RETURN n""",
                                     id=profile_data["response"]["id"], sns='naver')
-            profile_data['registered'] = True if result.single() is not None \
-                else False
-
-        return profile_data
+            return redirect('http://localhost:8000/auth/additReister') if result \
+                else jsonify(profile_data)

@@ -56,10 +56,8 @@ class KakaoCallback(Resource):
                                         WHERE n.sns = $sns
                                     RETURN n""",
                                     id=user_info["id"], sns='kakao')
-            user_info['registered'] = True if result.single() is not None \
-                else False
-
-        return jsonify(user_info)
+            return redirect('http://localhost:8000/auth/additReister') if result  \
+                else jsonify(user_info)
 
 @ns_auth.route('/kakao/logout')
 class Logout(Resource):
