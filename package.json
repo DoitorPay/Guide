@@ -1,0 +1,5 @@
+{
+  "devDependencies": {
+    "zustand": "^5.0.4"
+  }
+}
