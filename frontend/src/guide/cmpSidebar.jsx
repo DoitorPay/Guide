@@ -17,7 +17,7 @@ const itemList = [
   { id: 3, name: "buttonItem", path: "@/guide/cmpButton", component: <CmpButton /> },
   { id: 4, name: "로그인", path: "@/pages/login", component: <Login /> },
   { id: 5, name: "Input", path: "@/components/input", component: <Input /> },
-  { id: 6, name: "Header", path: "@/guide/cmpHeader", component: <CmpHeader />}
+  { id: 6, name: "Header", path: "@/guide/cmpHeader", component: <CmpHeader />},
   { id: 7, name: "레이아웃", path: "@/pages/mainLayout", component: <MainLayout /> },
   { id: 8, name: "네비게이션", path: "@/components/nav", component: <Navigation /> },
   { id: 9, name: "체크박스", path: "@/components/Checkbox", component: <CheckboxDemo /> },
