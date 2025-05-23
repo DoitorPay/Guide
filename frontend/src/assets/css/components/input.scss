@@ -24,7 +24,7 @@
     }
 
    &.empty {
-     border: 1px solid var(--color-gray-scale-100);
+     border: calc(1 / 16 * 1rem) solid var(--color-gray-scale-100);
      color: var(--color-gray-scale-100);
 
      &::placeholder {
@@ -34,12 +34,12 @@
    }
  
    &.focused {
-     border: 1px solid var(--color-gray-scale-600);
+     border: calc(1 / 16 * 1rem) solid var(--color-gray-scale-600);
      color: var(--color-gray-scale-800);
    }
  
    &.filled {
-     border: 1px solid var(--color-gray-scale-100);
+     border: calc(1 / 16 * 1rem) solid var(--color-gray-scale-100);
 
      &::placeholder {
       color: var(--color-gray-scale-100);
