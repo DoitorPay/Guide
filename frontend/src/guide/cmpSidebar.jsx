@@ -9,6 +9,7 @@ import CmpHeader from "@/guide/cmpHeader";
 import MainLayout from "@/pages/mainLayout";
 import Navigation from "@/components/nav"; 
 import CheckboxDemo from "@/components/CheckboxDemo";
+import CmpTodoList from "@/guide/cmpTodoList";
 import SignUp from "@/pages/SignUp";
 
 const itemList = [
@@ -21,7 +22,8 @@ const itemList = [
   { id: 7, name: "레이아웃", path: "@/pages/mainLayout", component: <MainLayout /> },
   { id: 8, name: "네비게이션", path: "@/components/nav", component: <Navigation /> },
   { id: 9, name: "체크박스", path: "@/components/Checkbox", component: <CheckboxDemo /> },
-  { id: 10, name: "회원가입", path: "@/pages/SignUp", component: <SignUp /> },
+  { id: 10, name: "투두리스트", path: "/guide/CmpTodoList", component: <CmpTodoList /> },
+  { id: 11, name: "회원가입", path: "@/pages/SignUp", component: <SignUp /> },
 ];
 
 export default function CmpSidebar() {

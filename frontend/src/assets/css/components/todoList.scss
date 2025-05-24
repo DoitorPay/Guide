@@ -1,0 +1,69 @@
+.cmp-todolist {
+    // border: solid 1px red;
+    width: 100%;
+    background: var(--color-background);
+    padding: calc(20 / 16 * 1rem);
+    border-radius: calc(10 / 16 * 1rem);
+
+    &__inner {
+        .day-goal {
+            font-size: calc(var(--typo-size-body-1) / 16 * 1rem);
+            font-weight: var(--typo-weight-semibold);
+            margin-bottom: calc(20 / 16 * 1rem);
+        }
+        .todo-box {
+            // border: solid 1px red;
+            margin-bottom: calc(12 / 16 * 1rem);
+            &__item:not(:last-child) {
+                margin-bottom: calc(16 / 16 * 1rem);
+            }
+            &__item {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+    
+                .list {
+                    display: flex;
+                    align-items: center;
+                    gap: calc(12 / 16 * 1rem);
+    
+                    .title {
+                        max-width: calc(300 / 16 * 1rem);
+                        font-size: calc(var(--typo-size-body-1) / 16 * 1rem);
+                        word-break: keep-all;
+                    }
+                }
+                .more {
+                    svg {
+                        fill: var(--color-gray-scale-200);
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+
+        .add-todo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: calc(42 / 16 * 1rem);
+            background: var(--color-gray-scale-500);
+            color: var(--color-gray-scale-white);
+            font-weight: calc(--typo-weight-medium);
+            border-radius: calc(10 / 16 * 1rem);
+
+            .text-area {
+                display: flex;
+                align-items: center;
+                gap: calc(4 / 16 * 1rem);
+                span {
+                    font-size: calc(var(--typo-size-body-3) / 16 * 1rem);
+                }
+                svg {
+                    fill: var(--color-gray-scale-white);
+                }
+            }
+        }
+    }
+}
