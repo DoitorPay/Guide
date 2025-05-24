@@ -11,6 +11,12 @@ const sections = [
     ],
   },
   {
+    title: "Background",
+    colors: [
+      { name: "Light Gray", code: "#F8F8F8", variable: "--color-background" },
+    ]
+  },
+  {
     title: "Gray Scale",
     colors: [
       { name: "White", code: "#FFFFFF", variable: "--color-gray-scale-white" },
