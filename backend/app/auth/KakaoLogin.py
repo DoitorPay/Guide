@@ -56,8 +56,8 @@ class KakaoCallback(Resource):
                                         WHERE n.sns = $sns
                                     RETURN n""",
                                     id=user_info["id"], sns='kakao')
-            return redirect('http://localhost:8000/auth/additReister') if result  \
-                else jsonify(user_info)
+            return jsonify(user_info) if result  \
+                else redirect('http://localhost:8000/auth/additReister')
 
 @ns_auth.route('/kakao/logout')
 class Logout(Resource):
