@@ -5,6 +5,7 @@ import GuideFooter from "@/components/guideFooter";
 import Input from "@/components/input";
 import CmpButton from "@/guide/cmpButton"
 import Login from "@/pages/login";
+import CmpHeader from "@/guide/cmpHeader";
 import MainLayout from "@/pages/mainLayout";
 import Navigation from "@/components/nav"; 
 import CheckboxDemo from "@/components/CheckboxDemo";

@@ -60,6 +60,16 @@
    }
 }
 
+.example-guide {
+   border: solid 3px #b5b5b5;
+   border-radius: calc(12 / 16 * 1rem);
+   border-style: dashed;
+   padding: calc(16 / 16 * 1rem);
+   &.cmp-header {
+      max-width: calc(450 / 16 * 1rem);
+   }
+}
+
 .icon-guide {
    display: flex;
    flex-wrap: wrap;
