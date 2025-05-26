@@ -1,40 +1,24 @@
-import { useState } from "react";
-import axios from "axios";
+import React from "react";
 
 const Login = () => {
-  const [id, setId] = useState("");
-  const [pw, setPw] = useState("");
-
-  const handleLogin = async () => {
-    try {
-      const res = await axios.post("http://localhost:8000/login", {
-        username: id,
-        password: pw,
-      });
-      console.log("로그인 성공:", res.data);
-    } catch (err) {
-      console.error("로그인 실패:", err.response?.data || err.message);
-    }
+  const handleSocialLogin = (provider) => {
+    window.location.href = `http://localhost:8000/auth/${provider}/login`;
   };
 
   return (
-    <div>
-      <input
-        type="text"
-        placeholder="ID"
-        value={id}
-        onChange={(e) => setId(e.target.value)}
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        value={pw}
-        onChange={(e) => setPw(e.target.value)}
-      />
+    <div className="login-wrapper">
+      <h2>간편 로그인</h2>
       <button
-        onClick={handleLogin}
+        onClick={() => handleSocialLogin("kakao")}
+        style={{ backgroundColor: "#FEE500", padding: "10px", margin: "10px" }}
       >
-        로그인
+        카카오로 시작하기
+      </button>
+      <button
+        onClick={() => handleSocialLogin("naver")}
+        style={{ backgroundColor: "#03C75A", color: "white", padding: "10px" }}
+      >
+        네이버로 시작하기
       </button>
     </div>
   );

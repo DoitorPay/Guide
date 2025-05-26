@@ -8,4 +8,4 @@
 @import '@/assets/css/components/button.scss';
 @import '@/assets/css/components/input.scss';
 @import '@/assets/css/components/nav.scss';
-@import '@/assets/css/signup.scss';
+@import 'signup.scss';
