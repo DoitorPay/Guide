@@ -2,10 +2,10 @@ from flask import Flask
 from flask_restx import Api
 from flask_cors import CORS
 
-
 import app.auth.NormalLogin as NormalLogin
 import app.auth.KakaoLogin as KakaoLogin
 import app.auth.NaverLogin as NaverLogin
+import app.auth.AdditionalRegister as AdditionalRegister
 from app.auth import ns_auth
 
 import os

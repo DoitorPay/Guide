@@ -53,12 +53,11 @@ class KakaoCallback(Resource):
 
         with driver.session() as neo_session:
             result = neo_session.run("""MATCH (n {id: $id})
+                                        WHERE n.sns = $sns
                                     RETURN n""",
-                                    id=user_info['properties']['nickname'])
-            user_info['registered'] = True if result.single() is not None \
-                else False
-
-        return jsonify(user_info)
+                                    id=user_info["id"], sns='kakao')
+            return redirect('http://localhost:8000/auth/additReister') if result  \
+                else jsonify(user_info)
 
 @ns_auth.route('/kakao/logout')
 class Logout(Resource):
