@@ -3,7 +3,7 @@ import Button from '@/components/Button';
 
 const TOPICS = [
   '수능 공부', '과제', '디자인', '코딩', '토익',
-  '오픽', '토플', '리트', '자격증', '취준', '자기계발', '독서'
+  '오픽', '토플', '리트', '자격증', '취준', '자기계발', '독서', 'adafsdfa'
 ];
 
 const StudyTopic = () => {
@@ -22,7 +22,7 @@ const StudyTopic = () => {
 
   const handleSubmit = async () => {
   try {
-    const kakaoId = localStorage.getItem('kakao_id'); // 혹은 user_id
+    const kakaoId = localStorage.getItem('kakao_id');
 
     const response = await fetch('http://localhost:8000/user/topics', {
       method: 'POST',

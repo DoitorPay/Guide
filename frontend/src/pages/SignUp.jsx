@@ -9,7 +9,7 @@ const SignUp = () => {
   const [gender, setGender] = useState('');
   const [email, setEmail] = useState('');
   const [agree, setAgree] = useState(false);
-  const [nicknameAvailable, setNicknameAvailable] = useState(null); // null, true, false
+  const [nicknameAvailable, setNicknameAvailable] = useState(null); 
 
   const navigate = useNavigate();
 
@@ -17,8 +17,8 @@ const SignUp = () => {
   if (!isFormValid) return;
 
   try {
-    const id = localStorage.getItem('id');    // "1234"
-    const sns = localStorage.getItem('sns');  // "kakao" 또는 "naver"
+    const id = localStorage.getItem('id');   
+    const sns = localStorage.getItem('sns');  
 
     if (!id || !sns) {
       alert('로그인 정보가 없습니다.');

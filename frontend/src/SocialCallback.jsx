@@ -19,10 +19,7 @@ const SocialCallback = () => {
       } else {
         navigate('/signup');
       }
-    } else {
-      alert('소셜 로그인 실패');
-      navigate('/login');
-    }
+    } 
   }, [navigate]);
 
   return <p>로그인 처리 중입니다...</p>;
