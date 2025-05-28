@@ -52,5 +52,5 @@ class NaverCallback(Resource):
                                         WHERE n.sns = $sns
                                     RETURN n""",
                                     id=profile_data["response"]["id"], sns='naver')
-            return  jsonify(profile_data) if result \
+            return  jsonify(profile_data) if result.single() \
                 else redirect('http://localhost:8000/auth/additReister')
