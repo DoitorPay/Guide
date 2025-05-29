@@ -1,5 +1,5 @@
 from flask import request, redirect, session, jsonify
-from flask_restx import Resource, Namespace
+from flask_restx import Resource, fields
 import requests
 
 from app.auth import ns_auth
@@ -14,8 +14,16 @@ query = """MERGE(n:Person{id: $id})
            n.gender = $gender,
            n.email = $email"""
 
+signup_model = ns_auth.model('Signup', {
+    'nickname': fields.String(required=True),
+    'birth': fields.String(required=True),
+    'gender': fields.String(required=True),
+    'email': fields.String(required=True)
+})
+
 @ns_auth.route('/signUpForm')
 class UserForm(Resource):
+    @ns_auth.expect(signup_model)
     def post(self):
         signupForm = request.get_json()
         print(signupForm)
