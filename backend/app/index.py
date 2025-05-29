@@ -5,6 +5,7 @@ from flask_cors import CORS
 import app.auth.NormalLogin as NormalLogin
 import app.auth.KakaoLogin as KakaoLogin
 import app.auth.NaverLogin as NaverLogin
+import app.auth.UserForm as UserForm
 from app.auth import ns_auth
 
 import os

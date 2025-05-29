@@ -50,6 +50,7 @@ class KakaoCallback(Resource):
         user_info = user_res.json()
 
         session['kakao_user'] = user_info
+        print(user_info)
 
         with driver.session() as neo_session:
             result = neo_session.run("""MATCH (n {id: $id})

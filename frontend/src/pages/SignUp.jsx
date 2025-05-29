@@ -76,10 +76,30 @@ const SignUp = () => {
 
       <div className="signup-footer">
         <Button
+          htmlType="button"
           type="default"
           buttonName="계속하기"
           disabled={!isFormValid}
-          onClick={() => console.log('가입 완료')}
+          onClick={async (e) => {
+            e.preventDefault();
+            const response = await fetch("http://localhost:8000/auth/signUpForm", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                nickname: nickname,
+                birth: birthdate,
+                gender: gender,
+                email: email
+              })
+            })
+
+            if (!response.ok) {
+              throw new Error('error!');
+            }
+          }
+        }
         />
       </div>
     </div>
