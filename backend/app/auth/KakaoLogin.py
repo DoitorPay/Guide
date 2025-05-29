@@ -57,7 +57,7 @@ class KakaoCallback(Resource):
                                     RETURN n""",
                                     id=user_info["id"], sns='kakao')
             return jsonify(user_info) if result.single()  \
-                else redirect('http://localhost:8000/auth/additReister')
+                else redirect('http://localhost:8000/additRegister')
 
 @ns_auth.route('/kakao/logout')
 class Logout(Resource):

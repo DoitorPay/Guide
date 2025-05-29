@@ -25,10 +25,17 @@ source venv/bin/activate
 가상환경을 생성하고 접속이 완료되었습니다.
 
 - 파이썬 패키지들을 다운받아야 합니다. 다음 명령어를 실행합니다:<br/>
-```pip install -r requirements.txt``` <br/>
+```
+pip install -r requirements.txt
+pip install -e . 
+```
 pip는 대략적으로 자바스크립트의 npm같은 패키지 매니저입니다.
+두번째줄 명령어에 마지막 마침표를 빼먹지 않도록 주의합니다.
 
 ## 서버의 실행
+- 서버를 실행하기 위해선 프론트엔드 빌드 결과물이 필요합니다. ```frontend``` 디렉터리로 옮겨간다음 <br/>
+```npm run build``` <br/>
+를 실행하면  자동으로 빌드 결과물이 백엔드 폴더에 생성됩니다
 - 이제 서버를 실행할 준비가 완료되었습니다. 다음 명령어를 순차적으로 실행합니다: <br/>
 ```
 cd app

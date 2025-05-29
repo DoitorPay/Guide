@@ -21,3 +21,6 @@ instance/
 # Docker 및 배포 관련
 *.dockerignore
 docker-compose.override.yml
+
+# 프론트 빌드 결과물
+dist
