@@ -5,6 +5,8 @@ const Input = ({
   label = 'textfield',
   name,
   placeholder = '입력하세요',
+  required = false,
+  maxLength = 30,
   className = '',
   ...rest
 }) => {
@@ -24,12 +26,14 @@ const Input = ({
   return (
     <div className={`input-wrapper ${className}`}>
       <label htmlFor={name} className="input-label">
-        {label}
+        {label}{required && <span style={{ color: 'red' }}> *</span>}
       </label>
       <input
         {...rest}
         name={name}
         id={name}
+        required={required}
+        maxLength={maxLength}
         placeholder={placeholder}
         onFocus={handleFocus}
         onBlur={handleBlur}
@@ -40,18 +44,3 @@ const Input = ({
 };
 
 export default Input;
-
-
-// 사용 예시
-// const ㅁㄴㅇㄹ = () => {
-//    return (
-//      <div>
-//        <Input
-//          label="이름"
-//          name="username"
-//          placeholder="이름을 입력하세요"
-//        />
-//      </div>
-//    );
-//  };
- 

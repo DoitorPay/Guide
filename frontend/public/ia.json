@@ -22,5 +22,11 @@
     "title": "로그인",
     "path": "/login",
     "fileName": "Login.jsx"
+  },
+  {
+    "id": 5,
+    "title": "회원가입",
+    "path": "/signup",
+    "fileName": "SignUp.jsx"
   }
 ]
