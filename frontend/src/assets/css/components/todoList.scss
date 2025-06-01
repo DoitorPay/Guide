@@ -6,10 +6,21 @@
     border-radius: calc(10 / 16 * 1rem);
 
     &__inner {
+        // border: solid 1px red;
         .day-goal {
             font-size: calc(var(--typo-size-body-1) / 16 * 1rem);
             font-weight: var(--typo-weight-semibold);
             margin-bottom: calc(20 / 16 * 1rem);
+
+            &-home {
+                margin-top: calc(16 / 16 * 1rem);
+            }
+        }
+        .no-todo {
+            font-size: calc(var(--typo-size-body-1	) / 16 * 1rem);
+            font-weight: var(--typo-weight-semibold);
+            text-align: center;
+            margin-bottom: calc(10 / 16 * 1rem);
         }
         .todo-box {
             // border: solid 1px red;
@@ -95,6 +106,7 @@
             background: var(--color-gray-scale-500);
             color: var(--color-gray-scale-white);
             border-radius: calc(10 / 16 * 1rem);
+            margin-bottom: calc(16 / 16 * 1rem);
 
             .text-area {
                 display: flex;
@@ -106,6 +118,13 @@
                     fill: var(--color-gray-scale-white);
                 }
             }
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+
+        .home-section {
+            border-top: calc(1 / 16 * 1rem) solid var(--color-gray-scale-100);
         }
     }
 }

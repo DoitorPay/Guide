@@ -5,10 +5,24 @@ import TodoList from '@/components/todoList';
 function CmpTodoList() {
     return(
         <div className="cmp-guide">
+            <p className="guide-text-title">홈 화면에서 / type = "home"</p>
             <div className="example-guide cmp-header">
-                <TodoList />
+                <TodoList type='home'/>
+            </div>
+            <br></br><br></br>
+
+            <p className="guide-text-title">투두리스트 화면 / type = "page_todolist"</p>
+            <div className="example-guide cmp-header">
+                <TodoList type='page-todolist'/>
+            </div>
+            <br></br><br></br>
+
+            <p className="guide-text-title">개인 투두리스트가 없을 때</p>
+            <div className="example-guide cmp-header">
+                <TodoList type='example-todo'/>
             </div>
         </div>
+        
     )
 
 }

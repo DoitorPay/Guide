@@ -3,11 +3,24 @@ import Checkbox from '@/components/checkBox';
 import Input from '@/components/input';
 
 
-function TodoList() {
+function TodoList({
+    type
+
+
+}) {
+
+    // const [exampleTodo] = useState([
+    // ]);
 
     const [todoItems, setTodoItems] = useState([
         { id: 1, text: '투두리스트', completed: false },
         { id: 2, text: '동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세', completed: false }
+    ]);
+
+    const [groupTodos, setGroupTodos] = useState([
+        { id: 1, text: '한 페이지 풀기', completed: false },
+        { id: 2, text: '두 페이지 풀기', completed: false },
+        { id: 3, text: '세 페이지 풀기', completed: false }
     ]);
     
     const [newTodoText, setNewTodoText] = useState('');
@@ -47,62 +60,80 @@ function TodoList() {
     return (
         <div className="cmp-todolist">
             <div className="cmp-todolist__inner">
-                <p className="day-goal">
-                    오늘의 목표 ({todoItems.filter(item => item.completed).length}/{todoItems.length})
-                </p>
+                {
+                    type === 'home' && (
+                        <p className="day-goal">
+                            오늘의 목표 ({todoItems.filter(item => item.completed).length}/{todoItems.length})
+                        </p>
+                    )
+                }
 
-                <div className="todo-box">
-                    {
-                        todoItems.map((item) => (
-                            <div key={item.id} className="todo-box__item">
-                                <div className="list">
-                                    <Checkbox 
-                                        checked={item.completed} 
-                                        onChange={(checked) => {
-                                            const updatedItems = todoItems.map(todo => 
-                                                todo.id === item.id ? { ...todo, completed: checked } : todo
-                                            );
-                                            setTodoItems(updatedItems);
-                                        }} 
-                                    />
-                                    <span className="title">{item.text}</span>
-                                </div>
-                                <div className="more">
-                                    <svg width="16" height="5" viewBox="0 0 16 5" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M2 0.5C0.9 0.5 0 1.4 0 2.5C0 3.6 0.9 4.5 2 4.5C3.1 4.5 4 3.6 4 2.5C4 1.4 3.1 0.5 2 0.5ZM14 0.5C12.9 0.5 12 1.4 12 2.5C12 3.6 12.9 4.5 14 4.5C15.1 4.5 16 3.6 16 2.5C16 1.4 15.1 0.5 14 0.5ZM8 0.5C6.9 0.5 6 1.4 6 2.5C6 3.6 6.9 4.5 8 4.5C9.1 4.5 10 3.6 10 2.5C10 1.4 9.1 0.5 8 0.5Z"/>
-                                    </svg>
-                                </div>
-                            </div>
-                        ))
-                    }
-                    
-                    {
-                        isAddingTodo && (
-                            <div className="todo-box__item todo-box__item--adding">
-                                <div className="list">
-                                    <Checkbox checked={false} disabled />
-                                    <input 
-                                        type="text" 
-                                        className="title-input" 
-                                        value={newTodoText}
-                                        onChange={(e) => setNewTodoText(e.target.value)}
-                                        onKeyDown={handleKeyPress}
-                                        placeholder="할 일을 입력하세요"
-                                        autoFocus
-                                    />
-                                </div>
-                                <div className="actions">
-                                    <button className="action-btn save" onClick={addTodo}>
-                                        <i className="ico" style={{background: 'url(/icons/done.svg) no-repeat center center'}}></i>
-                                    </button>
-                                    <button className="action-btn cancel" onClick={cancelAdd}>
-                                        <i className="ico" style={{background: 'url(/icons/clear.svg) no-repeat center center'}}></i>
-                                    </button>
-                                </div>
-                            </div>
-                        )
-                    }
-                </div>
+                {
+                    (todoItems.length === 0 || type === 'example-todo') && (
+                        <p className="no-todo">
+                            설정된 목표가 없습니다.<br></br>
+                            목표를 추가해 보세요.
+                        </p>
+                    )
+                }
+
+                {
+                    todoItems.length > 0 && type !== 'example-todo' && (
+                        <div className="todo-box">
+                            {
+                                todoItems.map((item) => (
+                                    <div key={item.id} className="todo-box__item">
+                                        <div className="list">
+                                            <Checkbox 
+                                                checked={item.completed} 
+                                                onChange={(checked) => {
+                                                    const updatedItems = todoItems.map(todo => 
+                                                        todo.id === item.id ? { ...todo, completed: checked } : todo
+                                                    );
+                                                    setTodoItems(updatedItems);
+                                                }} 
+                                            />
+                                            <span className="title">{item.text}</span>
+                                        </div>
+                                        <div className="more">
+                                            <svg width="16" height="5" viewBox="0 0 16 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M2 0.5C0.9 0.5 0 1.4 0 2.5C0 3.6 0.9 4.5 2 4.5C3.1 4.5 4 3.6 4 2.5C4 1.4 3.1 0.5 2 0.5ZM14 0.5C12.9 0.5 12 1.4 12 2.5C12 3.6 12.9 4.5 14 4.5C15.1 4.5 16 3.6 16 2.5C16 1.4 15.1 0.5 14 0.5ZM8 0.5C6.9 0.5 6 1.4 6 2.5C6 3.6 6.9 4.5 8 4.5C9.1 4.5 10 3.6 10 2.5C10 1.4 9.1 0.5 8 0.5Z"/>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                ))
+                            }
+                            
+                            {
+                                isAddingTodo && (
+                                    <div className="todo-box__item todo-box__item--adding">
+                                        <div className="list">
+                                            <Checkbox checked={false} disabled />
+                                            <input 
+                                                type="text" 
+                                                className="title-input" 
+                                                value={newTodoText}
+                                                onChange={(e) => setNewTodoText(e.target.value)}
+                                                onKeyDown={handleKeyPress}
+                                                placeholder="할 일을 입력하세요"
+                                                autoFocus
+                                            />
+                                        </div>
+                                        <div className="actions">
+                                            <button className="action-btn save" onClick={addTodo}>
+                                                <i className="ico" style={{background: 'url(/icons/done.svg) no-repeat center center'}}></i>
+                                            </button>
+                                            <button className="action-btn cancel" onClick={cancelAdd}>
+                                                <i className="ico" style={{background: 'url(/icons/clear.svg) no-repeat center center'}}></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                )
+                            }
+                        </div>
+                    )
+                }
+
 
                 <button className="add-todo" onClick={addTodo}>
                     <div className="text-area">
@@ -112,6 +143,38 @@ function TodoList() {
                         추가하기
                     </div>
                 </button>
+                {
+                    type === 'home' && (
+                        <div className="home-section">
+                            <p className="day-goal day-goal-home">
+                                그룹 목표 ({groupTodos.filter(item => item.completed).length}/{groupTodos.length})
+                            </p>
+                            {
+                                groupTodos.map((item) => (
+                                    <div key={item.id} className="todo-box__item">
+                                        <div className="list">
+                                            <Checkbox 
+                                                checked={item.completed} 
+                                                onChange={(checked) => {
+                                                    const updatedItems = groupTodos.map(todo => 
+                                                        todo.id === item.id ? { ...todo, completed: checked } : todo
+                                                    );
+                                                    setGroupTodos(updatedItems);
+                                                }} 
+                                            />
+                                            <span className="title">{item.text}</span>
+                                        </div>
+                                        <div className="more">
+                                            <svg width="16" height="5" viewBox="0 0 16 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M2 0.5C0.9 0.5 0 1.4 0 2.5C0 3.6 0.9 4.5 2 4.5C3.1 4.5 4 3.6 4 2.5C4 1.4 3.1 0.5 2 0.5ZM14 0.5C12.9 0.5 12 1.4 12 2.5C12 3.6 12.9 4.5 14 4.5C15.1 4.5 16 3.6 16 2.5C16 1.4 15.1 0.5 14 0.5ZM8 0.5C6.9 0.5 6 1.4 6 2.5C6 3.6 6.9 4.5 8 4.5C9.1 4.5 10 3.6 10 2.5C10 1.4 9.1 0.5 8 0.5Z"/>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                ))
+                            }
+                        </div>
+                    )
+                }
             </div>
         </div>
     )
