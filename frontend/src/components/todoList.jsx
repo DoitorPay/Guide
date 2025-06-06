@@ -13,8 +13,8 @@ function TodoList({
     // ]);
 
     const [todoItems, setTodoItems] = useState([
-        { id: 1, text: '투두리스트', completed: false },
-        { id: 2, text: '동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세', completed: false }
+        // { id: 1, text: '투두리스트', completed: false },
+        // { id: 2, text: '동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세', completed: false }
     ]);
 
     const [groupTodos, setGroupTodos] = useState([
@@ -78,7 +78,7 @@ function TodoList({
                 }
 
                 {
-                    todoItems.length > 0 && type !== 'example-todo' && (
+                    (todoItems.length > 0 || isAddingTodo) && type !== 'example-todo' && (
                         <div className="todo-box">
                             {
                                 todoItems.map((item) => (
@@ -121,10 +121,15 @@ function TodoList({
                                         </div>
                                         <div className="actions">
                                             <button className="action-btn save" onClick={addTodo}>
-                                                <i className="ico" style={{background: 'url(/icons/done.svg) no-repeat center center'}}></i>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25">
+                                                    <path d="M9 16.7L5.5 13.2C5.11 12.81 4.49 12.81 4.1 13.2C3.71 13.59 3.71 14.21 4.1 14.6L8.29 18.79C8.68 19.18 9.31 19.18 9.7 18.79L20.3 8.20001C20.69 7.81001 20.69 7.19001 20.3 6.80001C19.91 6.41001 19.29 6.41001 18.9 6.80001L9 16.7Z" fill="#4C4C4C"/>
+                                                </svg>
                                             </button>
                                             <button className="action-btn cancel" onClick={cancelAdd}>
-                                                <i className="ico" style={{background: 'url(/icons/clear.svg) no-repeat center center'}}></i>
+                                            <svg width="14" height="15" viewBox="0 0 14 15" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M13.3 1.20997C12.91 0.819971 12.28 0.819971 11.89 1.20997L7 6.08997L2.11 1.19997C1.72 0.809971 1.09 0.809971 0.700001 1.19997C0.310001 1.58997 0.310001 2.21997 0.700001 2.60997L5.59 7.49997L0.700001 12.39C0.310001 12.78 0.310001 13.41 0.700001 13.8C1.09 14.19 1.72 14.19 2.11 13.8L7 8.90997L11.89 13.8C12.28 14.19 12.91 14.19 13.3 13.8C13.69 13.41 13.69 12.78 13.3 12.39L8.41 7.49997L13.3 2.60997C13.68 2.22997 13.68 1.58997 13.3 1.20997Z" fill="#4C4C4C"/>
+                                            </svg>
+
                                             </button>
                                         </div>
                                     </div>
