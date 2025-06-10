@@ -50,14 +50,13 @@ class KakaoCallback(Resource):
         user_info = user_res.json()
 
         session['kakao_user'] = user_info
-        print(user_info)
 
         with driver.session() as neo_session:
             result = neo_session.run("""MATCH (n {id: $id})
                                         WHERE n.sns = $sns
                                     RETURN n""",
                                     id=user_info["id"], sns='kakao')
-            return jsonify(user_info) if result.single()  \
+            return redirect("http://localhost:8000/") if result.single()  \
                 else redirect('http://localhost:8000/additRegister')
 
 @ns_auth.route('/kakao/logout')

@@ -26,10 +26,8 @@ class UserForm(Resource):
     @ns_auth.expect(signup_model)
     def post(self):
         signupForm = request.get_json()
-        print(signupForm)
         snsInfo, sns = (session['kakao_user'], "kakao") if 'kakao_user' in session \
             else (session['naver_user'], "naver")
-        print(snsInfo, sns)
 
         with driver.session() as neo_session :
             result = neo_session.run(query,
