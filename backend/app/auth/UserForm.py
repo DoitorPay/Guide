@@ -39,3 +39,19 @@ class UserForm(Resource):
                                      birth=signupForm['birth'],
                                      gender=signupForm['gender'],
                                      email=signupForm['email'])
+
+@ns_auth.route('/check-nickname')
+class UserCheck(Resource):
+    def get(self):
+        go_nick = request.args.get('nickname')
+        with driver.session() as neo_session:
+            result = neo_session.run("MATCH(n:Person{nickname: $go_nick} return n)", go_nick=go_nick)
+
+            return jsonify({"available": True if result.single() else False})
+
+@ns_auth.route('/register')
+class UserCheck(Resource):
+    def get(self):
+        profile = request.get_json()
+        with driver.session() as neo_session:
+            pass
