@@ -48,9 +48,13 @@ class KakaoCallback(Resource):
         headers = {"Authorization": f"Bearer {access_token}"}
         user_res = requests.get(user_info_url, headers=headers)
         user_info = user_res.json()
-
-        session['kakao_user'] = user_info
-
+        print(user_info)
+        session['user_data'] = {
+            'sns': 'kakao',
+            'id': user_info['id'],
+            'profile': user_info['properties']['profile_image'],
+            'name': user_info['properties']['nickname'],
+        }
         with driver.session() as neo_session:
             result = neo_session.run("""MATCH (n {id: $id})
                                         WHERE n.sns = $sns
@@ -63,6 +67,6 @@ class KakaoCallback(Resource):
 class Logout(Resource):
     def get(self):
         """세션 로그아웃"""
-        session.pop('kakao_user', None)
+        session.pop('user_data', None)
         return {'message': '로그아웃 완료'}, 200
 

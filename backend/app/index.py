@@ -7,6 +7,10 @@ import app.auth.NaverLogin as NaverLogin
 import app.auth.UserForm as UserForm
 from app.auth import ns_auth
 
+import app.user.todo as todo
+import app.user.UserInterest as UserInterest
+from app.user import ns_user
+
 import os
 from dotenv import load_dotenv
 load_dotenv()
@@ -19,6 +23,7 @@ api = Api(server, version='1.0', title='딱!대 API',
 CORS(server, origins=["http://localhost:5173"])
 
 api.add_namespace(ns_auth)
+api.add_namespace(ns_user)
 
 @api.route('/', defaults={'path': ''})
 @api.route('/<path:path>')
