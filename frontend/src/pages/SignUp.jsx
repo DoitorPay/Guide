@@ -33,7 +33,7 @@ const SignUp = () => {
       ...(sns === 'kakao' ? { kakao_id: id } : { naver_id: id })
     };
 
-    const response = await fetch('http://localhost:8000/user/profile', {
+    const response = await fetch('http://localhost:8000/auth/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -63,7 +63,7 @@ const checkNickname = async () => {
   if (!nickname) return;
 
   try {
-    const response = await fetch(`http://localhost:8000/user/check-nickname?nickname=${encodeURIComponent(nickname)}`);
+    const response = await fetch(`http://localhost:8000/auth/check-nickname?nickname=${encodeURIComponent(nickname)}`);
     if (!response.ok) throw new Error();
 
     const data = await response.json();

@@ -46,13 +46,18 @@ class NaverCallback(Resource):
         headers = {"Authorization": f"Bearer {access_token}"}
         profile_res = requests.get("https://openapi.naver.com/v1/nid/me", headers=headers)
         profile_data = profile_res.json()
-
-        session['naver_user'] = profile_data
+        print(profile_data)
+        session['user_data'] = {
+            'sns': 'naver',
+            'id': profile_data['response']['id'],
+            'profile': profile_data['response']['profile_image'],
+            'name': profile_data['response']['name'],
+        }
 
         with driver.session() as neo_session:
             result = neo_session.run("""MATCH (n {id: $id})
                                         WHERE n.sns = $sns
                                     RETURN n""",
                                     id=profile_data["response"]["id"], sns='naver')
-            return  jsonify(profile_data) if result.single() \
+            return redirect("http://localhost:8000/") if result.single() \
                 else redirect('http://localhost:8000/additRegister')
