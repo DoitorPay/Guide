@@ -93,7 +93,7 @@ function TodoList({
                                                     setTodoItems(updatedItems);
                                                 }} 
                                             />
-                                            <span className="title">{item.text}</span>
+                                            <span className={`title ${item.completed ? 'done' : ''}`}>{item.text}</span>
                                         </div>
                                         <div className="more">
                                             <svg width="16" height="5" viewBox="0 0 16 5" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -167,7 +167,7 @@ function TodoList({
                                                     setGroupTodos(updatedItems);
                                                 }} 
                                             />
-                                            <span className="title">{item.text}</span>
+                                            <span className={`title ${item.completed ? 'done' : ''}`}>{item.text}</span>
                                         </div>
                                         <div className="more">
                                             <svg width="16" height="5" viewBox="0 0 16 5" fill="none" xmlns="http://www.w3.org/2000/svg">

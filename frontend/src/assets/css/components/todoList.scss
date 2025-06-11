@@ -43,6 +43,10 @@
                         max-width: calc(300 / 16 * 1rem);
                         font-size: calc(var(--typo-size-body-1) / 16 * 1rem);
                         word-break: keep-all;
+
+                        &.done {
+                            color: var(--color-gray-scale-300);
+                        }
                     }
 
                     .title-input {
