@@ -9,6 +9,7 @@ import CmpHeader from "@/guide/cmpHeader";
 import MainLayout from "@/pages/mainLayout";
 import Navigation from "@/components/nav"; 
 import CheckboxDemo from "@/components/CheckboxDemo";
+import RouletteComponent from "@/components/roulette";
 
 const itemList = [
   { id: 1, name: "Guide헤더", path: "@/components/guideHeader", component: <GuideHeader /> },
@@ -19,6 +20,7 @@ const itemList = [
   { id: 6, name: "레이아웃", path: "@/pages/mainLayout", component: <MainLayout /> },
   { id: 7, name: "네비게이션", path: "@/components/nav", component: <Navigation /> },
   { id: 8, name: "체크박스", path: "@/components/Checkbox", component: <CheckboxDemo /> },
+  { id: 8, name: "룰렛", path: "@/components/roulette", component: <RouletteComponent /> },
   // { id: 9, name: "회원가입", path: "@/pages/SignUp", component: <SignUp /> },
 ];
 
