@@ -12,6 +12,7 @@
 @import '@/assets/css/components/icon.scss';
 @import '@/assets/css/components/nav.scss';
 @import 'signup.scss';
+@import '@/assets/css/components/todoList.scss';
 
 
 /* page */
