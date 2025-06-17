@@ -1,5 +1,5 @@
 import React from 'react';
-import '@/assets/css/components/mainLayout.scss';
+import Navigation from '@/components/nav';
 
 const MainLayout = () => {
   return (
@@ -18,11 +18,7 @@ const MainLayout = () => {
       </section>
 
       <footer className="bottom-nav">
-        <div className="nav-item" />
-        <div className="nav-item" />
-        <div className="nav-item" />
-        <div className="nav-item" />
-        <div className="nav-item" />
+        <Navigation/>
       </footer>
     </div>
     </div>

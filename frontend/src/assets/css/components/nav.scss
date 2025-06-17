@@ -5,6 +5,7 @@
         align-items: center;
         justify-content: center;
         padding: calc(16/16*1rem) calc(8/16*1rem) calc(24/16*1rem) calc(8/16*1rem);
+        border-top: 1px solid var(--color-gray-scale-50);
         li{
             display: flex;
             flex-direction: column;

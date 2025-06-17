@@ -56,20 +56,4 @@
       border-radius: calc(10 / 16 * 1rem);
     }
   }
-  
-  .bottom-nav {
-    height: calc(60 / 16 * 1rem);
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    background: #fff;
-    border-top: calc(1 / 16 * 1rem) solid #ccc;
-  
-    .nav-item {
-      width: calc(24 / 16 * 1rem);
-      height: calc(24 / 16 * 1rem);
-      background: #ccc;
-      border-radius: 50%;
-    }
-  }
 
