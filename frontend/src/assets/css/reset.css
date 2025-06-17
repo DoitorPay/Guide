@@ -13,6 +13,7 @@ html {
     border: 0;
     font-family: Pretendard-Regular;
     line-height: 1.4;
+    min-width: calc(480 / 16 * 1rem);
 }
 blockquote,
 body,

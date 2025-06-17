@@ -11,5 +11,8 @@
 @import '@/assets/css/components/cmpHeader.scss';
 @import '@/assets/css/components/icon.scss';
 @import '@/assets/css/components/nav.scss';
-@import '@/assets/css/signup.scss';
-@import '@/assets/css/components/todoList.scss';
+@import 'signup.scss';
+
+
+/* page */
+@import '@/assets/css/components/mainLayout.scss';

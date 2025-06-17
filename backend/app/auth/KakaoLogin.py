@@ -48,22 +48,25 @@ class KakaoCallback(Resource):
         headers = {"Authorization": f"Bearer {access_token}"}
         user_res = requests.get(user_info_url, headers=headers)
         user_info = user_res.json()
-
-        session['kakao_user'] = user_info
-
+        print(user_info)
+        session['user_data'] = {
+            'sns': 'kakao',
+            'id': user_info['id'],
+            'profile': user_info['properties']['profile_image'],
+            'name': user_info['properties']['nickname'],
+        }
         with driver.session() as neo_session:
             result = neo_session.run("""MATCH (n {id: $id})
+                                        WHERE n.sns = $sns
                                     RETURN n""",
-                                    id=user_info['properties']['nickname'])
-            user_info['registered'] = True if result.single() is not None \
-                else False
-
-        return jsonify(user_info)
+                                    id=user_info["id"], sns='kakao')
+            return redirect("http://localhost:8000/") if result.single()  \
+                else redirect('http://localhost:8000/additRegister')
 
 @ns_auth.route('/kakao/logout')
 class Logout(Resource):
     def get(self):
         """세션 로그아웃"""
-        session.pop('kakao_user', None)
+        session.pop('user_data', None)
         return {'message': '로그아웃 완료'}, 200
 
