@@ -1,0 +1,39 @@
+.wrapper {
+  background-color: #e6e6e6;
+}
+
+.main-layout {
+  width: 100%;
+  max-width: 30rem;
+  margin: 0 auto;
+  background: #ffffff;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  box-shadow: 0 0 1.25rem rgba(0, 0, 0, 0.15);
+}
+
+.category-nav {
+  display: flex;
+  justify-content: space-around;
+  padding: 0.5rem 0;
+  background: #fff;
+}
+.category-nav .category-item {
+  width: 3.75rem;
+  height: 3.75rem;
+  background: #eee;
+  border-radius: 0.5rem;
+}
+
+.content-area {
+  flex: 1;
+  padding: 1.25rem;
+}
+.content-area .content-box {
+  height: 6.25rem;
+  background: #ddd;
+  margin-bottom: 0.75rem;
+  border-radius: 0.625rem;
+}

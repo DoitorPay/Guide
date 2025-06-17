@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 // 컴포넌트 목록
-import GuideHeader from "@/components/guideHeader";
-import GuideFooter from "@/components/guideFooter";
 import Input from "@/components/input";
 import CmpButton from "@/guide/cmpButton"
 import Login from "@/pages/login";
@@ -12,8 +10,6 @@ import CheckboxDemo from "@/components/CheckboxDemo";
 import RouletteComponent from "@/components/roulette";
 
 const itemList = [
-  { id: 1, name: "Guide헤더", path: "@/components/guideHeader", component: <GuideHeader /> },
-  { id: 2, name: "Guide푸터", path: "@/components/guideFooter", component: <GuideFooter /> },
   { id: 3, name: "buttonItem", path: "@/guide/cmpButton", component: <CmpButton /> },
   { id: 4, name: "로그인", path: "@/pages/login", component: <Login /> },
   { id: 5, name: "Input", path: "@/components/input", component: <Input /> },
