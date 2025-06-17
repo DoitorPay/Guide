@@ -1,8 +1,8 @@
 .checkbox {
-    width: calc(48 / 16 * 1rem);
-    height: calc(48 / 16 * 1rem);
-    border-radius: calc(6/ 16 * 1rem);
-    border: calc(2/ 16 * 1rem) solid var(--color-gray-scale-100);
+    width: calc(20 / 16 * 1rem);
+    height: calc(20 / 16 * 1rem);
+    border-radius: calc(2 / 16 * 1rem);
+    border: calc(1 / 16 * 1rem) solid var(--color-gray-scale-100);
     background-color: var(--color-gray-scale-white);
     display: flex;
     align-items: center;
@@ -21,8 +21,8 @@
     }
   
     .check-icon {
-      width: calc(20 / 16 * 1rem);
-      height: calc(20 / 16 * 1rem);
+      width: calc(14 / 16 * 1rem);
+      height: calc(14 / 16 * 1rem);
       object-fit: contain;
       color: var(--color-gray-scale-white);
     }
