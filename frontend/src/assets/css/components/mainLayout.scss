@@ -23,13 +23,5 @@
     &::-webkit-scrollbar {
       display: none;
     }
-  
-    // 추후 삭제
-    .content-box {
-      height: calc(100 / 16 * 1rem);
-      background: #ddd;
-      margin-bottom: calc(12 / 16 * 1rem);
-      border-radius: calc(10 / 16 * 1rem);
-    }
   }
 
