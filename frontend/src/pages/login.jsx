@@ -2,6 +2,7 @@ import React from "react";
 
 const Login = () => {
   const handleSocialLogin = (provider) => {
+    localStorage.setItem('sns', provider);
     window.location.href = `http://localhost:8000/auth/${provider}/login`;
   };
 

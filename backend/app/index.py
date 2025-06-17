@@ -2,12 +2,14 @@ from flask import Flask, send_from_directory
 from flask_restx import Api, Resource
 from flask_cors import CORS
 
-
-import app.auth.NormalLogin as NormalLogin
 import app.auth.KakaoLogin as KakaoLogin
 import app.auth.NaverLogin as NaverLogin
 import app.auth.UserForm as UserForm
 from app.auth import ns_auth
+
+import app.user.todo as todo
+import app.user.UserInterest as UserInterest
+from app.user import ns_user
 
 import os
 from dotenv import load_dotenv
@@ -21,6 +23,7 @@ api = Api(server, version='1.0', title='딱!대 API',
 CORS(server, origins=["http://localhost:5173"])
 
 api.add_namespace(ns_auth)
+api.add_namespace(ns_user)
 
 @api.route('/', defaults={'path': ''})
 @api.route('/<path:path>')
