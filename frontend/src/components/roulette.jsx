@@ -53,7 +53,7 @@ const RouletteComponent = () => {
         }}
       />
 
-      <button onClick={handleSpinClick} style={{ marginTop: '30px' }}>
+      <button onClick={handleSpinClick}>
         룰렛 돌리기
       </button>
     </div>
