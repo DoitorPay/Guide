@@ -1,4 +1,5 @@
 import React from 'react';
+import '@/assets/css/components/mainLayout.scss';
 import Navigation from '@/components/nav';
 
 const MainLayout = () => {
@@ -6,18 +7,18 @@ const MainLayout = () => {
     <div className="wrapper">
     <div className="main-layout">
       <header className="header">
-        <div className="menu" />
-        <div className="icons" />
+        {/* <div className="menu" /> */}
+        {/* <div className="icons" /> */}
       </header>
 
       <section className="main-banner" />
 
       <section className="content-area">
-        <div className="content-box" />
-        <div className="content-box" />
+        {/* <div className="content-box" /> */}
+        {/* <div className="content-box" /> */}
       </section>
 
-      <footer className="bottom-nav">
+      <footer>
         <Navigation/>
       </footer>
     </div>
