@@ -1,15 +1,13 @@
 import React from 'react';
 import '@/assets/css/components/mainLayout.scss';
 import Navigation from '@/components/nav';
+import Header from "@/components/header"
 
 const MainLayout = () => {
   return (
     <div className="wrapper">
     <div className="main-layout">
-      <header className="header">
-        {/* <div className="menu" /> */}
-        {/* <div className="icons" /> */}
-      </header>
+      <Header />
 
       <section className="main-banner" />
 
