@@ -7,7 +7,6 @@ const RouletteComponent = () => {
   const [mustSpin, setMustSpin] = useState(false);
   const [prizeNumber, setPrizeNumber] = useState(0);
 
-  // 기본 더미 데이터 (입력값 없을 때 보여줄용)
   const defaultData = [
     { option: '옵션을 입력하세요' },
     { option: '추가해주세요' },
@@ -29,8 +28,8 @@ const RouletteComponent = () => {
   const dataToUse = options.length > 0 ? options : defaultData;
 
   return (
-    <div style={{ textAlign: 'center', marginTop: '50px' }}>
-      <div style={{ marginBottom: '20px' }}>
+    <div>
+      <div>
         <input
           type="text"
           value={inputValue}
@@ -46,8 +45,6 @@ const RouletteComponent = () => {
         mustStartSpinning={mustSpin}
         prizeNumber={prizeNumber}
         data={dataToUse}
-        backgroundColors={['#3e3e3e', '#df3428']}
-        textColors={['#ffffff']}
         onStopSpinning={() => {
           setMustSpin(false);
           if (options.length > 0) {
