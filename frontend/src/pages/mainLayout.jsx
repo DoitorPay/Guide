@@ -8,12 +8,20 @@ const MainLayout = () => {
     <div className="wrapper">
     <div className="main-layout">
       <Header />
-
-      <section className="main-banner" />
-
       <section className="content-area">
-        {/* <div className="content-box" /> */}
-        {/* <div className="content-box" /> */}
+        <div className="content-box" />
+        <div className="content-box" />
+        <div className="content-box" />
+        <div className="content-box" />
+        <div className="content-box" />
+        <div className="content-box" />
+        <div className="content-box" />
+        <div className="content-box" />
+        <div className="content-box" />
+        <div className="content-box" />
+        <div className="content-box" />
+        <div className="content-box" />
+        <div className="content-box" />
       </section>
 
       <footer>
