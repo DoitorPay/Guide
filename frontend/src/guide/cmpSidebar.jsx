@@ -8,6 +8,7 @@ import MainLayout from "@/pages/mainLayout";
 import Navigation from "@/components/nav"; 
 import CheckboxDemo from "@/components/CheckboxDemo";
 import RouletteComponent from "@/components/roulette";
+import TagGuide from "@/guide/tagGuide";
 import CmpTodoList from "@/guide/cmpTodoList";
 
 const itemList = [
@@ -19,7 +20,8 @@ const itemList = [
   { id: 8, name: "체크박스", path: "@/components/Checkbox", component: <CheckboxDemo /> },
   { id: 9, name: "룰렛", path: "@/components/roulette", component: <RouletteComponent /> },
   { id: 10, name: "헤더", path: "@/guide/cmpHeader", component: <CmpHeader />},
-  { id: 11, name: "투두리스트", path: "@/components/todoList", component: <CmpTodoList />}
+  { id: 11, name: "태그", path: "@/guide/tagGuide", component: <TagGuide />},
+  { id: 12, name: "투두리스트", path: "@/components/todoList", component: <CmpTodoList />}
   // { id: 9, name: "회원가입", path: "@/pages/SignUp", component: <SignUp /> },
 ];
 
