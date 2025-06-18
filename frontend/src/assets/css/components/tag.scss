@@ -1,0 +1,21 @@
+.tag-wrapper{
+    max-width: calc(350/16*1rem);
+    display: flex;
+    flex-wrap: wrap;
+    gap: calc(12/16*1rem);
+    
+    li {
+        font-size: calc(var(--typo-size-body-1)/16*1rem);
+        color: var(--color-gray-scale-800);
+        cursor: pointer;
+        padding: calc(12/16*1rem) calc(20/16*1rem);
+        border-radius: calc(100/16*1rem);
+        border: 1px solid var(--color-gray-scale-50);
+
+        &.active {
+            border-color: var(--color-red-vari-500);
+            background-color: var(--color-red-vari-50);
+            font-weight: var(--typo-weight-semibold);
+          }
+    }
+}

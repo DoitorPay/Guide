@@ -40,6 +40,7 @@ const sections = [
       { name: "Red 200", code: "#F8B3A4", variable: "--color-red-vari-200" },
       { name: "Red 300", code: "#F5907A", variable: "--color-red-vari-300" },
       { name: "Red 400", code: "#F37B61", variable: "--color-red-vari-400" },
+      { name: "Red 500", code: "#F05A39", variable: "--color-red-vari-500" },
       { name: "Red 600", code: "#DA5234", variable: "--color-red-vari-600" },
       { name: "Red 700", code: "#AA4028", variable: "--color-red-vari-700" },
       { name: "Red 800", code: "#84321F", variable: "--color-red-vari-800" },
