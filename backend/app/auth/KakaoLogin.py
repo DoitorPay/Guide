@@ -52,8 +52,8 @@ class KakaoCallback(Resource):
         session['user_data'] = {
             'sns': 'kakao',
             'id': user_info['id'],
-            'profile': user_info['properties']['profile_image'],
-            'name': user_info['properties']['nickname'],
+            'profile': user_info['properties']['profile_image'] if 'profile_image' in user_info['properties'] else ' ',
+            'name': user_info['properties']['nickname'] if 'nickname' in user_info['properties'] else ' ',
         }
         with driver.session() as neo_session:
             result = neo_session.run("""MATCH (n {id: $id})
