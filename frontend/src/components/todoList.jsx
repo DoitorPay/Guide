@@ -2,16 +2,7 @@ import React, { useState } from 'react';
 import Checkbox from '@/components/checkBox';
 import Input from '@/components/input';
 
-
-function TodoList({
-    type
-
-
-}) {
-
-    // const [exampleTodo] = useState([
-    // ]);
-
+const TodoList = ({ type }) => {
     const [todoItems, setTodoItems] = useState([
         // { id: 1, text: '투두리스트', completed: false },
         // { id: 2, text: '동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세', completed: false }
@@ -26,17 +17,34 @@ function TodoList({
     const [newTodoText, setNewTodoText] = useState('');
     const [isAddingTodo, setIsAddingTodo] = useState(false);
 
-    function addTodo() {
+    async function addTodo() {
         if (isAddingTodo) {
             if (newTodoText.trim()) {
-                const newTodo = {
-                    id: Math.max(...todoItems.map(item => item.id), 0) + 1,
-                    text: newTodoText.trim(),
-                    completed: false
-                };
-                
-                setTodoItems([...todoItems, newTodo]);
-                setNewTodoText('');
+                try {
+                    const playload = {
+                        list: newTodoText.trim(),
+                    };
+
+                    const response = await fetch('http://localhost:8000/user/user-todo', {
+                        method: 'POST',
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify(playload),
+                    });
+
+                    if (!response.ok) {
+                        const errorData = await response.json();
+                        console.error('투두 추가 에러:', errorData);
+                        alert('투두 추가 중 오류가 발생했습니다. 다시 시도해주세요.');
+                        return;
+                    }
+
+                    const addedTodo = await response.json(); // 백엔드에서 추가된 투두 데이터 (id 포함) 반환
+                    setTodoItems([...todoItems, addedTodo]);
+                    setNewTodoText('');
+                } catch (error) {
+                    console.error('네트워크 에러 또는 서버 응답 문제:', error);
+                    alert('서버와 통신 중 오류가 발생했습니다. 네트워크 연결을 확인해주세요.');
+                }
             }
             setIsAddingTodo(false);
         } else {
@@ -332,5 +340,8 @@ function TodoList({
         </div>
     )
 }
+
+
+
 
 export default TodoList;
