@@ -21,14 +21,14 @@ const TodoList = ({ type }) => {
         if (isAddingTodo) {
             if (newTodoText.trim()) {
                 try {
-                    const playload = {
+                    const payload = {
                         list: newTodoText.trim(),
                     };
 
                     const response = await fetch('http://localhost:8000/user/user-todo', {
                         method: 'POST',
                         headers: {'Content-Type': 'application/json'},
-                        body: JSON.stringify(playload),
+                        body: JSON.stringify(payload),
                     });
 
                     if (!response.ok) {
@@ -38,7 +38,7 @@ const TodoList = ({ type }) => {
                         return;
                     }
 
-                    const addedTodo = await response.json(); // 백엔드에서 추가된 투두 데이터 (id 포함) 반환
+                    const addedTodo = await response.json(); 
                     setTodoItems([...todoItems, addedTodo]);
                     setNewTodoText('');
                 } catch (error) {
