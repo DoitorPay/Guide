@@ -50,8 +50,8 @@ class NaverCallback(Resource):
         session['user_data'] = {
             'sns': 'naver',
             'id': profile_data['response']['id'],
-            'profile': profile_data['response']['profile_image'],
-            'name': profile_data['response']['name'],
+            'profile': profile_data['response']['profile_image'] if 'profile_image' in profile_data['response'] else ' ',
+            'name': profile_data['response']['name'] if 'name' in profile_data['response'] else ' ',
         }
 
         with driver.session() as neo_session:

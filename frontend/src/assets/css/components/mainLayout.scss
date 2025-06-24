@@ -1,75 +1,27 @@
 .wrapper {
-  background-color: #e6e6e6;
+  background-color: var(--color-gray-scale-100);
 }
 
 .main-layout {
     width: 100%;
     max-width: calc(480 / 16 * 1rem);
+    min-width: calc(480 / 16 * 1rem);
     margin: 0 auto;
-    background: #ffffff;
+    background: var(--color-gray-scale-white);
     height: 100vh;
     display: flex;
     flex-direction: column;
     position: relative;
     box-shadow: 0 0 calc(20 / 16 * 1rem) rgba(0, 0, 0, 0.15);
   }
-
-  .header {
-    height: calc(50 / 16 * 1rem);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 calc(12 / 16 * 1rem);
-    background: #fff;
-  
-    .menu,
-    .logo,
-    .icons {
-      width: calc(24 / 16 * 1rem);
-      height: calc(24 / 16 * 1rem);
-      background: #ccc;
-    }
-  }
-  
-  .category-nav {
-    display: flex;
-    justify-content: space-around;
-    padding: calc(8 / 16 * 1rem) 0;
-    background: #fff;
-  
-    .category-item {
-      width: calc(60 / 16 * 1rem);
-      height: calc(60 / 16 * 1rem);
-      background: #eee;
-      border-radius: calc(8 / 16 * 1rem);
-    }
-  }
   
   .content-area {
     flex: 1;
-    padding: calc(12 / 16 * 1rem);
-  
-    .content-box {
-      height: calc(100 / 16 * 1rem);
-      background: #ddd;
-      margin-bottom: calc(12 / 16 * 1rem);
-      border-radius: calc(10 / 16 * 1rem);
-    }
-  }
-  
-  .bottom-nav {
-    height: calc(60 / 16 * 1rem);
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    background: #fff;
-    border-top: calc(1 / 16 * 1rem) solid #ccc;
-  
-    .nav-item {
-      width: calc(24 / 16 * 1rem);
-      height: calc(24 / 16 * 1rem);
-      background: #ccc;
-      border-radius: 50%;
+    padding: calc(20 / 16 * 1rem);
+    height: 100%;
+    overflow-y: scroll;
+    &::-webkit-scrollbar {
+      display: none;
     }
   }
 

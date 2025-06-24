@@ -22,7 +22,7 @@ const StudyTopic = () => {
 
   const handleSubmit = async () => {
   try {
-    const kakaoId = localStorage.getItem('kakao_id');
+    // const kakaoId = localStorage.getItem('kakao_id');
 
     const response = await fetch('http://localhost:8000/user/topics', {
       method: 'POST',
@@ -30,7 +30,7 @@ const StudyTopic = () => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        kakao_id: kakaoId,
+        //kakao_id: kakaoId,
         topics: selectedTopics,
       }),
     });

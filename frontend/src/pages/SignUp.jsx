@@ -17,20 +17,19 @@ const SignUp = () => {
   if (!isFormValid) return;
 
   try {
-    const id = localStorage.getItem('id');   
-    const sns = localStorage.getItem('sns');  
+    // const id = localStorage.getItem('id');
+    // const sns = localStorage.getItem('sns');
 
-    if (!id || !sns) {
-      alert('로그인 정보가 없습니다.');
-      return;
-    }
+    // if (!sns) {
+    //   alert('로그인 정보가 없습니다.');
+    //   return;
+    // }
 
     const payload = {
       nickname,
       birthdate,
       gender,
-      email,
-      ...(sns === 'kakao' ? { kakao_id: id } : { naver_id: id })
+      email
     };
 
     const response = await fetch('http://localhost:8000/auth/register', {
