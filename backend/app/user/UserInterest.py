@@ -9,7 +9,6 @@ from app.user import ns_user
 class UpdateInterest(Resource):
     def post(self):
         topics = request.get_json()
-        print(topics)
         with driver.session() as neo_session:
             neo_session.run(
                 '''
