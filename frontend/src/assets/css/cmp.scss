@@ -6,42 +6,42 @@
 
   &__itemList {
     ul {
-      width: 200px;
+      width: calc(200 / 16 * 1rem);
       position: sticky;
-      min-height: 500px;
-      top: 100px;
-      border: 1px solid #c6c6c6;
-      border-radius: 12px;
-      padding: 20px;
+      min-height: calc(500 / 16 * 1rem);
+      top: calc(100 / 16 * 1rem);
+      border: calc(1 / 16 * 1rem) solid #c6c6c6;
+      border-radius: calc(12 / 16 * 1rem);
+      padding: calc(20 / 16 * 1rem);
       white-space: nowrap;
     }
 
     li {
       display: block;
-      font-size: 18px;
-      line-height: 18px;
+      font-size: calc(18 / 16 * 1rem);
+      line-height: calc(18 / 16 * 1rem);
       color: #222;
-      padding: 24px 0;
-      border-bottom: 1px solid #c6c6c6;
+      padding: calc(24 / 16 * 1rem) 0;
+      border-bottom: calc(1 / 16 * 1rem) solid #c6c6c6;
     }
   }
 
   &__components {
     padding: 2rem;
     width: 100%;
-    border: 1px solid #e2e8f0;
+    border: calc(1 / 16 * 1rem) solid #e2e8f0;
 
     h3 {
       font-size: 1.5rem;
       font-weight: 700;
-      padding: 12px 0;
+      padding: calc(12 / 16 * 1rem) 0;
     }
 
     .cmp-channel {
-      border: 1px solid #c6c6c6;
-      border-radius: 6px;
-      padding: 16px;
-      margin-bottom: 16px;
+      border: calc(1 / 16 * 1rem) solid #c6c6c6;
+      border-radius: calc(6 / 16 * 1rem);
+      padding: calc(16 / 16 * 1rem);
+      margin-bottom: calc(16 / 16 * 1rem);
     }
   }
 }

@@ -1,17 +1,28 @@
 import React, { useState } from "react";
 // 컴포넌트 목록
-import Header from "@/components/header";
-import Footer from "@/components/footer";
 import Input from "@/components/input";
 import CmpButton from "@/guide/cmpButton"
 import Login from "@/pages/login";
+import CmpHeader from "@/guide/cmpHeader";
+import MainLayout from "@/pages/mainLayout";
+import Navigation from "@/components/nav"; 
+import CheckboxDemo from "@/components/CheckboxDemo";
+import RouletteComponent from "@/components/roulette";
+import TagGuide from "@/guide/tagGuide";
+import CmpTodoList from "@/guide/cmpTodoList";
 
 const itemList = [
-  { id: 1, name: "헤더", path: "@/components/header", component: <Header /> },
-  { id: 2, name: "푸터", path: "@/components/footer", component: <Footer /> },
-  { id: 3, name: "buttonItem", path: "@/guide/cmpButton", component: <CmpButton /> },
+  { id: 3, name: "버튼", path: "@/guide/cmpButton", component: <CmpButton /> },
   { id: 4, name: "로그인", path: "@/pages/login", component: <Login /> },
   { id: 5, name: "Input", path: "@/components/input", component: <Input /> },
+  { id: 6, name: "레이아웃", path: "@/pages/mainLayout", component: <MainLayout /> },
+  { id: 7, name: "네비게이션", path: "@/components/nav", component: <Navigation /> },
+  { id: 8, name: "체크박스", path: "@/components/Checkbox", component: <CheckboxDemo /> },
+  { id: 9, name: "룰렛", path: "@/components/roulette", component: <RouletteComponent /> },
+  { id: 10, name: "헤더", path: "@/guide/cmpHeader", component: <CmpHeader />},
+  { id: 11, name: "태그", path: "@/guide/tagGuide", component: <TagGuide />},
+  { id: 12, name: "투두리스트", path: "@/components/todoList", component: <CmpTodoList />}
+  // { id: 9, name: "회원가입", path: "@/pages/SignUp", component: <SignUp /> },
 ];
 
 export default function CmpSidebar() {

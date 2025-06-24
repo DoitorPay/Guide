@@ -1,45 +1,40 @@
-from flask import Flask, request, jsonify
-from flask_restx import Api, Resource, fields
+from flask import Flask, send_from_directory
+from flask_restx import Api, Resource
 from flask_cors import CORS
-from neo4j import GraphDatabase
+
+import app.auth.KakaoLogin as KakaoLogin
+import app.auth.NaverLogin as NaverLogin
+import app.auth.UserForm as UserForm
+from app.auth import ns_auth
+
+import app.user.todo as todo
+import app.user.UserInterest as UserInterest
+from app.user import ns_user
 
 import os
 from dotenv import load_dotenv
-
-app = Flask(__name__)
-api = Api(app, version='1.0', title='딱!대 API',
-          description='딱!대 api')
-CORS(app, origins=["http://localhost:5173"])
 load_dotenv()
+server = Flask("딱!대",
+               static_folder='../dist',
+               template_folder='../dist',)
+server.secret_key = os.getenv('APP_SECRET_KEY')
+api = Api(server, version='1.0', title='딱!대 API',
+          description='딱!대 api')
+CORS(server, origins=["http://localhost:5175"])
 
-# neo4j 연결 설정
-NEO4J_URI = os.getenv("NEO4J_URI")
-NEO4J_USER = os.getenv("NEO4J_USERNAME")
-NEO4J_PASSWORD = os.getenv("NEO4J_PASSWORD")
-print(NEO4J_URI)
-driver = GraphDatabase.driver(NEO4J_URI, auth=(NEO4J_USER, NEO4J_PASSWORD))
+api.add_namespace(ns_auth)
+api.add_namespace(ns_user)
 
-# 네임스페이스 정의
-ns = api.namespace('', description='인증 관련 API')
-
-# 요청/응답 모델 정의
-login_model = api.model('Login', {
-    'username': fields.String(required=True, description='사용자 ID'),
-    'password': fields.String(required=True, description='비밀번호')
-})
-
-@ns.route('/login')
-class Login(Resource):
-    @ns.expect(login_model)
-    def post(self):
-        """로그인 요청"""
-        data = api.payload
-        with driver.session() as session:
-            result = session.run("""
-                                        MATCH (n {id: $id, password: $password})
-                                        RETURN n""",
-                                 id=data['username'], password=data['password'])
-            return jsonify({"success": result.single() is not None})
+@api.route('/', defaults={'path': ''})
+@api.route('/<path:path>')
+class SPA(Resource):
+    def get(self, path):
+        full_path = os.path.join(server.static_folder, path)
+        # 실제 파일 요청이면 그대로 서빙
+        if path and os.path.isfile(full_path):
+            return send_from_directory(server.static_folder, path)
+        # 그 외는 index.html 반환
+        return send_from_directory(server.template_folder, 'index.html')
 
 if __name__ == "__main__":
-    app.run(debug=True, port=8000)
+    server.run(debug=True, port=8000)

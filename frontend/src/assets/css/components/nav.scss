@@ -1,0 +1,25 @@
+.nav-wrapper{
+    width: 100%;
+    ul{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: calc(16/16*1rem) calc(8/16*1rem) calc(24/16*1rem) calc(8/16*1rem);
+        border-top: 1px solid var(--color-gray-scale-50);
+        li{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            width: calc(78/16*1rem);
+            font-size: calc(var(--typo-size-body-5)/16*1rem);
+            font-weight: var(--typo-weight-medium);
+            cursor: pointer;
+            svg {
+                width: calc(24/16*1rem);
+                height: calc(24/16*1rem);
+                margin-bottom: calc(8/16*1rem);
+              }
+        }
+    }
+}

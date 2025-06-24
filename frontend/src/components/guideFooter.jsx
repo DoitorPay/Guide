@@ -2,7 +2,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function Footer() {
+function GuideFooter() {
   return (
     <>
       <div>
@@ -31,4 +31,4 @@ function Footer() {
   );
 }
 
-export default Footer;
+export default GuideFooter;

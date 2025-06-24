@@ -1,22 +1,69 @@
 // Button.scss
-button {
-    width: calc(64 / 16 * 1rem);
-    height: calc(33 / 16 * 1rem);
-    border-radius: calc(8 / 16 * 1rem);
+.btn {
+    border-radius: calc(4 / 16 * 1rem);
     border: none;
-    background-color: #1A2933;   //디자인가이드 확정시 variables에 업데이트
-    color: #fff;
-    font-size: calc(var(--typo-size-body-5) / 16 * 1rem);
-    font-weight: var(--typo-weight-semibold);
-    &:hover {
-        background-color: #505050;
-    }
-    &:active {
-        background-color: #303030;
-    }
+
+    &.btn- {
+        &default {
+            min-width: calc(64 / 16 * 1rem);
+            height: calc(33 / 16 * 1rem);
+            background-color: #1A2933;   //디자인가이드 확정시 variables에 업데이트
+            color: #fff;
+            font-size: calc(var(--typo-size-body-5) / 16 * 1rem);
+            font-weight: var(--typo-weight-semibold);
+            padding: calc(8 / 16 * 1rem) calc(16 / 16 * 1rem);
     
-    &:disabled {
-        opacity: .4;
-        cursor: not-allowed;
+            &:active {
+                background-color: #303030;
+            }
+            &:disabled {
+                opacity: .4;
+                cursor: not-allowed;
+            }
+        }
+    
+        &primary {
+            width: 100%;
+            height: calc(46 / 16 * 1rem);
+            background-color: var(--color-primary);
+            color: #fff;
+            font-size: calc(var(--typo-size-btn-1) / 16 * 1rem);
+            font-weight: var(--typo-weight-bold);
+            padding: calc(12 / 16 * 1rem) calc(16 / 16 * 1rem);
+    
+            &:disabled {
+                opacity: .4;
+                cursor: not-allowed;
+            }
+        }
+
+        &secondary {
+            width: 100%;
+            height: calc(40 / 16 * 1rem);
+            background-color: var(--color-primary);
+            color: #fff;
+            font-size: calc(var(--typo-size-btn-1) / 16 * 1rem);
+            font-weight: var(--typo-weight-bold);
+            padding: calc(12 / 16 * 1rem) calc(16 / 16 * 1rem);
+    
+            &:disabled {
+                opacity: .4;
+                cursor: not-allowed;
+            }
+        }
+        &close {
+            width: 100%;
+            height: calc(40 / 16 * 1rem);
+            background-color: var(--color-gray-scale-50);
+            color: #000;
+            font-size: calc(var(--typo-size-btn-1) / 16 * 1rem);
+            font-weight: var(--typo-weight-bold);
+            padding: calc(12 / 16 * 1rem) calc(16 / 16 * 1rem);
+    
+            &:disabled {
+                opacity: .4;
+                cursor: not-allowed;
+            }
+        }
     }
 }
