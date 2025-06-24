@@ -20,7 +20,7 @@ server = Flask("딱!대",
 server.secret_key = os.getenv('APP_SECRET_KEY')
 api = Api(server, version='1.0', title='딱!대 API',
           description='딱!대 api')
-CORS(server, origins=["http://localhost:5173"])
+CORS(server, origins=["http://localhost:5175"])
 
 api.add_namespace(ns_auth)
 api.add_namespace(ns_user)
