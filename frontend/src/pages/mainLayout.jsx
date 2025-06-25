@@ -3,6 +3,7 @@ import '@/assets/css/components/mainLayout.scss';
 import Navigation from '@/components/nav';
 import Header from "@/components/header"
 
+
 const MainLayout = ({ children, headerProps }) => {
   return (
     <div className="wrapper">

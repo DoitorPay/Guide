@@ -1,0 +1,91 @@
+.week-calendar {
+  .day-list {
+    display: flex;
+    justify-content: center;
+
+    .day-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border-radius: calc(100/16*1rem);
+      cursor: pointer;
+      font-size: calc(var(--typo-size-body-3)/16*1rem);
+      font-weight: var(--typo-weight-semibold);
+
+      .label {
+        color: var(--color-gray-scale-400);
+      }
+
+      .date {
+        color: var(--color-gray-scale-700);
+      }
+
+      .check {
+        display: block;
+        opacity: 0;
+
+        &.visible {
+          opacity: 1;
+        }
+      }
+    }
+  }
+
+  &.default {
+    .day-list {
+      gap: 2px;
+      .day-item {
+        width: calc(48/16*1rem);
+        height: calc(81/16*1rem);
+        justify-content: center;
+        border: 1px solid var(--color-gray-scale-100);
+        // padding: calc(9.5/16*1rem) calc(16/16*1rem);
+      }
+    }
+  }
+
+  &.todolist {
+    .calendar-header {
+      margin-bottom: calc(16/16*1rem);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .month-label {
+        font-weight: var(--typo-weight-bold	);
+        font-size: calc(var(--typo-size-heading-4	)/16*1rem);
+      }
+      .button-wrap {
+        display: flex;
+        button {
+          display: flex;
+        }
+      }
+    }
+    .day-list {
+      gap: calc(10.5/16*1rem);
+      .day-item {
+        // padding: calc(9.5/16*1rem) calc(12.5/16*1rem);
+        width: calc(41/16*1rem);
+        height: calc(60/16*1rem);
+        justify-content: center;
+        &.checked {
+          background-color: var(--color-primary);
+
+          .label {
+            color: var(--color-gray-scale-white);
+          }
+
+          .date {
+            color: var(--color-gray-scale-white);
+          }
+
+          color: var(--color-gray-scale-white);
+        }
+
+        .check {
+          display: none;
+        }
+      }
+    }
+  }
+}
