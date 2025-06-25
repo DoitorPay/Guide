@@ -1,30 +1,29 @@
 .checkbox {
-    width: calc(20 / 16 * 1rem);
-    height: calc(20 / 16 * 1rem);
-    border-radius: calc(2 / 16 * 1rem);
-    border: calc(1 / 16 * 1rem) solid var(--color-gray-scale-100);
-    background-color: var(--color-gray-scale-white);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    
-    &.checked {
-      background-color: var(--color-primary);
-      border: none;
-    }
-  
-    &.disabled {
-      cursor: not-allowed;
-      opacity: 0.5;
-    }
-  
-    .check-icon {
-      width: calc(14 / 16 * 1rem);
-      height: calc(14 / 16 * 1rem);
-      object-fit: contain;
-      color: var(--color-gray-scale-white);
-    }
+  width: clamp(20px, 5vw, 24px);
+  height: clamp(20px, 5vw, 24px);
+  border-radius: clamp(2px, 0.5vw, 4px);
+  border: clamp(1px, 0.3vw, 2px) solid var(--color-gray-scale-100);
+  background-color: var(--color-gray-scale-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &.checked {
+    background-color: var(--color-primary);
+    border: none;
   }
-  
+
+  &.disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  .check-icon {
+    width: clamp(14px, 3.5vw, 18px);
+    height: clamp(14px, 3.5vw, 18px);
+    object-fit: contain;
+    color: var(--color-gray-scale-white);
+  }
+}

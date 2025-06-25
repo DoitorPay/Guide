@@ -7,9 +7,9 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      border-radius: calc(100/16*1rem);
+      border-radius: clamp(50px, 8vw, 100px);
       cursor: pointer;
-      font-size: calc(var(--typo-size-body-3)/16*1rem);
+      font-size: calc(var(--typo-size-body-3) / 16 * 1rem);
       font-weight: var(--typo-weight-semibold);
 
       .label {
@@ -28,9 +28,12 @@
           opacity: 1;
         }
       }
+
       &.today {
         background-color: var(--color-primary);
-        .label, .date {
+
+        .label,
+        .date {
           color: var(--color-gray-scale-white);
         }
       }
@@ -39,65 +42,77 @@
 
   &.default {
     .day-list {
-      gap: 2px;
+      gap: clamp(1px, 0.5vw, 2px);
+
       .day-item {
-        width: calc(48/16*1rem);
-        height: calc(81/16*1rem);
+        width: clamp(40px, 12vw, 48px);
+        height: clamp(70px, 20vw, 81px);
         justify-content: center;
         border: 1px solid var(--color-gray-scale-100);
-        // padding: calc(9.5/16*1rem) calc(16/16*1rem);
       }
     }
   }
 
   &.todolist {
     .calendar-header {
-      margin-bottom: calc(16/16*1rem);
+      margin-bottom: clamp(12px, 3vw, 16px);
       display: flex;
       justify-content: space-between;
       align-items: center;
+
       .month-label {
-        font-weight: var(--typo-weight-bold	);
-        font-size: calc(var(--typo-size-heading-4	)/16*1rem);
+        font-weight: var(--typo-weight-bold);
+        font-size: calc(var(--typo-size-heading-4) / 16 * 1rem);
       }
+
       .button-wrap {
         display: flex;
+
         button {
           display: flex;
         }
       }
     }
+
     .day-list {
-      gap: calc(10.5/16*1rem);
+      gap: clamp(6px, 3vw, 10.5px);
+
       .day-item {
-        // padding: calc(9.5/16*1rem) calc(12.5/16*1rem);
-        width: calc(41/16*1rem);
-        height: calc(60/16*1rem);
+        width: clamp(36px, 11vw, 41px);
+        height: clamp(52px, 16vw, 60px);
         justify-content: center;
 
-        &.today.checked{
-          .label, .date {
+        &.today.checked {
+          .label,
+          .date {
             color: var(--color-gray-scale-white);
           }
         }
+
         &.inactive-today {
           background-color: var(--color-red-vari-50);
+
           .label {
             color: var(--color-gray-scale-300);
           }
+
           .date {
             color: var(--color-gray-scale-700);
           }
         }
+
         &.checked {
           border: 1px solid var(--color-primary);
+
           .label {
             color: var(--color-gray-scale-700);
           }
+
           .date {
             color: var(--color-gray-scale-black);
           }
         }
+
         .check {
           display: none;
         }

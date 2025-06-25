@@ -1,45 +1,39 @@
-// cmpHeader.scss
 header.cmp-header {
-    // Dev
-    // box-shadow: 0 0 15px rgba(0, 0, 0, .25);
-    // border: solid .5px #000;
-
-
     width: 100%;
-    // height: calc(54 / 16 * 1rem); 
-    // 로고 img box의 높이값 문제로 헤더 높이 하드코딩. 추후 해결예정
     background-color: #fff;
-
+  
     nav {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      padding: clamp(12px, 3vw, 20px) clamp(20px, 5vw, 28px);
+  
+      .logo {
+        img {
+          width: clamp(62px, 16vw, 80px);
+          object-fit: fill;
+          margin: 0;
+          display: block;
+        }
+  
+        &__title {
+          font-size: calc(var(--typo-size-heading-4) / 16 * 1rem); // 변수 그대로 유지
+          font-weight: 700;
+        }
+      }
+  
+      .menu {
         display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        padding: calc(12 / 16 * 1rem) calc(20 / 16 * 1rem);
-        .logo {
-
-            img {
-                width: calc(62 / 16 * 1rem);
-                object-fit: fill;
-                margin: 0;
-                display: block;
-            }
-            &__title {
-                // width: 100%;
-                font-size: calc(var(--typo-size-heading-4) / 16 * 1rem);
-                font-weight: 700;
-            }
-        }
-
-        .menu {
+        align-items: center;
+  
+        &__list {
+          padding: 0;
+  
+          li {
             display: flex;
-            align-items: center;
-            &__list {
-                padding: 0;
-                
-                li {
-                    display: flex;
-                }
-            }
+          }
         }
+      }
     }
-}
+  }
+  
