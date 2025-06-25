@@ -49,9 +49,16 @@
       margin-bottom: calc(16/16*1rem);
       display: flex;
       justify-content: space-between;
+      align-items: center;
       .month-label {
         font-weight: var(--typo-weight-bold	);
         font-size: calc(var(--typo-size-heading-4	)/16*1rem);
+      }
+      .button-wrap {
+        display: flex;
+        button {
+          display: flex;
+        }
       }
     }
     .day-list {

@@ -63,7 +63,7 @@ const WeekCalendar = ({ type = 'default' }) => {
           <span className="month-label">
             {format(currentDate, 'yyyy년 M월', { locale: ko })}
           </span>
-          <div>
+          <div className='button-wrap'>
             <button onClick={goPrevWeek} className="arrow">
                 <img src={leftArrow} alt='이전으로' />
             </button>
