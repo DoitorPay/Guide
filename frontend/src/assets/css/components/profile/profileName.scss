@@ -1,0 +1,23 @@
+.profile-name {
+  font-weight: 600;
+  color: var(--color-gray-scale-black);
+
+  &.sm {
+    font-size: 0.875rem;
+  }
+
+  &.md {
+    font-size: 1rem;
+  }
+
+  &.lg {
+    font-size: 1.25rem;
+  }
+}
+
+.profile-name-link {
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+}

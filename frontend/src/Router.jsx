@@ -8,7 +8,8 @@ import FrontGuide from "@/guide/frontGuide";
 import GuideHeader from "@/components/guideHeader";
 import Login from "@/pages/login";
 import SignUp from "@/pages/SignUp.jsx";
-import StudyTopic from "@/pages/studyTopic.jsx"
+import StudyTopic from "@/pages/studyTopic.jsx";
+import GroupDetail from "@/pages/GroupDetail.jsx";
 
 const Home = () => <div>메인화면입니모</div>;
 
@@ -25,6 +26,7 @@ const Router = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/additRegister" element={<SignUp />} />
         <Route path="/studytopic" element={<StudyTopic />} />
+        <Route path="/groupdetailguide" element={<GroupDetail/>} />
       </Routes>
     </BrowserRouter>
   );

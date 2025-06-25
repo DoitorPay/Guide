@@ -6,11 +6,13 @@ import Login from "@/pages/login";
 import CmpHeader from "@/guide/cmpHeader";
 import MainLayout from "@/pages/mainLayout";
 import Navigation from "@/components/nav"; 
-import CheckboxDemo from "@/components/CheckboxDemo";
+import CheckboxDemo from "@/guide/CheckboxDemo";
 import RouletteComponent from "@/components/roulette";
 import TagGuide from "@/guide/tagGuide";
 import CmpTodoList from "@/guide/cmpTodoList";
 import CalendarGuide from '@/guide/calendarGuide';
+import ProfileGuide from "@/guide/cmpProfile";
+import GroupCardDemo from "@/guide/GroupCardDemo";
 
 const itemList = [
   { id: 3, name: "버튼", path: "@/guide/cmpButton", component: <CmpButton /> },
@@ -24,7 +26,9 @@ const itemList = [
   { id: 11, name: "태그", path: "@/guide/tagGuide", component: <TagGuide />},
   { id: 12, name: "투두리스트", path: "@/components/todoList", component: <CmpTodoList />},
   { id: 13, name: "캘린더", path: "@/guide/calendarGuide", component: <CalendarGuide />},
-  // { id: 9, name: "회원가입", path: "@/pages/SignUp", component: <SignUp /> },
+  { id: 14, name: "프로필", path: "@/guide/cmpProfile", component: <ProfileGuide />},
+  { id: 15, name: "그룹 카드", path: "@/guide/GroupCardDemo", component: <GroupCardDemo />},
+  
 ];
 
 export default function CmpSidebar() {

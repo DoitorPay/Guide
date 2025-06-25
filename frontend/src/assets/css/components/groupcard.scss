@@ -1,0 +1,64 @@
+.group-card {
+  width: 100%;
+  max-width: 400px;
+  background: #fff;
+  border-radius: 5%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  .thumbnail-wrapper {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+
+    .thumbnail {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .info-wrapper {
+    padding: clamp(12px, 4vw, 20px);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    .group-title {
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: #333;
+    }
+
+    .group-meta {
+      display: flex;
+      flex-direction: row;
+      font-size: 0.875rem;
+      color: #555;
+
+      .label {
+        font-weight: 500;
+        margin-right: 4px;
+        color: #888;
+      }
+
+      .value {
+        font-weight: 600;
+      }
+    }
+  }
+
+  .arrow-button {
+    position: absolute;
+    right: clamp(12px, 3vw, 16px);
+    bottom: clamp(12px, 3vw, 16px);
+    background: none;
+    border: none;
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #aaa;
+    cursor: pointer;
+  }
+}

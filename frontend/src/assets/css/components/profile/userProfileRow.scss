@@ -1,0 +1,46 @@
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-gray-scale-black);
+
+  &.user-horizontal {
+    flex-direction: row;
+
+    .user-info {
+      display: flex;
+      flex-direction: column;
+
+      .user-date {
+        font-size: 0.75rem;
+        color: var(--color-gray-scale-200);
+      }
+    }
+  }
+
+ &.user-vertical {
+  flex-direction: column;
+ // width 값 지정해야될듯        
+  flex: 0 0 auto;    
+  text-align: center;
+
+  .user-info {
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+}
+
+  &.user-postMeta {
+    flex-direction: row;
+
+    .user-info {
+      display: flex;
+      flex-direction: column;
+
+      .user-date {
+        font-size: 0.75rem;
+        color: var(--color-gray-scale-200);
+      }
+    }
+  }
+}

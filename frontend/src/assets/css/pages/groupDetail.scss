@@ -1,0 +1,117 @@
+.group-detail-page {
+  max-width: clamp(390px, 100vw, 520px);
+  margin: 0 auto;
+  background-color: var(--color-gray-scale-50);
+  min-height: 100vh;
+}
+
+.back-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+
+// 대표 이미지
+.hero-image {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+// 그룹 정보
+.group-info {
+  padding: clamp(16px, 5vw, 20px);
+  background: linear-gradient(180deg, transparent 0%, #ffffff 100%);
+}
+
+.group-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 12px;
+  color: #333;
+}
+
+.group-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  .category, .info, .period {
+    font-size: 14px;
+    color: #666;
+  }
+}
+
+// 탭
+.tabs {
+  display: flex;
+  background: white;
+  border-bottom: 1px solid #eee;
+}
+
+.tab {
+  flex: 1;
+  padding: 16px;
+  background: none;
+  border: none;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--color-gray-scale-500);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+
+  &.active {
+    color: var(--color-gray-scale-black);
+    border-bottom-color: var(--color-primary);
+  }
+}
+
+// 콘텐츠 영역
+.tab-content {
+  padding: clamp(12px, 5vw, 20px);
+}
+
+// 공통 섹션
+.section {
+  margin-bottom: 32px;
+}
+
+.section-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 24px 0 16px;
+  color: #333;
+}
+
+// 멤버 리스트 (가로 스크롤)
+.member-grid {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  padding-bottom: 0.75rem;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.member-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+
+  .member-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+  }
+}
