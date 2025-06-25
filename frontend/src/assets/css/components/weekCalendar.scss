@@ -1,0 +1,26 @@
+.week-calendar {
+    display: flex;
+    justify-content: center;
+    gap: 2px;
+
+    .day-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border: 1px solid var(--color-gray-scale-100);
+        border-radius: calc(100/16*1rem);
+        padding: calc(9.5/16*1rem) calc(16/16*1rem);
+
+        .check {
+            color: #f4552f;
+            display: block;
+            margin-bottom: 2px;
+            opacity: 0;
+          
+            &.visible {
+              opacity: 1;
+            }
+          }
+          
+    }
+}
