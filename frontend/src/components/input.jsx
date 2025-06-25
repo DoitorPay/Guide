@@ -1,4 +1,3 @@
-// src/components/Input.jsx
 import React, { useState } from 'react';
 
 const Input = ({
@@ -8,6 +7,7 @@ const Input = ({
   required = false,
   maxLength = 30,
   className = '',
+  icon = null,
   ...rest
 }) => {
   const [isFocused, setIsFocused] = useState(false);
@@ -26,21 +26,34 @@ const Input = ({
   return (
     <div className={`input-wrapper ${className}`}>
       <label htmlFor={name} className="input-label">
-        {label}{required && <span style={{ color: 'red' }}> *</span>}
+        {label}
+        {required && <span style={{ color: 'red' }}> *</span>}
       </label>
-      <input
-        {...rest}
-        name={name}
-        id={name}
-        required={required}
-        maxLength={maxLength}
-        placeholder={placeholder}
-        onFocus={handleFocus}
-        onBlur={handleBlur}
-        className={`input-field ${stateClass}`}
-      />
+      <div className="input-inner">
+        {icon && <span className="input-icon">{icon}</span>}
+        <input
+          {...rest}
+          name={name}
+          id={name}
+          required={required}
+          maxLength={maxLength}
+          placeholder={placeholder}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
+          className={`input-field ${stateClass}`}
+        />
+      </div>
     </div>
   );
 };
 
 export default Input;
+
+// 아이콘 넣어서 쓰는 법
+// import arrowIcon from "/icons/arrow-right.svg";
+
+// <Input
+//   label="다음"
+//   name="next"
+//   icon={<img src={arrowIcon} alt="화살표" className="svg-icon" />}
+// />
