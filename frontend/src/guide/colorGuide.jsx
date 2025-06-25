@@ -63,11 +63,11 @@ const sections = [
   },
 ];
 
-const ColorItem = ({ name, code }) => {
-    const handleCopy = () => {
-      navigator.clipboard.writeText(code);
-      alert("복사되었습니다!");
-    };
+const ColorItem = ({ name, code, variable }) => {
+  const handleCopy = () => {
+    navigator.clipboard.writeText(variable);
+    alert(`복사되었습니다!`);
+  };
 
   return (
     <li
