@@ -2,9 +2,6 @@ import React from 'react';
 import '@/assets/css/components/mainLayout.scss';
 import Navigation from '@/components/nav';
 import Header from "@/components/header"
-import WeekCalendar from "@/components/WeekCalendar";
-import Input from "@/components/input";
-import arrowIcon from "/icons/arrow-right.svg";
 
 
 const MainLayout = ({ children, headerProps }) => {
@@ -14,13 +11,6 @@ const MainLayout = ({ children, headerProps }) => {
         <Header {...headerProps} />
         <section className="content-area">
           {children}
-          <WeekCalendar/>
-          <WeekCalendar type="todolist" />
-          <Input
-            label="다음"
-            name="next"
-            icon={<img src={arrowIcon} alt="화살표" className="svg-icon" />}
-          />
         </section>
         <footer>
           <Navigation />
