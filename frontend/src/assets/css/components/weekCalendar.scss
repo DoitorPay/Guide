@@ -28,6 +28,12 @@
           opacity: 1;
         }
       }
+      &.today {
+        background-color: var(--color-primary);
+        .label, .date {
+          color: var(--color-gray-scale-white);
+        }
+      }
     }
   }
 
@@ -68,12 +74,7 @@
         width: calc(41/16*1rem);
         height: calc(60/16*1rem);
         justify-content: center;
-        &.today {
-          background-color: var(--color-primary);
-          .label, .date {
-            color: var(--color-gray-scale-white);
-          }
-        }
+
         &.today.checked{
           .label, .date {
             color: var(--color-gray-scale-white);
