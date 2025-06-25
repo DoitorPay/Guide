@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 
-
-const TagList = ({ tags = [] }) => {
+const TagList = ({ tags = [], onChange }) => {
   const [activeTags, setActiveTags] = useState([]);
 
   const toggleTag = (tag) => {
-    setActiveTags((prev) =>
-      prev.includes(tag)
-        ? prev.filter((t) => t !== tag)
-        : [...prev, tag]
-    );
+    const updatedTags = activeTags.includes(tag)
+      ? activeTags.filter((t) => t !== tag)
+      : [...activeTags, tag];
+
+    setActiveTags(updatedTags);
+    onChange?.(updatedTags);
   };
 
   return (
@@ -26,6 +26,5 @@ const TagList = ({ tags = [] }) => {
     </ul>
   );
 };
-
 
 export default TagList;

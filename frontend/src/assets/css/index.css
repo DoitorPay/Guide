@@ -15,7 +15,15 @@
 @import '@/assets/css/components/tag.scss';
 @import '@/assets/css/components/todoList.scss';
 @import '@/assets/css/components/weekCalendar.scss';
+@import '@/assets/css/components/missionFeed.scss';
+@import '@/assets/css/components/groupCard.scss';
 
+/* profile components */
+@import '@/assets/css/components/profile/profileImage.scss';
+@import '@/assets/css/components/profile/profileName.scss';
+@import '@/assets/css/components/profile/userProfileRow.scss';
 
 /* page */
 @import '@/assets/css/components/mainLayout.scss';
+@import '@/assets/css/pages/studyTopic.scss';
+@import '@/assets/css/pages/groupDetail.scss';

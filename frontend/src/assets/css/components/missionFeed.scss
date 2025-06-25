@@ -1,0 +1,32 @@
+.mission-feed-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: clamp(8px, 3vw, 12px);
+}
+
+.mission-feed-item {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #eee;
+  display: flex;
+  flex-direction: column;
+}
+
+.feed-image {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+}
+
+.feed-footer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px;
+
+  .feed-username {
+    font-size: 14px;
+    color: #666;
+  }
+}

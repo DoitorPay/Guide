@@ -13,7 +13,7 @@ const Checkbox = ({ checked = false, disabled = false, onChange = () => {} }) =>
         onClick={handleClick}
       >
         {checked && (
-          <img src="/icons/done.svg" alt="check" className="check-icon" />
+          <img src="/icons/done-white.svg" alt="check" className="check-icon" />
         )}
       </div>
     );
