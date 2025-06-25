@@ -10,7 +10,7 @@ import CheckboxDemo from "@/components/CheckboxDemo";
 import RouletteComponent from "@/components/roulette";
 import TagGuide from "@/guide/tagGuide";
 import CmpTodoList from "@/guide/cmpTodoList";
-import WeekCalendar from '@/components/WeekCalendar';
+import CalendarGuide from '@/guide/calendarGuide';
 
 const itemList = [
   { id: 3, name: "버튼", path: "@/guide/cmpButton", component: <CmpButton /> },
@@ -23,7 +23,7 @@ const itemList = [
   { id: 10, name: "헤더", path: "@/guide/cmpHeader", component: <CmpHeader />},
   { id: 11, name: "태그", path: "@/guide/tagGuide", component: <TagGuide />},
   { id: 12, name: "투두리스트", path: "@/components/todoList", component: <CmpTodoList />},
-  { id: 13, name: "캘린더", path: "@/components/WeekCalendar", component: <WeekCalendar  />},
+  { id: 13, name: "캘린더", path: "@/guide/calendarGuide", component: <CalendarGuide />},
   // { id: 9, name: "회원가입", path: "@/pages/SignUp", component: <SignUp /> },
 ];
 
