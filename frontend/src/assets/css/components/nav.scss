@@ -4,9 +4,9 @@
     ul {
       display: flex;
       align-items: center;
-      justify-content: center;
-      padding: clamp(16px, 4vw, 24px) clamp(8px, 2vw, 16px);
-  
+      justify-content: space-between;
+      padding: clamp(16px, 4vw, 24px) clamp(8px, 2vw, 16px) 0 clamp(8px, 2vw, 16px);
+      bottom: clamp(16px, 4vw, 24px);
       border-top: 1px solid var(--color-gray-scale-50);
   
       li {
