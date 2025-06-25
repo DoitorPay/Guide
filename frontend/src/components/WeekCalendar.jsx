@@ -6,6 +6,7 @@ import {
   format,
 } from 'date-fns';
 import { ko } from 'date-fns/locale';
+import checkIcon from "/icons/done-red.svg";
 
 const getWeekDates = () => {
   const weekStart = startOfWeek(new Date(), { weekStartsOn: 1 });
@@ -45,7 +46,9 @@ const WeekCalendar = () => {
           className={`day-item ${day.checked ? 'checked' : ''} ${day.isToday ? 'today' : ''}`}
           onClick={() => toggleCheck(day.fullDate)}
         >
-          <span className={`check ${day.checked ? 'visible' : ''}`}>✔</span>
+          <span className={`check ${day.checked ? 'visible' : ''}`}>
+            <img src={checkIcon} alt="check" />
+          </span>
           <span className="label">{day.label}</span>
           <span className="date">{day.date}</span>
         </div>
