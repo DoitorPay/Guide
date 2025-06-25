@@ -17,8 +17,7 @@
    border-radius: calc(8/16*1rem);
    font-size: calc(var(--typo-size-body-3)/16*1rem);
    outline: none;
-   width: calc(350/16*1rem);
-
+  flex: 1;
    &::placeholder {
       font-size: calc(var(--typo-size-body-3)/16*1rem);
     }
@@ -46,5 +45,15 @@
       opacity: 1; 
     }
    }
+ }
+.input-inner {
+  position: relative;
+  display: flex;
+ align-items: center;
+}
+ .input-icon {
+  position: absolute;
+  right: 12px;
+  cursor: pointer;
  }
  
