@@ -68,20 +68,35 @@
         width: calc(41/16*1rem);
         height: calc(60/16*1rem);
         justify-content: center;
-        &.checked {
+        &.today {
           background-color: var(--color-primary);
-
-          .label {
+          .label, .date {
             color: var(--color-gray-scale-white);
           }
-
-          .date {
-            color: var(--color-gray-scale-white);
-          }
-
-          color: var(--color-gray-scale-white);
         }
-
+        &.today.checked{
+          .label, .date {
+            color: var(--color-gray-scale-white);
+          }
+        }
+        &.inactive-today {
+          background-color: var(--color-red-vari-50);
+          .label {
+            color: var(--color-gray-scale-300);
+          }
+          .date {
+            color: var(--color-gray-scale-700);
+          }
+        }
+        &.checked {
+          border: 1px solid var(--color-primary);
+          .label {
+            color: var(--color-gray-scale-700);
+          }
+          .date {
+            color: var(--color-gray-scale-black);
+          }
+        }
         .check {
           display: none;
         }
