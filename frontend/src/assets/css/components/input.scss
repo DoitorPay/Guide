@@ -1,60 +1,60 @@
-// src/components/Input.scss
-
 .input-wrapper {
-   display: flex;
-   flex-direction: column;
-   gap: calc(8/16*1rem);
- }
- 
- .input-label {
-   font-size: calc(var(--typo-size-body-4)/16*1rem);
-   font-weight: var(--typo-weight-semibold);
-   color: var(--color-gray-scale-black);
- }
- 
- .input-field {
-   padding: calc(10/16*1rem) calc(12/16*1rem);
-   border-radius: calc(8/16*1rem);
-   font-size: calc(var(--typo-size-body-3)/16*1rem);
-   outline: none;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(8px, 2vw, 12px);
+}
+
+.input-label {
+  font-size: calc(var(--typo-size-body-4) / 16 * 1rem);
+  font-weight: var(--typo-weight-semibold);
+  color: var(--color-gray-scale-black);
+}
+
+.input-field {
+  padding: clamp(10px, 2.5vw, 14px) clamp(12px, 4vw, 16px);
+  border-radius: clamp(8px, 2vw, 12px);
+  font-size: calc(var(--typo-size-body-3) / 16 * 1rem);
+  outline: none;
   flex: 1;
-   &::placeholder {
-      font-size: calc(var(--typo-size-body-3)/16*1rem);
-    }
 
-   &.empty {
-     border: calc(1 / 16 * 1rem) solid var(--color-gray-scale-100);
-     color: var(--color-gray-scale-100);
+  &::placeholder {
+    font-size: calc(var(--typo-size-body-3) / 16 * 1rem);
+  }
 
-     &::placeholder {
+  &.empty {
+    border: clamp(1px, 0.3vw, 1.5px) solid var(--color-gray-scale-100);
+    color: var(--color-gray-scale-100);
+
+    &::placeholder {
       color: var(--color-gray-scale-100);
-      opacity: 1; 
+      opacity: 1;
     }
-   }
- 
-   &.focused {
-     border: calc(1 / 16 * 1rem) solid var(--color-gray-scale-600);
-     color: var(--color-gray-scale-800);
-   }
- 
-   &.filled {
-     border: calc(1 / 16 * 1rem) solid var(--color-gray-scale-100);
+  }
 
-     &::placeholder {
+  &.focused {
+    border: clamp(1px, 0.3vw, 1.5px) solid var(--color-gray-scale-600);
+    color: var(--color-gray-scale-800);
+  }
+
+  &.filled {
+    border: clamp(1px, 0.3vw, 1.5px) solid var(--color-gray-scale-100);
+
+    &::placeholder {
       color: var(--color-gray-scale-100);
-      opacity: 1; 
+      opacity: 1;
     }
-   }
- }
+  }
+}
+
 .input-inner {
   position: relative;
   display: flex;
- align-items: center;
+  align-items: center;
 }
- .input-icon {
+
+.input-icon {
   position: absolute;
-  right: 12px;
+  right: clamp(12px, 3vw, 16px);
   cursor: pointer;
   display: flex;
- }
- 
+}
