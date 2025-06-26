@@ -2,6 +2,8 @@ import React from 'react';
 import '@/assets/css/components/mainLayout.scss';
 import Navigation from '@/components/nav';
 import Header from "@/components/header"
+import WeekCalendar from '@/components/WeekCalendar'; 
+import TodoList from '@/components/todoList';
 
 
 const MainLayout = ({ children, headerProps }) => {
@@ -11,6 +13,9 @@ const MainLayout = ({ children, headerProps }) => {
         <Header {...headerProps} />
         <section className="content-area">
           {children}
+          <WeekCalendar/>
+          <WeekCalendar type='todolist'/>
+          <TodoList/>
         </section>
         <footer>
           <Navigation />

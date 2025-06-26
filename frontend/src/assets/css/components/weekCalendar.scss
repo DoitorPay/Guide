@@ -1,7 +1,7 @@
 .week-calendar {
   .day-list {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
 
     .day-item {
       display: flex;
@@ -45,8 +45,8 @@
       gap: clamp(1px, 0.5vw, 2px);
 
       .day-item {
-        width: clamp(40px, 12vw, 48px);
-        height: clamp(70px, 20vw, 81px);
+        width: clamp(48px, 14vw, 64px);
+        height: clamp(75px, 22vw, 95px);
         justify-content: center;
         border: 1px solid var(--color-gray-scale-100);
       }
@@ -78,8 +78,9 @@
       gap: clamp(6px, 3vw, 10.5px);
 
       .day-item {
-        width: clamp(36px, 11vw, 41px);
-        height: clamp(52px, 16vw, 60px);
+        width: clamp(44px, 13vw, 52px);
+        height: clamp(60px, 20vw, 72px);
+        
         justify-content: center;
 
         &.today.checked {
