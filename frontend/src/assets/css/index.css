@@ -18,6 +18,7 @@
 @import '@/assets/css/components/missionFeed.scss';
 @import '@/assets/css/components/groupCard.scss';
 @import '@/assets/css/components/homeProfile.scss'; 
+@import '@/assets/css/components/progressCard.scss'; 
 
 /* profile components */
 @import '@/assets/css/components/profile/profileImage.scss';

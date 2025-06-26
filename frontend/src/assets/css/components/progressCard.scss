@@ -1,0 +1,32 @@
+.progress-card {
+    background-color: var(--color-navy-vari-700);
+    border-radius: clamp(8px, 2vw, 12px);
+    padding: clamp(12px, 3vw, 20px);
+    color: var(--color-gray-scale-white);
+  
+    .progress-header {
+      display: flex;
+      align-items: center;
+      gap: clamp(6px, 2vw, 12px);
+      margin-bottom: clamp(16px, 4vw, 24px);
+  
+      .progress-title {
+        font-size: var(--typo-size-heading-6);
+        font-weight: var(--typo-weight-bold);
+      }
+    }
+  
+    .progress-value {
+      text-align: right;
+  
+      .value {
+        font-size: clamp(40px, 12vw, 70px);
+        font-weight: var(--typo-weight-bold);
+      }
+  
+      .unit {
+        font-size: clamp(30px, 8vw, 50px);
+      }
+    }
+  }
+  
