@@ -17,6 +17,7 @@
 @import '@/assets/css/components/weekCalendar.scss';
 @import '@/assets/css/components/missionFeed.scss';
 @import '@/assets/css/components/groupCard.scss';
+@import '@/assets/css/components/homeProfile.scss'; 
 
 /* profile components */
 @import '@/assets/css/components/profile/profileImage.scss';
