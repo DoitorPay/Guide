@@ -30,9 +30,21 @@
       font-size: var(--typo-size-body-3);
       color: var(--color-gray-scale-400);
       line-height: var(--typo-line-height);
+      
     }
-  
+
+    &__date {
+        color: var(--color-gray-scale-400);
+        font-size: var(--typo-size-body-5);
+    }
+
+    // 타입별 스타일링
     &--link {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 4px;
+        font-weight: var(--typo-weight-semibold	);
     }
   
     &--desc {
@@ -41,6 +53,11 @@
   
       .sub-title__desc {
       }
+    }
+
+    &--date {
+        display: flex;
+        flex-direction: column-reverse;
     }
   }
   
