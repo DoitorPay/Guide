@@ -1,5 +1,4 @@
 .tag-wrapper {
-    max-width: clamp(280px, 90vw, 520px); 
     display: flex;
     flex-wrap: wrap;
     gap: clamp(8px, 2.5vw, 12px);

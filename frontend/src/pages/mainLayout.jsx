@@ -2,8 +2,6 @@ import React from 'react';
 import '@/assets/css/components/mainLayout.scss';
 import Navigation from '@/components/nav';
 import Header from "@/components/header"
-import WeekCalendar from '@/components/WeekCalendar'; 
-import TodoList from '@/components/todoList';
 
 
 const MainLayout = ({ children, headerProps }) => {
@@ -13,9 +11,6 @@ const MainLayout = ({ children, headerProps }) => {
         <Header {...headerProps} />
         <section className="content-area">
           {children}
-          <WeekCalendar/>
-          <WeekCalendar type='todolist'/>
-          <TodoList/>
         </section>
         <footer>
           <Navigation />
@@ -29,7 +24,7 @@ const MainLayout = ({ children, headerProps }) => {
 export default MainLayout;
 
 // 사용 방법!
-// import MainLayout from "@/components/MainLayout";
+// import MainLayout from "@/pages/MainLayout";
 
 // const 어쩌구페이지 = () => {
 //   return (
