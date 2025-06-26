@@ -1,5 +1,6 @@
 .sub-title {
-    margin-bottom: 16px;
+    margin-bottom: clamp(12px, 3vw, 16px);
+  
     &__row {
       display: flex;
       justify-content: space-between;
@@ -16,21 +17,21 @@
       font-size: var(--typo-size-body-3);
       font-weight: var(--typo-weight-medium);
       color: var(--color-gray-scale-600);
-        display: flex;
-        gap: 10.5px;
+      display: flex;
+      gap: clamp(6px, 2vw, 10.5px);
+  
       &:hover {
         text-decoration: underline;
       }
     }
   
     &__desc {
-      margin-top: 8px;
+      margin-top: clamp(4px, 1.5vw, 8px);
       font-size: var(--typo-size-body-3);
       color: var(--color-gray-scale-400);
       line-height: var(--typo-line-height);
     }
   
-    // 타입별 조정 필요하면 여기
     &--link {
     }
   

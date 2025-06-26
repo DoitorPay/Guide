@@ -6,7 +6,7 @@ const SubTitleGuide = () => {
     <div>
       <SubTitle title="기본" />
       <SubTitle title="타입='link'" type="link" link="/groups" />
-      <SubTitle title="타입='desc'" type="desc" desc="그룹 내에서 지켜야 할 스터디 규칙을 정리해 보세요." />
+      <SubTitle title="타입='desc'" type="desc" desc="7일 연속 불타는 중🔥(상황에 따라 다른 말) " />
     </div>
   );
 };

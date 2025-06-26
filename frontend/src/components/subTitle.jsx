@@ -9,7 +9,7 @@ const SubTitle = ({ title, type = 'default', desc, link }) => {
         {type === 'link' && link && (
           <Link to={link} className="sub-title__link">
             전체보기
-            <img src="/icons/arrow-right.svg"/>
+            <img src="/icons/arrow-right-gray.svg"/>
           </Link>
         )}
       </div>
