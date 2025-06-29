@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 function Header({
     type = "default",
     icon1 = "center-focus-strong",
-    icon2 = "center-focus-strong",
+    icon2,
     icon1OnClick,
     icon2OnClick,
     title,
@@ -68,7 +68,7 @@ function Header({
                     <div className="menu">
                         <ul className="menu__list">
                             <li><i onClick={icon1OnClick} className="ico" style={{background: `url(/icons/${icon1}.svg) no-repeat center center`}}></i></li>
-                            {type === "header-a" && (
+                            {icon2 && (
                                 <li><i onClick={icon2OnClick} className="ico" style={{background: `url(/icons/${icon2}.svg) no-repeat center center`}}></i></li>
                             )}
                         </ul>
