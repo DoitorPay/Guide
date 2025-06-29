@@ -34,5 +34,11 @@
     "title": "홈",
     "path": "/main",
     "fileName": "home.jsx"
+  },
+  {
+    "id": 7,
+    "title": "투두리스트",
+    "path": "/todoList",
+    "fileName": "todoList.jsx"
   }
 ]

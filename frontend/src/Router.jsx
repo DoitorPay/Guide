@@ -10,6 +10,7 @@ import SignUp from "@/pages/SignUp.jsx";
 import StudyTopic from "@/pages/studyTopic.jsx";
 import GroupDetail from "@/pages/GroupDetail.jsx";
 import MainPage from "@/pages/home.jsx";
+import TodoListPage from "@/pages/todoList.jsx";
 
 const LayoutWithHeader = ({ children }) => {
   const location = useLocation();
@@ -42,6 +43,7 @@ const Router = () => {
           <Route path="/studytopic" element={<StudyTopic />} />
           <Route path="/groupdetailguide" element={<GroupDetail />} />
           <Route path="/main" element={<MainPage />} />
+          <Route path="/todolist" element={<TodoListPage />} />
         </Routes>
       </LayoutWithHeader>
     </BrowserRouter>
