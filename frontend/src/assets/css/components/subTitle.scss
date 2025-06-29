@@ -33,7 +33,7 @@
       
     }
 
-    &__date {
+    &__date, &__week {
         color: var(--color-gray-scale-400);
         font-size: var(--typo-size-body-5);
     }
@@ -55,7 +55,7 @@
       }
     }
 
-    &--date {
+    &--date, &--week {
         display: flex;
         flex-direction: column-reverse;
     }
