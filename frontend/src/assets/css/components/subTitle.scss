@@ -1,11 +1,6 @@
 .sub-title {
     margin-bottom: clamp(12px, 3vw, 16px);
-  
-    &__row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+
   
     &__heading {
       font-size: var(--typo-size-heading-6);
@@ -13,7 +8,7 @@
       color: var(--color-gray-scale-black);
     }
   
-    &__link {
+    &__link, &__info {
       font-size: var(--typo-size-body-3);
       font-weight: var(--typo-weight-medium);
       color: var(--color-gray-scale-600);
@@ -39,7 +34,7 @@
     }
 
     // 타입별 스타일링
-    &--link {
+    &--link, &--info {
         display: flex;
         justify-content: space-between;
         align-items: center;

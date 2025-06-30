@@ -3,11 +3,16 @@ import { Link } from 'react-router-dom';
 import { format, startOfWeek, endOfWeek } from 'date-fns';
 import { ko } from 'date-fns/locale';
 
-const SubTitle = ({ title, type = 'default', desc, link }) => {
-  // eslint-disable-next-line no-unused-vars
+const SubTitle = ({
+  title,
+  type = 'default',
+  desc,
+  link,
+  info,
+  linkIcon = 'arrow-right-gray'
+}) => {
   const currentDate = new Date();
   const today = format(currentDate, 'M월 d일', { locale: ko });
-  
 
   const weekStart = startOfWeek(currentDate, { weekStartsOn: 1, locale: ko });
   const weekEnd = endOfWeek(currentDate, { weekStartsOn: 1, locale: ko });
@@ -15,19 +20,26 @@ const SubTitle = ({ title, type = 'default', desc, link }) => {
 
   return (
     <div className={`sub-title sub-title--${type}`}>
-        <h2 className="sub-title__heading">{title}</h2>
-        {type === 'link' && link && (
-            <Link to={link} className="sub-title__link">
-            전체보기
-            <img src="/icons/arrow-right-gray.svg" alt="arrow" />
-            </Link>
-        )}
-        {type === 'date' && (
-          <span className="sub-title__date">{today}</span>
-        )}
-        {type === 'week' && (
-          <span className="sub-title__date">{week}</span>
-        )}
+      <h2 className="sub-title__heading">{title}</h2>
+
+      {type === 'link' && link && (
+        <Link to={link} className="sub-title__link">
+          전체보기
+          <img src={`/icons/${linkIcon}.svg`} alt="link-icon" />
+        </Link>
+      )}
+
+      {type === 'info' && info && (
+        <span className="sub-title__info">{info}</span>
+      )}
+
+      {type === 'date' && (
+        <span className="sub-title__date">{today}</span>
+      )}
+
+      {type === 'week' && (
+        <span className="sub-title__date">{week}</span>
+      )}
 
       {type === 'desc' && desc && (
         <p className="sub-title__desc">{desc}</p>
