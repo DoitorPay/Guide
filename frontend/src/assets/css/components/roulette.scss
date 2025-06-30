@@ -1,0 +1,30 @@
+.roulette-wrap {
+  text-align: center;
+  padding: clamp(16px, 4vw, 24px);
+
+  .roulette-box {
+    background: var(--color-gray-scale-white);
+    border-radius: clamp(4px, 1vw, 8px);
+    padding: clamp(8px, 2vw, 16px);
+    margin-bottom: clamp(12px, 3vw, 20px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: clamp(8px, 2vw, 12px);
+  }
+
+  .roulette-item {
+    color: var(--color-gray-scale-400);
+    padding: clamp(2px, 0.5vw, 6px) 0;
+    margin: 0 clamp(6px, 1.5vw, 12px);
+    font-size: clamp(14px, 3vw, 18px);
+    transition: all 0.2s ease;
+
+    &.active {
+      background-color: var(--color-red-vari-50);
+      font-weight: var(--typo-weight-medium);
+      color: var(--color-gray-scale-black);
+      border-radius: clamp(2px, 0.5vw, 6px);
+    }
+  }
+}

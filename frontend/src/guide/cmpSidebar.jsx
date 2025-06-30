@@ -7,7 +7,7 @@ import CmpHeader from "@/guide/cmpHeader";
 import MainLayout from "@/pages/mainLayout";
 import Navigation from "@/components/nav"; 
 import CheckboxDemo from "@/guide/CheckboxDemo";
-import RouletteComponent from "@/components/roulette";
+import Roulette from "@/components/roulette";
 import TagGuide from "@/guide/tagGuide";
 import CmpTodoList from "@/guide/cmpTodoList";
 import CalendarGuide from '@/guide/calendarGuide';
@@ -24,7 +24,7 @@ const itemList = [
   { id: 6, name: "레이아웃", path: "@/pages/mainLayout", component: <MainLayout /> },
   { id: 7, name: "네비게이션", path: "@/components/nav", component: <Navigation /> },
   { id: 8, name: "체크박스", path: "@/components/Checkbox", component: <CheckboxDemo /> },
-  // { id: 9, name: "룰렛", path: "@/components/roulette", component: <RouletteComponent /> },
+  { id: 9, name: "룰렛", path: "@/components/roulette", component: <Roulette/> },
   { id: 10, name: "헤더", path: "@/guide/cmpHeader", component: <CmpHeader />},
   { id: 11, name: "태그", path: "@/guide/tagGuide", component: <TagGuide />},
   { id: 12, name: "투두리스트", path: "@/components/todoList", component: <CmpTodoList />},

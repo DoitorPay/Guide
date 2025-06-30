@@ -1,62 +1,67 @@
 import React, { useState } from 'react';
+import Button from '@/components/button';
 
-const RouletteComponent = () => {
-  const [options, setOptions] = useState([]);
-  const [inputValue, setInputValue] = useState('');
-  const [mustSpin, setMustSpin] = useState(false);
-  const [prizeNumber, setPrizeNumber] = useState(0);
+const dummyItems = [
+  '벌칙 내용',
+  '벌칙 내용',
+  '벌칙 내용',
+  '벌칙 내용',
+  '벌칙 내용',
+];
 
-  const defaultData = [
-    { option: '옵션을 입력하세요' },
-    { option: '추가해주세요' },
-  ];
+const Roulette = () => {
+  const [selectedIndex, setSelectedIndex] = useState(2);
+  const [isSpinning, setIsSpinning] = useState(false);
 
-  const handleAddOption = () => {
-    if (inputValue.trim() === '') return;
-    setOptions([...options, { option: inputValue }]);
-    setInputValue('');
+  const spin = (current, speed, remaining) => {
+    if (remaining <= 0) {
+      setIsSpinning(false);
+      return;
+    }
+
+    setSelectedIndex((current + 1) % dummyItems.length);
+
+    const nextSpeed = speed + 10;
+    setTimeout(() => {
+      spin((current + 1) % dummyItems.length, nextSpeed, remaining - 1);
+    }, nextSpeed);
   };
 
-  const handleSpinClick = () => {
-    const dataToUse = options.length > 0 ? options : defaultData;
-    const newPrizeNumber = Math.floor(Math.random() * dataToUse.length);
-    setPrizeNumber(newPrizeNumber);
-    setMustSpin(true);
-  };
+  const handleSpin = () => {
+    if (isSpinning) return;
 
-  const dataToUse = options.length > 0 ? options : defaultData;
+    setIsSpinning(true);
+    // 결과 속도 지정 totalSpins 
+    const totalSpins = 20 + Math.floor(Math.random() * 10);
+    spin(selectedIndex, 50, totalSpins);
+  };
 
   return (
-    <div>
-      <div>
-        <input
-          type="text"
-          value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
-          placeholder="옵션을 입력하세요"
-        />
-        <button onClick={handleAddOption} style={{ marginLeft: '10px' }}>
-          추가
-        </button>
+    <div className="roulette-wrap">
+      <div className="roulette-box">
+        {dummyItems.map((item, idx) => {
+          const isActive = idx === selectedIndex;
+          return (
+            <div
+              key={idx}
+              className={`roulette-item ${isActive ? 'active' : ''}`}
+            >
+              {item}
+            </div>
+          );
+        })}
       </div>
-
-      <Wheel
-        mustStartSpinning={mustSpin}
-        prizeNumber={prizeNumber}
-        data={dataToUse}
-        onStopSpinning={() => {
-          setMustSpin(false);
-          if (options.length > 0) {
-            alert(`🎉 당첨: ${dataToUse[prizeNumber].option}`);
-          }
-        }}
-      />
-
-      <button onClick={handleSpinClick}>
-        룰렛 돌리기
-      </button>
+      <div>
+        <Button
+          type="primary"
+          buttonName={isSpinning ? '돌리는 중...' : '룰렛 돌리기'}
+          onClick={handleSpin}
+          disabled={isSpinning}
+          aria="룰렛 돌리기 버튼"
+        />
+      </div>
     </div>
   );
 };
 
-export default RouletteComponent;
+export default Roulette;
