@@ -18,6 +18,7 @@ const LayoutWithHeader = ({ children }) => {
                      location.pathname.startsWith("/additRegister") ||
                      location.pathname.startsWith("/studytopic") ||
                      location.pathname.startsWith("/groupdetailguide") ||
+                     location.pathname.startsWith("/todoList") ||
                      location.pathname.startsWith("/main");
 
   return (
