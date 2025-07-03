@@ -14,7 +14,7 @@ class UpdateInterest(Resource):
                 '''
                     MATCH (n:Person {id: $id})
                     WHERE n.sns = $sns
-                    WITH n, n.interest + $interest AS combinedInterests
+                    WITH n, COALESCE(n.interest, []) + $interest AS combinedInterests
                     UNWIND combinedInterests AS interest
                     WITH n, COLLECT(DISTINCT interest) AS uniqueInterests
                     SET n.interest = uniqueInterests
