@@ -14,7 +14,10 @@ class UpdateInterest(Resource):
                 '''
                     MATCH (n:Person {id: $id})
                     WHERE n.sns = $sns
-                    SET n.interest = $interest
+                    WITH n, n.interest + $interest AS combinedInterests
+                    UNWIND combinedInterests AS interest
+                    WITH n, COLLECT(DISTINCT interest) AS uniqueInterests
+                    SET n.interest = uniqueInterests
                 '''
                 , interest=topics['topics']
                 , sns = session['user_data']['sns']
