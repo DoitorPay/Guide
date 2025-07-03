@@ -48,7 +48,7 @@ class KakaoCallback(Resource):
         headers = {"Authorization": f"Bearer {access_token}"}
         user_res = requests.get(user_info_url, headers=headers)
         user_info = user_res.json()
-        print(user_info)
+
         session['user_data'] = {
             'sns': 'kakao',
             'id': user_info['id'],

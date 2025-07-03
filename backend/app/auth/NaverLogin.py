@@ -46,7 +46,7 @@ class NaverCallback(Resource):
         headers = {"Authorization": f"Bearer {access_token}"}
         profile_res = requests.get("https://openapi.naver.com/v1/nid/me", headers=headers)
         profile_data = profile_res.json()
-        print(profile_data)
+
         session['user_data'] = {
             'sns': 'naver',
             'id': profile_data['response']['id'],

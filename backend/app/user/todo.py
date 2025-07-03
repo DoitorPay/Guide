@@ -19,27 +19,26 @@ class UserTodo(Resource):
         pass
 
     @ns_user.expect(todo_model)
-    @ns_user.response(204, '투두리스트 추가 성공')
+    @ns_user.response(200, '투두리스트 추가 성공')
     @ns_user.response(500, 'DB 내부 에러 발생')
     def post(self):
         user_data = session.get('user_data')
         todo_list = request.get_json()
-
         with driver.session() as neo_session:
             user = neo_session.run(
                 '''MATCH(n:Person {id:$id}) WHERE n.sns = $sns
                  RETURN COUNT(n)''', id=user_data['id'], sns=user_data['sns']
             ).single()
-
-            if user != 1:
+            if user.value() != 1:
                 return "사용자 정보를 확인할 수 없습니다", 500
 
             try:
                 neo_session.run(
                     '''MATCH(n:Person {id:$id}) WHERE n.sns = $sns
-                    SET n.todo = $todo''',
+                    WITH n
+                    WHERE NOT $todo IN COALESCE(n.todo, [])
+                    SET n.todo = COALESCE(n.todo, []) + $todo''',
                     id=user_data['id'], sns=user_data['sns'], todo=todo_list['list']
                 )
-                return '', 204
             except Exception as e:
-                return str(e), 500
+                return str(e)
