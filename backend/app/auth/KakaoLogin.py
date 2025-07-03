@@ -63,10 +63,3 @@ class KakaoCallback(Resource):
             return redirect("http://localhost:8000/") if result.single()  \
                 else redirect('http://localhost:8000/additRegister')
 
-@ns_auth.route('/kakao/logout')
-class Logout(Resource):
-    def get(self):
-        """세션 로그아웃"""
-        session.pop('user_data', None)
-        return {'message': '로그아웃 완료'}, 200
-
