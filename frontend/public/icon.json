@@ -43,6 +43,7 @@
     },
     { "name": "more", "path": "@/public/icons/more.svg" },
     { "name": "menu", "path": "@/public/icons/menu.svg" },
-    { "name": "download", "path": "@/public/icons/download.svg" }
+    { "name": "download", "path": "@/public/icons/download.svg" },
+    { "name": "upload", "path": "@/public/icons/upload.svg" }
   ]
 }

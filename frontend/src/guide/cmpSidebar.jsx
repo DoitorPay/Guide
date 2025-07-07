@@ -16,6 +16,7 @@ import GroupCardDemo from "@/guide/GroupCardDemo";
 import HomeProfile from "@/components/homeProfile";
 import ProgressCard from "@/components/progressCard";
 import SubTitleGuide from "@/guide/subTitleGuide";
+import HistoryCard from "@/components/HistoryCard";
 
 const itemList = [
   { id: 3, name: "버튼", path: "@/guide/cmpButton", component: <CmpButton /> },
@@ -34,6 +35,7 @@ const itemList = [
   { id: 16, name: "오늘 큰 전진입니다~", path: "@/components/homeProfile", component: <HomeProfile />},
   { id: 17, name: "오늘의 진행 상황", path: "@/components/progressCard", component: <ProgressCard />},
   { id: 18, name: "서브 타이틀", path: "@/guide/subTitleGuide", component: <SubTitleGuide />},
+  { id: 19, name: "벌칙 히스토리 카드", path: "@/components/HistoryCard", component: <HistoryCard />},
 ];
 
 export default function CmpSidebar() {
