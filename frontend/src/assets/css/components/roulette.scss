@@ -4,13 +4,22 @@
 
   .roulette-box {
     background: var(--color-gray-scale-white);
+    height: max-content;
     border-radius: clamp(4px, 1vw, 8px);
     padding: clamp(8px, 2vw, 16px);
     margin-bottom: clamp(12px, 3vw, 20px);
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: clamp(8px, 2vw, 12px);
+    gap: clamp(5px, 2vw, 7px);
+    box-shadow: 0px 0px 20px 0px #9696963D;
+
+    .roulette-default-text {
+      padding: clamp(40px, 10vw, 64px) clamp(60px, 15vw, 96px);
+      font-size: clamp(14px, 3vw, 16px);
+      font-weight: var(--typo-weight-medium);
+      line-height: var(--typo-line-height);
+    }
   }
 
   .roulette-item {
@@ -21,10 +30,10 @@
     transition: all 0.2s ease;
 
     &.active {
-      background-color: var(--color-red-vari-50);
+      background-color: var(--color-secondary-navy);
       font-weight: var(--typo-weight-medium);
-      color: var(--color-gray-scale-black);
-      border-radius: clamp(2px, 0.5vw, 6px);
+      color: var(--color-gray-scale-white);
+      border-radius: 30px;
     }
   }
 }

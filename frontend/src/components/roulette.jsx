@@ -10,8 +10,10 @@ const dummyItems = [
 ];
 
 const Roulette = () => {
-  const [selectedIndex, setSelectedIndex] = useState(2);
+  const [selectedIndex, setSelectedIndex] = useState(null);
   const [isSpinning, setIsSpinning] = useState(false);
+
+  const hasItems = dummyItems.length > 0;
 
   const spin = (current, speed, remaining) => {
     if (remaining <= 0) {
@@ -19,44 +21,65 @@ const Roulette = () => {
       return;
     }
 
-    setSelectedIndex((current + 1) % dummyItems.length);
+    const nextIndex = (current + 1) % dummyItems.length;
+    setSelectedIndex(nextIndex);
 
     const nextSpeed = speed + 10;
     setTimeout(() => {
-      spin((current + 1) % dummyItems.length, nextSpeed, remaining - 1);
+      spin(nextIndex, nextSpeed, remaining - 1);
     }, nextSpeed);
   };
 
   const handleSpin = () => {
-    if (isSpinning) return;
+    if (isSpinning || !hasItems) return;
 
     setIsSpinning(true);
-    // 결과 속도 지정 totalSpins 
+
     const totalSpins = 20 + Math.floor(Math.random() * 10);
-    spin(selectedIndex, 50, totalSpins);
+    const startIndex = selectedIndex === null ? 0 : selectedIndex;
+    spin(startIndex, 50, totalSpins);
   };
 
   return (
     <div className="roulette-wrap">
       <div className="roulette-box">
-        {dummyItems.map((item, idx) => {
-          const isActive = idx === selectedIndex;
-          return (
-            <div
-              key={idx}
-              className={`roulette-item ${isActive ? 'active' : ''}`}
-            >
-              {item}
-            </div>
-          );
-        })}
+        {!hasItems ? (
+          <div className="roulette-default-text">
+            수행해야 할 벌칙이 없어요.
+          </div>
+        ) : selectedIndex === null && !isSpinning ? (
+          <div className="roulette-default-text">
+            벌칙을 <span style={{ color: 'var(--color-red-vari-400)' }}>1</span>개 수행해야 해요. <br />
+            룰렛을 돌려주세요!
+          </div>
+        ) : (
+          dummyItems.map((item, idx) => {
+            const isActive = idx === selectedIndex;
+            return (
+              <div
+                key={idx}
+                className={`roulette-item ${isActive ? 'active' : ''}`}
+              >
+                {item}
+              </div>
+            );
+          })
+        )}
       </div>
+
       <div>
         <Button
           type="primary"
-          buttonName={isSpinning ? '돌리는 중...' : '룰렛 돌리기'}
+          buttonName={
+            !hasItems
+              ? '룰렛 비활성화'
+              : isSpinning
+              ? '룰렛 돌리기'
+              : '룰렛 돌리기'
+          }
           onClick={handleSpin}
-          disabled={isSpinning}
+          disabled={isSpinning || !hasItems}
+          bgColor="var(--color-secondary-indigo)"
           aria="룰렛 돌리기 버튼"
         />
       </div>
