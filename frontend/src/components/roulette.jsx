@@ -10,8 +10,10 @@ const dummyItems = [
 ];
 
 const Roulette = () => {
-  const [selectedIndex, setSelectedIndex] = useState(null); // 초기값 null
+  const [selectedIndex, setSelectedIndex] = useState(null);
   const [isSpinning, setIsSpinning] = useState(false);
+
+  const hasItems = dummyItems.length > 0;
 
   const spin = (current, speed, remaining) => {
     if (remaining <= 0) {
@@ -29,7 +31,7 @@ const Roulette = () => {
   };
 
   const handleSpin = () => {
-    if (isSpinning) return;
+    if (isSpinning || !hasItems) return;
 
     setIsSpinning(true);
 
@@ -41,10 +43,13 @@ const Roulette = () => {
   return (
     <div className="roulette-wrap">
       <div className="roulette-box">
-        {selectedIndex === null && !isSpinning ? (
+        {!hasItems ? (
           <div className="roulette-default-text">
-            {/* 추후 span값 수정해야함 */}
-            벌칙을 <span style={{ color: 'var(--color-red-vari-400)' }}>1</span>개 수행해야해요. <br />
+            수행해야 할 벌칙이 없어요.
+          </div>
+        ) : selectedIndex === null && !isSpinning ? (
+          <div className="roulette-default-text">
+            벌칙을 <span style={{ color: 'var(--color-red-vari-400)' }}>1</span>개 수행해야 해요. <br />
             룰렛을 돌려주세요!
           </div>
         ) : (
@@ -65,9 +70,16 @@ const Roulette = () => {
       <div>
         <Button
           type="primary"
-          buttonName={isSpinning ? '돌리는 중...' : '룰렛 돌리기'}
+          buttonName={
+            !hasItems
+              ? '룰렛 비활성화'
+              : isSpinning
+              ? '룰렛 돌리기'
+              : '룰렛 돌리기'
+          }
           onClick={handleSpin}
-          disabled={isSpinning}
+          disabled={isSpinning || !hasItems}
+          bgColor="var(--color-secondary-indigo)"
           aria="룰렛 돌리기 버튼"
         />
       </div>
