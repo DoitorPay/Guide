@@ -3,6 +3,7 @@ import MainLayout from '@/pages/MainLayout';
 import WeekCalendar from '@/components/calendar/WeekCalendar';
 import SubTitle from '@/components/subtitle/SubTitle';
 import TodoList from '@/components/todo/todoList';
+import PanaltyNoti from '@/components/panalty/panaltyNoti';
 
 const TodoListPage = () => {
     return (
@@ -24,6 +25,7 @@ const TodoListPage = () => {
                 <SubTitle title="그룹1 목표" type="week"/>
                 <TodoList type="group" />
             </div>
+            <PanaltyNoti />
         </MainLayout>
     )
 }
