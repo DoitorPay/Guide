@@ -10,7 +10,7 @@ const dummyItems = [
 ];
 
 const Roulette = () => {
-  const [selectedIndex, setSelectedIndex] = useState(2);
+  const [selectedIndex, setSelectedIndex] = useState(null); // 초기값 null
   const [isSpinning, setIsSpinning] = useState(false);
 
   const spin = (current, speed, remaining) => {
@@ -19,11 +19,12 @@ const Roulette = () => {
       return;
     }
 
-    setSelectedIndex((current + 1) % dummyItems.length);
+    const nextIndex = (current + 1) % dummyItems.length;
+    setSelectedIndex(nextIndex);
 
     const nextSpeed = speed + 10;
     setTimeout(() => {
-      spin((current + 1) % dummyItems.length, nextSpeed, remaining - 1);
+      spin(nextIndex, nextSpeed, remaining - 1);
     }, nextSpeed);
   };
 
@@ -31,26 +32,36 @@ const Roulette = () => {
     if (isSpinning) return;
 
     setIsSpinning(true);
-    // 결과 속도 지정 totalSpins 
+
     const totalSpins = 20 + Math.floor(Math.random() * 10);
-    spin(selectedIndex, 50, totalSpins);
+    const startIndex = selectedIndex === null ? 0 : selectedIndex;
+    spin(startIndex, 50, totalSpins);
   };
 
   return (
     <div className="roulette-wrap">
       <div className="roulette-box">
-        {dummyItems.map((item, idx) => {
-          const isActive = idx === selectedIndex;
-          return (
-            <div
-              key={idx}
-              className={`roulette-item ${isActive ? 'active' : ''}`}
-            >
-              {item}
-            </div>
-          );
-        })}
+        {selectedIndex === null && !isSpinning ? (
+          <div className="roulette-default-text">
+            {/* 추후 span값 수정해야함 */}
+            벌칙을 <span style={{ color: 'var(--color-red-vari-400)' }}>1</span>개 수행해야해요. <br />
+            룰렛을 돌려주세요!
+          </div>
+        ) : (
+          dummyItems.map((item, idx) => {
+            const isActive = idx === selectedIndex;
+            return (
+              <div
+                key={idx}
+                className={`roulette-item ${isActive ? 'active' : ''}`}
+              >
+                {item}
+              </div>
+            );
+          })
+        )}
       </div>
+
       <div>
         <Button
           type="primary"

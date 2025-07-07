@@ -13,7 +13,8 @@ function cmpButton() {
                     buttonName: 버튼에 표시될 글자<br />
                     onClick: 클릭시 실행될 함수<br />
                     aria: 접근성 아리아<br />
-                    disabled: 비활성화 여부(기본값 false. disabled 입력시 true로 전환)
+                    disabled: 비활성화 여부(기본값 false. disabled 입력시 true로 전환)<br/>
+                    bgColor="var(색상 변수)"
 
                 </p>
                 <p className="guide-text-desc">type: default</p>
