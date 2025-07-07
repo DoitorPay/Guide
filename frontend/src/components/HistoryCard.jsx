@@ -28,7 +28,7 @@ const HistoryCard = ({
 
   return (
     <div className="historycard">
-      <div className="historycard__image-box">
+      <div className={`historycard__image-box ${image ? 'has-image' : ''}`}>
         {image ? (
           <img src={image} alt="인증 이미지" className="historycard__image" />
         ) : (
