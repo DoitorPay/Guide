@@ -9,7 +9,8 @@ const SubTitle = ({
   desc,
   link,
   info,
-  linkIcon = 'arrow-right-gray'
+  linkIcon = 'arrow-right-gray',
+  more = '전체보기'
 }) => {
   const currentDate = new Date();
   const today = format(currentDate, 'M월 d일', { locale: ko });
@@ -24,7 +25,7 @@ const SubTitle = ({
 
       {type === 'link' && link && (
         <Link to={link} className="sub-title__link">
-          전체보기
+          {more}
           <img src={`/icons/${linkIcon}.svg`} alt="link-icon" />
         </Link>
       )}

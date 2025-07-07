@@ -40,5 +40,11 @@
     "title": "투두리스트",
     "path": "/todoList",
     "fileName": "todoList.jsx"
+  },
+  {
+    "id": 8,
+    "title": "벌칙",
+    "path": "/penalty",
+    "fileName": "penalty.jsx"
   }
 ]

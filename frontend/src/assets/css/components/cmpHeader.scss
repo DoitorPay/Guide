@@ -6,7 +6,7 @@ header.cmp-header {
       display: flex;
       flex-direction: row;
       justify-content: space-between;
-      padding: clamp(12px, 3vw, 20px) clamp(20px, 5vw, 28px);
+      padding: clamp(12px, 3vw, 20px) clamp(12px, 5vw, 20px);
   
       .logo {
         img {
@@ -17,7 +17,7 @@ header.cmp-header {
         }
   
         &__title {
-          font-size: calc(var(--typo-size-heading-4) / 16 * 1rem); // 변수 그대로 유지
+          font-size: var(--typo-size-heading-6); 
           font-weight: 700;
         }
       }

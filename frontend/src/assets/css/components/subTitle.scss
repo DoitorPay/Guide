@@ -10,8 +10,8 @@
   
     &__link, &__info {
       font-size: var(--typo-size-body-3);
-      font-weight: var(--typo-weight-medium);
-      color: var(--color-gray-scale-600);
+      font-weight: var(--typo-weight-semibold);
+      color: var(--color-gray-scale-300);
       display: flex;
       gap: clamp(6px, 2vw, 10.5px);
   

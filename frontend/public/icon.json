@@ -13,6 +13,10 @@
     { "name": "arrow-right", "path": "@/public/icons/arrow-right.svg" },
     { "name": "arrow-top", "path": "@/public/icons/arrow-top.svg" },
     { "name": "arrow-bottom", "path": "@/public/icons/arrow-bottom.svg" },
+    {
+      "name": "arrow-bottom-gray",
+      "path": "@/public/icons/arrow-bottom-gray.svg"
+    }
     { "name": "add", "path": "@/public/icons/add.svg" },
     { "name": "clear", "path": "@/public/icons/clear.svg" },
     { "name": "done", "path": "@/public/icons/done.svg" },
@@ -43,6 +47,7 @@
     },
     { "name": "more", "path": "@/public/icons/more.svg" },
     { "name": "menu", "path": "@/public/icons/menu.svg" },
-    { "name": "download", "path": "@/public/icons/download.svg" }
+    { "name": "download", "path": "@/public/icons/download.svg" },
+    { "name": "upload", "path": "@/public/icons/upload.svg" },
   ]
 }
