@@ -17,41 +17,74 @@ import HomeProfile from "@/components/profile/homeProfile";
 import ProgressCard from "@/components/card/progressCard";
 import SubTitleGuide from "@/guide/subTitleGuide";
 import HistoryCard from "@/components/card/HistoryCard";
+import RankingGuide from "@/guide/rankingGuide";
+import GroupFloatingButton from "@/components/group/GroupFloatingButton";
 
-const itemList = [
-  { id: 3, name: "버튼", path: "@/guide/cmpButton", component: <CmpButton /> },
-  { id: 4, name: "로그인", path: "@/pages/login", component: <Login /> },
-  { id: 5, name: "텍스트 필드", path: "@/components/input", component: <Input /> },
-  { id: 6, name: "레이아웃", path: "@/pages/mainLayout", component: <MainLayout /> },
-  { id: 7, name: "네비게이션", path: "@/components/nav", component: <Navigation /> },
-  { id: 8, name: "체크박스", path: "@/components/Checkbox", component: <CheckboxDemo /> },
-  { id: 9, name: "룰렛", path: "@/components/roulette", component: <Roulette/> },
-  { id: 10, name: "헤더", path: "@/guide/cmpHeader", component: <CmpHeader />},
-  { id: 11, name: "태그", path: "@/guide/tagGuide", component: <TagGuide />},
-  { id: 12, name: "투두리스트", path: "@/components/todoList", component: <CmpTodoList />},
-  { id: 13, name: "캘린더", path: "@/guide/calendarGuide", component: <CalendarGuide />},
-  { id: 14, name: "프로필", path: "@/guide/cmpProfile", component: <ProfileGuide />},
-  { id: 15, name: "그룹 카드", path: "@/guide/GroupCardDemo", component: <GroupCardDemo />},
-  { id: 16, name: "오늘 큰 전진입니다~", path: "@/components/homeProfile", component: <HomeProfile />},
-  { id: 17, name: "오늘의 진행 상황", path: "@/components/progressCard", component: <ProgressCard />},
-  { id: 18, name: "서브 타이틀", path: "@/guide/subTitleGuide", component: <SubTitleGuide />},
-  { id: 19, name: "벌칙 히스토리 카드", path: "@/components/HistoryCard", component: <HistoryCard />},
+const groupedItemList = [
+  {
+    group: '기본 컴포넌트',
+    items: [
+      { id: 3, name: '버튼', path: '@/guide/cmpButton', component: <CmpButton /> },
+      { id: 5, name: '텍스트 필드', path: '@/components/input', component: <Input /> },
+      { id: 8, name: '체크박스', path: '@/components/Checkbox', component: <CheckboxDemo /> },
+      { id: 10, name: '헤더', path: '@/guide/cmpHeader', component: <CmpHeader /> },
+      { id: 11, name: '태그', path: '@/guide/tagGuide', component: <TagGuide /> },
+      { id: 18, name: '서브 타이틀', path: '@/guide/subTitleGuide', component: <SubTitleGuide /> },
+    ],
+  },
+  {
+    group: '프로필 및 사용자 인터페이스',
+    items: [
+      { id: 14, name: '프로필', path: '@/guide/cmpProfile', component: <ProfileGuide /> },
+      { id: 16, name: '오늘 큰 전진입니다~', path: '@/components/homeProfile', component: <HomeProfile /> },
+      { id: 17, name: '오늘의 진행 상황', path: '@/components/progressCard', component: <ProgressCard /> },
+    ],
+  },
+  {
+    group: '그룹 기능',
+    items: [
+      { id: 15, name: '그룹 카드', path: '@/guide/GroupCardDemo', component: <GroupCardDemo /> },
+      { id: 21, name: '그룹 플로팅 버튼', path: '@/components/group/GroupFloatingButton', component: <GroupFloatingButton /> },
+      { id: 20, name: '랭킹 컴포넌트', path: '@/components/ranking/-', component: <RankingGuide /> },
+    ],
+  },
+  {
+    group: '유틸/레이아웃/기타',
+    items: [
+      { id: 4, name: '로그인', path: '@/pages/login', component: <Login /> },
+      { id: 6, name: '레이아웃', path: '@/pages/mainLayout', component: <MainLayout /> },
+      { id: 7, name: '네비게이션', path: '@/components/nav', component: <Navigation /> },
+      { id: 9, name: '룰렛', path: '@/components/roulette', component: <Roulette /> },
+      { id: 12, name: '투두리스트', path: '@/components/todoList', component: <CmpTodoList /> },
+      { id: 13, name: '캘린더', path: '@/guide/calendarGuide', component: <CalendarGuide /> },
+      { id: 19, name: '벌칙 히스토리 카드', path: '@/components/HistoryCard', component: <HistoryCard /> },
+    ],
+  },
 ];
+
 
 export default function CmpSidebar() {
   const [selectedItem, setSelectedItem] = useState(null);
 
   return (
     <div className="inner-wrap cmp-sidebar">
-      <div className="cmp-sidebar__itemList">
-        <ul>
-          {itemList.map((item) => (
-            <li key={item.id} onClick={() => setSelectedItem(item)}>
-              {item.name}
-            </li>
-          ))}
-        </ul>
-      </div>
+      {groupedItemList.map((group, groupIdx) => (
+  <div key={groupIdx} className="cmp-sidebar__group">
+    <h4 className="cmp-sidebar__group-title">{group.group}</h4>
+    <ul>
+      {group.items.map((item) => (
+        <li
+          key={item.id}
+          onClick={() => setSelectedItem(item)}
+          className={selectedItem?.id === item.id ? 'selected' : ''}
+        >
+          {item.name}
+        </li>
+      ))}
+    </ul>
+  </div>
+))}
+
 
       <div className="cmp-sidebar__components">
         {selectedItem ? (
