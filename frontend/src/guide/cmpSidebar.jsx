@@ -19,6 +19,7 @@ import SubTitleGuide from "@/guide/subTitleGuide";
 import HistoryCard from "@/components/card/HistoryCard";
 import RankingGuide from "@/guide/rankingGuide";
 import GroupFloatingButton from "@/components/group/GroupFloatingButton";
+import PanaltyNoti from "@/components/panalty/panaltyNoti";
 
 const groupedItemList = [
   {
@@ -30,6 +31,7 @@ const groupedItemList = [
       { id: 10, name: '헤더', path: '@/guide/cmpHeader', component: <CmpHeader /> },
       { id: 11, name: '태그', path: '@/guide/tagGuide', component: <TagGuide /> },
       { id: 18, name: '서브 타이틀', path: '@/guide/subTitleGuide', component: <SubTitleGuide /> },
+      { id: 22, name: '벌칙 알림창', path: '@/components/panalty/panaltyNoti', component: <PanaltyNoti />}
     ],
   },
   {
