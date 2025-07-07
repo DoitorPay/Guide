@@ -31,7 +31,6 @@ const groupedItemList = [
       { id: 10, name: '헤더', path: '@/guide/cmpHeader', component: <CmpHeader /> },
       { id: 11, name: '태그', path: '@/guide/tagGuide', component: <TagGuide /> },
       { id: 18, name: '서브 타이틀', path: '@/guide/subTitleGuide', component: <SubTitleGuide /> },
-      { id: 22, name: '벌칙 알림창', path: '@/components/panalty/panaltyNoti', component: <PanaltyNoti />}
     ],
   },
   {
@@ -60,6 +59,7 @@ const groupedItemList = [
       { id: 12, name: '투두리스트', path: '@/components/todoList', component: <CmpTodoList /> },
       { id: 13, name: '캘린더', path: '@/guide/calendarGuide', component: <CalendarGuide /> },
       { id: 19, name: '벌칙 히스토리 카드', path: '@/components/HistoryCard', component: <HistoryCard /> },
+      { id: 22, name: '벌칙 알림창', path: '@/components/panalty/panaltyNoti', component: <PanaltyNoti />}
     ],
   },
 ];
