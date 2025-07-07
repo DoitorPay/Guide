@@ -1,5 +1,4 @@
 import React from 'react';
-import '@/assets/css/components/checkbox.scss';
 
 const Checkbox = ({ checked = false, disabled = false, onChange = () => {} }) => {
     const handleClick = () => {

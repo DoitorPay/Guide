@@ -1,5 +1,5 @@
 import React from 'react';
-import SubTitle from '@/components/subTitle';
+import SubTitle from '@/components/subtitle/subTitle';
 
 const SubTitleGuide = () => {
   return (

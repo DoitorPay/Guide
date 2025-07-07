@@ -1,4 +1,5 @@
 import React from "react";
+import MainLayout from "@/pages/mainLayout";
 
 const Login = () => {
   const handleSocialLogin = (provider) => {
@@ -7,8 +8,12 @@ const Login = () => {
   };
 
   return (
-    
-    <div className="login-wrapper">
+    <MainLayout
+       headerProps={{
+        type: "default",
+        icon1: "notifications",
+      }}>
+          <div className="login-wrapper">
       <h2>간편 로그인</h2>
       <button
         onClick={() => handleSocialLogin("kakao")}
@@ -23,6 +28,9 @@ const Login = () => {
         네이버로 시작하기
       </button>
     </div>
+
+      </MainLayout>
+    
   );
 };
 

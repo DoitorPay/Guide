@@ -1,4 +1,4 @@
-import TagList from "@/components/tagList";
+import TagList from "@/components/tag/tagList";
 import React from "react";
 
 const TagGuide = () => {

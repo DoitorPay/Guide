@@ -1,22 +1,22 @@
 import React, { useState } from "react";
 // 컴포넌트 목록
-import Input from "@/components/input";
+import Input from "@/components/Input/input";
 import CmpButton from "@/guide/cmpButton"
 import Login from "@/pages/login";
 import CmpHeader from "@/guide/cmpHeader";
 import MainLayout from "@/pages/mainLayout";
-import Navigation from "@/components/nav"; 
+import Navigation from "@/components/nav/nav"; 
 import CheckboxDemo from "@/guide/CheckboxDemo";
-import Roulette from "@/components/roulette";
+import Roulette from "@/components/roulette/roulette";
 import TagGuide from "@/guide/tagGuide";
 import CmpTodoList from "@/guide/cmpTodoList";
 import CalendarGuide from '@/guide/calendarGuide';
 import ProfileGuide from "@/guide/cmpProfile";
 import GroupCardDemo from "@/guide/GroupCardDemo";
-import HomeProfile from "@/components/homeProfile";
-import ProgressCard from "@/components/progressCard";
+import HomeProfile from "@/components/profile/homeProfile";
+import ProgressCard from "@/components/card/progressCard";
 import SubTitleGuide from "@/guide/subTitleGuide";
-import HistoryCard from "@/components/HistoryCard";
+import HistoryCard from "@/components/card/HistoryCard";
 
 const itemList = [
   { id: 3, name: "버튼", path: "@/guide/cmpButton", component: <CmpButton /> },

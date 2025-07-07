@@ -4,7 +4,7 @@ import CmpGuide from "@/guide/cmpGuide";
 import CssGuide from "@/guide/cssGuide";
 import PubGuide from "@/guide/pubGuide";
 import FrontGuide from "@/guide/frontGuide";
-import GuideHeader from "@/components/guideHeader";
+import GuideHeader from "@/components/header/guideHeader";
 import Login from "@/pages/login";
 import SignUp from "@/pages/SignUp.jsx";
 import StudyTopic from "@/pages/studyTopic.jsx";
@@ -12,6 +12,7 @@ import GroupDetail from "@/pages/GroupDetail.jsx";
 import MainPage from "@/pages/home.jsx";
 import TodoListPage from "@/pages/todoList.jsx";
 import Penalty from "@/pages/penalty.jsx";
+import GroupCreateForm from "@/pages/GroupCreateForm";
 
 const LayoutWithHeader = ({ children }) => {
   const location = useLocation();
@@ -48,6 +49,7 @@ const Router = () => {
           <Route path="/main" element={<MainPage />} />
           <Route path="/todolist" element={<TodoListPage />} />
           <Route path="/penalty" element={<Penalty />} />
+          <Route path="/groupcreateform" element={<GroupCreateForm />} />
         </Routes>
       </LayoutWithHeader>
     </BrowserRouter>

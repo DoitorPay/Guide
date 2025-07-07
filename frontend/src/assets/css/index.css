@@ -6,22 +6,22 @@
 
 
 /* components */
-@import '@/assets/css/components/button.scss';
-@import '@/assets/css/components/input.scss';
-@import '@/assets/css/components/cmpHeader.scss';
+@import '@/assets/css/components/button/button.scss';
+@import '@/assets/css/components/input/input.scss';
+@import '@/assets/css/components/header/cmpHeader.scss';
 @import '@/assets/css/components/icon.scss';
-@import '@/assets/css/components/nav.scss';
-@import 'signup.scss';
-@import '@/assets/css/components/tag.scss';
-@import '@/assets/css/components/todoList.scss';
-@import '@/assets/css/components/weekCalendar.scss';
+@import '@/assets/css/components/nav/nav.scss';
+@import '@/assets/css/components/tag/tag.scss';
+@import '@/assets/css/components/todo/todoList.scss';
+@import '@/assets/css/components/calendar/weekCalendar.scss';
 @import '@/assets/css/components/missionFeed.scss';
-@import '@/assets/css/components/groupCard.scss';
-@import '@/assets/css/components/homeProfile.scss'; 
-@import '@/assets/css/components/progressCard.scss'; 
-@import '@/assets/css/components/subTitle.scss'; 
-@import '@/assets/css/components/roulette.scss'; 
-@import '@/assets/css/components/historyCard.scss'; 
+@import '@/assets/css/components/group/groupCard.scss';
+@import '@/assets/css/components/profile/homeProfile.scss'; 
+@import '@/assets/css/components/card/progressCard.scss'; 
+@import '@/assets/css/components/subtitle/subTitle.scss'; 
+@import '@/assets/css/components/roulette/roulette.scss'; 
+@import '@/assets/css/components/card/historyCard.scss'; 
+@import '@/assets/css/components/input/checkbox.scss';
 
 /* profile components */
 @import '@/assets/css/components/profile/profileImage.scss';
@@ -32,3 +32,4 @@
 @import '@/assets/css/components/mainLayout.scss';
 @import '@/assets/css/pages/studyTopic.scss';
 @import '@/assets/css/pages/groupDetail.scss';
+@import '@/assets/css/pages/signup.scss';
