@@ -11,6 +11,7 @@ import StudyTopic from "@/pages/studyTopic.jsx";
 import GroupDetail from "@/pages/GroupDetail.jsx";
 import MainPage from "@/pages/home.jsx";
 import TodoListPage from "@/pages/todoList.jsx";
+import Penalty from "@/pages/penalty.jsx";
 
 const LayoutWithHeader = ({ children }) => {
   const location = useLocation();
@@ -19,7 +20,8 @@ const LayoutWithHeader = ({ children }) => {
                      location.pathname.startsWith("/studytopic") ||
                      location.pathname.startsWith("/groupdetailguide") ||
                      location.pathname.startsWith("/todoList") ||
-                     location.pathname.startsWith("/main");
+                     location.pathname.startsWith("/main") ||
+                     location.pathname.startsWith("/penalty");
 
   return (
     <>
@@ -45,6 +47,7 @@ const Router = () => {
           <Route path="/groupdetailguide" element={<GroupDetail />} />
           <Route path="/main" element={<MainPage />} />
           <Route path="/todolist" element={<TodoListPage />} />
+          <Route path="/penalty" element={<Penalty />} />
         </Routes>
       </LayoutWithHeader>
     </BrowserRouter>
