@@ -1,11 +1,11 @@
 import React from 'react';
 import MainLayout from "@/pages/MainLayout";
-import HomeProfile from '@/components/homeProfile';
-import ProgressCard from '@/components/progressCard';
-import TodoList from '@/components/todoList';
+import HomeProfile from '@/components/profile/homeProfile';
+import ProgressCard from '@/components/card/progressCard';
+import TodoList from '@/components/todo/todoList';
 import GroupCard from "@/components/group/GroupCard";
-import WeekCalendar from "@/components/WeekCalendar";
-import SubTitle from '@/components/subTitle';
+import WeekCalendar from "@/components/calendar/WeekCalendar";
+import SubTitle from '@/components/subtitle/subTitle';
 
 const MainPage = () => {
   return (

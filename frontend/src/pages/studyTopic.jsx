@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import TagList from '@/components/tagList';
-import Button from '@/components/Button';
+import TagList from '@/components/tag/tagList';
+import Button from '@/components/button/Button';
+import MainLayout from '@/pages/MainLayout';
 
 const TOPICS = [
   '수능 공부', '과제', '디자인', '코딩', '토익',
@@ -33,7 +34,15 @@ const StudyTopic = () => {
   };
 
   return (
-    <div className="study-topic">
+    <MainLayout
+                headerProps={{
+                    type: "header-a",
+                    title: "투두리스트",
+                    icon1: "notifications",
+                }}
+            >
+
+              <div className="study-topic">
       <h3>
         원하는 스터디 주제를 1개 이상 선택해주세요.
       </h3>
@@ -51,6 +60,8 @@ const StudyTopic = () => {
         />
       </div>
     </div>
+            </MainLayout>
+
   );
 };
 

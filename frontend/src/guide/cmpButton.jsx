@@ -1,5 +1,5 @@
 import React from "react";
-import Button from "@/components/button";
+import Button from "@/components/button/button";
 
 function guideClick() {
     console.log("버튼이 클릭되었습니다.");

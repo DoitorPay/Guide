@@ -1,8 +1,8 @@
 import React from 'react';
 import MainLayout from '@/pages/MainLayout';
-import WeekCalendar from '@/components/WeekCalendar';
-import SubTitle from '@/components/SubTitle';
-import TodoList from '@/components/todoList';
+import WeekCalendar from '@/components/calendar/WeekCalendar';
+import SubTitle from '@/components/subtitle/SubTitle';
+import TodoList from '@/components/todo/todoList';
 
 const TodoListPage = () => {
     return (

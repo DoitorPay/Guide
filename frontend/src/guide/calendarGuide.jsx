@@ -1,4 +1,4 @@
-import WeekCalendar from "@/components/WeekCalendar";
+import WeekCalendar from "@/components/calendar/WeekCalendar";
 import React from "react";
 
 const CalendarGuide = () => {

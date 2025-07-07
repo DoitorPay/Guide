@@ -1,5 +1,5 @@
 import React from 'react';
-import ProfileImage from '@/components/Profile/ProfileImage';
+import ProfileImage from '@/components/profile/ProfileImage';
 
 const HomeProfile = ({ name = 'ㅁㄴㅇㄹ', avatar }) => {
   return (
