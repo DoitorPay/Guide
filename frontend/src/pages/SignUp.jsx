@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import Input from '@/components/Input';
-import Button from '@/components/Button';
+import Input from '@/components/input/Input';
+import Button from '@/components/button/Button';
+import MainLayout from '@/pages/MainLayout';
 import { useNavigate } from 'react-router-dom';
 
 const SignUp = () => {
@@ -76,7 +77,14 @@ const checkNickname = async () => {
   const isFormValid = nickname && email && agree;
 
   return (
-    <div className="signup-wrapper">
+    <MainLayout
+          headerProps={{
+            type: "default",
+            icon1: "notifications",
+          }}
+        >
+
+           <div className="signup-wrapper">
       <div className="signup-body">
         <p className="signup-description">
           <p style={{color: "black", fontSize: "18px", fontWeight:"700"}}>기본 정보를 입력해주세요.<br /></p>
@@ -173,6 +181,7 @@ const checkNickname = async () => {
         />
       </div>
     </div>
+        </MainLayout>
   );
 };
 

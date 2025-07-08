@@ -1,8 +1,8 @@
 import React from 'react';
 import MainLayout from "@/pages/MainLayout";
-import SubTitle from '@/components/subTitle';
-import Roulette from '@/components/roulette';
-import HistoryCard from '@/components/HistoryCard';
+import SubTitle from '@/components/subtitle/subTitle';
+import Roulette from '@/components/roulette/roulette';
+import HistoryCard from '@/components/card/HistoryCard';
 
 const MainPage = () => {
   return (

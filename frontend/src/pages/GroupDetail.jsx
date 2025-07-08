@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import UserProfileRow from "@/components/Profile/UserProfileRow";
 import MissionFeed from "@/components/Group/MissionFeed";
+import MainLayout from "@/pages/MainLayout";
 // import useGroupStore from '@/stores/useGroupStore';
 
 const GroupDetail = () => {
@@ -51,7 +52,14 @@ const GroupDetail = () => {
   // }, [fetchGroupData, fetchFeeds, fetchMembers]);
 
   return (
-    <div className="group-detail-page">
+    <MainLayout
+          headerProps={{
+            type: "default",
+            icon1: "notifications",
+          }}
+        >
+
+          <div className="group-detail-page">
       <div className="hero-image">
         <img src={groupData.thumbnailUrl} alt="그룹 이미지" />
       </div>
@@ -116,6 +124,7 @@ const GroupDetail = () => {
         )}
       </div>
     </div>
+        </MainLayout>
   );
 };
 

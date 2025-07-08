@@ -1,7 +1,7 @@
 import React from 'react';
 import '@/assets/css/components/mainLayout.scss';
-import Navigation from '@/components/nav';
-import Header from "@/components/header"
+import Navigation from '@/components/nav/nav';
+import Header from "@/components/header/header"
 
 
 const MainLayout = ({ children, headerProps }) => {

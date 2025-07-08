@@ -2,52 +2,52 @@
   "icons": [
     {
       "name": "center-focus-strong",
-      "path": "@/public/icons/center-focus-strong.svg"
+      "path": "/icons/center-focus-strong.svg"
     },
-    { "name": "home", "path": "@/public/icons/home.svg" },
-    { "name": "assignment", "path": "@/public/icons/assignment.svg" },
-    { "name": "view-carousel", "path": "@/public/icons/view-carousel.svg" },
-    { "name": "report", "path": "@/public/icons/report.svg" },
-    { "name": "person", "path": "@/public/icons/person.svg" },
-    { "name": "arrow-left", "path": "@/public/icons/arrow-left.svg" },
-    { "name": "arrow-right", "path": "@/public/icons/arrow-right.svg" },
-    { "name": "arrow-top", "path": "@/public/icons/arrow-top.svg" },
-    { "name": "arrow-bottom", "path": "@/public/icons/arrow-bottom.svg" },
+    { "name": "home", "path": "/icons/home.svg" },
+    { "name": "assignment", "path": "/icons/assignment.svg" },
+    { "name": "view-carousel", "path": "/icons/view-carousel.svg" },
+    { "name": "report", "path": "/icons/report.svg" },
+    { "name": "person", "path": "/icons/person.svg" },
+    { "name": "arrow-left", "path": "/icons/arrow-left.svg" },
+    { "name": "arrow-right", "path": "/icons/arrow-right.svg" },
+    { "name": "arrow-top", "path": "/icons/arrow-top.svg" },
+    { "name": "arrow-bottom", "path": "/icons/arrow-bottom.svg" },
     {
       "name": "arrow-bottom-gray",
-      "path": "@/public/icons/arrow-bottom-gray.svg"
-    }
-    { "name": "add", "path": "@/public/icons/add.svg" },
-    { "name": "clear", "path": "@/public/icons/clear.svg" },
-    { "name": "done", "path": "@/public/icons/done.svg" },
-    { "name": "done-red", "path": "@/public/icons/done-red.svg" },
-    { "name": "refresh", "path": "@/public/icons/refresh.svg" },
-    { "name": "search", "path": "@/public/icons/search.svg" },
-    { "name": "notifications", "path": "@/public/icons/notifications.svg" },
+      "path": "/icons/arrow-bottom-gray.svg"
+    },
+    { "name": "add", "path": "/icons/add.svg" },
+    { "name": "clear", "path": "/icons/clear.svg" },
+    { "name": "done", "path": "/icons/done.svg" },
+    { "name": "done-red", "path": "/icons/done-red.svg" },
+    { "name": "refresh", "path": "/icons/refresh.svg" },
+    { "name": "search", "path": "/icons/search.svg" },
+    { "name": "notifications", "path": "/icons/notifications.svg" },
     {
       "name": "notifications-none",
-      "path": "@/public/icons/notifications-none.svg"
+      "path": "/icons/notifications-none.svg"
     },
-    { "name": "info", "path": "@/public/icons/info.svg" },
-    { "name": "info-outline", "path": "@/public/icons/info-outline.svg" },
-    { "name": "share", "path": "@/public/icons/share.svg" },
-    { "name": "calendar", "path": "@/public/icons/calendar.svg" },
-    { "name": "flag", "path": "@/public/icons/flag.svg" },
-    { "name": "outlined-flag", "path": "@/public/icons/outlined-flag.svg" },
-    { "name": "brightness-high", "path": "@/public/icons/brightness-high.svg" },
-    { "name": "error", "path": "@/public/icons/error.svg" },
-    { "name": "error-outline", "path": "@/public/icons/error-outline.svg" },
-    { "name": "delete-outline", "path": "@/public/icons/delete-outline.svg" },
-    { "name": "chat", "path": "@/public/icons/chat.svg" },
-    { "name": "cloud-upload", "path": "@/public/icons/cloud-upload.svg" },
-    { "name": "favorite", "path": "@/public/icons/favorite.svg" },
+    { "name": "info", "path": "/icons/info.svg" },
+    { "name": "info-outline", "path": "/icons/info-outline.svg" },
+    { "name": "share", "path": "/icons/share.svg" },
+    { "name": "calendar", "path": "/icons/calendar.svg" },
+    { "name": "flag", "path": "/icons/flag.svg" },
+    { "name": "outlined-flag", "path": "/icons/outlined-flag.svg" },
+    { "name": "brightness-high", "path": "/icons/brightness-high.svg" },
+    { "name": "error", "path": "/icons/error.svg" },
+    { "name": "error-outline", "path": "/icons/error-outline.svg" },
+    { "name": "delete-outline", "path": "/icons/delete-outline.svg" },
+    { "name": "chat", "path": "/icons/chat.svg" },
+    { "name": "cloud-upload", "path": "/icons/cloud-upload.svg" },
+    { "name": "favorite", "path": "/icons/favorite.svg" },
     {
       "name": "favorite-outline",
-      "path": "@/public/icons/favorite-outline.svg"
+      "path": "/icons/favorite-outline.svg"
     },
-    { "name": "more", "path": "@/public/icons/more.svg" },
-    { "name": "menu", "path": "@/public/icons/menu.svg" },
-    { "name": "download", "path": "@/public/icons/download.svg" },
-    { "name": "upload", "path": "@/public/icons/upload.svg" },
+    { "name": "more", "path": "/icons/more.svg" },
+    { "name": "menu", "path": "/icons/menu.svg" },
+    { "name": "download", "path": "/icons/download.svg" },
+    { "name": "upload", "path": "/icons/upload.svg" }
   ]
 }
