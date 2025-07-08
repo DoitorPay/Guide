@@ -23,3 +23,16 @@ class UpdateInterest(Resource):
                 , sns = session['user_data']['sns']
                 , id=session['user_data']['id']
             )
+
+    def get(self):
+        with driver.session() as neo_session:
+            res = neo_session.run(
+                '''
+                    MATCH (n:Person {id: $id})
+                    WHERE n.sns = $sns
+                    return n.interest
+                '''
+                , sns = session['user_data']['sns']
+                , id=session['user_data']['id']
+            )
+            return jsonify(res.single())

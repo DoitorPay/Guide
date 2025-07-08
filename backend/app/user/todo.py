@@ -35,9 +35,11 @@ class UserTodo(Resource):
             try:
                 neo_session.run(
                     '''MATCH(n:Person {id:$id}) WHERE n.sns = $sns
-                    WITH n
-                    WHERE NOT $todo IN COALESCE(n.todo, [])
-                    SET n.todo = COALESCE(n.todo, []) + $todo''',
+                    WHERE n.sns = $sns
+                    WITH n, COALESCE(n.interest, []) + todo_list AS combinedTodo
+                    UNWIND combinedTodo AS todo
+                    WITH n, COLLECT(DISTINCT todo) AS uniqueTodo
+                    SET n.todo = uniqueTodo''',
                     id=user_data['id'], sns=user_data['sns'], todo=todo_list['list']
                 )
             except Exception as e:
