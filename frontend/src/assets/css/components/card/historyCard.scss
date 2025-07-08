@@ -21,6 +21,10 @@
       display: flex;
       justify-content: center;
       align-items: center;
+
+      &.has-image {
+        border: none;
+      }
     }
   
     &__upload-box {
