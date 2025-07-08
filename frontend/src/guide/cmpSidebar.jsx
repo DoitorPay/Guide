@@ -20,6 +20,7 @@ import HistoryCard from "@/components/card/HistoryCard";
 import RankingGuide from "@/guide/rankingGuide";
 import GroupFloatingButton from "@/components/group/GroupFloatingButton";
 import PanaltyNoti from "@/components/panalty/panaltyNoti";
+import SettingGuide from "@/guide/settingGuide";
 
 const groupedItemList = [
   {
@@ -59,7 +60,8 @@ const groupedItemList = [
       { id: 12, name: '투두리스트', path: '@/components/todoList', component: <CmpTodoList /> },
       { id: 13, name: '캘린더', path: '@/guide/calendarGuide', component: <CalendarGuide /> },
       { id: 19, name: '벌칙 히스토리 카드', path: '@/components/HistoryCard', component: <HistoryCard /> },
-      { id: 22, name: '벌칙 알림창', path: '@/components/panalty/panaltyNoti', component: <PanaltyNoti />}
+      { id: 22, name: '벌칙 알림창', path: '@/components/panalty/panaltyNoti', component: <PanaltyNoti />},
+      { id: 23, name: '메뉴', path: '@/components/myPage/SettingSection', component: <SettingGuide />}
     ],
   },
 ];

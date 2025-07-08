@@ -1,0 +1,40 @@
+.setting-section {
+    background-color: var(--color-gray-scale-white);
+    border-radius: clamp(8px, 2vw, 8px);
+    padding: clamp(20px, 4vw, 20px) clamp(16px, 4vw, 16px);
+    display: flex;
+    flex-direction: column;
+    gap: clamp(16px, 3vw, 16px);
+  }
+  
+  .setting-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: var(--typo-size-body-1);
+    color: var(--color-gray-scale-700);
+    font-weight: var(--typo-weight-semibold);
+    cursor: pointer;
+  
+    &__right {
+      display: flex;
+      align-items: center;
+
+    }
+  
+    &__text {
+      font-size: var(--typo-size-body-2);
+      color: var(--color-gray-scale-500);
+    }
+  
+    &.has-text {
+      cursor: default;
+  
+      .setting-item__right {
+        img {
+          display: none;
+        }
+      }
+    }
+  }
+  
