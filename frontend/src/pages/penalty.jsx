@@ -4,9 +4,11 @@ import SubTitle from '@/components/subtitle/subTitle';
 import Roulette from '@/components/roulette/roulette';
 import HistoryCard from '@/components/card/HistoryCard';
 
+const punishments = ['엉덩이로 이름 쓰기', 'asdasd', 'asdadas', 'asdasd', 'asdadas'];
+
 const MainPage = () => {
   return (
-    <MainLayout
+    <MainLayout contentBg="var(--color-background)"
       headerProps={{
         title: "벌칙",
         type: "header-a",
@@ -15,7 +17,7 @@ const MainPage = () => {
     >
         <div>
             <SubTitle title="벌칙 룰렛 돌리기" type="info" info="면제 카드 2장" />
-            <Roulette/>
+            <Roulette items={punishments}/>
         </div>
         <div>
             <SubTitle title="벌칙 히스토리" type="link"

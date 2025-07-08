@@ -11,6 +11,8 @@
     { "name": "person", "path": "/icons/person.svg" },
     { "name": "arrow-left", "path": "/icons/arrow-left.svg" },
     { "name": "arrow-right", "path": "/icons/arrow-right.svg" },
+    { "name": "arrow-right-gray", "path": "/icons/arrow-right-gray.svg" },
+    { "name": "arrow-right-orange", "path": "/icons/arrow-right-orange.svg" },
     { "name": "arrow-top", "path": "/icons/arrow-top.svg" },
     { "name": "arrow-bottom", "path": "/icons/arrow-bottom.svg" },
     {
@@ -36,6 +38,10 @@
     { "name": "flag", "path": "/icons/flag.svg" },
     { "name": "outlined-flag", "path": "/icons/outlined-flag.svg" },
     { "name": "brightness-high", "path": "/icons/brightness-high.svg" },
+    {
+      "name": "brightness-high-gray",
+      "path": "/icons/brightness-high-gray.svg"
+    },
     { "name": "error", "path": "/icons/error.svg" },
     { "name": "error-outline", "path": "/icons/error-outline.svg" },
     { "name": "delete-outline", "path": "/icons/delete-outline.svg" },

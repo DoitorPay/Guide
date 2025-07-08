@@ -1,19 +1,11 @@
 import React, { useState } from 'react';
 import Button from '@/components/button/button';
 
-const dummyItems = [
-  '벌칙 내용',
-  '벌칙 내용',
-  '벌칙 내용',
-  '벌칙 내용',
-  '벌칙 내용',
-];
-
-const Roulette = () => {
+const Roulette = ({ items = [] }) => {
   const [selectedIndex, setSelectedIndex] = useState(null);
   const [isSpinning, setIsSpinning] = useState(false);
 
-  const hasItems = dummyItems.length > 0;
+  const hasItems = items.length > 0;
 
   const spin = (current, speed, remaining) => {
     if (remaining <= 0) {
@@ -21,7 +13,7 @@ const Roulette = () => {
       return;
     }
 
-    const nextIndex = (current + 1) % dummyItems.length;
+    const nextIndex = (current + 1) % items.length;
     setSelectedIndex(nextIndex);
 
     const nextSpeed = speed + 10;
@@ -53,7 +45,7 @@ const Roulette = () => {
             룰렛을 돌려주세요!
           </div>
         ) : (
-          dummyItems.map((item, idx) => {
+          items.map((item, idx) => {
             const isActive = idx === selectedIndex;
             return (
               <div
@@ -72,9 +64,9 @@ const Roulette = () => {
           type="primary"
           buttonName={
             !hasItems
-              ? '룰렛 비활성화'
-              : isSpinning
               ? '룰렛 돌리기'
+              : isSpinning
+              ? '룰렛 돌리는 중...'
               : '룰렛 돌리기'
           }
           onClick={handleSpin}
