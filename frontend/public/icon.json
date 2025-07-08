@@ -23,6 +23,7 @@
     { "name": "clear", "path": "/icons/clear.svg" },
     { "name": "done", "path": "/icons/done.svg" },
     { "name": "done-red", "path": "/icons/done-red.svg" },
+    { "name": "done-gray", "path": "/icons/done-gray.svg"},
     { "name": "refresh", "path": "/icons/refresh.svg" },
     { "name": "search", "path": "/icons/search.svg" },
     { "name": "notifications", "path": "/icons/notifications.svg" },
