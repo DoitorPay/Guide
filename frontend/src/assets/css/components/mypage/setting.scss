@@ -5,6 +5,7 @@
     display: flex;
     flex-direction: column;
     gap: clamp(16px, 3vw, 16px);
+    margin-bottom: clamp(12px, 3vw, 12px);
   }
   
   .setting-item {
@@ -36,5 +37,13 @@
         }
       }
     }
+
+    &.no-right {
+        justify-content: flex-start;
+    
+        .setting-item__right {
+          display: none;
+        }
+      }
   }
   

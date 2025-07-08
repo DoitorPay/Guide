@@ -14,16 +14,19 @@ function settingGuide() {
         ]}
       />
 
-    {/* 섹션간여백 */}
-      <div style={{ height: '12px' }} />
-
       <SettingSection
         items={[
           { label: '이용약관'},
           { label: '개인정보 처리 방침'},
-          { label: '앱버전', rightText: '1.0.1' },
+          { label: '앱 버전', type: 'text', text: '1.0.0' },
         ]}
       />
+
+      <SettingSection
+        items={[
+            { label: '로그아웃', type: 'none' },
+        ]}
+        />
     </div>
   );
 }
