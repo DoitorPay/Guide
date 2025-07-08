@@ -46,5 +46,11 @@
     "title": "벌칙",
     "path": "/penalty",
     "fileName": "penalty.jsx"
+  },
+  {
+    "id": 9,
+    "title": "마이페이지",
+    "path": "/mypage",
+    "fileName": "myPage.jsx"
   }
 ]

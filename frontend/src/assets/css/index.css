@@ -24,7 +24,8 @@
 @import '@/assets/css/components/input/checkbox.scss';
 @import '@/assets/css/components/panalty/panaltyNoti.scss';
 @import '@/assets/css/components/mypage/setting.scss';
-@import '@/assets/css/components/mypage/profileCard.scss';
+@import '@/assets/css/components/profile/profileCard.scss';
+@import '@/assets/css/components/mypage/LevelProgress.scss';
 
 /* profile components */
 @import '@/assets/css/components/profile/profileImage.scss';
@@ -36,3 +37,4 @@
 @import '@/assets/css/pages/studyTopic.scss';
 @import '@/assets/css/pages/groupDetail.scss';
 @import '@/assets/css/pages/signup.scss';
+@import '@/assets/css/pages/myPage.scss';

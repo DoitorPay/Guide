@@ -16,6 +16,7 @@
     color: var(--color-gray-scale-700);
     font-weight: var(--typo-weight-semibold);
     cursor: pointer;
+    padding: clamp(8px, 3vw, 10px) 0;
   
     &__right {
       display: flex;

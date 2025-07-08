@@ -22,6 +22,7 @@ import GroupFloatingButton from "@/components/group/GroupFloatingButton";
 import PanaltyNoti from "@/components/panalty/panaltyNoti";
 import ProfileCard from "@/components/profile/ProfileCard";
 import SettingGuide from "@/guide/settingGuide";
+import LevelProgress from "@/components/myPage/LevelProgress";
 
 const groupedItemList = [
   {
@@ -63,7 +64,8 @@ const groupedItemList = [
       { id: 13, name: '캘린더', path: '@/guide/calendarGuide', component: <CalendarGuide /> },
       { id: 19, name: '벌칙 히스토리 카드', path: '@/components/HistoryCard', component: <HistoryCard /> },
       { id: 22, name: '벌칙 알림창', path: '@/components/panalty/panaltyNoti', component: <PanaltyNoti />},
-      { id: 23, name: '메뉴', path: '@/components/myPage/SettingSection', component: <SettingGuide />}
+      { id: 23, name: '메뉴', path: '@/components/myPage/SettingSection', component: <SettingGuide />},
+      { id: 25, name: '레벨 프로그레스바', path: '@/components/myPage/LevelProgress', component: <LevelProgress />},
     ],
   },
 ];

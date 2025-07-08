@@ -13,6 +13,7 @@ import MainPage from "@/pages/home.jsx";
 import TodoListPage from "@/pages/todoList.jsx";
 import Penalty from "@/pages/penalty.jsx";
 import GroupCreateForm from "@/pages/GroupCreateForm";
+import MyPage from "@/pages/myPage";
 
 const LayoutWithHeader = ({ children }) => {
   const location = useLocation();
@@ -22,6 +23,7 @@ const LayoutWithHeader = ({ children }) => {
                      location.pathname.startsWith("/groupdetailguide") ||
                      location.pathname.startsWith("/todoList") ||
                      location.pathname.startsWith("/main") ||
+                     location.pathname.startsWith("/mypage") ||
                      location.pathname.startsWith("/penalty");
 
   return (
@@ -50,6 +52,7 @@ const Router = () => {
           <Route path="/todolist" element={<TodoListPage />} />
           <Route path="/penalty" element={<Penalty />} />
           <Route path="/groupcreateform" element={<GroupCreateForm />} />
+          <Route path="/mypage" element={<MyPage />} />
         </Routes>
       </LayoutWithHeader>
     </BrowserRouter>
