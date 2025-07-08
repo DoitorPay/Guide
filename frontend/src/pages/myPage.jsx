@@ -7,6 +7,7 @@ import SettingSection from "@/components/myPage/SettingSection";
 const MyPage = () => {
   return (
     <MainLayout contentBg="var(--color-background)"
+    className='mypage-wrap'
         headerProps={{
             title: "마이페이지",
             type: "header-a",

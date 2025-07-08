@@ -1,0 +1,6 @@
+.mypage-wrap {
+    .content-area {
+        row-gap:  clamp(12px, 3vw, 12px);
+        padding-top:  clamp(12px, 3vw, 12px);
+    }
+}

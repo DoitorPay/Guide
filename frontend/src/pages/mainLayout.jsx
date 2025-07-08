@@ -3,9 +3,9 @@ import '@/assets/css/components/mainLayout.scss';
 import Navigation from '@/components/nav/nav';
 import Header from '@/components/header/header';
 
-const MainLayout = ({ children, headerProps, contentBg = 'var(--color-gray-scale-white)' }) => {
+const MainLayout = ({ children, headerProps, className = '', contentBg = 'var(--color-gray-scale-white)' }) => {
   return (
-    <div className="wrapper">
+    <div className={`wrapper ${className}`}>
       <div className="main-layout">
         <Header {...headerProps} />
         <section className="content-area" style={{ backgroundColor: contentBg }}>

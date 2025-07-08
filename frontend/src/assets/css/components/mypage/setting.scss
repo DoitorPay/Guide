@@ -5,7 +5,7 @@
     display: flex;
     flex-direction: column;
     gap: clamp(16px, 3vw, 16px);
-    margin-bottom: clamp(24px, 5vw, 32px);
+    margin-bottom: clamp(12px, 3vw, 12px);
   }
   
   .setting-item {
@@ -16,7 +16,7 @@
     color: var(--color-gray-scale-700);
     font-weight: var(--typo-weight-semibold);
     cursor: pointer;
-    padding: clamp(8px, 3vw, 10px) 0;
+    padding: clamp(6px, 3vw, 8px) 0;
   
     &__right {
       display: flex;
