@@ -24,6 +24,7 @@
 @import '@/assets/css/components/input/checkbox.scss';
 @import '@/assets/css/components/panalty/panaltyNoti.scss';
 @import '@/assets/css/components/mypage/setting.scss';
+@import '@/assets/css/components/mypage/profileCard.scss';
 
 /* profile components */
 @import '@/assets/css/components/profile/profileImage.scss';
