@@ -24,6 +24,7 @@ class UserTodo(Resource):
     def post(self):
         user_data = session.get('user_data')
         todo_list = request.get_json()
+
         with driver.session() as neo_session:
             user = neo_session.run(
                 '''MATCH(n:Person {id:$id}) WHERE n.sns = $sns
@@ -33,11 +34,13 @@ class UserTodo(Resource):
                 return "사용자 정보를 확인할 수 없습니다", 500
 
             try:
-                neo_session.run(
-                    '''MATCH(n:Person {id:$id}) WHERE n.sns = $sns
-                    WITH n
-                    WHERE NOT $todo IN COALESCE(n.todo, [])
-                    SET n.todo = COALESCE(n.todo, []) + $todo''',
+                result = neo_session.run(
+                    '''MATCH(n:Person {id:$id, sns: $sns})
+                    WITH n, COALESCE(n.todo, []) + $todo AS combinedTodo
+                    UNWIND combinedTodo AS todo
+                    WITH n, COLLECT(DISTINCT todo) AS uniqueTodo
+                    SET n.todo = uniqueTodo
+                    RETURN n''',
                     id=user_data['id'], sns=user_data['sns'], todo=todo_list['list']
                 )
             except Exception as e:
