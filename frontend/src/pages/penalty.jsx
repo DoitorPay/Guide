@@ -6,7 +6,7 @@ import HistoryCard from '@/components/card/HistoryCard';
 
 const MainPage = () => {
   return (
-    <MainLayout
+    <MainLayout contentBg="var(--color-background)"
       headerProps={{
         title: "벌칙",
         type: "header-a",
