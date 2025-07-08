@@ -13,6 +13,8 @@ const Popup = ({
     onSecondClick,
     setPopup = true,
 }) => {
+
+
     return (
         <>
             {setPopup && (

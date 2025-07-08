@@ -20,6 +20,7 @@ const PopupGuide = () => {
             button2Aria: 버튼2 아리아<br />
             onClick: 버튼1 클릭했을 때<br />
             onSecondClick: 버튼2 클릭했을 때<br />
+            setPopup: 페이지에서 true/false 토글 함수를 생성해 조절
             </p>
 
 
@@ -28,7 +29,8 @@ const PopupGuide = () => {
                 icon="done-gray"
                 title="title입니다."
                 subtitle="subtitle입니다."
-                buttonName="버튼1"
+                buttonName="닫기"
+                onClick={toggleSetPopup}
                 button2Name="버튼2"
                 setPopup={setPopup}
             />
