@@ -64,7 +64,7 @@ const Roulette = ({ items = [] }) => {
           type="primary"
           buttonName={
             !hasItems
-              ? '룰렛 비활성화'
+              ? '룰렛 돌리기'
               : isSpinning
               ? '룰렛 돌리는 중...'
               : '룰렛 돌리기'
