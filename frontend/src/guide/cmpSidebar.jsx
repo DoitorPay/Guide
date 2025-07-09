@@ -24,6 +24,7 @@ import ProfileCard from "@/components/profile/ProfileCard";
 import SettingGuide from "@/guide/settingGuide";
 import LevelProgress from "@/components/myPage/LevelProgress";
 import PopupGuide from "@/guide/popupGuide";
+import MoreOptionGuide from "@/guide/moreOptionGuide";
 
 const groupedItemList = [
   {
@@ -68,6 +69,7 @@ const groupedItemList = [
       { id: 23, name: '메뉴', path: '@/components/myPage/SettingSection', component: <SettingGuide />},
       { id: 25, name: '레벨 프로그레스바', path: '@/components/myPage/LevelProgress', component: <LevelProgress />},
       { id: 26, name: '팝업', path: '@/guide/popupGuide', component: <PopupGuide /> },
+      { id: 27, name: '더보기 옵션(모달)', path: '@/guide/moreOptionGuide', component: <MoreOptionGuide /> }
     ],
   },
 ];
