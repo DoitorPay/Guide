@@ -3,18 +3,17 @@ import Button from "@/components/button/button";
 import MoreOption from "@/components/popupModal/moreOption";
 
 const MoreOptionGuide = () => {
+
+    
     // 필수 함수
-    const [isMoreOptionOpen, setIsMoreOptionOpen] = useState(false);
-    function handleMoreOption() {
-        setIsMoreOptionOpen(!isMoreOptionOpen);
-    }
+    const [open, setOpen] = useState(false);
     
 
 
     // 예시 함수
     function clickDay(label) {
         alert(`${label} 클릭`);
-        setIsMoreOptionOpen(false); // 모달 닫기
+        setOpen(false); // 모달 닫기
     }
     
     return (
@@ -27,7 +26,7 @@ const MoreOptionGuide = () => {
             </p>
 
 
-            <Button buttonName="팝업 띄우기" aria="팝업 띄우기" onClick={handleMoreOption}/>
+            <Button buttonName="팝업 띄우기" aria="팝업 띄우기" onClick={() => setOpen(true)}/>
             <MoreOption
                 title="타이틀입니다"
                 options={[
@@ -39,8 +38,8 @@ const MoreOptionGuide = () => {
                     { label: "토요일", onClick: () => clickDay("토요일") },
                     { label: "일요일", onClick: () => clickDay("일요일") }
                 ]}
-                isOpen={isMoreOptionOpen}
-                onClose={handleMoreOption}
+                isOpen={open}
+                onClose={() => setOpen(false)}
             />
         </div>
     )
