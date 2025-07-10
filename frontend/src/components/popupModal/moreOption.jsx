@@ -12,25 +12,22 @@ const MoreOption = ({
             onClose();
         }
     };
+    if(!isOpen) return null;
 
     return(
-        <>
-            { isOpen && (
-                <div className="more-option" onClick={handleOverlayClick}>
-                    <div className="more-option__container">
-                        <div className="more-title">{title}</div>
-                        <div className="more-subtitle">
-                            {options.map((option, index) => (
-                                <div key={index} className="more-subtitle--list" onClick={option.onClick}>
-                                    {option.label}
-                                </div>
-                            ))}
+        <div className="more-option" onClick={handleOverlayClick}>
+            <div className="more-option__container">
+                <div className="more-title">{title}</div>
+                <div className="more-subtitle">
+                    {options.map((option, index) => (
+                        <div key={index} className="more-subtitle--list" onClick={option.onClick}>
+                            {option.label}
                         </div>
-                    </div>
-                    <div className="overlay" onClick={handleOverlayClick}></div>
+                    ))}
                 </div>
-            )}
-        </>
+            </div>
+            <div className="overlay" onClick={handleOverlayClick}></div>
+        </div>
     )
 }
 
