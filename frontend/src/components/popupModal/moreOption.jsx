@@ -4,18 +4,13 @@ const MoreOption = ({
     title = "타이틀",
     options = [],
     isOpen = false,
-    onClose = () => {},
+    onClose,
 }) => {
-    const handleOverlayClick = (e) => {
-        // overlay 자체를 클릭했을 때만 모달 닫기
-        if (e.target === e.currentTarget) {
-            onClose();
-        }
-    };
+
     if(!isOpen) return null;
 
     return(
-        <div className="more-option" onClick={handleOverlayClick}>
+        <div className="more-option">
             <div className="more-option__container">
                 <div className="more-title">{title}</div>
                 <div className="more-subtitle">
@@ -26,7 +21,7 @@ const MoreOption = ({
                     ))}
                 </div>
             </div>
-            <div className="overlay" onClick={handleOverlayClick}></div>
+            <div className="overlay" onClick={onClose}></div>
         </div>
     )
 }
