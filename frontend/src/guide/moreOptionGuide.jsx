@@ -5,7 +5,7 @@ import MoreOption from "@/components/popupModal/moreOption";
 const MoreOptionGuide = () => {
 
     
-    // 필수 함수
+    // 모달 열기, 닫기
     const [open, setOpen] = useState(false);
     
 
@@ -21,8 +21,8 @@ const MoreOptionGuide = () => {
             <p className="guide-text-title">
             title: 메인 타이틀<br />
             options: 배열 형태로 리스트를 작성<br />
-            isOpen: 특정 액션시 모달을 여는 prop (true/false) <br/>
-            onClose: overlay 클릭 시 모달을 닫는 콜백 함수<br />
+            isOpen: true/false (useState를 통해 조작) <br/>
+            onClose: 모달창 밖 overlay클릭시 창 닫기<br />
             </p>
 
 
