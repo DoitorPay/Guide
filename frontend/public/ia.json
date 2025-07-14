@@ -52,5 +52,11 @@
     "title": "마이페이지",
     "path": "/mypage",
     "fileName": "myPage.jsx"
+  },
+  {
+    "id": 10,
+    "title": "그룹 미션 폼",
+    "path": "/missionform",
+    "fileName": "GroupMissionForm.jsx"
   }
 ]
