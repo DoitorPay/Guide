@@ -10,7 +10,8 @@ const SubTitle = ({
   link,
   info,
   linkIcon = 'arrow-right-gray',
-  more = '전체보기'
+  more = '전체보기',
+  onClickMore
 }) => {
   const currentDate = new Date();
   const today = format(currentDate, 'M월 d일', { locale: ko });
@@ -24,7 +25,7 @@ const SubTitle = ({
       <h2 className="sub-title__heading">{title}</h2>
 
       {type === 'link' && link && (
-        <Link to={link} className="sub-title__link">
+        <Link to={link} className="sub-title__link" onClick={onClickMore}>
           {more}
           <img src={`/icons/${linkIcon}.svg`} alt="link-icon" />
         </Link>
