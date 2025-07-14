@@ -23,7 +23,7 @@
     { "name": "clear", "path": "/icons/clear.svg" },
     { "name": "done", "path": "/icons/done.svg" },
     { "name": "done-red", "path": "/icons/done-red.svg" },
-    { "name": "done-gray", "path": "/icons/done-gray.svg"},
+    { "name": "done-gray", "path": "/icons/done-gray.svg" },
     { "name": "refresh", "path": "/icons/refresh.svg" },
     { "name": "search", "path": "/icons/search.svg" },
     { "name": "notifications", "path": "/icons/notifications.svg" },
@@ -55,6 +55,8 @@
     { "name": "more", "path": "/icons/more.svg" },
     { "name": "menu", "path": "/icons/menu.svg" },
     { "name": "download", "path": "/icons/download.svg" },
-    { "name": "upload", "path": "/icons/upload.svg" }
+    { "name": "upload", "path": "/icons/upload.svg" },
+    { "name": "heart-empty", "path": "/icons/heart-empty.svg" },
+    { "name": "heart-filled", "path": "/icons/heart-filled.svg" }
   ]
 }

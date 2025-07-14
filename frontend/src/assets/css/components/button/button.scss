@@ -68,3 +68,22 @@
     }
   }
   
+  .like-button {
+    display: flex;
+    align-items: center;
+    gap: clamp(2px, 1vw, 6px);
+    cursor: pointer;
+
+    span {
+      font-size: var(--typo-size-body-1	);
+      font-weight: var(--typo-weight-medium	);
+    }
+  
+    img {
+      transition: transform 0.2s ease;
+    }
+  
+    &:active img {
+      transform: scale(1.2);
+    }
+  }

@@ -25,6 +25,7 @@ import SettingGuide from "@/guide/settingGuide";
 import LevelProgress from "@/components/myPage/LevelProgress";
 import PopupGuide from "@/guide/popupGuide";
 import MoreOptionGuide from "@/guide/moreOptionGuide";
+import LikeButton from "@/components/button/likeButton";
 
 const groupedItemList = [
   {
@@ -36,6 +37,7 @@ const groupedItemList = [
       { id: 10, name: '헤더', path: '@/guide/cmpHeader', component: <CmpHeader /> },
       { id: 11, name: '태그', path: '@/guide/tagGuide', component: <TagGuide /> },
       { id: 18, name: '서브 타이틀', path: '@/guide/subTitleGuide', component: <SubTitleGuide /> },
+      { id: 28, name: '좋아요', path: '@/components/button/likeButton', component: <LikeButton /> },
     ],
   },
   {
@@ -69,7 +71,7 @@ const groupedItemList = [
       { id: 23, name: '메뉴', path: '@/components/myPage/SettingSection', component: <SettingGuide />},
       { id: 25, name: '레벨 프로그레스바', path: '@/components/myPage/LevelProgress', component: <LevelProgress />},
       { id: 26, name: '팝업', path: '@/guide/popupGuide', component: <PopupGuide /> },
-      { id: 27, name: '더보기 옵션(모달)', path: '@/guide/moreOptionGuide', component: <MoreOptionGuide /> }
+      { id: 27, name: '더보기 옵션(모달)', path: '@/guide/moreOptionGuide', component: <MoreOptionGuide /> },
     ],
   },
 ];
