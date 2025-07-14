@@ -14,6 +14,7 @@ import TodoListPage from "@/pages/todoList.jsx";
 import Penalty from "@/pages/penalty.jsx";
 import GroupCreateForm from "@/pages/GroupCreateForm";
 import MyPage from "@/pages/myPage";
+import GroupMissionForm from "@/pages/GroupMissionForm";
 
 const LayoutWithHeader = ({ children }) => {
   const location = useLocation();
@@ -53,6 +54,7 @@ const Router = () => {
           <Route path="/penalty" element={<Penalty />} />
           <Route path="/groupcreateform" element={<GroupCreateForm />} />
           <Route path="/mypage" element={<MyPage />} />
+          <Route path="/missionform" element={<GroupMissionForm />} />
         </Routes>
       </LayoutWithHeader>
     </BrowserRouter>

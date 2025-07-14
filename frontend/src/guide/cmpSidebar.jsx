@@ -26,6 +26,7 @@ import LevelProgress from "@/components/myPage/LevelProgress";
 import PopupGuide from "@/guide/popupGuide";
 import MoreOptionGuide from "@/guide/moreOptionGuide";
 import LikeButton from "@/components/button/likeButton";
+import Modal from "@/components/modal/Modal";
 
 const groupedItemList = [
   {
@@ -38,6 +39,7 @@ const groupedItemList = [
       { id: 11, name: '태그', path: '@/guide/tagGuide', component: <TagGuide /> },
       { id: 18, name: '서브 타이틀', path: '@/guide/subTitleGuide', component: <SubTitleGuide /> },
       { id: 28, name: '좋아요', path: '@/components/button/likeButton', component: <LikeButton /> },
+      { id: 29, name: '모달', path: '@/components/button/likeButton', component: <Modal /> },
     ],
   },
   {
