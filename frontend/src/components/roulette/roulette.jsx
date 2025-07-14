@@ -1,15 +1,19 @@
 import React, { useState } from 'react';
 import Button from '@/components/button/button';
+import Popup from '@/components/popupModal/Popup';
 
 const Roulette = ({ items = [] }) => {
   const [selectedIndex, setSelectedIndex] = useState(null);
   const [isSpinning, setIsSpinning] = useState(false);
+  const [showConfirmPopup, setShowConfirmPopup] = useState(false);
+  const [showCompletePopup, setShowCompletePopup] = useState(false);
 
   const hasItems = items.length > 0;
 
   const spin = (current, speed, remaining) => {
     if (remaining <= 0) {
       setIsSpinning(false);
+      setShowConfirmPopup(true);
       return;
     }
 
@@ -26,10 +30,14 @@ const Roulette = ({ items = [] }) => {
     if (isSpinning || !hasItems) return;
 
     setIsSpinning(true);
-
     const totalSpins = 20 + Math.floor(Math.random() * 10);
     const startIndex = selectedIndex === null ? 0 : selectedIndex;
     spin(startIndex, 50, totalSpins);
+  };
+
+  const handleUseCard = () => {
+    setShowConfirmPopup(false);
+    setShowCompletePopup(true);
   };
 
   return (
@@ -75,6 +83,26 @@ const Roulette = ({ items = [] }) => {
           aria="룰렛 돌리기 버튼"
         />
       </div>
+
+      <Popup
+        setPopup={showConfirmPopup}
+        icon="error-gray"
+        title="면제 카드를 사용하시겠습니까?"
+        subtitle="벌칙을 수행하고 싶지 않으면 면제카드를 사용할 수 있어요."
+        buttonName="건너뛰기"
+        button2Name="사용"
+        onClick={() => setShowConfirmPopup(false)}
+        onSecondClick={handleUseCard}
+      />
+
+      <Popup
+        setPopup={showCompletePopup}
+        icon="done-gray"
+        title="면제 카드를 사용했어요."
+        subtitle="이번 벌칙은 넘어감? (멘트 필요)"
+        buttonName="닫기"
+        onClick={() => setShowCompletePopup(false)}
+      />
     </div>
   );
 };
