@@ -3,6 +3,7 @@ import Input from '@/components/input/Input';
 import Button from '@/components/button/Button';
 import MainLayout from '@/pages/MainLayout';
 import { useNavigate } from 'react-router-dom';
+import SubTitle from '@/components/subtitle/SubTitle';
 
 const SignUp = () => {
   const [nickname, setNickname] = useState('');
@@ -78,7 +79,7 @@ const SignUp = () => {
       <div className="signup-wrapper">
         <div className="signup-body">
           <div className="signup-description">
-            <p className="title">기본 정보를 입력해주세요.</p>
+            <SubTitle title="기본 정보를 입력해주세요." />
             <p className="subtitle">
               <span className="required">*</span> 는 필수 입력란입니다.
             </p>

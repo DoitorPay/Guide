@@ -1,6 +1,5 @@
 .group-card {
   width: 100%;
-  max-width: clamp(340px, 90vw, 400px);
   background: var(--color-background);
   border-radius: clamp(8px, 2vw, 12px);
   overflow: hidden;
@@ -59,7 +58,6 @@
   background: var(--color-navy-vari-300);
   border: none;
   cursor: pointer;
-
   display: flex;
   align-items: center;
   justify-content: center;

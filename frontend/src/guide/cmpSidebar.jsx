@@ -26,7 +26,9 @@ import LevelProgress from "@/components/myPage/LevelProgress";
 import PopupGuide from "@/guide/popupGuide";
 import MoreOptionGuide from "@/guide/moreOptionGuide";
 import LikeButton from "@/components/button/likeButton";
-import Modal from "@/components/modal/Modal";
+import ImageUploader from "@/components/group/ImageUploader";
+import MissionCount from "@/components/group/MissionCount";
+import GroupDetailPopup from "@/components/popupModal/GroupDetailPopup";
 
 const groupedItemList = [
   {
@@ -39,7 +41,6 @@ const groupedItemList = [
       { id: 11, name: '태그', path: '@/guide/tagGuide', component: <TagGuide /> },
       { id: 18, name: '서브 타이틀', path: '@/guide/subTitleGuide', component: <SubTitleGuide /> },
       { id: 28, name: '좋아요', path: '@/components/button/likeButton', component: <LikeButton /> },
-      { id: 29, name: '모달', path: '@/components/button/likeButton', component: <Modal /> },
     ],
   },
   {
@@ -57,6 +58,9 @@ const groupedItemList = [
       { id: 15, name: '그룹 카드', path: '@/guide/GroupCardDemo', component: <GroupCardDemo /> },
       { id: 21, name: '그룹 플로팅 버튼', path: '@/components/group/GroupFloatingButton', component: <GroupFloatingButton /> },
       { id: 20, name: '랭킹 컴포넌트', path: '@/components/ranking/-', component: <RankingGuide /> },
+      { id: 29, name: '사진 업로드', path: '@/components/group/ImageUploader', component: <ImageUploader /> },
+      { id: 30, name: '미션 개수 증감', path: '@/components/group/ImageUploader', component: <MissionCount /> },
+      { id: 31, name: '그룹 정보 팝업', path: '@/components/group/ImageUploader', component: <GroupDetailPopup /> },
     ],
   },
   {

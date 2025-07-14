@@ -27,7 +27,6 @@ const GroupCreateForm = () => {
         placeholder="그룹 이름을 입력해주세요."
         required
       />
-
       <Input
         label="그룹 설명"
         name="groupDescription"

@@ -53,9 +53,10 @@ const GroupDetail = () => {
 
   return (
     <MainLayout
+    contentBg="var(--color-background)"
           headerProps={{
-            type: "default",
-            icon1: "notifications",
+            title: "그룹 상세",
+            type: "header-b",
           }}
         >
 
