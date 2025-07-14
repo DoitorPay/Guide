@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Checkbox from '@/components/input/checkBox';
 import Input from '@/components/input/input';
+import MoreOption from '@/components/popupModal/moreOption';
 
 const TodoList = ({ type }) => {
     const [todoItems, setTodoItems] = useState([
@@ -16,6 +17,9 @@ const TodoList = ({ type }) => {
     
     const [newTodoText, setNewTodoText] = useState('');
     const [isAddingTodo, setIsAddingTodo] = useState(false);
+
+    // 모달 열기, 닫기
+    // const [open, setOpen] = useState(false);
 
     async function addTodo() {
         if (isAddingTodo) {
@@ -382,21 +386,16 @@ const TodoList = ({ type }) => {
                         </div>
                     )
                 }
-
-
-                {
-                    moreOption && (
-                        <div className="more-option">
-                            <div className="more-option__overlay" onClick={closeMoreOption}></div>
-                            <div className="more-option__container">
-                                <p className="more-title">{getSelectedTodo()?.text || '할 일 옵션'}</p>
-                                <p className="more-sub" onClick={handleEditTodo}>수정하기</p>
-                                <p className="more-sub" onClick={handleDeleteTodo}>삭제하기</p>
-                            </div>
-                        </div>
-                    )
-                }
             </div>
+            <MoreOption
+                title = {getSelectedTodo()?.text || '할 일 옵션'}
+                options = {[
+                    { label: "수정하기", onClick: () => handleEditTodo() },
+                    { label: "삭제하기", onClick: () => handleDeleteTodo() },
+                ]}
+                isOpen={moreOption}
+                onClose={closeMoreOption}
+            />
         </div>
     )
 }
