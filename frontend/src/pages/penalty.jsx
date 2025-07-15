@@ -7,7 +7,7 @@ import MoreOption from '@/components/popupModal/moreOption';
 
 const dummyData = [
   { title: '벌칙 A', groupName: '그룹 A', deadline: '2025.07.10', isCertified: false },
-  { title: '벌칙 B', groupName: '그룹 B', deadline: '2025.07.11', isCertified: true },
+  { title: '벌칙 B', groupName: '그룹 B', deadline: '2025.07.11', isCertified: true, image: 'https://picsum.photos/300/300' },
   { title: '벌칙 C', groupName: '그룹 C', deadline: '2025.07.12', isCertified: false },
 ];
 
@@ -48,16 +48,17 @@ const PenaltyPage = () => {
           onClickMore={() => setSortPopupOpen(true)}
         />
 
-        {filteredData.map((item, idx) => (
+        {filteredData.map((item) => (
           <HistoryCard
-            key={idx}
+            key={item.title}
             title={item.title}
             groupName={item.groupName}
             deadline={item.deadline}
-            image={item.isCertified ? "https://picsum.photos/300/300" : null}
+            image={item.image || null}
             isCertified={item.isCertified}
           />
         ))}
+
         <MoreOption
           title="정렬"
           isOpen={sortPopupOpen}
@@ -69,7 +70,6 @@ const PenaltyPage = () => {
           ]}
         />
       </div>
-
     </MainLayout>
   );
 };
