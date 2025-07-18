@@ -1,7 +1,7 @@
 import React from 'react';
 import '@/assets/css/components/mainLayout.scss';
 
-const LandingLayout = ({ children, className = '', contentBg = 'var(--color-gray-scale-white)' }) => {
+const LandingLayout = ({ children, className = '', contentBg = 'var(--color-secondary-indigo)' }) => {
   return (
     <div className={`wrapper ${className}`}>
       <div className="main-layout">
