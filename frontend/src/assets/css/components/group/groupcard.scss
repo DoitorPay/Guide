@@ -28,11 +28,34 @@
       }
     }
 
-    .group-title {
-      font-size: var(--typo-size-heading-3);
-      color: var(--color-gray-scale-black);
-      margin-top: clamp(4px, 1vw, 8px);
+    .text-wrapper {
+      display: flex;
+      align-items: center;
+
+      .group-title {
+        font-size: var(--typo-size-heading-3);
+        color: var(--color-gray-scale-black);
+        margin-top: clamp(4px, 1vw, 8px);
+      }
+      .arrow-button {
+        position: absolute;
+        width: clamp(30px, 4vw, 37px);
+        height: clamp(30px, 4vw, 37px);
+        border-radius: 50%;
+        background: var(--color-navy-vari-300);
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        right: clamp(16px, 4vw, 24px);
+      }
+      .sub-title {
+        margin-bottom: 0;
+      }
     }
+
+
 
     .meta-item {
       font-size: var(--typo-size-body-3);
@@ -51,19 +74,7 @@
     }
   }
 
-  .arrow-button {
-  position: absolute;
-  width: 37px;
-  height: 37px;
-  border-radius: 50%;
-  background: var(--color-navy-vari-300);
-  border: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  right: clamp(16px, 4vw, 24px);
-}
+
 
 }
 .group-card:last-child {
