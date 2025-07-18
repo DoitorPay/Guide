@@ -58,5 +58,11 @@
     "title": "그룹 미션 폼",
     "path": "/groupmissionform",
     "fileName": "GroupMissionForm.jsx"
+  },
+  {
+    "id": 11,
+    "title": "그룹 찾기",
+    "path": "/searchgroup",
+    "fileName": "GroupSearch.jsx"
   }
 ]
