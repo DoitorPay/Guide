@@ -46,6 +46,7 @@ const Router = () => {
           <Route path="/cssGuide" element={<CssGuide />} />
           <Route path="/pubGuide" element={<PubGuide />} />
           <Route path="/frontGuide" element={<FrontGuide />} />
+          {/* 여기서부터 페이지 */}
           <Route path="/login" element={<Login />} />
           <Route path="/additRegister" element={<SignUp />} />
           <Route path="/studytopic" element={<StudyTopic />} />
