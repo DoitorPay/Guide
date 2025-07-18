@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import TagList from '@/components/tag/tagList';
 import Button from '@/components/button/Button';
-import MainLayout from '@/pages/MainLayout';
+import SignupLayout from '@/pages/signupLayout';
+import SubTitle from '@/components/subtitle/SubTitle';
 
 const TOPICS = [
   '수능 공부', '과제', '디자인', '코딩', '토익',
@@ -34,33 +35,35 @@ const StudyTopic = () => {
   };
 
   return (
-    <MainLayout
-                headerProps={{
-                    type: "header-a",
-                    title: "투두리스트",
-                    icon1: "notifications",
-                }}
-            >
+    <SignupLayout
+      headerProps={{
+        type: "header-b",
+        title: "스터디 주제",
+        // icon2: "notifications",
+      }}
+    >
 
-              <div className="study-topic">
-      <h3>
-        원하는 스터디 주제를 1개 이상 선택해주세요.
-      </h3>
-      <p>추후 변경 가능하다는 말</p>
-      <div className='topic-list'>
-<TagList tags={TOPICS} onChange={setSelectedTopics} />
+      <div className="study-topic">
+        <div className="topic-description">
+          <SubTitle title="원하는 스터디 주제를 1개 이상 선택해주세요." />
+          <p className="subtitle">
+          추후 변경 가능하다는 말
+          </p>
+        </div>
+        <div className='topic-list'>
+          <TagList tags={TOPICS} onChange={setSelectedTopics} />
 
+        </div>
       </div>
       <div className="submit-button">
-        <Button
-          type="primary"
-          buttonName="딱!대 시작하기"
-          disabled={selectedTopics.length === 0}
-          onClick={handleSubmit}
-        />
-      </div>
-    </div>
-            </MainLayout>
+          <Button
+            type="primary"
+            buttonName="딱!대 시작하기"
+            disabled={selectedTopics.length === 0}
+            onClick={handleSubmit}
+          />
+        </div>
+    </SignupLayout>
 
   );
 };

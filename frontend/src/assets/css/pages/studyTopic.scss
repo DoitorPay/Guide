@@ -1,0 +1,21 @@
+.study-topic {
+    .topic-description {
+        margin-bottom: clamp(20px, 2vw, 24px);
+
+        .sub-title {
+            margin-bottom: clamp(3px, 3vw, 4px);
+        }
+
+        .subtitle {
+            color: var(--color-gray-scale-400);
+            font-size: clamp(10px, 2vw, 14px);
+            font-weight: 500;
+
+            .required {
+                color: var(--color-primary);
+            }
+        }
+        
+        
+    }
+}
