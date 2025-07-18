@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import Input from "../Input/input";
-import MoreOption from "../popupModal/moreOption"; // MoreOption 컴포넌트 임포트
+import Input from "@/components/Input/input";
+import MoreOption from "@/components/popupModal/moreOption"; // MoreOption 컴포넌트 임포트
 
 const GroupSearchInput = ({ onSearch, onSortChange }) => {
     const [searchQuery, setSearchQuery] = useState("");
-    const [sortBy, setSortBy] = useState("latest"); // 기본값 '신규 순'
+    const [sortBy, setSortBy] = useState("latest"); // 기본값 '신규'
     const [isMoreOptionOpen, setIsMoreOptionOpen] = useState(false); // MoreOption 열림/닫힘 상태
 
     const sortOptions = [
