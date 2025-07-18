@@ -1,0 +1,34 @@
+.group-search-input {
+    display: flex;
+    gap: clamp(12px, 4vw, 16px); // 검색창과 정렬 드롭다운 사이 간격
+    align-items: center;
+    margin-bottom: clamp(16px, 5vw, 24px); // 아래쪽 그룹 카드와의 간격
+
+    .search-box {
+        flex: 1; // 검색창이 가능한 공간을 모두 차지하도록
+    }
+
+    .sort-box {
+        width: clamp(100px, 25vw, 120px); // 정렬 드롭다운의 너비 조절
+        position: relative;
+        padding: clamp(6px, 2vw, 8px) clamp(10px, 3vw, 12px);
+        border-radius: clamp(6px, 2vw, 8px);
+        border: 1px solid var(--color-gray-scale-300);
+        background-color: #fff;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .current-sort-label {
+            font-size: calc(var(--typo-size-body-3) / 16 * 1rem);
+            color: var(--color-gray-scale-700);
+        }
+
+        .sort-arrow-icon {
+            width: 16px;
+            height: 16px;
+            margin-left: clamp(4px, 2vw, 8px);
+        }
+    }
+} 
