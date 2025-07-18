@@ -64,5 +64,11 @@
     "title": "그룹 찾기",
     "path": "/searchgroup",
     "fileName": "GroupSearch.jsx"
+  },
+  {
+    "id": 12,
+    "title": "랜딩 페이지",
+    "path": "/landing",
+    "fileName": "landing.jsx"
   }
 ]

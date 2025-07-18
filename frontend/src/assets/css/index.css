@@ -29,6 +29,7 @@
 @import '@/assets/css/components/profile/profileCard.scss';
 @import '@/assets/css/components/mypage/LevelProgress.scss';
 @import '@/assets/css/components/group/groupSearchInput.scss';
+@import '@/assets/css/components/button/signupButton.scss';
 
 /* profile components */
 @import '@/assets/css/components/profile/profileImage.scss';
@@ -41,3 +42,4 @@
 @import '@/assets/css/pages/groupDetail.scss';
 @import '@/assets/css/pages/signup.scss';
 @import '@/assets/css/pages/myPage.scss';
+@import '@/assets/css/pages/landing.scss';
