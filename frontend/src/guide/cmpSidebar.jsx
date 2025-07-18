@@ -29,6 +29,7 @@ import LikeButton from "@/components/button/likeButton";
 import ImageUploader from "@/components/group/ImageUploader";
 import MissionCount from "@/components/group/MissionCount";
 import GroupDetailPopup from "@/components/popupModal/GroupDetailPopup";
+import GroupSearchInput from "@/components/group/GroupSearchInput";
 
 const groupedItemList = [
   {
@@ -61,6 +62,7 @@ const groupedItemList = [
       { id: 29, name: '사진 업로드', path: '@/components/group/ImageUploader', component: <ImageUploader /> },
       { id: 30, name: '미션 개수 증감', path: '@/components/group/ImageUploader', component: <MissionCount /> },
       { id: 31, name: '그룹 정보 팝업', path: '@/components/group/ImageUploader', component: <GroupDetailPopup /> },
+      { id: 32, name: '그룹 검색', path: '@/components/group/GroupSearchInput', component: <GroupSearchInput /> }
     ],
   },
   {

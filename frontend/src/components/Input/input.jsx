@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 const Input = ({
-  label = 'textfield',
+  label,
   name,
   placeholder = '입력하세요',
   required = false,

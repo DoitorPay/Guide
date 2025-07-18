@@ -16,6 +16,7 @@ import GroupCreateForm from "@/pages/GroupCreateForm";
 import MyPage from "@/pages/myPage";
 import GroupMissionForm from "@/pages/GroupMissionForm";
 import GroupManagement from "@/pages/GroupManagement";
+import GroupSearch from "@/pages/GroupSearch";
 
 const LayoutWithHeader = ({ children }) => {
   const location = useLocation();
@@ -58,6 +59,7 @@ const Router = () => {
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/groupmissionform" element={<GroupMissionForm />} />
           <Route path="/groupmanage" element={<GroupManagement />} />
+          <Route path="/searchgroup" element={<GroupSearch />} />
         </Routes>
       </LayoutWithHeader>
     </BrowserRouter>
