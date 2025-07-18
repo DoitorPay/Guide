@@ -55,7 +55,7 @@ const Router = () => {
           <Route path="/penalty" element={<Penalty />} />
           <Route path="/groupcreateform" element={<GroupCreateForm />} />
           <Route path="/mypage" element={<MyPage />} />
-          <Route path="/missionform" element={<GroupMissionForm />} />
+          <Route path="/groupmissionform" element={<GroupMissionForm />} />
           <Route path="/groupmanage" element={<GroupManagement />} />
         </Routes>
       </LayoutWithHeader>
