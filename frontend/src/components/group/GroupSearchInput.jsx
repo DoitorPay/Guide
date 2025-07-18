@@ -50,9 +50,9 @@ const GroupSearchInput = ({ onSearch, onSortChange }) => {
                     icon="search"
                 />
             </div>
-            <div className="sort-box" onClick={toggleMoreOption}> {/* 클릭하여 MoreOption 열기 */}
+            <div className="sort-box" onClick={toggleMoreOption}>
                 <span className="current-sort-label">{currentSortLabel}</span>
-                <img src="/icons/arrow-bottom-gray.svg" alt="정렬" className="sort-arrow-icon" /> {/* 정렬 아이콘 경로 확인 필요 */}
+                <img src="/icons/arrow-bottom-gray.svg" alt="정렬" className="sort-arrow-icon" />
             </div>
 
             <MoreOption
