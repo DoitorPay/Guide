@@ -56,7 +56,7 @@
   {
     "id": 10,
     "title": "그룹 미션 폼",
-    "path": "/missionform",
+    "path": "/groupmissionform",
     "fileName": "GroupMissionForm.jsx"
   }
 ]
