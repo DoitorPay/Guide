@@ -29,6 +29,7 @@
 @import '@/assets/css/components/profile/profileCard.scss';
 @import '@/assets/css/components/mypage/LevelProgress.scss';
 @import '@/assets/css/components/group/groupSearchInput.scss';
+@import '@/assets/css/components/group/groupfloatingbutton.scss';
 
 /* profile components */
 @import '@/assets/css/components/profile/profileImage.scss';
