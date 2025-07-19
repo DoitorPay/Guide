@@ -30,13 +30,13 @@ const TodoList = ({ type }) => {
             console.log("-------------------");
             if (data && data.todo && Array.isArray(data.todo[0])) {
                 const formattedTodos = data.todo[0].map((item, index) => ({
-                    id: index, // 임시로 인덱스를 ID로 사용합니다. 백엔드에서 고유 ID를 제공하는 것이 좋습니다.
+                    id: index, // 임시 번호 부여
                     text: item,
                     completed: false
                 }));
                 setTodoItems(formattedTodos);
             } else {
-                setTodoItems([]); // 유효하지 않은 데이터 형식일 경우 빈 배열로 설정
+                setTodoItems([]); // 유효하지 않은 데이터 형식일 경우 빈 배열로.
             }
         } catch (error) {
             console.error('네트워크 에러 또는 서버 응답 문제:', error);
@@ -53,7 +53,7 @@ const TodoList = ({ type }) => {
             if (newTodoText.trim()) {
                 try {
                     const todoData = {
-                        list: [newTodoText.trim()], // 백엔드가 문자열 배열을 기대하므로 배열로 감싸서 보냅니다.
+                        list: [newTodoText.trim()], // 배열로 감싸기
                     };
                     console.log("----- 폼 데이터 -----");
                     console.log(JSON.stringify(todoData, null, 2));
@@ -75,7 +75,7 @@ const TodoList = ({ type }) => {
                     const addedTodo = await response.json(); 
                     console.log('추가된 투두:', addedTodo);
 
-                    // 백엔드에서 고유 ID를 반환하지 않는 경우를 대비하여 프론트엔드에서 ID를 생성
+                    // 프론트에서 고유ID 부여
                     const newId = todoItems.length > 0 ? Math.max(...todoItems.map(item => item.id)) + 1 : 1;
                     const newTodoItem = {
                         id: newId,
