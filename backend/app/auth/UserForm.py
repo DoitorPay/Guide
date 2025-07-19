@@ -8,6 +8,7 @@ from app.DB.NeoDriver import driver
 query = """MERGE(n:Person{id: $id})
            ON CREATE SET 
            n.sns = $sns,
+           n.ame = $name,
            n.nickname = $nickname,
            n.profile = $profile,
            n.birth = $birth,
@@ -33,6 +34,7 @@ class UserForm(Resource):
                                      id=user_info['id'],
                                      sns=user_info['sns'],
                                      profile=user_info['profile'],
+                                     name=user_info['name'],
                                      nickname=signupForm['nickname'],
                                      birth=signupForm['birth'],
                                      gender=signupForm['gender'],
