@@ -28,8 +28,6 @@ class UserForm(Resource):
         signupForm = request.get_json()
         user_info = session['user_data']
 
-
-
         with driver.session() as neo_session :
             result = neo_session.run(query,
                                      id=user_info['id'],
