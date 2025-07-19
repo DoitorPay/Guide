@@ -56,12 +56,15 @@ function Header({
                     </div>
                 )}
 
+
+
                 {/* 중앙 영역 */}
                 {type === "header-b" && (
                     <div className="back">
                         <span className="logo__title">{pageTitle}</span>
                     </div>
                 )}
+
 
                 {/* 우측 영역 */}
                 {(type === "default" || type === "header-a") && (
@@ -75,11 +78,11 @@ function Header({
                     </div>
                 )}
                 
-                {type === "header-b" && (
+                {/* {type === "header-b" && (
                     <div className="menu">
                         <i onClick={icon1OnClick} className="ico" style={{background: `url(/icons/${icon1}.svg) no-repeat center center`}}></i>
                     </div>
-                )}
+                )} */}
             </nav>
         </header>
     );
