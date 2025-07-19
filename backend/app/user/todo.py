@@ -16,7 +16,16 @@ todo_model = ns_user.model('todo list', {
 @ns_user.route('/user-todo')
 class UserTodo(Resource):
     def get(self):
-        pass
+        user_data = session.get('user_data')
+        with driver.session() as neo_session:
+            todo = neo_session.run('''
+                MATCH(n:Person {id:$id, sns:$sns}) 
+                RETURN n.todo
+            ''', id=user_data['id'], sns=user_data['sns']
+            ).single()
+            print(todo)
+            return jsonify({'todo': todo})
+
 
     @ns_user.expect(todo_model)
     @ns_user.response(200, '투두리스트 추가 성공')

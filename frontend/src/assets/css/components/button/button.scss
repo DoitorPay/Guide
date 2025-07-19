@@ -71,6 +71,7 @@
   .like-button {
     display: flex;
     align-items: center;
+    justify-content:flex-end;
     gap: clamp(2px, 1vw, 6px);
     cursor: pointer;
 

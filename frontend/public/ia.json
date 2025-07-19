@@ -56,7 +56,19 @@
   {
     "id": 10,
     "title": "그룹 미션 폼",
-    "path": "/missionform",
+    "path": "/groupmissionform",
     "fileName": "GroupMissionForm.jsx"
+  },
+  {
+    "id": 11,
+    "title": "그룹 찾기",
+    "path": "/searchgroup",
+    "fileName": "GroupSearch.jsx"
+  },
+  {
+    "id": 12,
+    "title": "랜딩 페이지",
+    "path": "/landing",
+    "fileName": "landing.jsx"
   }
 ]

@@ -21,6 +21,10 @@ header.cmp-header {
           font-weight: 700;
         }
       }
+      
+      .mid-title {
+        position: absolute;
+      }
   
       .menu {
         display: flex;
@@ -33,6 +37,10 @@ header.cmp-header {
             display: flex;
           }
         }
+      }
+
+      .back {
+        margin: 0 auto;
       }
     }
   }

@@ -16,6 +16,8 @@ import GroupCreateForm from "@/pages/GroupCreateForm";
 import MyPage from "@/pages/myPage";
 import GroupMissionForm from "@/pages/GroupMissionForm";
 import GroupManagement from "@/pages/GroupManagement";
+import GroupSearch from "@/pages/GroupSearch";
+import Landing from "@/pages/landing";
 
 const LayoutWithHeader = ({ children }) => {
   const location = useLocation();
@@ -46,6 +48,7 @@ const Router = () => {
           <Route path="/cssGuide" element={<CssGuide />} />
           <Route path="/pubGuide" element={<PubGuide />} />
           <Route path="/frontGuide" element={<FrontGuide />} />
+          {/* 여기서부터 페이지 */}
           <Route path="/login" element={<Login />} />
           <Route path="/additRegister" element={<SignUp />} />
           <Route path="/studytopic" element={<StudyTopic />} />
@@ -55,8 +58,10 @@ const Router = () => {
           <Route path="/penalty" element={<Penalty />} />
           <Route path="/groupcreateform" element={<GroupCreateForm />} />
           <Route path="/mypage" element={<MyPage />} />
-          <Route path="/missionform" element={<GroupMissionForm />} />
+          <Route path="/groupmissionform" element={<GroupMissionForm />} />
           <Route path="/groupmanage" element={<GroupManagement />} />
+          <Route path="/searchgroup" element={<GroupSearch />} />
+          <Route path="/landing" element={<Landing />} />
         </Routes>
       </LayoutWithHeader>
     </BrowserRouter>

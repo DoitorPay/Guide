@@ -28,6 +28,15 @@
   }
 }
 
+.fab-wrapper {
+  position: sticky;
+  bottom: 120px;
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 24px;
+  z-index: 100;
+}
+
 footer {
   position: sticky;
   bottom: clamp(16px, 4vw, 24px);

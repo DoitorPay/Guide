@@ -2,9 +2,8 @@ import React from 'react';
 import '@/assets/css/components/mainLayout.scss';
 import Navigation from '@/components/nav/nav';
 import Header from '@/components/header/header';
-import GroupFloatingButton from '@/components/group/GroupFloatingButton'; 
 
-const MainLayout = ({ children, headerProps, className = '', contentBg = 'var(--color-gray-scale-white)', showFab = false}) => {
+const SignupLayout = ({ children, headerProps, className = '', contentBg = 'var(--color-gray-scale-white)' }) => {
   return (
     <div className={`wrapper ${className}`}>
       <div className="main-layout">
@@ -12,19 +11,12 @@ const MainLayout = ({ children, headerProps, className = '', contentBg = 'var(--
         <section className="content-area" style={{ backgroundColor: contentBg }}>
           {children}
         </section>
-
-        <div className="fab-wrapper">
-          {showFab && <GroupFloatingButton />} 
-        </div>
-        <footer>
-          <Navigation />
-        </footer>
       </div>
     </div>
   );
 };
 
-export default MainLayout;
+export default SignupLayout;
 
 
 // 사용 방법!
