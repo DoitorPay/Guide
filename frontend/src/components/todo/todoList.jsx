@@ -1,13 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Checkbox from '@/components/input/checkBox';
 import Input from '@/components/input/input';
 import MoreOption from '@/components/popupModal/moreOption';
 
 const TodoList = ({ type }) => {
-    const [todoItems, setTodoItems] = useState([
-        // { id: 1, text: '투두리스트', completed: false },
-        // { id: 2, text: '동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세', completed: false }
-    ]);
+    const [todoItems, setTodoItems] = useState([]);
 
     const [groupTodos, setGroupTodos] = useState([
         { id: 1, text: '한 페이지 풀기', completed: false },
@@ -18,21 +15,54 @@ const TodoList = ({ type }) => {
     const [newTodoText, setNewTodoText] = useState('');
     const [isAddingTodo, setIsAddingTodo] = useState(false);
 
-    // 모달 열기, 닫기
-    // const [open, setOpen] = useState(false);
+    const fetchTodos = useCallback(async () => {
+        try {
+            const response = await fetch('http://localhost:8000/user/user-todo');
+            if (!response.ok) {
+                const errorData = await response.json();
+                console.error('투두 목록 가져오기 에러:', errorData);
+                alert('투두 목록을 가져오는 중 오류가 발생했습니다. 다시 시도해주세요.');
+                return;
+            }
+            const data = await response.json();
+            console.log("----- GET -----");
+            console.log(JSON.stringify(data, null, 2));
+            console.log("-------------------");
+            if (data && data.todo && Array.isArray(data.todo[0])) {
+                const formattedTodos = data.todo[0].map((item, index) => ({
+                    id: index, // 임시로 인덱스를 ID로 사용합니다. 백엔드에서 고유 ID를 제공하는 것이 좋습니다.
+                    text: item,
+                    completed: false
+                }));
+                setTodoItems(formattedTodos);
+            } else {
+                setTodoItems([]); // 유효하지 않은 데이터 형식일 경우 빈 배열로 설정
+            }
+        } catch (error) {
+            console.error('네트워크 에러 또는 서버 응답 문제:', error);
+            alert('서버와 통신 중 오류가 발생했습니다. 네트워크 연결을 확인해주세요.');
+        }
+    }, []);
+
+    useEffect(() => {
+        fetchTodos();
+    }, [fetchTodos]);
 
     async function addTodo() {
         if (isAddingTodo) {
             if (newTodoText.trim()) {
                 try {
-                    const payload = {
-                        list: newTodoText.trim(),
+                    const todoData = {
+                        list: [newTodoText.trim()], // 백엔드가 문자열 배열을 기대하므로 배열로 감싸서 보냅니다.
                     };
+                    console.log("----- 폼 데이터 -----");
+                    console.log(JSON.stringify(todoData, null, 2));
+                    console.log("-------------------");
 
                     const response = await fetch('http://localhost:8000/user/user-todo', {
                         method: 'POST',
                         headers: {'Content-Type': 'application/json'},
-                        body: JSON.stringify(payload),
+                        body: JSON.stringify(todoData),
                     });
 
                     if (!response.ok) {
@@ -43,7 +73,16 @@ const TodoList = ({ type }) => {
                     }
 
                     const addedTodo = await response.json(); 
-                    setTodoItems([...todoItems, addedTodo]);
+                    console.log('추가된 투두:', addedTodo);
+
+                    // 백엔드에서 고유 ID를 반환하지 않는 경우를 대비하여 프론트엔드에서 ID를 생성
+                    const newId = todoItems.length > 0 ? Math.max(...todoItems.map(item => item.id)) + 1 : 1;
+                    const newTodoItem = {
+                        id: newId,
+                        text: newTodoText.trim(),
+                        completed: false
+                    };
+                    setTodoItems([...todoItems, newTodoItem]);
                     setNewTodoText('');
                 } catch (error) {
                     console.error('네트워크 에러 또는 서버 응답 문제:', error);
