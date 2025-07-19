@@ -154,7 +154,7 @@ const SignUp = () => {
 
           <div className="agree-section">
             <label className="checkbox-wrapper">
-              <CheckBox checked={agree} onChange={(e) => setAgree(e.target.checked)} />
+              <CheckBox checked={agree} onChange={setAgree} />
               <span>개인정보 수집 및 이용 동의</span>
             </label>
             <button type="button" className="view-more">
