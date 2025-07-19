@@ -94,10 +94,7 @@ class UserTodo(Resource):
             try:
                 result = neo_session.run(
                     '''MATCH(n:Person {id:$id, sns: $sns})
-                    WITH n, COALESCE(n.todo, []) + $todo AS combinedTodo
-                    UNWIND combinedTodo AS todo
-                    WITH n, COLLECT(DISTINCT todo) AS uniqueTodo
-                    SET n.todo = uniqueTodo
+                    SET n.todo = $todo
                     RETURN n''',
                     id=user_data['id'], sns=user_data['sns'], todo=updated_list
                 )
@@ -127,10 +124,7 @@ class UserTodo(Resource):
             try:
                 result = neo_session.run(
                     '''MATCH(n:Person {id:$id, sns: $sns})
-                    WITH n, COALESCE(n.todo, []) + $todo AS combinedTodo
-                    UNWIND combinedTodo AS todo
-                    WITH n, COLLECT(DISTINCT todo) AS uniqueTodo
-                    SET n.todo = uniqueTodo
+                    SET n.todo = $todo
                     RETURN n''',
                     id=user_data['id'], sns=user_data['sns'], todo=deleted_list
                 )
