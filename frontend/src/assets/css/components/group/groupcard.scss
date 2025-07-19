@@ -8,6 +8,15 @@
   position: relative;
   margin-bottom: clamp(8px, 2vw, 12px);
 
+    .finished-overlay {
+    position: absolute;
+    inset: 0; 
+    background-color: rgba(255, 255, 255, 0.4); 
+    z-index: 2;
+    pointer-events: none; 
+    border-radius: inherit;
+  }
+
   .info-wrapper {
     padding: clamp(16px, 4vw, 20px);
     display: flex;
@@ -26,7 +35,88 @@
         object-fit: cover;
         display: block;
       }
+
+    .mission-overlay {
+  position: absolute;
+  bottom: 20px;
+  height: 80px;
+  left: 20px;
+  right: 20px;
+  display: flex;
+  justify-content: space-between;
+  gap: 4px;
+
+  .mission-item {
+    position: relative;
+    flex: 1;
+    padding: clamp(12px, 2vw, 20px);
+    background-color: rgba(255, 255, 255, 0.267);
+    border-radius: 6px;
+
+    .label {
+      position: absolute;
+      top: 8px;
+      left: 12px;
+      color: var(--color-gray-scale-500);
+      font-size: var(--typo-size-body-3);
     }
+
+    .value {
+      position: absolute;
+      bottom: 8px;
+      right: 12px;
+      color: var(--color-gray-scale-800);
+      font-weight: bold;
+      font-size: var(--typo-size-heading-4);
+    }
+
+       &:first-child .value {
+      font-size: var(--typo-size-heading-4); // 예: 큰 숫자 (진행률)
+    }
+
+    &:last-child .value {
+      font-size: var(--typo-size-body-2); // 예: 날짜 (작게)
+    }
+  }
+}
+
+
+    }
+
+    .member-preview {
+  display: flex;
+  align-items: center;
+  gap: 0;
+
+  .avatar {
+    border-radius: 50%;
+    border: 2px solid #fff;
+     margin-left: -6px;
+     z-index: 1;
+  }
+
+  .extra-avatar {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    margin-left: -6px;
+    z-index: 1;
+    background-color: var(--color-gray-scale-white);
+    color: var(--color-gray-scale-600);
+    font-size: 12px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .member-text {
+    font-size: var(--typo-size-body-3);
+    color: var(--color-gray-scale-500);
+    margin-left: 4px;
+  }
+}
+
 
     .text-wrapper {
       display: flex;
@@ -73,8 +163,6 @@
       }
     }
   }
-
-
 
 }
 .group-card:last-child {
