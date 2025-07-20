@@ -1,1 +1,42 @@
-// 추가 예정
+.my-ranking {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  border-radius: 12px;
+  background-color: var(--color-gray-scale-white);
+  border: 1px solid var(--color-gray-scale-50);
+
+
+  .my-ranking-info {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-top: 8px;
+  }
+
+  .info-wrapper {
+    flex: 1; 
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+
+    .progress-label,
+    .rank-label {
+      color: var(--color-gray-scale-600);
+    }
+
+    .progress-value,
+    .rank-value {
+      font-size: var(--typo-size-body-1);
+      font-weight: var(--typo-weight-bold);
+      color: var(--color-gray-scale-black);
+    }
+  }
+
+  .divider {
+    color: var(--color-gray-scale-200);
+    padding: 0 4px;
+  }
+}
