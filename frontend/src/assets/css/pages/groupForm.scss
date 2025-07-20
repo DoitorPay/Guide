@@ -1,0 +1,14 @@
+.required {
+  color: var(--color-primary);
+  font-weight: bold;
+}
+
+.group-create-form {
+  .form-section {
+    margin-bottom: calc(24 / 16 * 1rem);
+  }
+
+  .info-text {
+    margin-bottom: calc(16 / 16 * 1rem);
+  }
+}

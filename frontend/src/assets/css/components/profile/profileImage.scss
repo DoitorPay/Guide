@@ -2,4 +2,7 @@
   border-radius: 50%;
   object-fit: cover;
   display: inline-block;
+  &.with-border {
+    border: 2px solid var(--color-gray-scale-100);
+  }
 }
