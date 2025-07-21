@@ -30,6 +30,7 @@ import ImageUploader from "@/components/group/ImageUploader";
 import MissionCount from "@/components/group/MissionCount";
 import GroupDetailPopup from "@/components/popupModal/GroupDetailPopup";
 import GroupSearchInput from "@/components/group/GroupSearchInput";
+import MissionFeedGuide from "@/guide/MissionFeedGuide";
 
 const groupedItemList = [
   {
@@ -80,6 +81,8 @@ const groupedItemList = [
       { id: 25, name: '레벨 프로그레스바', path: '@/components/myPage/LevelProgress', component: <LevelProgress />},
       { id: 26, name: '팝업', path: '@/guide/popupGuide', component: <PopupGuide /> },
       { id: 27, name: '더보기 옵션(모달)', path: '@/guide/moreOptionGuide', component: <MoreOptionGuide /> },
+      { id: 33, name: '그룹, 벌칙 미션피드', path: '@/components/MissionFeed', component: <MissionFeedGuide /> },
+
     ],
   },
 ];

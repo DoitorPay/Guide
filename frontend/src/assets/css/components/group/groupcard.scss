@@ -71,11 +71,11 @@
     }
 
        &:first-child .value {
-      font-size: var(--typo-size-heading-4); // 예: 큰 숫자 (진행률)
+      font-size: var(--typo-size-heading-4);
     }
 
     &:last-child .value {
-      font-size: var(--typo-size-body-2); // 예: 날짜 (작게)
+      font-size: var(--typo-size-body-2); 
     }
   }
 }
