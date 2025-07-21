@@ -253,11 +253,11 @@ const TodoList = ({ type }) => {
     }
 
     return (
-        <div div className={`cmp-todolist${type === 'group' ? '--group' : ''}`}>
+        <div div className={`cmp-todolist${type === 'group-detail' ? '--group' : ''}`}>
 
             <div className="cmp-todolist__inner">
                 {
-                    ((type === 'group' ? groupTodos.length === 0 : todoItems.length === 0) || type === 'example-todo') && (
+                    ((type === 'group' || type === 'group-detail' ? groupTodos.length === 0 : todoItems.length === 0) || type === 'example-todo') && (
                         <p className="no-todo">
                             설정된 목표가 없습니다.<br></br>
                             목표를 추가해 보세요.
@@ -434,7 +434,7 @@ const TodoList = ({ type }) => {
                     )
                 }
                 {
-                    type === 'group' && (
+                    (type === 'group' || type === 'group-detail') && (
                         <div>
                             {
                                 groupTodos.map((item) => (
