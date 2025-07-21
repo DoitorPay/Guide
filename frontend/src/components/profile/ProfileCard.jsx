@@ -13,7 +13,7 @@ const ProfileCard = ({ onClick }) => {
         setNickname(data.profile);
       } catch (error) {
         console.error('닉네임 불러오기 실패:', error);
-        setNickname('ERROR');
+        setNickname('사용자');
       }
     };
 

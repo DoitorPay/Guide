@@ -60,7 +60,7 @@ const Router = () => {
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/groupmissionform" element={<GroupMissionForm />} />
           <Route path="/groupmanage" element={<GroupManagement />} />
-          <Route path="/searchgroup" element={<GroupSearch />} />
+          <Route path="/groupsearch" element={<GroupSearch />} />
           <Route path="/landing" element={<Landing />} />
         </Routes>
       </LayoutWithHeader>
