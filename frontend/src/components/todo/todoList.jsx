@@ -406,6 +406,7 @@ const TodoList = ({ type }) => {
                                                 <span className={`title ${item.completed ? 'done' : ''}`}>{item.text}</span>
                                             )}
                                         </div>
+                                        {/* 더보기 옵션 임시 주석처리ㄴㄴㄴㄴㄴ */}
                                         {editingTodoId === item.id && editingTodoType === 'group' ? (
                                             <div className="actions">
                                                 <button className="action-btn save" onClick={saveEditedTodo}>
