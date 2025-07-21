@@ -1,0 +1,33 @@
+import React from 'react';
+
+const PunishmentContent =  ({
+    title = '엉덩이로 이름 쓰기',
+    content = '내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용',
+    groupName = '토익 뿌수자 그룹',
+    deadline = '2025.04.21',
+    description = '네..'
+  }) => {
+    return (
+      <div className="punishment-card">
+        <h3 className="punishment-card__title">{title}</h3>
+        <p className="punishment-card__content">{content}</p>
+        <div className="punishment-card__info">
+          <div className="info-row">
+            <span className="info-label">그룹</span>
+            <span className="info-value">{groupName}</span>
+          </div>
+          <div className="info-row">
+            <span className="info-label">마감 날짜</span>
+            <span className="info-value">{deadline}</span>
+          </div>
+          <div className="info-row">
+            <span className="info-label">해당 미션</span>
+            <span className="info-value">{description}</span>
+          </div>
+        </div>
+      </div>
+    );
+  };
+  
+
+export default PunishmentContent;

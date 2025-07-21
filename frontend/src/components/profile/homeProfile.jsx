@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import ProfileImage from '@/components/profile/ProfileImage';
+import { useNavigate } from 'react-router-dom';
+
 
 const HomeProfile = ({ avatar }) => {
   const [nickname, setNickname] = useState('');
-
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchNickname = async () => {
       try {
@@ -25,7 +27,7 @@ const HomeProfile = ({ avatar }) => {
         <p>오늘 큰 전진입니다 {nickname}님!</p>
         <p>계속하세요!</p>
       </div>
-      <div className="home-profile-avatar">
+      <div className="home-profile-avatar" onClick={() => navigate('/mypage')} style={{cursor: 'pointer'}}>
         <ProfileImage src={avatar} alt={`${nickname}님의 프로필`} size={68} />
       </div>
     </div>

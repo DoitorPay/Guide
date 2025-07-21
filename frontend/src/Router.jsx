@@ -33,6 +33,7 @@ const LayoutWithHeader = ({ children }) => {
                      location.pathname.startsWith("/landing") ||
                      location.pathname.startsWith("/groupmanage") ||
                      location.pathname.startsWith("/searchgroup") ||
+                     location.pathname.startsWith("/todolist") ||
                      location.pathname.startsWith("/penalty");
 
   return (
