@@ -31,6 +31,7 @@ import MissionCount from "@/components/group/MissionCount";
 import GroupDetailPopup from "@/components/popupModal/GroupDetailPopup";
 import GroupSearchInput from "@/components/group/GroupSearchInput";
 import HeartProfile from "@/components/profile/heartProfile";
+import PunishmentContent from "@/components/card/PunishmentContent";
 
 const groupedItemList = [
   {
@@ -82,6 +83,7 @@ const groupedItemList = [
       { id: 25, name: '레벨 프로그레스바', path: '@/components/myPage/LevelProgress', component: <LevelProgress />},
       { id: 26, name: '팝업', path: '@/guide/popupGuide', component: <PopupGuide /> },
       { id: 27, name: '더보기 옵션(모달)', path: '@/guide/moreOptionGuide', component: <MoreOptionGuide /> },
+      { id: 29, name: '벌칙 인증 상세', path: '@/components/card/PunishmentContent', component: <PunishmentContent /> },
     ],
   },
 ];

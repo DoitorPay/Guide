@@ -33,6 +33,7 @@
 @import '@/assets/css/components/group/groupfloatingbutton.scss';
 @import '@/assets/css/components/ranking/myRanking.scss';
 @import '@/assets/css/components/ranking/rankingList.scss';
+@import '@/assets/css/components/card/PunishmentContent.scss';
 
 /* profile components */
 @import '@/assets/css/components/profile/profileImage.scss';
