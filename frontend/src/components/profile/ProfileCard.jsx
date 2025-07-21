@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ProfileImage from '@/components/profile/ProfileImage';
 import ProfileName from '@/components/profile/ProfileName';
 
+
 const ProfileCard = ({ onClick }) => {
   const [nickname, setNickname] = useState('로딩 중...');
 

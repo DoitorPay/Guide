@@ -42,7 +42,6 @@
   font-size: var(--typo-size-heading-2);
   font-weight: var(--typo-weight-bold);
   color: var(--color-gray-scale-800);
-   margin-bottom: clamp(12px, 5vw, 16px);
 }
 
 .group-meta {
@@ -118,12 +117,11 @@
     font-size: var(--typo-size-heading-6);
     font-weight: var(--typo-weight-bold);
     color: #000;
-    margin: 0;
   }
 
   .mission-info {
   display: flex;
-  margin-top: -8px;
+  // margin-top: -8px;
   justify-content: space-between;
   align-items: center;
 

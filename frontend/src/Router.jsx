@@ -18,6 +18,7 @@ import GroupMissionForm from "@/pages/GroupMissionForm";
 import GroupManagement from "@/pages/GroupManagement";
 import GroupSearch from "@/pages/GroupSearch";
 import Landing from "@/pages/landing";
+import Group from "@/pages/Group";
 
 const LayoutWithHeader = ({ children }) => {
   const location = useLocation();
@@ -28,6 +29,10 @@ const LayoutWithHeader = ({ children }) => {
                      location.pathname.startsWith("/todoList") ||
                      location.pathname.startsWith("/main") ||
                      location.pathname.startsWith("/mypage") ||
+                     location.pathname.startsWith("/group") ||
+                     location.pathname.startsWith("/landing") ||
+                     location.pathname.startsWith("/groupmanage") ||
+                     location.pathname.startsWith("/searchgroup") ||
                      location.pathname.startsWith("/penalty");
 
   return (
@@ -62,6 +67,7 @@ const Router = () => {
           <Route path="/groupmanage" element={<GroupManagement />} />
           <Route path="/groupsearch" element={<GroupSearch />} />
           <Route path="/landing" element={<Landing />} />
+          <Route path="/group" element={<Group />} />
         </Routes>
       </LayoutWithHeader>
     </BrowserRouter>

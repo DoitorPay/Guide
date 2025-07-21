@@ -38,9 +38,9 @@
   width: 100px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   font-size: var(--typo-size-body-3);
+  background-color: var(--color-gray-scale-white);
   border-radius: 16px;
   overflow: hidden;
-  background: white;
   z-index: 1;
 }
 
@@ -51,15 +51,8 @@
   color: #000;
   text-align: center;
   border: none;
-  background: white;
   cursor: pointer;
   transition: background 0.2s;
 
-  &:not(:last-child) {
-    border-bottom: 1px solid #eee;
-  }
-
-  &:hover {
-    background-color: #f6f6f6;
-  }
+ 
 }
