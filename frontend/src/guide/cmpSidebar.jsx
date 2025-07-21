@@ -30,6 +30,7 @@ import ImageUploader from "@/components/group/ImageUploader";
 import MissionCount from "@/components/group/MissionCount";
 import GroupDetailPopup from "@/components/popupModal/GroupDetailPopup";
 import GroupSearchInput from "@/components/group/GroupSearchInput";
+import HeartProfile from "@/components/profile/heartProfile";
 
 const groupedItemList = [
   {
@@ -51,6 +52,7 @@ const groupedItemList = [
       { id: 16, name: '오늘 큰 전진입니다~', path: '@/components/homeProfile', component: <HomeProfile /> },
       { id: 17, name: '오늘의 진행 상황', path: '@/components/progressCard', component: <ProgressCard /> },
       { id: 24, name: '마이페이지 프로필 카드', path: '@/components/profile/ProfileCard', component: <ProfileCard /> },
+      { id: 33, name: '하트 프로필', path: '@/components/profile/heartProfile', component: <HeartProfile /> },
     ],
   },
   {
