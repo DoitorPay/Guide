@@ -110,50 +110,54 @@ const GroupDetail = () => {
       </div>
 
       <div className="tab-content">
-        {activeTab === "활동" && (
-          <>
-            <div className="section">
-              <div className="mission-header">
-                <h3 className="section-title">이번주 그룹 미션</h3>
-                <div className="mission-info">
-                  <span className="period">{groupData.period}</span>
-                  <SubTitle type="desc" desc="5일 21시간 34분 남음" />
-                </div>
-              </div>
+       {activeTab === "활동" && (
+  <>
+    <div className="section">
+      <div className="mission-header">
+        <SubTitle title="이번주 그룹 미션"
+        type="date"
+        date={groupData.period}
+        type="desc" desc="5일 21시간 34분 남음"/>
+        <div className="mission-info">
+          <span className="period">{groupData.period}</span>
+          <SubTitle type="desc" desc="5일 21시간 34분 남음" />
+        </div>
+      </div>
 
-              <TodoList type="group"/>
-            </div>
+      <TodoList type="group" />
+    </div>
 
-            <div className="section">
-              <h3 className="section-title">미션 인증 피드</h3>
-              <MissionFeed feeds={feeds} />
-            </div>
+    <div className="section">
+      <SubTitle title="미션 인증 피드" />
+      <MissionFeed feeds={feeds} />
+    </div>
 
-            <div className="section">
-              <h3 className="section-title">멤버({groupData.memberCount})</h3>
-              <div className="horizontal-scroll">
-                {members.map((member) => (
-                  <UserProfileRow
-                    key={member.id}
-                    variant="vertical"
-                    size={60}
-                    src={member.avatar}
-                    name={member.name}
-                    border
-                    isLeader={member.isLeader}
-                  />
-                ))}
-              </div>
-            </div>
-          </>
-        )}
+    <div className="section">
+      <SubTitle title={`멤버(${groupData.memberCount})`} />
+      <div className="horizontal-scroll">
+        {members.map((member) => (
+          <UserProfileRow
+            key={member.id}
+            variant="vertical"
+            size={60}
+            src={member.avatar}
+            name={member.name}
+            border
+            isLeader={member.isLeader}
+          />
+        ))}
+      </div>
+    </div>
+  </>
+)}
 
-        {activeTab === "랭킹" && (
-          <div className="section">
-            <MyRanking {...myInfo} />
-            <RankingList rankings={members} />
-          </div>
-        )}
+{activeTab === "랭킹" && (
+  <div className="section">
+    <MyRanking {...myInfo} />
+    <RankingList rankings={members} />
+  </div>
+)}
+
       </div>
     </div>
         </MainLayout>

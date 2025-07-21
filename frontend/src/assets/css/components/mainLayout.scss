@@ -29,11 +29,12 @@
 }
 
 .fab-wrapper {
-  position: sticky;
+   position: absolute;
+    right: clamp(16px, 4vw, 24px); 
+  background-color: transparent;
   bottom: 120px;
   display: flex;
   justify-content: flex-end;
-  padding-right: 24px;
   z-index: 100;
 }
 

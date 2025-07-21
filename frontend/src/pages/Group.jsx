@@ -98,33 +98,8 @@ const Group = () => {
           />
         ))}
 
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <SubTitle title={`종료된 그룹 (${finishedGroups.length})`} />
-          <button
-            onClick={() => setShowFinished(!showFinished)}
-            style={{ fontSize: '0.875rem', color: 'var(--color-primary)', background: 'none', border: 'none', cursor: 'pointer' }}
-          >
-            {showFinished ? '접기 ▲' : '펼치기 ▼'}
-          </button>
-        </div>
-        {showFinished && finishedGroups.map(group => (
-          <GroupCardLarge
-            key={group.id}
-            isFinished={true}
-            title={group.title}
-            category={group.category}
-            period={group.period}
-            thumbnailUrl={group.image}
-            members={8}
-            progress={100}
-            dueDate="종료됨"
-            avatarList={[
-              'https://i.pravatar.cc/24?img=7',
-              'https://i.pravatar.cc/24?img=8',
-              'https://i.pravatar.cc/24?img=9',
-            ]}
-          />
-        ))}
+        
+
       </div>
     </MainLayout>
   );
