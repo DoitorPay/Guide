@@ -7,7 +7,7 @@
   },
   {
     "id": 2,
-    "title": "group",
+    "title": "그룹 상세 정보",
     "path": "/groupdetailguide",
     "fileName": "GroupDetail.jsx"
   },
@@ -70,5 +70,11 @@
     "title": "랜딩 페이지",
     "path": "/landing",
     "fileName": "landing.jsx"
+  },
+  {
+    "id": 13,
+    "title": "그룹",
+    "path": "/group",
+    "fileName": "Group.jsx"
   }
 ]

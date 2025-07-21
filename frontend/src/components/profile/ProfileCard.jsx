@@ -12,7 +12,7 @@ const ProfileCard = ({
       <div className="profile-card" onClick={onClick}>
         <ProfileImage src={imageSrc} size={100} className="profile-card__image" />
         <div className="profile-card__info">
-          <ProfileName name={name} size="md" />
+          <ProfileName name={name} size="md" weight="semibold"/>
           <span className="profile-card__status">{status}</span>
         </div>
         <img
