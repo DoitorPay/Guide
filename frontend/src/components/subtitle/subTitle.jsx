@@ -22,7 +22,11 @@ const SubTitle = ({
 
   return (
     <div className={`sub-title sub-title--${type}`}>
-      <h2 className="sub-title__heading">{title}</h2>
+    {type === 'title-lg' ? (
+        <h2 className="sub-title__heading --title-lg">{title}</h2>
+      ) : type !== 'sideinfo' && (
+        <h2 className="sub-title__heading">{title}</h2>
+      )}
 
       {type === 'link' && link && (
         <Link to={link} className="sub-title__link" onClick={onClickMore}>
@@ -46,6 +50,24 @@ const SubTitle = ({
       {type === 'desc' && desc && (
         <p className="sub-title__desc">{desc}</p>
       )}
+      
+      {type === 'title-lg' && (
+        <h2 className="sub-title__heading --title-lg"></h2>
+        )}
+
+     {type === 'sideinfo' && (
+  <div className="sub-title__wrap">
+    <h2 className="sub-title__heading">{title}</h2>
+    <div className="sub-title__meta-row">
+      <span className="sub-title__date-range">{info}</span>
+      <span className="sub-title__remain-time">{desc}</span>
+    </div>
+  </div>
+)}
+
+
+
+
     </div>
   );
 };

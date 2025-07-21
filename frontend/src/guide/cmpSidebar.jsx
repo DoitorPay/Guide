@@ -30,6 +30,7 @@ import ImageUploader from "@/components/group/ImageUploader";
 import MissionCount from "@/components/group/MissionCount";
 import GroupDetailPopup from "@/components/popupModal/GroupDetailPopup";
 import GroupSearchInput from "@/components/group/GroupSearchInput";
+import MissionFeedGuide from "@/guide/MissionFeedGuide";
 import HeartProfile from "@/components/profile/heartProfile";
 import PunishmentContent from "@/components/card/PunishmentContent";
 
@@ -53,7 +54,7 @@ const groupedItemList = [
       { id: 16, name: '오늘 큰 전진입니다~', path: '@/components/homeProfile', component: <HomeProfile /> },
       { id: 17, name: '오늘의 진행 상황', path: '@/components/progressCard', component: <ProgressCard /> },
       { id: 24, name: '마이페이지 프로필 카드', path: '@/components/profile/ProfileCard', component: <ProfileCard /> },
-      { id: 33, name: '하트 프로필', path: '@/components/profile/heartProfile', component: <HeartProfile /> },
+      { id: 35, name: '하트 프로필', path: '@/components/profile/heartProfile', component: <HeartProfile /> },
     ],
   },
   {
@@ -63,9 +64,9 @@ const groupedItemList = [
       { id: 21, name: '그룹 플로팅 버튼', path: '@/components/group/GroupFloatingButton', component: <GroupFloatingButton /> },
       { id: 20, name: '랭킹 컴포넌트', path: '@/components/ranking/-', component: <RankingGuide /> },
       { id: 29, name: '사진 업로드', path: '@/components/group/ImageUploader', component: <ImageUploader /> },
-      { id: 30, name: '미션 개수 증감', path: '@/components/group/ImageUploader', component: <MissionCount /> },
-      { id: 31, name: '그룹 정보 팝업', path: '@/components/group/ImageUploader', component: <GroupDetailPopup /> },
-      { id: 32, name: '그룹 검색', path: '@/components/group/GroupSearchInput', component: <GroupSearchInput /> }
+      { id: 31, name: '미션 개수 증감', path: '@/components/group/ImageUploader', component: <MissionCount /> },
+      { id: 32, name: '그룹 정보 팝업', path: '@/components/group/ImageUploader', component: <GroupDetailPopup /> },
+      { id: 33, name: '그룹 검색', path: '@/components/group/GroupSearchInput', component: <GroupSearchInput /> }
     ],
   },
   {
@@ -83,7 +84,8 @@ const groupedItemList = [
       { id: 25, name: '레벨 프로그레스바', path: '@/components/myPage/LevelProgress', component: <LevelProgress />},
       { id: 26, name: '팝업', path: '@/guide/popupGuide', component: <PopupGuide /> },
       { id: 27, name: '더보기 옵션(모달)', path: '@/guide/moreOptionGuide', component: <MoreOptionGuide /> },
-      { id: 29, name: '벌칙 인증 상세', path: '@/components/card/PunishmentContent', component: <PunishmentContent /> },
+      { id: 34, name: '그룹, 벌칙 미션피드', path: '@/components/MissionFeed', component: <MissionFeedGuide /> },
+      { id: 30, name: '벌칙 인증 상세', path: '@/components/card/PunishmentContent', component: <PunishmentContent /> },
     ],
   },
 ];

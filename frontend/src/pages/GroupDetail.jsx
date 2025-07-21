@@ -33,12 +33,21 @@ const GroupDetail = () => {
       user: "닉네임",
       image: "https://picsum.photos/300",
       avatar: "https://picsum.photos/30/30",
+      date: "2025-07-21T10:00:00Z",
     },
     {
       id: 2,
-      user: "닉네임",
+      user: "유진",
       image: "https://picsum.photos/300",
       avatar: "https://picsum.photos/30/30",
+      date: "2025-07-11T10:00:00Z",
+    },
+    {
+      id: 3,
+      user: "유진",
+      image: "https://picsum.photos/300",
+      avatar: "https://picsum.photos/30/30",
+      date: "2025-07-11T10:00:00Z",
     },
   ];
 
@@ -77,7 +86,7 @@ const GroupDetail = () => {
       </div>
 
       <div className="group-info full-bleed">
-        <h1 className="group-title">{groupData.title}</h1>
+        <SubTitle title={groupData.title} type="title-lg" />
         <div className="group-meta">
            <div className="meta-item">
             <span className="label">카테고리</span>
@@ -112,47 +121,44 @@ const GroupDetail = () => {
       <div className="tab-content">
        {activeTab === "활동" && (
   <>
-    <div className="section">
-      <div className="mission-header">
-        <SubTitle title="이번주 그룹 미션"
-        type="date"
-        date={groupData.period}
-        type="desc" desc="5일 21시간 34분 남음"/>
-        <div className="mission-info">
-          <span className="period">{groupData.period}</span>
-          <SubTitle type="desc" desc="5일 21시간 34분 남음" />
-        </div>
-      </div>
 
-      <TodoList type="group" />
-    </div>
-
-    <div className="section">
-      <SubTitle title="미션 인증 피드" />
-      <MissionFeed feeds={feeds} />
-    </div>
-
-    <div className="section">
-      <SubTitle title={`멤버(${groupData.memberCount})`} />
-      <div className="horizontal-scroll">
-        {members.map((member) => (
-          <UserProfileRow
-            key={member.id}
-            variant="vertical"
-            size={60}
-            src={member.avatar}
-            name={member.name}
-            border
-            isLeader={member.isLeader}
+          <SubTitle
+            title="이번주 그룹 미션"
+            type="sideinfo"
+            info={groupData.period}
+            desc="5일 21시간 34분 남음"
           />
-        ))}
+          {/* desc 들어갈 정보 나중에 바꿔야함 */}
+      <TodoList type="group" />
+<div className="group-section">
+  <SubTitle title="미션 인증 피드" />
+      <MissionFeed feeds={feeds} />
+   </div>
+
+
+
+      <div className="group-section">
+      <SubTitle title={`멤버(${groupData.memberCount})`} />
+            <div className="horizontal-scroll">
+              {members.map((member) => (
+                <UserProfileRow
+                  key={member.id}
+                  variant="vertical"
+                  size={60}
+                  src={member.avatar}
+                  name={member.name}
+                  border
+                  isLeader={member.isLeader}
+                />
+              ))}
+            </div>
       </div>
-    </div>
+
   </>
 )}
 
 {activeTab === "랭킹" && (
-  <div className="section">
+  <div className="ranking-section">
     <MyRanking {...myInfo} />
     <RankingList rankings={members} />
   </div>
