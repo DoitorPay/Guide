@@ -129,7 +129,7 @@ const GroupDetail = () => {
             desc="5일 21시간 34분 남음"
           />
           {/* desc 들어갈 정보 나중에 바꿔야함 */}
-      <TodoList type="group" />
+      <TodoList type="group-detail" />
 <div className="group-section">
   <SubTitle title="미션 인증 피드" />
       <MissionFeed feeds={feeds} />
