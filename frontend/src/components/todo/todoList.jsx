@@ -8,7 +8,7 @@ const TodoList = ({ type }) => {
 
     const [groupTodos, setGroupTodos] = useState([
         { id: 1, text: '한 페이지 풀기', completed: false },
-        { id: 2, text: '두 페이지 풀기', completed: false },
+        { id: 2, text: '동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세', completed: true },
         { id: 3, text: '세 페이지 풀기', completed: false }
     ]);
     
@@ -253,7 +253,8 @@ const TodoList = ({ type }) => {
     }
 
     return (
-        <div className="cmp-todolist">
+        <div div className={`cmp-todolist${type === 'group' ? '--group' : ''}`}>
+
             <div className="cmp-todolist__inner">
                 {
                     ((type === 'group' ? groupTodos.length === 0 : todoItems.length === 0) || type === 'example-todo') && (
@@ -265,7 +266,7 @@ const TodoList = ({ type }) => {
                 }
 
                 {
-                    type === 'home' && (
+                    (type === 'home' && todoItems.length > 0) && (
                         <p className="day-goal">
                             오늘의 목표 ({todoItems.filter(item => item.completed).length}/{todoItems.length})
                         </p>
@@ -461,7 +462,8 @@ const TodoList = ({ type }) => {
                                                 <span className={`title ${item.completed ? 'done' : ''}`}>{item.text}</span>
                                             )}
                                         </div>
-                                        {editingTodoId === item.id && editingTodoType === 'group' ? (
+                                        {/* 더보기 옵션 임시 주석처리ㄴㄴㄴㄴㄴ */}
+                                        {/* {editingTodoId === item.id && editingTodoType === 'group' ? (
                                             <div className="actions">
                                                 <button className="action-btn save" onClick={saveEditedTodo}>
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25">
@@ -480,7 +482,7 @@ const TodoList = ({ type }) => {
                                                     <path d="M2 0.5C0.9 0.5 0 1.4 0 2.5C0 3.6 0.9 4.5 2 4.5C3.1 4.5 4 3.6 4 2.5C4 1.4 3.1 0.5 2 0.5ZM14 0.5C12.9 0.5 12 1.4 12 2.5C12 3.6 12.9 4.5 14 4.5C15.1 4.5 16 3.6 16 2.5C16 1.4 15.1 0.5 14 0.5ZM8 0.5C6.9 0.5 6 1.4 6 2.5C6 3.6 6.9 4.5 8 4.5C9.1 4.5 10 3.6 10 2.5C10 1.4 9.1 0.5 8 0.5Z"/>
                                                 </svg>
                                             </div>
-                                        )}
+                                        )} */}
                                     </div>
                                 ))
                             }
