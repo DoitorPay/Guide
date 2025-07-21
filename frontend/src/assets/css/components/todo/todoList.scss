@@ -48,7 +48,7 @@
             flex: 1;
   
             .title {
-              // max-width: clamp(260px, 70vw, 300px);
+              max-width: clamp(260px, 70vw, 300px);
               font-size: calc(var(--typo-size-body-1) / 16 * 1rem);
               word-break: keep-all;
   
