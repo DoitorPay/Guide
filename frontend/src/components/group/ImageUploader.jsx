@@ -1,6 +1,10 @@
 import React, { useRef, useState } from "react";
 
-const ImageUploader = () => {
+const ImageUploader = (
+  name,
+  label = "업로드 사진",
+  required = true,
+) => {
   const fileInputRef = useRef(null);
   const [preview, setPreview] = useState(null);
 
@@ -19,19 +23,32 @@ const ImageUploader = () => {
 
   return (
     <div className="upload-container" onClick={handleClick}>
-      {preview ? (
-        <img src={preview} alt="preview" className="preview-image" />
-      ) : (
-        <img src="/icons/add.svg" alt="plus-icon" className="plus-icon" />
-      )}
-      <input
-        type="file"
-        accept="image/*"
-        ref={fileInputRef}
-        onChange={handleChange}
-        style={{ display: "none" }}
-      />
+      <label htmlFor={name} className="input-label">
+        {label}
+        {required && <span style={{ color: 'red' }}> *</span>}
+      </label>
+      <div className="image-wrap">
+        {preview ? (
+          <div className="preview-image">
+            <div className="change-wrap">
+              <p>변경하기</p>
+            </div>
+            <img src={preview} alt="preview" />
+          </div>
+
+        ) : (
+          <img src="/icons/add-gray.svg" alt="여기를 눌러 이미지 업로드" className="plus-icon" />
+        )}
+          <input
+            type="file"
+            accept="image/*"
+            ref={fileInputRef}
+            onChange={handleChange}
+            style={{ display: "none" }}
+          />
+      </div>
     </div>
+
   );
 };
 
