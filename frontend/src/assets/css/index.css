@@ -34,6 +34,8 @@
 @import '@/assets/css/components/ranking/myRanking.scss';
 @import '@/assets/css/components/ranking/rankingList.scss';
 @import '@/assets/css/components/card/PunishmentContent.scss';
+@import '@/assets/css/components/profile/changeProfileImage.scss';
+@import '@/assets/css/components/profile/topicSelect.scss';
 
 /* profile components */
 @import '@/assets/css/components/profile/profileImage.scss';
@@ -48,3 +50,4 @@
 @import '@/assets/css/pages/myPage.scss';
 @import '@/assets/css/pages/landing.scss';
 @import '@/assets/css/pages/groupForm.scss';
+@import '@/assets/css/pages/profile.scss';
