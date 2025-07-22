@@ -58,6 +58,7 @@
     { "name": "download", "path": "/icons/download.svg" },
     { "name": "upload", "path": "/icons/upload.svg" },
     { "name": "heart-empty", "path": "/icons/heart-empty.svg" },
-    { "name": "heart-filled", "path": "/icons/heart-filled.svg" }
+    { "name": "heart-filled", "path": "/icons/heart-filled.svg" },
+    { "name": "ic-edit-orange", "path": "/icons/ic-edit-orange.svg" }
   ]
 }
