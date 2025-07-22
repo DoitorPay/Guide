@@ -76,5 +76,11 @@
     "title": "그룹",
     "path": "/group",
     "fileName": "Group.jsx"
+  },
+  {
+    "id": 14,
+    "title": "프로필",
+    "path": "/profile",
+    "fileName": "profile.jsx"
   }
 ]

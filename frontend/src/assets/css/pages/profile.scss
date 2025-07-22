@@ -1,0 +1,44 @@
+.profile-wrapper {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    align-items: center;
+    gap: clamp(44px, 2vw, 48px);
+    
+    
+
+    .input-wrap {
+        display: flex;
+        flex-direction: column;
+        gap: clamp(28px, 2vw, 30px);
+        width: 100%;
+
+
+        .nickname-check-wrap {
+            display: grid;
+            grid-template-columns: 2.5fr 1fr;
+            gap: clamp(5px, 2vw, 8px);
+            width: 100%;
+            align-items: flex-end;
+    
+            button {
+                height: clamp(45px, 4vw, 50px);
+                border-radius: clamp(8px, 2vw, 12px);
+            }
+            .nickname-check-message {
+                font-size: clamp(10px, 2vw, 14px);
+                &.available {
+                    color: var(--color-gray-scale-500);
+                }
+                &.unavailable {
+                    color: var(--color-red-vari-600);
+                }
+            }
+        }
+    }
+    
+    .save-wrap {
+        width: 100%;
+        margin-top: auto;
+    }
+}
