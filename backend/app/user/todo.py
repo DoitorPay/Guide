@@ -69,7 +69,7 @@ class UserTodo(Resource):
             except Exception as e:
                 return str(e), 500
 
-    def update(self):
+    def put(self):
         user_data = session.get('user_data')
         update_item = request.get_json()['list']
 
@@ -89,7 +89,8 @@ class UserTodo(Resource):
                     if id == update_item["id"]:
                         item = update_item["item"]
                         done = update_item["done"]
-                        updated_list[0][idx] = f"{item}///{id}///{done}"
+                        updated_list[idx] = f"{item}///{id}///{done}"
+                        break
 
             try:
                 result = neo_session.run(
