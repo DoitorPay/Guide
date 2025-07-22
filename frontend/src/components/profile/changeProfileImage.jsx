@@ -29,12 +29,14 @@ const ChangeProfileImage = () => {
         }
     };
 
-    const changeOptions = [
-        { value: "setDefault", label: "기본 이미지", onClick: () => handleOptionSelect("setDefault") },
-        { value: "selectAlbum", label: "앨범에서 선택하기", onClick: () => handleOptionSelect("selectAlbum")  }
-    ]; 
-
     const [changedImageSrc, setChangedImageSrc] = useState(defaultAvatar);
+
+    const changeOptions = changedImageSrc === defaultAvatar
+        ? [{ value: "selectAlbum", label: "앨범에서 선택하기", onClick: () => handleOptionSelect("selectAlbum") }]
+        : [
+            { value: "setDefault", label: "기본 이미지", onClick: () => handleOptionSelect("setDefault") },
+            { value: "selectAlbum", label: "앨범에서 선택하기", onClick: () => handleOptionSelect("selectAlbum") }
+        ];
 
     return(
         <div className="change-profile-image">
