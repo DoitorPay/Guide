@@ -1,9 +1,10 @@
 import React, { useRef, useState } from "react";
 
 const ImageUploader = (
-  name,
+  { name,
   label = "업로드 사진",
   required = true,
+  onImageChange, }
 ) => {
   const fileInputRef = useRef(null);
   const [preview, setPreview] = useState(null);
@@ -16,8 +17,14 @@ const ImageUploader = (
     const file = e.target.files[0];
     if (file) {
       const reader = new FileReader();
-      reader.onloadend = () => setPreview(reader.result);
+      reader.onloadend = () => {
+        setPreview(reader.result);
+        onImageChange && onImageChange(true);
+      };
       reader.readAsDataURL(file);
+    } else {
+      setPreview(null);
+      onImageChange && onImageChange(false);
     }
   };
 
