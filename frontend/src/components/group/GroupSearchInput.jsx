@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Input from "@/components/Input/input";
 import MoreOption from "@/components/popupModal/moreOption"; // MoreOption 컴포넌트 임포트
+import SearchIcon from "/icons/search-gray.svg"
 
 const GroupSearchInput = ({ onSearch, onSortChange }) => {
     const [searchQuery, setSearchQuery] = useState("");
@@ -47,7 +48,7 @@ const GroupSearchInput = ({ onSearch, onSortChange }) => {
                     placeholder="검색"
                     value={searchQuery}
                     onChange={handleSearchChange}
-                    icon="search"
+                    icon={<img src={SearchIcon} alt="화살표" className="svg-icon" />}
                 />
             </div>
             <div className="sort-box" onClick={toggleMoreOption}>
