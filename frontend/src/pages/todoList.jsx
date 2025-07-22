@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import MainLayout from '@/pages/MainLayout';
 import WeekCalendar from '@/components/calendar/WeekCalendar';
 import SubTitle from '@/components/subtitle/SubTitle';
@@ -6,6 +6,12 @@ import TodoList from '@/components/todo/todoList';
 import PanaltyNoti from '@/components/panalty/panaltyNoti';
 
 const TodoListPage = () => {
+    const [selectedDate, setSelectedDate] = useState(new Date());
+
+    const handleDateSelect = (date) => {
+        setSelectedDate(date);
+    };
+
     return (
         <MainLayout
             headerProps={{
@@ -14,10 +20,10 @@ const TodoListPage = () => {
                 icon1: "notifications",
             }}
         >
-            <WeekCalendar type="todolist" />
+            <WeekCalendar type="todolist" onDateSelect={handleDateSelect} />
 
             <div>
-                <SubTitle title="오늘의 목표" type="date"/>
+                <SubTitle title="오늘의 목표" type="date" date={selectedDate} />
                 <TodoList type="page-todolist" />
             </div>
 

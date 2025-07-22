@@ -35,7 +35,7 @@ const generateWeekDates = (baseDate, type = 'default') => {
   };
   
 
-const WeekCalendar = ({ type = 'default' }) => {
+const WeekCalendar = ({ type = 'default', onDateSelect }) => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [days, setDays] = useState(generateWeekDates(new Date(), type));
 
@@ -66,6 +66,9 @@ const WeekCalendar = ({ type = 'default' }) => {
         }
       })
     );
+    if (onDateSelect) {
+      onDateSelect(new Date(targetDate));
+    }
   };
   
   
