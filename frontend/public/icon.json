@@ -28,6 +28,7 @@
     { "name": "done-gray", "path": "/icons/done-gray.svg" },
     { "name": "refresh", "path": "/icons/refresh.svg" },
     { "name": "search", "path": "/icons/search.svg" },
+    { "name": "search-gray", "path": "/icons/search-gray.svg" },
     { "name": "notifications", "path": "/icons/notifications.svg" },
     {
       "name": "notifications-none",
