@@ -34,6 +34,7 @@ import MissionFeedGuide from "@/guide/MissionFeedGuide";
 import HeartProfile from "@/components/profile/heartProfile";
 import PunishmentContent from "@/components/card/PunishmentContent";
 import ChangeProfileImage from "@/components/profile/changeProfileImage";
+import TopicSelect from "@/components/profile/topicSelect";
 
 const groupedItemList = [
   {
@@ -56,7 +57,8 @@ const groupedItemList = [
       { id: 17, name: '오늘의 진행 상황', path: '@/components/progressCard', component: <ProgressCard /> },
       { id: 24, name: '마이페이지 프로필 카드', path: '@/components/profile/ProfileCard', component: <ProfileCard /> },
       { id: 35, name: '하트 프로필', path: '@/components/profile/heartProfile', component: <HeartProfile /> },
-      { id: 36, name: '프로필 사진 변경', path: '@/components/profile/heartProfile', component: <ChangeProfileImage  /> }
+      { id: 36, name: '프로필 사진 변경', path: '@/components/profile/heartProfile', component: <ChangeProfileImage  /> },
+      { id: 37, name: '스터디 주제 선택(프로필 페이지 내)', path: '@/components/profile/topicSelect', component: <TopicSelect /> }
     ],
   },
   {
