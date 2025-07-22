@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import TagList from '@/components/tag/tagList';
 import Button from '@/components/button/Button';
 import SignupLayout from '@/pages/signupLayout';
@@ -11,6 +12,11 @@ const TOPICS = [
 
 const StudyTopic = () => {
   const [selectedTopics, setSelectedTopics] = useState([]);
+  const navigate = useNavigate();
+
+  const handleGoBack = () => {
+    navigate(-1);
+  };
 
   const handleSubmit = async () => {
     try {
@@ -40,6 +46,7 @@ const StudyTopic = () => {
         type: "header-b",
         title: "스터디 주제",
         // icon2: "notifications",
+        icon1OnClick: handleGoBack
       }}
     >
 
