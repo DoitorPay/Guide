@@ -4,10 +4,14 @@ import Header from "@/components/header/header";
 import Navigation from "@/components/nav/nav";
 import ChangeProfileImage from "@/components/profile/changeProfileImage";
 import Input from "@/components/Input/input";
+import TopicSelect from "@/components/profile/topicSelect";
 import Button from "@/components/button/button";
+import { useNavigate } from 'react-router-dom';
 
 const Profile = () => {
     const [nicknameAvailable, setNicknameAvailable] = useState(null);
+
+    const navigate = useNavigate(); // useNavigate 훅 추가
 
     const [nickname, setNickname] = useState("");
     useEffect(() => {
@@ -46,10 +50,18 @@ const Profile = () => {
         }
     };
 
+    const handleTopicSelectClick = () => {
+        navigate('/studytopic');
+    };
+
+    const handleGoBack = () => {
+        navigate(-1);
+    };
+
     return (
         <SignupLayout
         contentBg="var(--color-background)"
-        headerProps={{ title: "프로필", type: "header-b", icon1: "arrow-left" }}
+        headerProps={{ title: "프로필", type: "header-b", icon1: "arrow-left", icon1OnClick: handleGoBack }}
         >
         <div className="profile-wrapper">
                 <ChangeProfileImage />
@@ -88,7 +100,6 @@ const Profile = () => {
                     <Input
                         label="상태메시지지"
                         name="nickname"
-                        required
                         maxLength={10}
                         placeholder="상태메시지를 입력해주세요."
                         value="아자아자 화이팅 ~!"
@@ -96,7 +107,9 @@ const Profile = () => {
                 </div>
 
                 <div className="topic-wrap">
-                    스터디 주제?
+                    <TopicSelect 
+                        onClick={handleTopicSelectClick}
+                    />
                 </div>
             </div>
 
@@ -104,7 +117,7 @@ const Profile = () => {
             <div className="save-wrap">
                 <Button
                     type="primary"
-                    buttonName="계속하기"
+                    buttonName="수정사항 저장하기"
                 />
             </div>
         </div>
