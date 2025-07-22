@@ -88,8 +88,8 @@ const GroupSearch = () => {
     <MainLayout
       headerProps={{
         type: "header-b",
-        title: "그룹 찾기", // 페이지 제목
-        icon2: "arrow-left", // 뒤로가기 버튼 등
+        title: "그룹 찾기",
+        icon2: "arrow-left",
       }}
     >
       <div className="group-search-page-content">
