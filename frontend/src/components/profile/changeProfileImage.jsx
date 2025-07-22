@@ -9,6 +9,9 @@ const changeProfileImage = () => {
 
     return(
         <div className="change-profile-image">
+            <div className="edit-icon">
+                <img src="/icons/ic-edit-orange.svg"/>
+            </div>
             <ProfileImage 
                 size = '117'
                 src = {changedImageSrc}
