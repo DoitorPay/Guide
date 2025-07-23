@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Button from '@/components/button/button';
 import Popup from '@/components/popupModal/Popup';
 
@@ -8,6 +9,7 @@ const Roulette = ({ items = [] }) => {
   const [showConfirmPopup, setShowConfirmPopup] = useState(false);
   const [showCompletePopup, setShowCompletePopup] = useState(false);
 
+  const navigate = useNavigate();
   const hasItems = items.length > 0;
 
   const spin = (current, speed, remaining) => {
@@ -38,6 +40,11 @@ const Roulette = ({ items = [] }) => {
   const handleUseCard = () => {
     setShowConfirmPopup(false);
     setShowCompletePopup(true);
+  };
+
+  const handleSkip = () => {
+    setShowConfirmPopup(false);
+    navigate('/penaltyupload'); 
   };
 
   return (
@@ -91,15 +98,15 @@ const Roulette = ({ items = [] }) => {
         subtitle="벌칙을 수행하고 싶지 않으면 면제카드를 사용할 수 있어요."
         buttonName="건너뛰기"
         button2Name="사용"
-        onClick={() => setShowConfirmPopup(false)}
-        onSecondClick={handleUseCard}
+        onClick={handleSkip}            
+        onSecondClick={handleUseCard}  
       />
 
       <Popup
         setPopup={showCompletePopup}
         icon="done-gray"
         title="면제 카드를 사용했어요."
-        subtitle="이번 벌칙은 넘어감? (멘트 필요)"
+        subtitle="이번 벌칙은 면제되었어요!"
         buttonName="닫기"
         onClick={() => setShowCompletePopup(false)}
       />
