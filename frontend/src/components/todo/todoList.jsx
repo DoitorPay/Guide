@@ -259,8 +259,8 @@ const TodoList = ({ type }) => {
                 {
                     ((type === 'group' || type === 'group-detail' ? groupTodos.length === 0 : todoItems.length === 0) || type === 'example-todo') && (
                         <p className="no-todo">
-                            설정된 목표가 없습니다.<br></br>
-                            목표를 추가해 보세요.
+                            {(type === 'group' || type === 'group-detail') ? '이번주 그룹 미션이 아직 생성되지 않았어요.' : '설정된 목표가 없습니다.'}<br></br>
+                            {(type === 'group' || type === 'group-detail') ? '' : '목표를 추가해 보세요.'}
                         </p>
                     )
                 }

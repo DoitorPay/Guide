@@ -27,7 +27,8 @@
         font-size: calc(var(--typo-size-body-1) / 16 * 1rem);
         font-weight: var(--typo-weight-semibold);
         text-align: center;
-        margin-bottom: clamp(8px, 2vw, 12px);
+        color: var(--color-gray-scale-700);
+        // margin-bottom: clamp(8px, 2vw, 12px);
       }
   
       .todo-box {
@@ -120,6 +121,7 @@
         background: var(--color-gray-scale-500);
         color: var(--color-gray-scale-white);
         border-radius: clamp(8px, 2vw, 10px);
+        margin-top: clamp(8px, 2vw, 12px);
         margin-bottom: clamp(12px, 3vw, 16px);
   
         .text-area {
