@@ -5,7 +5,7 @@ const PunishmentContent =  ({
     content = '내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용',
     groupName = '토익 뿌수자 그룹',
     deadline = '2025.04.21',
-    description = '네..'
+    description = '내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용..'
   }) => {
     return (
       <div className="punishment-card">

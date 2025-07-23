@@ -1,0 +1,41 @@
+.punishment-card {
+    &__title {
+      font-size: clamp(14px, 1.6vw, 18px);
+      font-weight: var(--typo-weight-bold);
+    }
+  
+    &__content {
+      color: var(--color-gray-scale-300);
+      font-size: clamp(12px, 1.4vw, 16px);
+      font-weight: var(--typo-weight-bold);
+    }
+  
+    &__info {
+      background: var(--color-background);
+      padding: clamp(6px, 1vw, 12px);
+      border-radius: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: clamp(2px, 0.5vw, 6px);
+      margin-top: clamp(12px, 2vw, 20px);
+  
+      .info-row {
+        display: grid;
+        grid-template-columns: clamp(50px, 12vw, 80px) 1fr;
+        column-gap: clamp(2px, 1vw, 6px);
+  
+        .info-label {
+          color: var(--color-gray-scale-400);
+          font-size: clamp(11px, 1.2vw, 14px);
+          font-weight: var(--typo-weight-bold);
+        }
+  
+        .info-value {
+          color: var(--color-gray-scale-600);
+          font-size: clamp(11px, 1.2vw, 14px);
+          font-weight: var(--typo-weight-semibold);
+        }
+      }
+    }
+  }
+  
