@@ -88,5 +88,11 @@
     "title": "벌칙 업로드",
     "path": "/penaltyupload",
     "fileName": "penaltyUpload.jsx"
+  },
+  {
+    "id": 16,
+    "title": "벌칙 인증 상세",
+    "path": "/penaltycertification",
+    "fileName": "PenaltyCertification.jsx"
   }
 ]
