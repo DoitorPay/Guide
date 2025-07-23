@@ -82,5 +82,11 @@
     "title": "프로필",
     "path": "/profile",
     "fileName": "profile.jsx"
+  },
+  {
+    "id": 15,
+    "title": "벌칙 업로드",
+    "path": "/penaltyupload",
+    "fileName": "penaltyUpload.jsx"
   }
 ]

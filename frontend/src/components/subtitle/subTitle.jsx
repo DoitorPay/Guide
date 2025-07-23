@@ -11,7 +11,8 @@ const SubTitle = ({
   info,
   linkIcon = 'arrow-right-gray',
   more = '전체보기',
-  onClickMore
+  onClickMore,
+  date,
 }) => {
   const currentDate = new Date();
   const today = format(currentDate, 'M월 d일', { locale: ko });
@@ -40,7 +41,7 @@ const SubTitle = ({
       )}
 
       {type === 'date' && (
-        <span className="sub-title__date">{today}</span>
+        <span className="sub-title__date">{date ? format(date, 'M월 d일', { locale: ko }) : today}</span>
       )}
 
       {type === 'week' && (
