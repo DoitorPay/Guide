@@ -13,15 +13,9 @@
   },
   {
     "id": 3,
-    "title": "study topic",
-    "path": "/studytopic",
-    "fileName": "studyTopic.jsx"
-  },
-  {
-    "id": 4,
-    "title": "로그인",
-    "path": "/login",
-    "fileName": "Login.jsx"
+    "title": "topic",
+    "path": "/topic-select",
+    "fileName": "TopicSelect.jsx"
   },
   {
     "id": 5,

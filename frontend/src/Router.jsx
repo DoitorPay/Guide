@@ -5,9 +5,8 @@ import CssGuide from "@/guide/cssGuide";
 import PubGuide from "@/guide/pubGuide";
 import FrontGuide from "@/guide/frontGuide";
 import GuideHeader from "@/components/header/guideHeader";
-import Login from "@/pages/login";
 import SignUp from "@/pages/SignUp.jsx";
-import StudyTopic from "@/pages/studyTopic.jsx";
+import TopicSelect from "@/pages/TopicSelect.jsx";
 import GroupDetail from "@/pages/GroupDetail.jsx";
 import MainPage from "@/pages/home.jsx";
 import TodoListPage from "@/pages/todoList.jsx";
@@ -25,9 +24,9 @@ import PenaltyCertification from "@/pages/PenaltyCertification";
 
 const LayoutWithHeader = ({ children }) => {
   const location = useLocation();
-  const hideHeader = location.pathname.startsWith("/login") ||
+  const hideHeader = 
                      location.pathname.startsWith("/additRegister") ||
-                     location.pathname.startsWith("/studytopic") ||
+                     location.pathname.startsWith("/topic-select") ||
                      location.pathname.startsWith("/groupdetailguide") ||
                      location.pathname.startsWith("/todoList") ||
                      location.pathname.startsWith("/main") ||
@@ -61,9 +60,8 @@ const Router = () => {
           <Route path="/pubGuide" element={<PubGuide />} />
           <Route path="/frontGuide" element={<FrontGuide />} />
           {/* 여기서부터 페이지 */}
-          <Route path="/login" element={<Login />} />
           <Route path="/additRegister" element={<SignUp />} />
-          <Route path="/studytopic" element={<StudyTopic />} />
+          <Route path="/topic-select" element={<TopicSelect mode="group-topic" />} />
           <Route path="/groupdetailguide" element={<GroupDetail />} />
           <Route path="/main" element={<MainPage />} />
           <Route path="/todolist" element={<TodoListPage />} />
