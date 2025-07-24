@@ -161,7 +161,7 @@ const TodoList = ({ type }) => {
                 };
 
                 fetch('http://localhost:8000/user/user-todo', {
-                    method: 'UPDATE',
+                    method: 'PUT',
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify({ list: updatedTodoData }),
                 })
