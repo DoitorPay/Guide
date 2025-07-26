@@ -32,7 +32,7 @@ const TodoList = ({ type }) => {
                 console.error('투두 목록 가져오기 에러:', errorData);
                 // alert('투두 목록을 가져오는 중 오류가 발생했습니다. 다시 시도해주세요.');
                 return;
-            }
+            }ㅣㄱ
             const data = await response.json();
             console.log("----- GET -----");
             console.log(JSON.stringify(data, null, 2));
@@ -104,9 +104,9 @@ const TodoList = ({ type }) => {
     async function addTodo() {
         if (isAddingTodo) {
             if (newTodoText.trim()) {
-                const forbiddenChars = /[\\/"']/; // \, /, ", ' 문자를 포함할 수 없습니다.
+                const forbiddenChars = /[\\/"'*]/;
                 if (forbiddenChars.test(newTodoText)) {
-                    alert("투두 내용에는 \\, /, \", ' 문자를 포함할 수 없습니다.");
+                    alert("투두 내용에는 \\, /, \", ', * 문자를 포함할 수 없습니다.");
                     return;
                 }
 
@@ -196,6 +196,11 @@ const TodoList = ({ type }) => {
     function saveEditedTodo() {
         if (editingText.trim()) {
             // 개인 투두만 API 연동 (그룹 투두는 기존 로직 유지)
+            const forbiddenChars = /[\\/"'*]/;
+            if (forbiddenChars.test(editingText)) {
+                alert("투두 내용에는 \\, /, \", ', * 문자를 포함할 수 없습니다.");
+                return;
+            }
             if (editingTodoType === 'personal') {
                 const originalTodo = todoItems.find(item => item.id === editingTodoId);
                 const updatedTodoData = {
