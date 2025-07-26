@@ -104,9 +104,10 @@ const TodoList = ({ type }) => {
     async function addTodo() {
         if (isAddingTodo) {
             if (newTodoText.trim()) {
-                const forbiddenChars = /[\\/"'*]/;
-                if (forbiddenChars.test(newTodoText)) {
+                const validation = /[\\/"'*]/;
+                if (validation.test(newTodoText)) {
                     alert("투두 내용에는 \\, /, \", ', * 문자를 포함할 수 없습니다.");
+                    setNewTodoText('');
                     return;
                 }
 
@@ -196,9 +197,10 @@ const TodoList = ({ type }) => {
     function saveEditedTodo() {
         if (editingText.trim()) {
             // 개인 투두만 API 연동 (그룹 투두는 기존 로직 유지)
-            const forbiddenChars = /[\\/"'*]/;
-            if (forbiddenChars.test(editingText)) {
+            const validation = /[\\/"'*]/;
+            if (validation.test(editingText)) {
                 alert("투두 내용에는 \\, /, \", ', * 문자를 포함할 수 없습니다.");
+                setNewTodoText('');
                 return;
             }
             if (editingTodoType === 'personal') {
