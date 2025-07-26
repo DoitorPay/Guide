@@ -34,6 +34,7 @@ import HeartProfile from "@/components/profile/heartProfile";
 import PunishmentContent from "@/components/card/PunishmentContent";
 import ChangeProfileImage from "@/components/profile/changeProfileImage";
 import TopicSelect from "@/components/profile/topicSelect";
+import TossGroupAdminGuide from "@/guide/tossGroupAdminGuide";
 
 const groupedItemList = [
   {
@@ -69,7 +70,8 @@ const groupedItemList = [
       { id: 29, name: '사진 업로드', path: '@/components/group/ImageUploader', component: <ImageUploader /> },
       { id: 31, name: '미션 개수 증감', path: '@/components/group/ImageUploader', component: <MissionCount /> },
       { id: 32, name: '그룹 정보 팝업', path: '@/components/group/ImageUploader', component: <GroupDetailPopup /> },
-      { id: 33, name: '그룹 검색', path: '@/components/group/GroupSearchInput', component: <GroupSearchInput /> }
+      { id: 33, name: '그룹 검색', path: '@/components/group/GroupSearchInput', component: <GroupSearchInput /> },
+      { id: 38, name: '그룹 운영 위임 팝업', path: '@/guide/tossGroupAdminGuide', component: <TossGroupAdminGuide /> }
     ],
   },
   {
