@@ -32,7 +32,7 @@ const TodoList = ({ type }) => {
                 console.error('투두 목록 가져오기 에러:', errorData);
                 // alert('투두 목록을 가져오는 중 오류가 발생했습니다. 다시 시도해주세요.');
                 return;
-            }ㅣㄱ
+            }
             const data = await response.json();
             console.log("----- GET -----");
             console.log(JSON.stringify(data, null, 2));
