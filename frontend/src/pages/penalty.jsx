@@ -79,7 +79,7 @@ const PenaltyPage = () => {
 
       <div>
       < SubTitle title="벌칙 인증 피드" />
-        <MissionFeed feeds={feeds} />
+        <MissionFeed feeds={feeds} onClickFeed={(feed) => navigate('/penaltycertification')} />
       </div>
 
       <div>

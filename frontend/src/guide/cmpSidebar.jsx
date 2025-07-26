@@ -2,7 +2,6 @@ import React, { useState } from "react";
 // 컴포넌트 목록
 import Input from "@/components/Input/input";
 import CmpButton from "@/guide/cmpButton"
-import Login from "@/pages/login";
 import CmpHeader from "@/guide/cmpHeader";
 import MainLayout from "@/pages/mainLayout";
 import Navigation from "@/components/nav/nav"; 
@@ -76,7 +75,6 @@ const groupedItemList = [
   {
     group: '유틸/레이아웃/기타',
     items: [
-      { id: 4, name: '로그인', path: '@/pages/login', component: <Login /> },
       { id: 6, name: '레이아웃', path: '@/pages/mainLayout', component: <MainLayout /> },
       { id: 7, name: '네비게이션', path: '@/components/nav', component: <Navigation /> },
       { id: 9, name: '룰렛', path: '@/components/roulette', component: <Roulette /> },
