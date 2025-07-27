@@ -67,7 +67,7 @@ function Header({
             {type === "default" && (
               <div className="logo">
                 <a href="#">
-                  <img src="/src/assets/image/common/logo.png" alt="로고" />
+                  <img src="/images/logo.png" alt="로고" />
                 </a>
               </div>
             )}

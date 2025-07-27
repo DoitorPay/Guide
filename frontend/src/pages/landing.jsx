@@ -8,7 +8,7 @@ const Landing = () => {
         <LandingLayout>
             <div className="landing-wrapper">
                 <div className="visual-container">
-                    <img src="/src/assets/image/common/logo-white.png"/>
+                    <img src="/images/logo-white.png"/>
                     <p className="title">죽음의 스터디를 시작한다</p>
                 </div>
 
