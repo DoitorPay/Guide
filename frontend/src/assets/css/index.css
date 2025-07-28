@@ -38,6 +38,7 @@
 @import '@/assets/css/components/profile/topicSelect.scss';
 @import '@/assets/css/components/group/imageUploader.scss';
 @import '@/assets/css/components/group/tossGroupAdmin.scss';
+@import '@/assets/css/components/group/missionCount.scss';
 
 /* profile components */
 @import '@/assets/css/components/profile/profileImage.scss';

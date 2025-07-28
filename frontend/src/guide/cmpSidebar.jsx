@@ -68,7 +68,7 @@ const groupedItemList = [
       { id: 21, name: '그룹 플로팅 버튼', path: '@/components/group/GroupFloatingButton', component: <GroupFloatingButton /> },
       { id: 20, name: '랭킹 컴포넌트', path: '@/components/ranking/-', component: <RankingGuide /> },
       { id: 29, name: '사진 업로드', path: '@/components/group/ImageUploader', component: <ImageUploader /> },
-      { id: 31, name: '미션 개수 증감', path: '@/components/group/ImageUploader', component: <MissionCount /> },
+      { id: 31, name: '미션 개수 증감', path: '@/components/group/MissionCount', component: <MissionCount /> },
       { id: 32, name: '그룹 정보 팝업', path: '@/components/group/ImageUploader', component: <GroupDetailPopup /> },
       { id: 33, name: '그룹 검색', path: '@/components/group/GroupSearchInput', component: <GroupSearchInput /> },
       { id: 38, name: '그룹 운영 위임 팝업', path: '@/guide/tossGroupAdminGuide', component: <TossGroupAdminGuide /> }
