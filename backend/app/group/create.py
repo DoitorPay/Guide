@@ -7,13 +7,13 @@ from flask import request, redirect, session, jsonify
 from app.DB.NeoDriver import driver
 from app.group import ns_group
 
-group_model = ns_group.model('todo list', {
+group_model = ns_group.model('group creation form', {
     'name': fields.String,
     'description': fields.String,
     'topic': fields.String,
     'num_goals': fields.Integer,
     'conf_date': fields.String,
-    'running_term': fields.String
+    'duration': fields.String
 })
 
 @ns_group.route('/create')
@@ -33,12 +33,14 @@ class Create(Resource):
                     n.num_goals = num_goals,
                     n.conf_date = conf_date,
                     n.time_created = datetime(),
-                    n.running_term = running_term,
+                    n.duration = duration,
                     n.gid = gid
             """)
 
             user_info = session['user_info']
             neo_session.run("""
                 MATCH(n:Group{gid: $gid}), (n:Person{id: id, sns: sns})
-                MERGE (a)-[r:Member]->(b)
+                MERGE (a)-[r:Leader]->(b)
             """)
+
+            return gid, 200
