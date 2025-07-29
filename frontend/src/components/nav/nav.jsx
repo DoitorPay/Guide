@@ -41,7 +41,7 @@ const MyPageIcon = ({ fill }) => {
 const navItems = [
   { id: 'home', label: '홈', icon: HomeIcon, matchPath: '/main', navigatePath: '/main' },
   { id: 'todo', label: '투두리스트', icon: TodoIcon, matchPath: '/todolist', navigatePath: '/todolist' },
-  { id: 'group', label: '그룹', icon: GroupIcon, matchPath: '/group', navigatePath: '/groupdetailguide' }, 
+  { id: 'group', label: '그룹', icon: GroupIcon, matchPath: '/group', navigatePath: '/group' }, 
   { id: 'penalty', label: '벌칙', icon: PenaltyIcon, matchPath: '/penalty', navigatePath: '/penalty' },
   { id: 'mypage', label: '마이페이지', icon: MyPageIcon, matchPath: '/mypage', navigatePath: '/mypage' },
 ];

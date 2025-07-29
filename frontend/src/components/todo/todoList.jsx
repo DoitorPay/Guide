@@ -1,59 +1,119 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import Checkbox from '@/components/input/checkBox';
-import Input from '@/components/input/input';
 import MoreOption from '@/components/popupModal/moreOption';
 
 const TodoList = ({ type }) => {
+    // 투두 목록 상태
     const [todoItems, setTodoItems] = useState([]);
-
     const [groupTodos, setGroupTodos] = useState([
         { id: 1, text: '한 페이지 풀기', completed: false },
-        { id: 2, text: '두 페이지 풀기', completed: false },
+        { id: 2, text: '동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세', completed: true },
         { id: 3, text: '세 페이지 풀기', completed: false }
     ]);
     
+    // 투두 추가 관련 상태
     const [newTodoText, setNewTodoText] = useState('');
     const [isAddingTodo, setIsAddingTodo] = useState(false);
 
+    // 더보기 및 수정 관련 상태
+    const [moreOption, setMoreOption] = useState(false);
+    const [selectedTodoId, setSelectedTodoId] = useState(null);
+    const [selectedTodoType, setSelectedTodoType] = useState(null); // 'personal' or 'group'
+    const [editingTodoId, setEditingTodoId] = useState(null);
+    const [editingTodoType, setEditingTodoType] = useState(null);
+    const [editingText, setEditingText] = useState('');
+
+    // 투두 목록 가져오기 함수
     const fetchTodos = useCallback(async () => {
         try {
             const response = await fetch('http://localhost:8000/user/user-todo');
             if (!response.ok) {
                 const errorData = await response.json();
                 console.error('투두 목록 가져오기 에러:', errorData);
-                alert('투두 목록을 가져오는 중 오류가 발생했습니다. 다시 시도해주세요.');
+                // alert('투두 목록을 가져오는 중 오류가 발생했습니다. 다시 시도해주세요.');
                 return;
             }
             const data = await response.json();
             console.log("----- GET -----");
             console.log(JSON.stringify(data, null, 2));
             console.log("-------------------");
-            if (data && data.todo && Array.isArray(data.todo[0])) {
-                const formattedTodos = data.todo[0].map((item, index) => ({
-                    id: index, // 임시로 인덱스를 ID로 사용합니다. 백엔드에서 고유 ID를 제공하는 것이 좋습니다.
-                    text: item,
-                    completed: false
+            if (data && data.todo && Array.isArray(data.todo)) {
+                const formattedTodos = data.todo.map((item) => ({
+                    text: item.item,
+                    id: item.id,
+                    completed: String(item.done).toLowerCase() === 'true' // 백엔드에서 받은 값을 소문자 문자열 'true'와 비교
                 }));
                 setTodoItems(formattedTodos);
             } else {
-                setTodoItems([]); // 유효하지 않은 데이터 형식일 경우 빈 배열로 설정
+                setTodoItems([]); // 유효하지 않은 데이터 형식일 경우 빈 배열로.
             }
         } catch (error) {
             console.error('네트워크 에러 또는 서버 응답 문제:', error);
-            alert('서버와 통신 중 오류가 발생했습니다. 네트워크 연결을 확인해주세요.');
+            // alert('서버와 통신 중 오류가 발생했습니다. 네트워크 연결을 확인해주세요.');
         }
     }, []);
+
+    // 체크박스 변경 핸들러
+    const handleCheckboxChange = useCallback(async (item, checked) => {
+        const originalTodo = todoItems.find(todo => todo.id === item.id);
+        if (!originalTodo) return;
+
+        // Optimistic UI Update
+        const updatedItems = todoItems.map(todo => 
+            todo.id === item.id ? { ...todo, completed: checked } : todo
+        );
+        setTodoItems(updatedItems);
+
+        try {
+            const updatedTodoData = {
+                id: item.id,
+                item: item.text,
+                done: checked, // 이미 불리언 값
+            };
+
+            const response = await fetch('http://localhost:8000/user/user-todo', {
+                method: 'PUT',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ list: updatedTodoData }),
+            });
+
+            if (!response.ok) {
+                // API 호출 실패 시 UI 롤백 (선택 사항)
+                setTodoItems(todoItems); // 원상 복구
+                const errorData = await response.json();
+                console.error('투두 완료 상태 업데이트 에러:', errorData);
+                alert('투두 완료 상태 업데이트 중 오류가 발생했습니다. 다시 시도해주세요.');
+                return;
+            }
+
+            console.log('----- 투두 완료 상태 업데이트 성공 -----');
+
+        } catch (error) {
+            // 네트워크 에러 시 UI 롤백 (선택 사항)
+            setTodoItems(todoItems); // 원상 복구
+            console.error('네트워크 에러 또는 서버 응답 문제:', error);
+            alert('서버와 통신 중 오류가 발생했습니다. 네트워크 연결을 확인해주세요.');
+        }
+    }, [todoItems]); // todoItems가 변경될 때마다 함수를 새로 생성
 
     useEffect(() => {
         fetchTodos();
     }, [fetchTodos]);
 
+    // 투두 추가 관련 함수
     async function addTodo() {
         if (isAddingTodo) {
             if (newTodoText.trim()) {
+                const validation = /[\\/"'*]/;
+                if (validation.test(newTodoText)) {
+                    alert("투두 내용에는 \\, /, \", ', * 문자를 포함할 수 없습니다.");
+                    setNewTodoText('');
+                    return;
+                }
+
                 try {
                     const todoData = {
-                        list: [newTodoText.trim()], // 백엔드가 문자열 배열을 기대하므로 배열로 감싸서 보냅니다.
+                        list: [newTodoText.trim()],
                     };
                     console.log("----- 폼 데이터 -----");
                     console.log(JSON.stringify(todoData, null, 2));
@@ -73,12 +133,14 @@ const TodoList = ({ type }) => {
                     }
 
                     const addedTodo = await response.json(); 
-                    console.log('추가된 투두:', addedTodo);
+                    console.log('----- 추가된 투두 응답 -----');
+                    console.log(JSON.stringify(addedTodo, null, 2));
+                    console.log('---------------------------');
 
-                    // 백엔드에서 고유 ID를 반환하지 않는 경우를 대비하여 프론트엔드에서 ID를 생성
-                    const newId = todoItems.length > 0 ? Math.max(...todoItems.map(item => item.id)) + 1 : 1;
+                    // 프론트에서 고유ID 부여 및 상태 업데이트
+                    const newIdForFrontend = addedTodo && addedTodo.id ? addedTodo.id : `${Date.now()}-${todoItems.length}`;
                     const newTodoItem = {
-                        id: newId,
+                        id: newIdForFrontend,
                         text: newTodoText.trim(),
                         completed: false
                     };
@@ -86,7 +148,7 @@ const TodoList = ({ type }) => {
                     setNewTodoText('');
                 } catch (error) {
                     console.error('네트워크 에러 또는 서버 응답 문제:', error);
-                    alert('서버와 통신 중 오류가 발생했습니다. 네트워크 연결을 확인해주세요.');
+                    // alert('서버와 통신 중 오류가 발생했습니다. 네트워크 연결을 확인해주세요.');
                 }
             }
             setIsAddingTodo(false);
@@ -109,13 +171,7 @@ const TodoList = ({ type }) => {
     }
 
 
-    const [moreOption, setMoreOption] = useState(false);
-    const [selectedTodoId, setSelectedTodoId] = useState(null);
-    const [selectedTodoType, setSelectedTodoType] = useState(null); // 'personal' or 'group'
-    const [editingTodoId, setEditingTodoId] = useState(null);
-    const [editingTodoType, setEditingTodoType] = useState(null);
-    const [editingText, setEditingText] = useState('');
-
+    // 더보기 및 수정/삭제 관련 함수
     function handleMoreClick(todoId, todoType) {
         setSelectedTodoId(todoId);
         setSelectedTodoType(todoType);
@@ -140,11 +196,40 @@ const TodoList = ({ type }) => {
 
     function saveEditedTodo() {
         if (editingText.trim()) {
+            // 개인 투두만 API 연동 (그룹 투두는 기존 로직 유지)
+            const validation = /[\\/"'*]/;
+            if (validation.test(editingText)) {
+                alert("투두 내용에는 \\, /, \", ', * 문자를 포함할 수 없습니다.");
+                setNewTodoText('');
+                return;
+            }
             if (editingTodoType === 'personal') {
-                const updatedItems = todoItems.map(item => 
-                    item.id === editingTodoId ? { ...item, text: editingText.trim() } : item
-                );
-                setTodoItems(updatedItems);
+                const originalTodo = todoItems.find(item => item.id === editingTodoId);
+                const updatedTodoData = {
+                    id: editingTodoId,
+                    item: editingText.trim(),
+                    done: originalTodo.completed // 기존 완료 상태 유지
+                };
+
+                fetch('http://localhost:8000/user/user-todo', {
+                    method: 'PUT',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({ list: updatedTodoData }),
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('투두 수정 실패');
+                    }
+                    return response.json(); // 응답이 JSON이 아닐 경우 대비
+                })
+                .then(() => {
+                    fetchTodos(); // 수정 후 목록 새로고침
+                })
+                .catch(error => {
+                    console.error('투두 수정 에러:', error);
+                    alert('투두 수정 중 오류가 발생했습니다. 다시 시도해주세요.');
+                });
+
             } else if (editingTodoType === 'group') {
                 const updatedItems = groupTodos.map(item => 
                     item.id === editingTodoId ? { ...item, text: editingText.trim() } : item
@@ -169,10 +254,38 @@ const TodoList = ({ type }) => {
         }
     }
 
-    function handleDeleteTodo() {
+    async function handleDeleteTodo() {
         if (selectedTodoType === 'personal') {
-            const updatedItems = todoItems.filter(item => item.id !== selectedTodoId);
-            setTodoItems(updatedItems);
+            try {
+                const deleteData = {
+                    list: { id: selectedTodoId },
+                };
+                console.log("----- 폼 데이터 (삭제) -----");
+                console.log(JSON.stringify(deleteData, null, 2));
+                console.log("---------------------------");
+
+                const response = await fetch('http://localhost:8000/user/user-todo', {
+                    method: 'DELETE',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(deleteData),
+                });
+                
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    console.error('투두 삭제 에러:', errorData);
+                    alert('투두 삭제 중 오류가 발생했습니다. 다시 시도해주세요.');
+                    return;
+                }
+
+                console.log('----- 삭제된 투두 응답 -----');
+                console.log(JSON.stringify(await response.json(), null, 2));
+                console.log('---------------------------');
+                
+                fetchTodos(); // 삭제 후 목록 새로고침
+            } catch (error) {
+                console.error('네트워크 에러 또는 서버 응답 문제:', error);
+                alert('서버와 통신 중 오류가 발생했습니다. 네트워크 연결을 확인해주세요.');
+            }
         } else if (selectedTodoType === 'group') {
             const updatedItems = groupTodos.filter(item => item.id !== selectedTodoId);
             setGroupTodos(updatedItems);
@@ -191,19 +304,20 @@ const TodoList = ({ type }) => {
     }
 
     return (
-        <div className="cmp-todolist">
+        <div div className={`cmp-todolist${type === 'group-detail' ? '--group' : ''}`}>
+
             <div className="cmp-todolist__inner">
                 {
-                    ((type === 'group' ? groupTodos.length === 0 : todoItems.length === 0) || type === 'example-todo') && (
+                    ((type === 'group' || type === 'group-detail' ? groupTodos.length === 0 : todoItems.length === 0) || type === 'example-todo') && (
                         <p className="no-todo">
-                            설정된 목표가 없습니다.<br></br>
-                            목표를 추가해 보세요.
+                            {(type === 'group' || type === 'group-detail') ? '이번주 그룹 미션이 아직 생성되지 않았어요.' : '설정된 목표가 없습니다.'}<br></br>
+                            {(type === 'group' || type === 'group-detail') ? '' : '목표를 추가해 보세요.'}
                         </p>
                     )
                 }
 
                 {
-                    type === 'home' && (
+                    (type === 'home' && todoItems.length > 0) && (
                         <p className="day-goal">
                             오늘의 목표 ({todoItems.filter(item => item.completed).length}/{todoItems.length})
                         </p>
@@ -221,12 +335,7 @@ const TodoList = ({ type }) => {
                                         <div className="list">
                                             <Checkbox 
                                                 checked={item.completed} 
-                                                onChange={(checked) => {
-                                                    const updatedItems = todoItems.map(todo => 
-                                                        todo.id === item.id ? { ...todo, completed: checked } : todo
-                                                    );
-                                                    setTodoItems(updatedItems);
-                                                }} 
+                                                onChange={(checked) => handleCheckboxChange(item, checked)} 
                                             />
                                             {editingTodoId === item.id && editingTodoType === 'personal' ? (
                                                 <input 
@@ -344,6 +453,7 @@ const TodoList = ({ type }) => {
                                                 <span className={`title ${item.completed ? 'done' : ''}`}>{item.text}</span>
                                             )}
                                         </div>
+                                        {/* 더보기 옵션 임시 주석처리ㄴㄴㄴㄴㄴ */}
                                         {editingTodoId === item.id && editingTodoType === 'group' ? (
                                             <div className="actions">
                                                 <button className="action-btn save" onClick={saveEditedTodo}>
@@ -371,7 +481,7 @@ const TodoList = ({ type }) => {
                     )
                 }
                 {
-                    type === 'group' && (
+                    (type === 'group' || type === 'group-detail') && (
                         <div>
                             {
                                 groupTodos.map((item) => (
@@ -399,7 +509,8 @@ const TodoList = ({ type }) => {
                                                 <span className={`title ${item.completed ? 'done' : ''}`}>{item.text}</span>
                                             )}
                                         </div>
-                                        {editingTodoId === item.id && editingTodoType === 'group' ? (
+                                        {/* 더보기 옵션 임시 주석처리ㄴㄴㄴㄴㄴ */}
+                                        {/* {editingTodoId === item.id && editingTodoType === 'group' ? (
                                             <div className="actions">
                                                 <button className="action-btn save" onClick={saveEditedTodo}>
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25">
@@ -418,7 +529,7 @@ const TodoList = ({ type }) => {
                                                     <path d="M2 0.5C0.9 0.5 0 1.4 0 2.5C0 3.6 0.9 4.5 2 4.5C3.1 4.5 4 3.6 4 2.5C4 1.4 3.1 0.5 2 0.5ZM14 0.5C12.9 0.5 12 1.4 12 2.5C12 3.6 12.9 4.5 14 4.5C15.1 4.5 16 3.6 16 2.5C16 1.4 15.1 0.5 14 0.5ZM8 0.5C6.9 0.5 6 1.4 6 2.5C6 3.6 6.9 4.5 8 4.5C9.1 4.5 10 3.6 10 2.5C10 1.4 9.1 0.5 8 0.5Z"/>
                                                 </svg>
                                             </div>
-                                        )}
+                                        )} */}
                                     </div>
                                 ))
                             }

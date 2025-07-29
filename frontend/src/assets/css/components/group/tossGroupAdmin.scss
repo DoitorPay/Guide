@@ -1,0 +1,89 @@
+// popup.jsx
+.toss-group-admin {
+    &__container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 999;
+
+
+        border: 1px solid gray;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: clamp(18px, 2vw, 20px);
+        background: #fff;
+        width: clamp(290px, 10vw, 300px);
+        border-radius: 8px;
+        padding: clamp(16px, 2vw, 20px) clamp(12px, 2vw, 16px);
+
+        .title {
+            font-size: clamp(14px, 2vw, 16px);
+            font-weight: 700;
+            text-align: center;
+        }
+        .person-list {
+            display: flex;
+            flex-direction: column;
+            gap: clamp(10px, 2vw, 12px);
+            width: 100%;
+            max-height: clamp(290px, 10vw, 295px);
+            padding: clamp(6px, 2vw, 8px) clamp(14px, 2vw, 16px);
+            overflow-y: scroll;
+
+            label {
+                display: flex;
+                align-items: center;
+                gap: clamp(12px, 2vw, 18px);
+                cursor: pointer;
+                width: 100%;
+
+                input[type="radio"] {
+                    appearance: none;
+                    width: clamp(18px, 2vw, 20px);
+                    height: clamp(18px, 2vw, 20px);
+                    border: 1px solid var(--color-gray-scale-200);
+                    border-radius: 50%;
+                    position: relative;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+                    &:checked{
+                        border: 1px solid var(--color-primary);
+                        &::before {
+                            content: '';
+                            width: 10px;
+                            height: 10px;
+                            background-color: var(--color-primary);
+                            border-radius: 50%;
+                        }
+                    }
+
+                }
+
+                .name {
+                    flex-grow: 1;
+                }
+            }
+        }
+        .button-wrapper {
+            display: flex;
+            width: 100%;
+            gap: clamp(6px, 2vw, 8px);
+        }
+    }
+
+
+
+    }
+    .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 20;
+    }

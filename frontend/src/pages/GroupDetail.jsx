@@ -2,6 +2,10 @@ import React, { useState, useEffect } from "react";
 import UserProfileRow from "@/components/Profile/UserProfileRow";
 import MissionFeed from "@/components/Group/MissionFeed";
 import MainLayout from "@/pages/MainLayout";
+import MyRanking from "@/components/ranking/MyRanking";
+import RankingList from "@/components/ranking/RankingList";
+import SubTitle from "@/components/subtitle/subTitle";
+import TodoList from "@/components/todo/todoList";
 // import useGroupStore from '@/stores/useGroupStore';
 
 const GroupDetail = () => {
@@ -17,31 +21,47 @@ const GroupDetail = () => {
     memberCount: 8,
   };
 
+  const myInfo = {
+  name: "가나",
+  progress: 32,
+  rank: 6,
+};
+
   const feeds = [
     {
       id: 1,
       user: "닉네임",
       image: "https://picsum.photos/300",
       avatar: "https://picsum.photos/30/30",
+      date: "2025-07-21T10:00:00Z",
     },
     {
       id: 2,
-      user: "닉네임",
+      user: "유진",
       image: "https://picsum.photos/300",
       avatar: "https://picsum.photos/30/30",
+      date: "2025-07-11T10:00:00Z",
+    },
+    {
+      id: 3,
+      user: "유진",
+      image: "https://picsum.photos/300",
+      avatar: "https://picsum.photos/30/30",
+      date: "2025-07-11T10:00:00Z",
     },
   ];
 
   const members = [
-    { id: 1, name: "가나다라", avatar: "https://picsum.photos/40/40" },
-    { id: 2, name: "마바", avatar: "https://picsum.photos/40/40" },
-    { id: 3, name: "사아", avatar: "https://picsum.photos/40/40" },
-    { id: 4, name: "자차", avatar: "https://picsum.photos/40/40" },
-    { id: 5, name: "카타", avatar: "https://picsum.photos/40/40" },
-    { id: 6, name: "하허", avatar: "https://picsum.photos/40/40" },
-    { id: 7, name: "ABC", avatar: "https://picsum.photos/40/40" },
-    { id: 8, name: "XYZ", avatar: "https://picsum.photos/40/40" },
+    { id: 1, name: "가나", avatar: "https://picsum.photos/40/40",progress: 80, isLeader: true  },
+    { id: 2, name: "마바", avatar: "https://picsum.photos/40/40",progress: 80  },
+    { id: 3, name: "사아", avatar: "https://picsum.photos/40/40",progress: 80  },
+    { id: 4, name: "자차", avatar: "https://picsum.photos/40/40",progress: 80  },
+    { id: 5, name: "카타", avatar: "https://picsum.photos/40/40",progress: 80  },
+    { id: 6, name: "하허", avatar: "https://picsum.photos/40/40",progress: 80  },
+    { id: 7, name: "ABC", avatar: "https://picsum.photos/40/40",progress: 80  },
+    { id: 8, name: "XYZ", avatar: "https://picsum.photos/40/40",progress: 80  },
   ];
+
 
   // // 실제 데이터 사용 시 주석 해제
   // const { groupData, feeds, members, fetchGroupData, fetchFeeds, fetchMembers } = useGroupStore();
@@ -59,22 +79,31 @@ const GroupDetail = () => {
             type: "header-b",
           }}
         >
-
-          <div className="group-detail-page">
-      <div className="hero-image">
+    <div className="group-detail-page">
+      <div className="hero-image full-bleed">
         <img src={groupData.thumbnailUrl} alt="그룹 이미지" />
+        <div className="gradient"></div>
       </div>
 
-      <div className="group-info">
-        <h1 className="group-title">{groupData.title}</h1>
+      <div className="group-info full-bleed">
+        <SubTitle title={groupData.title} type="title-lg" />
         <div className="group-meta">
-          <span className="category">카테고리 | {groupData.category}</span>
-          <span className="info">그룹 설명 | {groupData.info}</span>
-          <span className="period">그룹 기간 | {groupData.period}</span>
+           <div className="meta-item">
+            <span className="label">카테고리</span>
+            <span className="value"> | {groupData.category}</span>
+          </div>
+          <div className="meta-item">
+            <span className="label">그룹 설명</span>
+            <span className="value"> | {groupData.info}</span>
+          </div>
+          <div className="meta-item">
+            <span className="label">그룹 기간</span>
+            <span className="value"> | {groupData.period}</span>
+          </div>
         </div>
       </div>
 
-      <div className="tabs">
+      <div className="tabs full-bleed">
         <button
           className={`tab ${activeTab === "활동" ? "active" : ""}`}
           onClick={() => setActiveTab("활동")}
@@ -90,39 +119,51 @@ const GroupDetail = () => {
       </div>
 
       <div className="tab-content">
-        {activeTab === "활동" && (
-          <>
-            <div className="section">
-              <h3 className="section-title">이번주 그룹 미션</h3>
-              {/* todolist cmp */}
-            </div>
+       {activeTab === "활동" && (
+  <>
 
-            <div className="section">
-              <h3 className="section-title">미션 인증 피드</h3>
-              <MissionFeed feeds={feeds} />
-            </div>
+          <SubTitle
+            title="이번주 그룹 미션"
+            type="sideinfo"
+            info={groupData.period}
+            desc="5일 21시간 34분 남음"
+          />
+          {/* desc 들어갈 정보 나중에 바꿔야함 */}
+      <TodoList type="group-detail" />
+<div className="group-section">
+  <SubTitle title="미션 인증 피드" />
+      <MissionFeed feeds={feeds} />
+   </div>
 
-            <div className="section">
-              <h3 className="section-title">멤버({groupData.memberCount})</h3>
-              <div className="horizontal-scroll">
-                {members.map((member) => (
-                  <UserProfileRow
-                    key={member.id}
-                    variant="vertical"
-                    src={member.avatar}
-                    name={member.name}
-                  />
-                ))}
-              </div>
-            </div>
-          </>
-        )}
 
-        {activeTab === "랭킹" && (
-          <div className="section">
-            <h3 className="section-title">랭킹 시스템</h3>
-          </div>
-        )}
+
+      <div className="group-section">
+      <SubTitle title={`멤버(${groupData.memberCount})`} />
+            <div className="horizontal-scroll">
+              {members.map((member) => (
+                <UserProfileRow
+                  key={member.id}
+                  variant="vertical"
+                  size={60}
+                  src={member.avatar}
+                  name={member.name}
+                  border
+                  isLeader={member.isLeader}
+                />
+              ))}
+            </div>
+      </div>
+
+  </>
+)}
+
+{activeTab === "랭킹" && (
+  <div className="ranking-section">
+    <MyRanking {...myInfo} />
+    <RankingList rankings={members} />
+  </div>
+)}
+
       </div>
     </div>
         </MainLayout>

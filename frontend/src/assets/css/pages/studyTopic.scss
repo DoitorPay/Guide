@@ -1,21 +1,14 @@
-.study-topic {
-    .topic-description {
-        margin-bottom: clamp(20px, 2vw, 24px);
+.study-topic-wrapper {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 
-        .sub-title {
-            margin-bottom: clamp(3px, 3vw, 4px);
-        }
+  .study-topic-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(20px, 2vw, 24px);
+    padding-bottom: clamp(24px, 4vw, 40px); 
+  }
 
-        .subtitle {
-            color: var(--color-gray-scale-400);
-            font-size: clamp(10px, 2vw, 14px);
-            font-weight: 500;
-
-            .required {
-                color: var(--color-primary);
-            }
-        }
-        
-        
-    }
 }

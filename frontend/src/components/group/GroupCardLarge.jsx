@@ -3,6 +3,7 @@ import SubTitle from '@/components/subtitle/subTitle';
 import ProfileImage from '@/components/profile/ProfileImage';
 
 const GroupCardLarge = ({
+  isFinished = false, 
   thumbnailUrl = 'https://picsum.photos/400/300',
   title = '토익 뽀개기 그룹',
   category = '토익, 공부',
@@ -10,26 +11,40 @@ const GroupCardLarge = ({
   members = 8,
   progress = 50,
   dueDate = '5월 20일',
-  avatarList = [], 
+  avatarList = [ 'https://i.pravatar.cc/24?img=1',
+    'https://i.pravatar.cc/24?img=2',
+    'https://i.pravatar.cc/24?img=3',
+  ],
 }) => {
+    const avatarToShow = avatarList.slice(0, 3);
+  const extraCount = members - avatarToShow.length;
+
   return (
     <div className="group-card">
+      {isFinished && <div className="finished-overlay" aria-hidden="true" />}
       <div className="info-wrapper">
-        <div className="header">
+        <div className="text-wrapper">
           <div className="group-title">{title}</div>
           <button className="arrow-button" aria-label="그룹 상세보기 이동">
-            <SubTitle type="link" link="/" linkIcon="arrow-right" more=" " />
+           <SubTitle type="link"
+                           link="/"
+                           linkIcon="arrow-right-white"
+                           more=" "
+                         />
           </button>
         </div>
 
-        <div className="member-preview">
-          {avatarList.slice(0, 3).map((src, i) => (
-            <ProfileImage key={i} src={src} size={24} className="avatar" />
+         <div className="member-preview">
+          {avatarToShow.map((src, i) => (
+            <ProfileImage key={i} src={src} size={26} className="avatar" />
           ))}
-          {members > 3 && <span className="extra-member">+{members - 3}</span>}
+          {extraCount > 0 && (
+            <div className="extra-avatar">
+              +{extraCount}
+            </div>
+          )}
           <span className="member-text">멤버 {members}명</span>
         </div>
-
         <div className="meta-item">
           <span className="label">카테고리</span>
           <span className="value">| {category}</span>
@@ -39,9 +54,8 @@ const GroupCardLarge = ({
           <span className="label">그룹 기간</span>
           <span className="value bold">| {period}</span>
         </div>
-      </div>
 
-      <div className="thumbnail-wrapper">
+          <div className="thumbnail-wrapper">
         <img src={thumbnailUrl} alt={`${title} 썸네일`} className="thumbnail" />
         <div className="mission-overlay">
           <div className="mission-item">
@@ -54,6 +68,8 @@ const GroupCardLarge = ({
           </div>
         </div>
       </div>
+      </div>
+
     </div>
   );
 };

@@ -1,36 +1,32 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from 'react';
 import ProfileImage from '@/components/profile/ProfileImage';
 import ProfileName from '@/components/profile/ProfileName';
 
-const ProfileCard = ({ status = '아자아자 화이팅 ~!', onClick }) => {
-  const [nickname, setNickname] = useState('닉네임');
-  const [profileImage, setProfileImage] = useState('');
+
+const ProfileCard = ({ onClick }) => {
+  const [nickname, setNickname] = useState('로딩 중...');
 
   useEffect(() => {
-    axios.get('/api/user/nickname')
-      .then(res => {
-        setNickname(res.data.profile);
-      })
-      .catch(err => {
-        console.error('닉네임 불러오기 실패:', err);
-      });
+    const fetchNickname = async () => {
+      try {
+        const res = await fetch('http://localhost:8000/user/nickname', { credentials: 'include' });
+        const data = await res.json();
+        setNickname(data.profile);
+      } catch (error) {
+        console.error('닉네임 불러오기 실패:', error);
+        setNickname('사용자');
+      }
+    };
 
-    axios.get('/api/user/profile_img')
-      .then(res => {
-        setProfileImage(res.data.profile);
-      })
-      .catch(err => {
-        console.error('프로필 이미지 불러오기 실패:', err);
-      });
+    fetchNickname();
   }, []);
 
   return (
     <div className="profile-card" onClick={onClick}>
-      <ProfileImage src={profileImage} size={100} className="profile-card__image" />
+      <ProfileImage size={100} className="profile-card__image" />
       <div className="profile-card__info">
         <ProfileName name={nickname} size="md" />
-        <span className="profile-card__status">{status}</span>
+        <span className="profile-card__status">아자아자 화이팅 ~ !</span>
       </div>
       <img
         src="/icons/arrow-right-orange.svg"
@@ -42,3 +38,4 @@ const ProfileCard = ({ status = '아자아자 화이팅 ~!', onClick }) => {
 };
 
 export default ProfileCard;
+///

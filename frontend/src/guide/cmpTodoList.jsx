@@ -23,6 +23,11 @@ function CmpTodoList() {
             </div>
             <br></br><br></br>
 
+            <p className="guide-text-title">그룹 상세 화면 / type = "group-detail"</p>
+            <div className="example-guide cmp-header">
+                <TodoList type="group-detail" />
+            </div>
+
             {/* <p className="guide-text-title">개인 투두리스트가 없을 때</p>
             <div className="example-guide cmp-header">
                 <TodoList type='example-todo'/>

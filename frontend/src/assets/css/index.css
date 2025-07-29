@@ -30,6 +30,14 @@
 @import '@/assets/css/components/mypage/LevelProgress.scss';
 @import '@/assets/css/components/group/groupSearchInput.scss';
 @import '@/assets/css/components/button/signupButton.scss';
+@import '@/assets/css/components/group/groupfloatingbutton.scss';
+@import '@/assets/css/components/ranking/myRanking.scss';
+@import '@/assets/css/components/ranking/rankingList.scss';
+@import '@/assets/css/components/card/PunishmentContent.scss';
+@import '@/assets/css/components/profile/changeProfileImage.scss';
+@import '@/assets/css/components/profile/topicSelect.scss';
+@import '@/assets/css/components/group/imageUploader.scss';
+@import '@/assets/css/components/group/tossGroupAdmin.scss';
 
 /* profile components */
 @import '@/assets/css/components/profile/profileImage.scss';
@@ -43,3 +51,6 @@
 @import '@/assets/css/pages/signup.scss';
 @import '@/assets/css/pages/myPage.scss';
 @import '@/assets/css/pages/landing.scss';
+@import '@/assets/css/pages/groupForm.scss';
+@import '@/assets/css/pages/profile.scss';
+@import '@/assets/css/pages/penaltyUpload.scss';

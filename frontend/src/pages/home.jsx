@@ -6,8 +6,10 @@ import TodoList from '@/components/todo/todoList';
 import GroupCard from "@/components/group/GroupCard";
 import WeekCalendar from "@/components/calendar/WeekCalendar";
 import SubTitle from '@/components/subtitle/subTitle';
+import { useNavigate } from 'react-router-dom';
 
 const MainPage = () => {
+  const navigate = useNavigate();
   return (
     <MainLayout
       headerProps={{
@@ -18,10 +20,10 @@ const MainPage = () => {
         <HomeProfile/>
         <ProgressCard/>
         <div>
-            <SubTitle title="투두리스트" type="link" link="#" />
+            <SubTitle title="투두리스트" type="link" link="/todolist" />
             <TodoList type='home'/>
         </div>
-        <div>
+        <div onClick={() => navigate('/group')} style={{cursor: 'pointer'}}>
             <SubTitle title="그룹"/>
             <GroupCard />
         </div>

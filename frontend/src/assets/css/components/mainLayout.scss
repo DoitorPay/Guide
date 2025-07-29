@@ -28,6 +28,16 @@
   }
 }
 
+.fab-wrapper {
+   position: absolute;
+    right: clamp(16px, 4vw, 24px); 
+  background-color: transparent;
+  bottom: 120px;
+  display: flex;
+  justify-content: flex-end;
+  z-index: 100;
+}
+
 footer {
   position: sticky;
   bottom: clamp(16px, 4vw, 24px);

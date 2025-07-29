@@ -14,26 +14,30 @@ const ProfileGuide = () => {
         ProfileImage<br />
         - src: 이미지 URL (db연동작업 필요 ) <br />
         - alt: 대체 텍스트 (기본값: '프로필 이미지')<br />
-        - size: 이미지 크기(px) (기본값: 40)
+        - size: 이미지 크기(px) (기본값: 40)<br />
+        - border 사용시 2px 테두리 적용
       </p>
       <div className="example-guide">
         <ProfileImage src={dummyAvatar} alt="유저 프로필 이미지" size={40} />
         <p>불러올 프로필 이미지 없으면 defaultAvatar로 표시</p>
         <ProfileImage size={40} />
+        <ProfileImage size={60} border/>
+
       </div>
       <br />
 
       <p>
         ProfileName<br />
         - name: 유저 이름 <br />
-        - size: sm / md / lg<br />
+        - size: sm : 14 / md : 기본 16 <br />
+        - weight: semibold / bold / 기본 default <br />
         - link: 클릭 시 이동할 링크 - 프로필 페이지 생길 시 연결 예정
       </p>
       <div className="example-guide">
-        <ProfileName name="유진" size="sm" /> <br />
-        <ProfileName name="김재림" size="md" /> <br />
-        <ProfileName name="김휘재" size="lg" /> <br />
-        <ProfileName name="최상준" link="/profile" />
+        <ProfileName name="유진 sm" size="sm" /> <br />
+        <ProfileName name="김재림 md 볼드" weight="bold"/> <br />
+        <ProfileName name="김휘재 sm 세미볼드" size="sm" weight="semibold" /> <br />
+        <ProfileName name="최상준 전체 기본값" link="/profile" />
       </div>
       <br /><br />
 

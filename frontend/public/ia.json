@@ -7,21 +7,15 @@
   },
   {
     "id": 2,
-    "title": "group",
+    "title": "그룹 상세 정보",
     "path": "/groupdetailguide",
     "fileName": "GroupDetail.jsx"
   },
   {
     "id": 3,
-    "title": "study topic",
-    "path": "/studytopic",
-    "fileName": "studyTopic.jsx"
-  },
-  {
-    "id": 4,
-    "title": "로그인",
-    "path": "/login",
-    "fileName": "Login.jsx"
+    "title": "topic",
+    "path": "/topic-select",
+    "fileName": "TopicSelect.jsx"
   },
   {
     "id": 5,
@@ -38,7 +32,7 @@
   {
     "id": 7,
     "title": "투두리스트",
-    "path": "/todoList",
+    "path": "/todolist",
     "fileName": "todoList.jsx"
   },
   {
@@ -62,7 +56,7 @@
   {
     "id": 11,
     "title": "그룹 찾기",
-    "path": "/searchgroup",
+    "path": "/groupsearch",
     "fileName": "GroupSearch.jsx"
   },
   {
@@ -70,5 +64,29 @@
     "title": "랜딩 페이지",
     "path": "/landing",
     "fileName": "landing.jsx"
+  },
+  {
+    "id": 13,
+    "title": "그룹",
+    "path": "/group",
+    "fileName": "Group.jsx"
+  },
+  {
+    "id": 14,
+    "title": "프로필",
+    "path": "/profile",
+    "fileName": "profile.jsx"
+  },
+  {
+    "id": 15,
+    "title": "벌칙 업로드",
+    "path": "/penaltyupload",
+    "fileName": "penaltyUpload.jsx"
+  },
+  {
+    "id": 16,
+    "title": "벌칙 인증 상세",
+    "path": "/penaltycertification",
+    "fileName": "PenaltyCertification.jsx"
   }
 ]
