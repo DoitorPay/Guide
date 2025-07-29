@@ -1,0 +1,46 @@
+.stepper-container {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(8px, 2vw, 12px);
+    .input-label {
+        font-size: calc(var(--typo-size-body-4) / 16 * 1rem);
+        font-weight: var(--typo-weight-semibold);
+        color: var(--color-gray-scale-black);
+        line-height: 135%;
+
+        p.subtitle {
+            font-size: clamp(10px, 2vw, 12px);
+            font-weight: 500;
+            color: var(--color-gray-scale-300);
+        }
+    }
+    .stepper-wrap {
+        display: flex;
+        align-items: center;
+        gap: clamp(6px, 2vw, 8px);
+        width: 100%;
+    
+        button.stepper-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--color-gray-scale-50);
+            border-radius: clamp(6px, 2vw, 8px);
+            padding: clamp(6px, 2vw, 8px) clamp(14px, 3vw, 16px);
+            width: clamp(60px, 8vw, 64px);
+            height: clamp(44px, 8vw, 47px);
+            flex-shrink: 0;
+    
+            &.disabled {
+                background: var(--color-gray-scale-200);
+            }
+        }
+    
+        .stepper-input {
+            text-align: center;
+            flex-grow: 1;
+            height: 100%;
+        }
+    }
+
+}

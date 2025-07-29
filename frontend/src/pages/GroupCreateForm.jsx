@@ -6,6 +6,7 @@ import SubTitle from '@/components/subtitle/subTitle';
 import MainLayout from '@/pages/MainLayout';
 import ImageUploader from '@/components/group/ImageUploader';
 import MissionCount from '@/components/group/MissionCount';
+import ArrowDown from '/icons/arrow-bottom.svg'
 
 const GroupCreateForm = () => {
 
@@ -44,7 +45,7 @@ const GroupCreateForm = () => {
   </div>
 
   <div className="form-section">
-    <p>그룹 대표 사진 <span className="required">*</span></p>
+    {/* <p>그룹 대표 사진 <span className="required">*</span></p> */}
     <ImageUploader />
   </div>
 
@@ -58,7 +59,7 @@ const GroupCreateForm = () => {
   </div>
 
   <div className="form-section">
-    <p>그룹 목표 개수 <span className="required">*</span></p>
+    {/* <p>그룹 목표 개수 <span className="required">*</span></p> */}
     <MissionCount />
   </div>
 
@@ -72,10 +73,34 @@ const GroupCreateForm = () => {
   </div>
 
   <div className="form-section form-terms">
+    {/* <p>그룹 유지일 <span className="required">*</span></p> */}
+    <div className="how-long-wrap">
+      <Input
+        label="그룹유지기간"
+        name="howLong"
+        placeholder="기간(단위:주)"
+        icon={<img src={ArrowDown} alt="화살표" className="svg-icon" />}
+        required
+        disabled={isChecked}
+      />
+      <Input
+        name="whenEnd"
+        placeholder="마치는날"
+        required
+        disabled={isChecked}
+      />
+    </div>
+    <div className="checkbox-wrap">
+      <Checkbox checked={isChecked} onChange={setIsChecked} />
+      <span>기간을 정하지 않고 진행할래요. (추후 그룹해산을 통해 스터디를 종료할 수 있습니다.)</span>
+    </div>
+  </div>
+
+  {/* <div className="form-section form-terms">
     <p>그룹 유지일 <span className="required">*</span></p>
     <Checkbox checked={isChecked} onChange={setIsChecked} />
     <p>기간을 정하지 않고 진행할래요. (추후 그룹해산을 통해 스터디를 종료할 수 있습니다.)</p>
-  </div>
+  </div> */}
 
   <div className="form-section">
     <Button type="primary" buttonName="생성하기" />

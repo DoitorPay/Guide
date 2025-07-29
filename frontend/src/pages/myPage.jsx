@@ -31,16 +31,16 @@ const MyPage = () => {
       <div>
         <SettingSection
           items={[
-            { label: '친구 초대' },
-            { label: '공지사항' },
-            { label: '도움말' },
+            { label: '친구 초대', onClick: () => alert('개발 중인 기능입니다.') },
+            { label: '공지사항', to: '/notice' },
+            { label: '도움말', to: '/help'  },
           ]}
         />
 
         <SettingSection
           items={[
-            { label: '이용약관' },
-            { label: '개인정보 처리 방침' },
+            { label: '이용약관', to: '/terms' },
+            { label: '개인정보 처리 방침', to: '/privacy' },
             { label: '앱 버전', type: 'text', text: '1.0.0' },
           ]}
         />

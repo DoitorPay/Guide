@@ -8,10 +8,13 @@ from app.DB.NeoDriver import driver
 from app.user import ns_user
 
 todo_model = ns_user.model('todo list', {
-    'list': fields.List(
-        fields.String(),
+    'item': fields.String(
         required=True,
         description='유저 투두 리스트'
+    ),
+    'exec_date': fields.DateTime(
+        required=True,
+        description='미션을 수행해야할 날짜'
     )
 })
 
@@ -41,6 +44,7 @@ class UserTodo(Resource):
     def post(self):
         user_data = session.get('user_data')
         item = request.get_json()['list']
+        print(item)
 
         with driver.session() as neo_session:
             todo_list = neo_session.run('''
