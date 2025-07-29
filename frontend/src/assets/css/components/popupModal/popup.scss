@@ -13,7 +13,7 @@
         flex-direction: column;
         align-items: center;
         background: #fff;
-        width: clamp(290px, 10vw, 300px);
+        max-width: clamp(290px, 10vw, 300px);
         border-radius: 8px;
         padding: clamp(16px, 2vw, 20px) clamp(12px, 2vw, 16px);
         img {
