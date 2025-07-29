@@ -61,7 +61,7 @@ const Router = () => {
           <Route path="/frontGuide" element={<FrontGuide />} />
           {/* 여기서부터 페이지 */}
           <Route path="/additRegister" element={<SignUp />} />
-          <Route path="/topic-select" element={<TopicSelect mode="group-topic" />} />
+          <Route path="/topic-select" element={<TopicSelect mode="penalty-topic" />} />
           <Route path="/groupdetailguide" element={<GroupDetail />} />
           <Route path="/main" element={<MainPage />} />
           <Route path="/todolist" element={<TodoListPage />} />
