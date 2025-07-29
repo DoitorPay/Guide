@@ -81,15 +81,19 @@ const GroupCreateForm = () => {
         placeholder="기간(단위:주)"
         icon={<img src={ArrowDown} alt="화살표" className="svg-icon" />}
         required
+        disabled={isChecked}
       />
       <Input
         name="whenEnd"
         placeholder="마치는날"
         required
+        disabled={isChecked}
       />
     </div>
-    <Checkbox checked={isChecked} onChange={setIsChecked} />
-    <p>기간을 정하지 않고 진행할래요. (추후 그룹해산을 통해 스터디를 종료할 수 있습니다.)</p>
+    <div className="checkbox-wrap">
+      <Checkbox checked={isChecked} onChange={setIsChecked} />
+      <span>기간을 정하지 않고 진행할래요. (추후 그룹해산을 통해 스터디를 종료할 수 있습니다.)</span>
+    </div>
   </div>
 
   {/* <div className="form-section form-terms">
