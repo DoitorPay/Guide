@@ -27,7 +27,7 @@ import MoreOptionGuide from "@/guide/moreOptionGuide";
 import LikeButton from "@/components/button/likeButton";
 import ImageUploader from "@/components/group/ImageUploader";
 import MissionCount from "@/components/group/MissionCount";
-import GroupDetailPopup from "@/components/popupModal/GroupDetailPopup";
+import GroupDetailPopupDemo from "@/guide/GroupDetailPopupDemo";
 import GroupSearchInput from "@/components/group/GroupSearchInput";
 import MissionFeedGuide from "@/guide/MissionFeedGuide";
 import HeartProfile from "@/components/profile/heartProfile";
@@ -69,7 +69,7 @@ const groupedItemList = [
       { id: 20, name: '랭킹 컴포넌트', path: '@/components/ranking/-', component: <RankingGuide /> },
       { id: 29, name: '사진 업로드', path: '@/components/group/ImageUploader', component: <ImageUploader /> },
       { id: 31, name: '미션 개수 증감', path: '@/components/group/MissionCount', component: <MissionCount /> },
-      { id: 32, name: '그룹 정보 팝업', path: '@/components/group/ImageUploader', component: <GroupDetailPopup /> },
+      { id: 32, name: '그룹 정보 팝업', path: '@/guide/GroupDetailPopupDemo', component: <GroupDetailPopupDemo /> },
       { id: 33, name: '그룹 검색', path: '@/components/group/GroupSearchInput', component: <GroupSearchInput /> },
       { id: 38, name: '그룹 운영 위임 팝업', path: '@/guide/tossGroupAdminGuide', component: <TossGroupAdminGuide /> }
     ],
