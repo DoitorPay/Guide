@@ -1,3 +1,4 @@
+from flask import jsonify
 from flask_restx import Namespace, Resource, reqparse
 
 from app.DB.NeoDriver import driver
@@ -23,4 +24,4 @@ class Group(Resource):
             for record in results:
                 response.append(dict(record["g"]))
 
-            return response, 200
+            return jsonify(response)
