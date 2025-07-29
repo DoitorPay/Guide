@@ -4,3 +4,24 @@
         padding-top:  clamp(12px, 3vw, 12px);
     }
 }
+
+.page-content {
+    h2 {
+        font-size: var(--typo-size-heading-3);
+        font-weight: var(--typo-weight-semibold	);
+        margin-bottom:  clamp(12px, 3vw, 12px);
+    }
+
+    p {
+        font-size: var(--typo-size-body-1);
+        color: var(--color-gray-scale-600); 
+        line-height: 150%;
+    }
+
+    ul {
+        margin: clamp(12px, 3vw, 12px) 0;
+        li {
+            font-size: var(--typo-size-body-3);
+        }
+    }
+}

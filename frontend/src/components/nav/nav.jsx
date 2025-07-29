@@ -54,7 +54,16 @@ const Navigation = () => {
     <nav className="nav-wrapper">
       <ul>
         {navItems.map((item) => {
-          const isActive = location.pathname.startsWith(item.matchPath);
+          let isActive;
+
+          if (item.id === 'mypage') {
+            isActive = ['/mypage', '/notice', '/help', '/terms', '/privacy'].some((path) =>
+              location.pathname.startsWith(path)
+            );
+          } else {
+            isActive = location.pathname.startsWith(item.matchPath);
+          }
+
           const Icon = item.icon;
 
           return (
