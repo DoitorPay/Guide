@@ -8,13 +8,19 @@ parser = reqparse.RequestParser()
 
 parser.add_argument('id', type=str,
                     help='그룹 id')
-parser.add_argument('req', type=str,
-                    help='요청할 그룹 프로퍼티. 여러개일경우 언더바로 구분 (예: name_topic)')
 
+@ns_group.route('')
 class Group(Resource):
     @ns_group.expect(parser)
     def get(self):
-        args = parser.parse_args().get('req')
+        gid = parser.parse_args().get('id')
+        if not gid:
+            return "요청한 그룹을 찾을 수 없습니다", 404
 
-        if args:
-            args = args.split('_')
+        with driver.session() as neo_session:
+            results = neo_session.run("MATCH(g:Group {gid: $gid}) return g", gid=gid)
+            response = []
+            for record in results:
+                response.append(dict(record["g"]))
+
+            return response, 200

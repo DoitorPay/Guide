@@ -11,7 +11,7 @@ import app.user.todo as todo
 import app.user.UserInterest as UserInterest
 from app.user import ns_user
 
-import app.group.GroupHandler as GroupHandler
+import app.group.create as create
 from app.group import ns_group
 
 import os
