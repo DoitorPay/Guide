@@ -25,10 +25,12 @@ const Input = ({
 
   return (
     <div className={`input-wrapper ${className}`}>
-      <label htmlFor={name} className="input-label">
-        {label}
-        {required && <span style={{ color: 'red' }}> *</span>}
-      </label>
+      {label && (
+        <label htmlFor={name} className="input-label">
+          {label}
+          {required && <span style={{ color: 'red' }}> *</span>}
+        </label>
+      )}
       <div className="input-inner">
         {icon && <span className="input-icon">{icon}</span>}
         <input

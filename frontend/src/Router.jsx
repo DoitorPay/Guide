@@ -21,6 +21,10 @@ import Group from "@/pages/Group";
 import Profile from "@/pages/profile";
 import PenaltyUpload from "@/pages/penaltyUpload";
 import PenaltyCertification from "@/pages/PenaltyCertification";
+import NoticePage from '@/pages/myPage/NoticePage';
+import HelpPage from '@/pages/myPage/HelpPage';
+import TermsPage from '@/pages/myPage/TermsPage';
+import PrivacyPage from '@/pages/myPage/PrivacyPage';
 
 const LayoutWithHeader = ({ children }) => {
   const location = useLocation();
@@ -39,6 +43,10 @@ const LayoutWithHeader = ({ children }) => {
                      location.pathname.startsWith("/penalty") ||
                      location.pathname.startsWith("/profile") ||
                      location.pathname.startsWith("/PenaltyCertification") ||
+                     location.pathname.startsWith("/notice") ||
+                     location.pathname.startsWith("/help") ||
+                     location.pathname.startsWith("/terms") ||
+                     location.pathname.startsWith("/privacy") ||
                      location.pathname.startsWith("/penaltyupload");
 
   return (
@@ -76,6 +84,10 @@ const Router = () => {
           <Route path="/profile" element={<Profile />} />
           <Route path="/penaltyupload" element={<PenaltyUpload />} />
           <Route path="/penaltycertification" element={<PenaltyCertification />} />
+          <Route path="/notice" element={<NoticePage />} />
+          <Route path="/help" element={<HelpPage />} />
+          <Route path="/terms" element={<TermsPage />} />
+          <Route path="/privacy" element={<PrivacyPage />} />
         </Routes>
       </LayoutWithHeader>
     </BrowserRouter>
