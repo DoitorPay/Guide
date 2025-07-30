@@ -3,6 +3,7 @@ import Input from "@/components/input/Input";
 
 const MissionCount = ({
   label = "그룹 목표 개수",
+  subtitle = "설정가능한 목표 개수는 최대 5개입니다.",
   required = "true",
   name
 }) => {
@@ -40,6 +41,7 @@ const MissionCount = ({
       <label htmlFor={name} className="input-label">
         {label}
         {required && <span style={{ color: 'red' }}> *</span>}
+        <p className="subtitle">{subtitle}</p>
       </label>
 
       <div className="stepper-wrap">

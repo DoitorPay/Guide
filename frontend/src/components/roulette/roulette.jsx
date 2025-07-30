@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '@/components/button/button';
 import Popup from '@/components/popupModal/Popup';
 
-const Roulette = ({ items = [] }) => {
+const Roulette = () => {
+  const [items, setItems] = useState([]);
   const [selectedIndex, setSelectedIndex] = useState(null);
   const [isSpinning, setIsSpinning] = useState(false);
   const [showConfirmPopup, setShowConfirmPopup] = useState(false);
@@ -11,6 +12,22 @@ const Roulette = ({ items = [] }) => {
 
   const navigate = useNavigate();
   const hasItems = items.length > 0;
+
+  useEffect(() => {
+    const fetchPunishments = async () => {
+      try {
+        const res = await fetch('http://127.0.0.1:8000/group?id=1');
+        const data = await res.json();
+        if (Array.isArray(data) && data.length > 0 && Array.isArray(data[0].punish)) {
+          setItems(data[0].punish);
+        }
+      } catch (err) {
+        console.error('벌칙 데이터 불러오기 실패:', err);
+      }
+    };
+
+    fetchPunishments();
+  }, []);
 
   const spin = (current, speed, remaining) => {
     if (remaining <= 0) {
@@ -44,7 +61,15 @@ const Roulette = ({ items = [] }) => {
 
   const handleSkip = () => {
     setShowConfirmPopup(false);
-    navigate('/penaltyupload'); 
+  
+    // 당첨된 벌칙 값을 가져옴
+    const selectedPunishment = items[selectedIndex];
+  
+    navigate('/penaltyupload', {
+      state: {
+        punishment: selectedPunishment
+      }
+    });
   };
 
   return (
@@ -98,8 +123,8 @@ const Roulette = ({ items = [] }) => {
         subtitle="벌칙을 수행하고 싶지 않으면 면제카드를 사용할 수 있어요."
         buttonName="건너뛰기"
         button2Name="사용"
-        onClick={handleSkip}            
-        onSecondClick={handleUseCard}  
+        onClick={handleSkip}
+        onSecondClick={handleUseCard}
       />
 
       <Popup

@@ -1,8 +1,11 @@
 .popup {
     &__container {
         &.group-detail-popup {
-            max-width: clamp(345px, 10vw, 350px);
+            width: clamp(345px, 10vw, 350px);
+            // width: 0;
             padding: 0;
+            border-radius: clamp(8px, 2vw, 10px);
+            overflow: hidden;
             .popup__close-btn {
                 position: absolute;
                 top: clamp(14px, 2vw, 16px);

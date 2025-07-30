@@ -6,6 +6,13 @@
         font-size: calc(var(--typo-size-body-4) / 16 * 1rem);
         font-weight: var(--typo-weight-semibold);
         color: var(--color-gray-scale-black);
+        line-height: 135%;
+
+        p.subtitle {
+            font-size: clamp(10px, 2vw, 12px);
+            font-weight: 500;
+            color: var(--color-gray-scale-300);
+        }
     }
     .stepper-wrap {
         display: flex;
