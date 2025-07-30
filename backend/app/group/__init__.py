@@ -7,7 +7,6 @@ from app.user import user_model
 ns_group = Namespace('group')
 
 parser = reqparse.RequestParser()
-
 parser.add_argument('id', type=str,
                     help='그룹 id')
 

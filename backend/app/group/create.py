@@ -13,7 +13,7 @@ group_model = ns_group.model('group creation form', {
     'num_goals': fields.Integer,
     'conf_date': fields.String,
     'duration': fields.Integer,
-    'end_date': fields.datetime,
+    'end_date': fields.DateTime ,
 })
 
 @ns_group.route('/create')
