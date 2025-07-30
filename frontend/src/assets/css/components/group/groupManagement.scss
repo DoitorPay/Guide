@@ -1,10 +1,21 @@
 .group-management-form {
     display: flex;
     flex-direction: column;
-    gap: clamp(22px, 2vw, 24px);
+    justify-content: space-between;
+    height: 100%;
+
+    .input-wrap {
+        display: flex;
+        flex-direction: column;
+        gap: clamp(22px, 2vw, 24px);
+    }
 
     .form-terms {
         display: flex;
         gap: clamp(6px, 2vw, 8px);
+    }
+
+    .confirm-wrap {
+        
     }
 }
