@@ -12,7 +12,8 @@ group_model = ns_group.model('group creation form', {
     'topic': fields.String,
     'num_goals': fields.Integer,
     'conf_date': fields.String,
-    'duration': fields.String
+    'duration': fields.Integer,
+    'end_date': fields.datetime,
 })
 
 @ns_group.route('/create')
@@ -26,20 +27,24 @@ class Create(Resource):
             neo_session.run("""
                 MERGE(n:Group{name: $name})
                 ON CREATE SET
-                    n.name = name,
-                    n.description = description,
-                    n.topic = topic,
-                    n.num_goals = num_goals,
-                    n.conf_date = conf_date,
+                    n.name = $name,
+                    n.description = $description,
+                    n.topic = $topic,
+                    n.num_goals = $num_goals,
+                    n.conf_date = $conf_date,
+                    n.gid = $gid,
+                    n.duration = $duration,
                     n.time_created = datetime(),
-                    n.duration = duration,
-                    n.gid = gid
-            """)
+                    n.end_date = $end_date""",
+                name=info['name'], description=info['description'], topic=info['topic'],
+                num_goals=info['num_goals'], conf_date=info['conf_date'],duration=info['duration'],gid=gid,
+                end_date=info['end_date']
+            )
 
             user_info = session['user_info']
             neo_session.run("""
-                MATCH(n:Group{gid: $gid}), (n:Person{id: id, sns: sns})
-                MERGE (a)-[r:Leader]->(b)
-            """)
+                MATCH(n:Group{gid: $gid}), (n:Person{id: $id, sns: $sns})
+                MERGE (a)-[r:Leader]->(b)""",
+                gid=gid, id=user_info['id'], sns=user_info['sns'])
 
             return gid, 200
