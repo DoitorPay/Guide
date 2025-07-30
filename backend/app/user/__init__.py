@@ -55,3 +55,24 @@ class UserProperties(Resource):
                 return "사용자를 확인할 수 없습니다", 500
 
             return jsonify(response)
+
+@ns_user.route('/group-participating')
+class ParticipatingGroups(Resource):
+    def get(self):
+        user_data = session['user_data']
+
+        response = {}
+        with driver.session() as neo_session:
+            result = neo_session.run("""
+                MATCH(p: Person {sns:$sns, id:$id})-[r:Member]->(g:Group)
+                RETURN p,r,g
+            """, sns=user_data['sns'], id=user_data['id'])
+            response['member'] = [dict(record["g"]) for record in result]
+
+            result = neo_session.run("""
+                            MATCH(p: Person {sns:$sns, id:$id})-[r:Leader]->(g:Group)
+                            RETURN p,r,g
+                        """, sns=user_data['sns'], id=user_data['id'])
+            response['leader'] = [dict(record["g"]) for record in result]
+
+            return jsonify(response)
