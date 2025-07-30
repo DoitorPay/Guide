@@ -1,8 +1,13 @@
 import React from 'react';
 import ProfileImage from '@/components/profile/ProfileImage';
 import ProfileName from '@/components/profile/ProfileName';
-import { formatDistanceToNowStrict } from 'date-fns';
+import { formatDistanceToNowStrict, isValid } from 'date-fns';
 import { ko } from 'date-fns/locale';
+
+const isValidDate = (date) => {
+  const d = new Date(date);
+  return isValid(d);
+};
 
 const UserProfileRow = ({
   src,
@@ -16,10 +21,10 @@ const UserProfileRow = ({
 }) => {
   const displayName = isLeader ? `${name}(그룹장)` : name;
 
- const formattedDate =
-  variant === 'postMeta' && date
-    ? formatDistanceToNowStrict(new Date(date), { addSuffix: true, locale: ko })
-    : null;
+  const formattedDate =
+    variant === 'postMeta' && isValidDate(date)
+      ? formatDistanceToNowStrict(new Date(date), { addSuffix: true, locale: ko })
+      : null;
 
   return (
     <div className={`user-profile user-${variant}`}>

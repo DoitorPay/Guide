@@ -1,9 +1,29 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useUserStore } from '@/stores/useUserStore';
 
 const defaultAvatar = '/images/default-avatar.png';
 
-const ProfileImage = ({ src, alt = '프로필 이미지', size = 40, className = '',  border = false }) => {
+const ProfileImage = ({
+  src,
+  alt = '프로필 이미지',
+  size = 40,
+  className = '',
+  border = false,
+}) => {
   const [imgSrc, setImgSrc] = useState(src || defaultAvatar);
+  const { profileImage, fetchProfileImage } = useUserStore();
+
+  useEffect(() => {
+    if (!src) {
+      fetchProfileImage();
+    }
+  }, [src]);
+
+  useEffect(() => {
+    if (!src && profileImage) {
+      setImgSrc(profileImage);
+    }
+  }, [profileImage, src]);
 
   const handleError = () => {
     if (imgSrc !== defaultAvatar) {
@@ -13,14 +33,11 @@ const ProfileImage = ({ src, alt = '프로필 이미지', size = 40, className =
 
   return (
     <img
-      src={imgSrc}
+      src={imgSrc || defaultAvatar}
       alt={alt}
       onError={handleError}
       className={`profile-image ${border ? 'with-border' : ''} ${className}`}
-      style={{
-        width: size,
-        height: size,
-      }}
+      style={{ width: size, height: size }}
     />
   );
 };
