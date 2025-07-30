@@ -50,41 +50,45 @@ const GroupManagement = () => {
     >
       <form className="group-management-form">
 
-
-        <ImageUploader
-          label="그룹 대표 사진"
-        />
-        <Input
-          label="그룹 이름"
-          name="groupName"
-          placeholder="기존 그룹 이름"
-          required
-        />
-
-        <Input
-          label="그룹 설명"
-          name="groupDescription"
-          placeholder="기존 그룹 설명"
-          required
-        />
-
-        <MissionCount />
-        <div className="form-terms">
-          <Button
-            type="third"
-            buttonName="그룹 해산"
-            onClick={toggleDissolvePopup}
+        <div className="input-wrap">
+          <ImageUploader
+            label="그룹 대표 사진"
           />
+          <Input
+            label="그룹 이름"
+            name="groupName"
+            placeholder="기존 그룹 이름"
+            required
+          />
+
+          <Input
+            label="그룹 설명"
+            name="groupDescription"
+            placeholder="기존 그룹 설명"
+            required
+          />
+
+          <MissionCount />
+          <div className="form-terms">
+            <Button
+              type="third"
+              buttonName="그룹 해산"
+              onClick={toggleDissolvePopup}
+            />
+            <Button
+              type="third"
+              buttonName="그룹 운영 위임"
+              onClick={toggleTossPopup}
+            />
+          </div>
+        </div>
+
+        <div className="confirm-wrap">
           <Button
-            type="third"
-            buttonName="그룹 운영 위임"
-            onClick={toggleTossPopup}
+            type="primary"
+            buttonName="생성 완료"
           />
         </div>
-        <Button
-          type="primary"
-          buttonName="생성 완료"
-        />
       </form>
       <Popup
           icon="error-gray"

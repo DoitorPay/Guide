@@ -11,6 +11,7 @@ const SignUp = () => {
   const [birthdate, setBirthdate] = useState('');
   const [gender, setGender] = useState('');
   const [email, setEmail] = useState('');
+  const [quote, setQuote] = useState('');
   const [agree, setAgree] = useState(false);
   const [nicknameAvailable, setNicknameAvailable] = useState(null);
 
@@ -25,6 +26,7 @@ const SignUp = () => {
         birthdate,
         gender,
         email,
+        quote
       };
 
       const response = await fetch('http://localhost:8000/auth/register', {
@@ -148,8 +150,15 @@ const SignUp = () => {
             name="email"
             required
             placeholder="이메일을 입력해주세요."
-            value={email}
             onChange={(e) => setEmail(e.target.value)}
+          />
+
+          <Input
+            label="상태메세지"
+            name="quote"
+            placeholder="상태메세지를 입력해주세요. (최대 20자)"
+            maxLength={20}
+            onChange={(e) => setQuote(e.target.value)}
           />
 
           <div className="agree-section">
