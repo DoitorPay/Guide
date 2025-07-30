@@ -98,7 +98,7 @@ const Profile = () => {
 
                 <div className="message-warp">
                     <Input
-                        label="상태메시지지"
+                        label="상태메시지"
                         name="nickname"
                         maxLength={10}
                         placeholder="상태메시지를 입력해주세요."

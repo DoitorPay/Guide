@@ -13,13 +13,15 @@ query = """MERGE(n:Person{id: $id})
            n.profile = $profile,
            n.birth = $birth,
            n.gender = $gender,
-           n.email = $email"""
+           n.email = $email,
+           n.quote = $quote"""
 
 signup_model = ns_auth.model('Signup', {
     'nickname': fields.String(required=True),
     'birth': fields.String(required=True),
     'gender': fields.String(required=True),
-    'email': fields.String(required=True)
+    'email': fields.String(required=True),
+    'quote': fields.String(required=True)
 })
 
 @ns_auth.route('/signUpForm')
@@ -38,7 +40,8 @@ class UserForm(Resource):
                                      nickname=signupForm['nickname'],
                                      birth=signupForm['birth'],
                                      gender=signupForm['gender'],
-                                     email=signupForm['email'])
+                                     email=signupForm['email'],
+                                     quote=signupForm['quote'])
 
 @ns_auth.route('/check-nickname')
 class UserCheck(Resource):
@@ -46,8 +49,9 @@ class UserCheck(Resource):
         go_nick = request.args.get('nickname')
         with driver.session() as neo_session:
             result = neo_session.run("MATCH(n:Person{nickname: $go_nick}) return n", go_nick=go_nick)
+            result = [dict(n["n"]) for n in result]
 
-            return jsonify({"available": True if not result.single() else False})
+            return jsonify({"available": len(result) == 0})
 
 @ns_auth.route('/register')
 class UserCheck(Resource):

@@ -20,3 +20,20 @@ class Profile(Resource):
     def get(self):
         user_data = session['user_data']
         return jsonify({'profile': user_data['profile']})
+
+@ns_user.route('/user_properties')
+class UserProperties(Resource):
+    def get(self):
+        user_data = session['user_data']
+
+        with driver.session() as neo_session:
+            result = neo_session.run("""
+                MATCH(p: {sns=$sns, id: $id})
+                RETURN p
+            """,sns=user_data['sns'], id=user_data['id'])
+            response = [dict(p["p"]) for p in result]
+
+            if len(response) != 1:
+                return "사용자를 확인할 수 없습니다", 500
+
+            return jsonify(response)
