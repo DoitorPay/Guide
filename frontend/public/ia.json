@@ -88,5 +88,11 @@
     "title": "벌칙 인증 상세",
     "path": "/penaltycertification",
     "fileName": "PenaltyCertification.jsx"
+  },
+  {
+    "id": 17,
+    "title": "그룹 관리",
+    "path": "/groupmanage",
+    "fileName": "GroupManage.jsx"
   }
 ]

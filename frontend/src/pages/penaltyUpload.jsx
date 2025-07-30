@@ -1,20 +1,18 @@
 import React, { useState } from "react";
+import { useLocation } from "react-router-dom";
 import SignupLayout from "@/pages/SignupLayout";
 import ImageUploader from "@/components/group/ImageUploader";
 import Input from "@/components/Input/input";
 import Button from "@/components/button/button";
 
 const PenaltyUpload = () => {
+  const { state } = useLocation();
+  const selectedPunishment = state?.punishment || "벌칙이 선택되지 않았어요";
+
   const [content, setContent] = useState("");
   const [isImageUploaded, setIsImageUploaded] = useState(false);
 
   const isButtonDisabled = content.trim() === "" || !isImageUploaded;
-
-  const dummyPunishment = {
-    title: "엉덩이로 이름쓰기",
-    groupName: "dsad",
-    deadline: "2025.08.01",
-  };
 
   return (
     <SignupLayout
@@ -24,22 +22,14 @@ const PenaltyUpload = () => {
         icon2: "arrow-left",
       }}
     >
-        <div className="penalty-info-box">
-          <div className="penalty-info-row">
-            <strong>벌칙 : </strong>
-            <span>{dummyPunishment.title}</span>
-          </div>
-          {/* <div className="penalty-info-row">
-            <strong>그룹</strong>
-            <span>{dummyPunishment.groupName}</span>
-          </div>
-          <div className="penalty-info-row">
-            <strong>마감일</strong>
-            <span>{dummyPunishment.deadline}</span>
-          </div> */}
+      <div className="penalty-info-box">
+        <div className="penalty-info-row">
+          <strong>벌칙 : </strong>
+          <span>{selectedPunishment}</span>
         </div>
-      <div className="penalty-upload-wrapper">
+      </div>
 
+      <div className="penalty-upload-wrapper">
         <div className="input-wrap">
           <ImageUploader onImageChange={setIsImageUploaded} />
           <Input

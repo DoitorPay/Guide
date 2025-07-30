@@ -13,7 +13,6 @@ const Roulette = () => {
   const navigate = useNavigate();
   const hasItems = items.length > 0;
 
-  // 백엔ㄷ드 서버 켜고 재확인 필ㄹ요
   useEffect(() => {
     const fetchPunishments = async () => {
       try {
@@ -62,7 +61,15 @@ const Roulette = () => {
 
   const handleSkip = () => {
     setShowConfirmPopup(false);
-    navigate('/penaltyupload');
+  
+    // 당첨된 벌칙 값을 가져옴
+    const selectedPunishment = items[selectedIndex];
+  
+    navigate('/penaltyupload', {
+      state: {
+        punishment: selectedPunishment
+      }
+    });
   };
 
   return (
