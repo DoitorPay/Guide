@@ -40,8 +40,7 @@ class UserForm(Resource):
                                      nickname=signupForm['nickname'],
                                      birth=signupForm['birth'],
                                      gender=signupForm['gender'],
-                                     email=signupForm['email'],
-                                     quote=signupForm['quote'])
+                                     email=signupForm['email'])
 
 @ns_auth.route('/check-nickname')
 class UserCheck(Resource):
@@ -66,11 +65,13 @@ class UserCheck(Resource):
                     n.profile = $profile,
                     n.birthdate = $birthdate,
                     n.gender = $gender,
-                    n.email = $email
+                    n.email = $email,
+                    n.quote = $quote
             ''', id = session['user_data']['id'],
                 sns=session['user_data']['sns'],
                 nickname = profile['nickname'],
                 profile = session['user_data']['profile'],
                 birthdate = profile['birthdate'],
                 gender = profile['gender'],
-                email = profile['email'])
+                email = profile['email'],
+                quote = profile['quote'])
