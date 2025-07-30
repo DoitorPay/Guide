@@ -2,6 +2,7 @@ from flask import jsonify
 from flask_restx import Namespace, Resource, reqparse, fields
 
 from app.DB.NeoDriver import driver
+from app.user import user_model
 
 ns_group = Namespace('group')
 
@@ -18,7 +19,7 @@ group_model = ns_group.model('Group', {
     "name": fields.String,
     "punish": fields.List(fields.String, example=["엉덩이로 이름쓰기", "노래부르기"]),
     "todo": fields.List(fields.String, example=["개발하기", "게임하기"]),
-    "members": fields.List(fields.ClassName)
+    "members": fields.List(fields.Nested(user_model))
 })
 
 @ns_group.route('')

@@ -1,9 +1,28 @@
-from flask_restx import Namespace, Resource
+from flask_restx import Namespace, Resource, fields
 from flask import request, redirect, session, jsonify
 
 from app.DB.NeoDriver import driver
 
 ns_user = Namespace('user', description='User Information')
+
+user_model = ns_user.model('Member', {
+    'id': fields.Integer(description='회원 고유 ID', example=123),
+    'email': fields.String(description='이메일 주소', example='sample@example.com'),
+    'birthdate': fields.String(description='생년월일', example='20030416'),
+    'gender': fields.String(description='성별', example='남성'),
+    'quote': fields.String(description='상태메시지', example='오늘도 화이팅~^^'),
+    'todo':fields.List(
+        fields.String,
+        description="할일 목록"
+    ),
+    'interest': fields.List(
+        fields.String,
+        description='관심사 목록',
+        example=['코딩', '토플']
+    ),
+    'total_xp': fields.Integer(description='총 경험치')
+})
+
 
 @ns_user.route('/nickname')
 class NickName(Resource):
