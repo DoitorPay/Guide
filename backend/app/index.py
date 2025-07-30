@@ -12,6 +12,7 @@ import app.user.UserInterest as UserInterest
 from app.user import ns_user
 
 import app.group.create as create
+import app.group.punish as punish
 from app.group import ns_group
 
 import os
