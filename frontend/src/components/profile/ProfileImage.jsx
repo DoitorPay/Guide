@@ -17,13 +17,13 @@ const ProfileImage = ({
     if (!src) {
       fetchProfileImage();
     }
-  }, []);
+  }, [src]);
 
   useEffect(() => {
     if (!src && profileImage) {
       setImgSrc(profileImage);
     }
-  }, [profileImage]);
+  }, [profileImage, src]);
 
   const handleError = () => {
     if (imgSrc !== defaultAvatar) {
@@ -33,14 +33,11 @@ const ProfileImage = ({
 
   return (
     <img
-      src={imgSrc}
+      src={imgSrc || defaultAvatar}
       alt={alt}
       onError={handleError}
       className={`profile-image ${border ? 'with-border' : ''} ${className}`}
-      style={{
-        width: size,
-        height: size,
-      }}
+      style={{ width: size, height: size }}
     />
   );
 };
