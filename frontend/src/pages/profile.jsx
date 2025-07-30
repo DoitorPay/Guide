@@ -58,6 +58,33 @@ const Profile = () => {
         navigate(-1);
     };
 
+
+    
+    // 상태메시지 불러오기
+    const [quote, setQuote] = useState('');
+    useEffect(() => {
+        const fetchQuote = async() => {
+            try {
+                const response = await fetch("http://localhost:8000/user/user_properties", {
+                    credentials: "include",
+                    });
+                if (!response.ok) {
+                    throw new Error(`오류!: ${response.status}`);
+                }
+                const jsonData = await response.json();
+                console.log("----- GET 데이터 -----");
+                console.log(JSON.stringify(jsonData, null, 2));
+                console.log("-------------------");
+                setQuote(jsonData[0].quote || '');
+            } catch(error) {
+                console.error('상태메시지 불러오기 실패:', error);
+                setQuote('상태메시지를 불러올 수 없습니다.')
+            }
+        };
+
+        fetchQuote();
+    }, []);
+
     return (
         <SignupLayout
         contentBg="var(--color-background)"
@@ -102,7 +129,7 @@ const Profile = () => {
                         name="nickname"
                         maxLength={10}
                         placeholder="상태메시지를 입력해주세요."
-                        value="아자아자 화이팅 ~!"
+                        value={quote}
                     />
                 </div>
 
