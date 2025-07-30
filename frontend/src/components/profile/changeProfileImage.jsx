@@ -3,7 +3,7 @@ import ProfileImage from '@/components/profile/profileImage';
 import MoreOption from "../popupModal/moreOption";
 
 const ChangeProfileImage = () => {
-    const [isMoreOptionOpen, setIsMoreOptionOpen] = useState(false); // MoreOption 열림/닫힘 상태
+    const [isMoreOptionOpen, setIsMoreOptionOpen] = useState(false);
 
     const defaultAvatar = '/images/default-avatar.png';
 
