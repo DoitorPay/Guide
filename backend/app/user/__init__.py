@@ -30,9 +30,8 @@ class UserProperties(Resource):
             result = neo_session.run("""
                 MATCH(p: {sns=$sns, id: $id})
                 RETURN p
-            """)
+            """,sns=user_data['sns'], id=user_data['id'])
             response = [dict(p["p"]) for p in result]
-            print(response)
 
             if len(response) != 1:
                 return "사용자를 확인할 수 없습니다", 500
