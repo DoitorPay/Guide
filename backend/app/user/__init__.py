@@ -47,9 +47,8 @@ class UserProperties(Resource):
 
         with driver.session() as neo_session:
             result = neo_session.run("""
-                MATCH(p: {sns=$sns, id: $id})
-                RETURN p
-            """,sns=user_data['sns'], id=user_data['id'])
+                MATCH(p: Person {sns:$sns, id:$id}) RETURN p
+            """, sns=user_data['sns'], id=user_data['id'])
             response = [dict(p["p"]) for p in result]
 
             if len(response) != 1:
