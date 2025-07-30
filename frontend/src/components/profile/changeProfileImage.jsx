@@ -5,13 +5,13 @@ import MoreOption from "../popupModal/moreOption";
 const ChangeProfileImage = () => {
     const [isMoreOptionOpen, setIsMoreOptionOpen] = useState(false);
 
-    const defaultAvatar = '/images/default-avatar.png';
+    // const defaultAvatar = '/images/default-avatar.png';
 
     const fileInputRef = useRef(null);
 
     const handleOptionSelect = (optionValue) => {
         if (optionValue === "setDefault") {
-            setChangedImageSrc(defaultAvatar);
+            setChangedImageSrc("default");
         } else if (optionValue === "selectAlbum") {
             fileInputRef.current.click();
         }
@@ -29,9 +29,9 @@ const ChangeProfileImage = () => {
         }
     };
 
-    const [changedImageSrc, setChangedImageSrc] = useState(defaultAvatar);
+    const [changedImageSrc, setChangedImageSrc] = useState('default');
 
-    const changeOptions = changedImageSrc === defaultAvatar
+    const changeOptions = changedImageSrc === 'default'
         ? [{ value: "selectAlbum", label: "앨범에서 선택하기", onClick: () => handleOptionSelect("selectAlbum") }]
         : [
             { value: "setDefault", label: "기본 이미지", onClick: () => handleOptionSelect("setDefault") },
