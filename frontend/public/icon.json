@@ -47,6 +47,7 @@
       "path": "/icons/brightness-high-gray.svg"
     },
     { "name": "error", "path": "/icons/error.svg" },
+    { "name": "error-gray", "path": "/icons/error-gray.svg" },
     { "name": "error-outline", "path": "/icons/error-outline.svg" },
     { "name": "delete-outline", "path": "/icons/delete-outline.svg" },
     { "name": "chat", "path": "/icons/chat.svg" },
