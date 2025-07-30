@@ -12,8 +12,8 @@ const GroupFloatingButton = () => {
     <div className="fab-container">
       {isOpen && (
         <div className="fab-menu">
-           <Link href="/" className="fab-menu-item">그룹 생성</Link>
-           <Link href="/" className="fab-menu-item">그룹 찾기</Link>
+           <Link to="/groupcreateform" className="fab-menu-item">그룹 생성</Link>
+           <Link to="/groupsearch" className="fab-menu-item">그룹 찾기</Link>
         </div>
       )}
 
