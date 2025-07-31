@@ -24,7 +24,7 @@ const TodoListPage = () => {
 
             <div>
                 <SubTitle title="오늘의 목표" type="date" date={selectedDate} />
-                <TodoList type="page-todolist" />
+                <TodoList type="page-todolist" selectedDate={selectedDate} />
             </div>
 
             <div>

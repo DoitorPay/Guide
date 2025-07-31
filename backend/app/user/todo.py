@@ -32,7 +32,7 @@ class UserTodo(Resource):
                 return "사용자 정보를 확인할 수 없습니다", 500
 
             if todo[0] is not None:
-                todo = [{"item": i.split("///")[0], "id": i.split("///")[1], "done": i.split("///")[2]}
+                todo = [{"item": i.split("///")[0], "exec_date": i.split("///")[1], "id": i.split("///")[2], "done": i.split("///")[3]}
                         for i in todo[0]]
 
             return jsonify({'todo': todo})
@@ -43,39 +43,40 @@ class UserTodo(Resource):
     @ns_user.response(500, 'DB 내부 에러 발생')
     def post(self):
         user_data = session.get('user_data')
-        item = request.get_json()['list']
-        print(item)
+        item = request.get_json()['item']
+        exec_date = request.get_json()['exec_date']
 
         with driver.session() as neo_session:
             todo_list = neo_session.run('''
                 MATCH(n:Person {id:$id}) WHERE n.sns = $sns
-                 RETURN n.todo''',
+                 RETURN n.todo as todo''',
                 id=user_data['id'], sns=user_data['sns']
-            ).value()
+            )
+            todo_list = [dict(todo)['todo'] for todo in todo_list]
+
             if len(todo_list) != 1:
                 return "사용자 정보를 확인할 수 없습니다", 500
 
-            if todo_list[0] is not None:
-                if item[0] in [todo.split("///")[0] for todo in todo_list[0] if todo is not None]:
+            todo_list = todo_list[0] if todo_list[0] is not None else []
+            for todo in todo_list:
+                if item in todo.split("///"):
                     return 200
 
-            item = [f"{i}///{str(uuid.uuid4())}///false" for i in item]
+            todo_list.append(f"{item}///{exec_date}///{str(uuid.uuid4())}///false")
             try:
-                result = neo_session.run(
+                 neo_session.run(
                     '''MATCH(n:Person {id:$id, sns: $sns})
-                    WITH n, COALESCE(n.todo, []) + $todo AS combinedTodo
-                    UNWIND combinedTodo AS todo
-                    WITH n, COLLECT(DISTINCT todo) AS uniqueTodo
-                    SET n.todo = uniqueTodo
+                    SET n.todo = $todo
                     RETURN n''',
-                    id=user_data['id'], sns=user_data['sns'], todo=item
+                    id=user_data['id'], sns=user_data['sns'], todo=list(todo_list)
                 )
+                 return 200
             except Exception as e:
                 return str(e), 500
 
     def put(self):
         user_data = session.get('user_data')
-        update_item = request.get_json()['list']
+        update_item = request.get_json()['item']
 
         with driver.session() as neo_session:
             todo_list = neo_session.run('''
@@ -89,20 +90,22 @@ class UserTodo(Resource):
             updated_list = copy.deepcopy(todo_list[0])
             if todo_list[0] is not None:
                 for idx, x in enumerate(todo_list[0]):
-                    item, id, done = x.split("///")
+                    item, exec_date, id, done = x.split("///")
                     if id == update_item["id"]:
                         item = update_item["item"]
                         done = update_item["done"]
-                        updated_list[idx] = f"{item}///{id}///{done}"
+                        exec_date = update_item["exec_date"]
+                        updated_list[idx] = f"{item}///{exec_date}///{id}///{done}"
                         break
 
             try:
-                result = neo_session.run(
+                neo_session.run(
                     '''MATCH(n:Person {id:$id, sns: $sns})
                     SET n.todo = $todo
                     RETURN n''',
                     id=user_data['id'], sns=user_data['sns'], todo=updated_list
                 )
+                return 200
             except Exception as e:
                 return str(e), 500
 
@@ -122,16 +125,17 @@ class UserTodo(Resource):
             deleted_list = copy.deepcopy(todo_list[0])
             if todo_list[0] is not None:
                 for idx, x in enumerate(todo_list[0]):
-                    item, id, done = x.split("///")
+                    item, exec_date, id, done = x.split("///")
                     if id == delete_item["id"]:
                         del deleted_list[idx]
 
             try:
-                result = neo_session.run(
+                neo_session.run(
                     '''MATCH(n:Person {id:$id, sns: $sns})
                     SET n.todo = $todo
                     RETURN n''',
                     id=user_data['id'], sns=user_data['sns'], todo=deleted_list
                 )
+                return 200
             except Exception as e:
                 return str(e), 500
