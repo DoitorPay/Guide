@@ -50,6 +50,22 @@
           cursor: not-allowed;
         }
       }
+
+      &third {
+        width: 100%;
+        height: clamp(40px, 5.5vw, 46px);
+        background-color: var(--color-secondary-navy);
+        color: #fff;
+        font-size: clamp(14px, 2vw, 16px);
+        font-weight: 700;
+
+        &:disabled {
+          opacity: 0.4;
+          cursor: not-allowed;
+        }
+      }
+
+      
   
       &close {
         width: 100%;
@@ -71,6 +87,7 @@
   .like-button {
     display: flex;
     align-items: center;
+    justify-content:flex-end;
     gap: clamp(2px, 1vw, 6px);
     cursor: pointer;
 

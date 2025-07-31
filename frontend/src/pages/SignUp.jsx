@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import Input from '@/components/input/Input';
 import Button from '@/components/button/Button';
-import MainLayout from '@/pages/MainLayout';
+import CheckBox from '@/components/Input/checkbox';
+import SignupLayout from '@/pages/signupLayout';
 import { useNavigate } from 'react-router-dom';
 import SubTitle from '@/components/subtitle/SubTitle';
 
@@ -10,6 +11,7 @@ const SignUp = () => {
   const [birthdate, setBirthdate] = useState('');
   const [gender, setGender] = useState('');
   const [email, setEmail] = useState('');
+  const [quote, setQuote] = useState('');
   const [agree, setAgree] = useState(false);
   const [nicknameAvailable, setNicknameAvailable] = useState(null);
 
@@ -24,6 +26,7 @@ const SignUp = () => {
         birthdate,
         gender,
         email,
+        quote
       };
 
       const response = await fetch('http://localhost:8000/auth/register', {
@@ -70,10 +73,11 @@ const SignUp = () => {
   const isFormValid = nickname && email && agree;
 
   return (
-    <MainLayout
+    <SignupLayout
       headerProps={{
-        type: 'default',
-        icon1: 'notifications',
+        type: 'header-b',
+        title: '회원가입',
+        // icon2: 'notifications',
       }}
     >
       <div className="signup-wrapper">
@@ -101,12 +105,13 @@ const SignUp = () => {
               aria="닉네임 중복확인"
               onClick={checkNickname}
             />
+            {nicknameAvailable !== null && (
+              <p className={`nickname-check-message ${nicknameAvailable ? 'available' : 'unavailable'}`}>
+                {nicknameAvailable ? '사용 가능한 닉네임입니다.' : '이미 사용 중인 닉네임입니다.'}
+              </p>
+            )}
           </div>
-          {nicknameAvailable !== null && (
-            <p className={`nickname-check-message ${nicknameAvailable ? 'available' : 'unavailable'}`}>
-              {nicknameAvailable ? '사용 가능한 닉네임입니다.' : '이미 사용 중인 닉네임입니다.'}
-            </p>
-          )}
+
 
           <Input
             label="생년월일"
@@ -145,17 +150,20 @@ const SignUp = () => {
             name="email"
             required
             placeholder="이메일을 입력해주세요."
-            value={email}
             onChange={(e) => setEmail(e.target.value)}
+          />
+
+          <Input
+            label="상태메세지"
+            name="quote"
+            placeholder="상태메세지를 입력해주세요. (최대 20자)"
+            maxLength={20}
+            onChange={(e) => setQuote(e.target.value)}
           />
 
           <div className="agree-section">
             <label className="checkbox-wrapper">
-              <input
-                type="checkbox"
-                checked={agree}
-                onChange={(e) => setAgree(e.target.checked)}
-              />
+              <CheckBox checked={agree} onChange={setAgree} />
               <span>개인정보 수집 및 이용 동의</span>
             </label>
             <button type="button" className="view-more">
@@ -166,14 +174,14 @@ const SignUp = () => {
 
         <div className="signup-footer">
           <Button
-            type="default"
+            type="primary"
             buttonName="계속하기"
             disabled={!isFormValid}
             onClick={handleSubmit}
           />
         </div>
       </div>
-    </MainLayout>
+    </SignupLayout>
   );
 };
 

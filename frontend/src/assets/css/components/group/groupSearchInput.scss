@@ -1,0 +1,27 @@
+.group-search-input {
+    margin-bottom: clamp(16px, 5vw, 24px);
+
+    .sort-box {
+        float: right;
+        // width: clamp(100px, 25vw, 120px);
+        // position: relative;
+        padding: clamp(12px, 2vw, 18px) clamp(10px, 3vw, 12px);
+        background-color: #fff;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .current-sort-label {
+            font-size: calc(var(--typo-size-body-3) / 16 * 1rem);
+            font-weight: 600;
+            color: var(--color-gray-scale-300);
+        }
+
+        .sort-arrow-icon {
+            width: 16px;
+            height: 16px;
+            margin-left: clamp(4px, 2vw, 16px);
+        }
+    }
+} 

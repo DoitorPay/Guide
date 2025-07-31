@@ -4,6 +4,14 @@
     padding: clamp(16px, 4vw, 24px);
     border-radius: clamp(8px, 2vw, 12px);
   
+    &--group {
+      width: 100%;
+      padding: clamp(16px, 4vw, 24px);
+      background: #fff;
+      border-radius: clamp(6px, 2vw, 8px);
+      box-shadow: 0px 0px 10px 4px rgba(0, 0, 0, 0.05);
+    }
+  
     &__inner {
       .day-goal {
         font-size: calc(var(--typo-size-body-1) / 16 * 1rem);
@@ -19,7 +27,8 @@
         font-size: calc(var(--typo-size-body-1) / 16 * 1rem);
         font-weight: var(--typo-weight-semibold);
         text-align: center;
-        margin-bottom: clamp(8px, 2vw, 12px);
+        color: var(--color-gray-scale-700);
+        // margin-bottom: clamp(8px, 2vw, 12px);
       }
   
       .todo-box {
@@ -84,12 +93,14 @@
               display: flex;
               align-items: center;
               justify-content: center;
-              width: clamp(20px, 5vw, 24px);
               height: clamp(20px, 5vw, 24px);
               border-radius: clamp(3px, 1vw, 4px);
               border: none;
               cursor: pointer;
               transition: background-color 0.2s ease;
+
+              svg {
+              }
             }
           }
   
@@ -110,6 +121,7 @@
         background: var(--color-gray-scale-500);
         color: var(--color-gray-scale-white);
         border-radius: clamp(8px, 2vw, 10px);
+        margin-top: clamp(8px, 2vw, 12px);
         margin-bottom: clamp(12px, 3vw, 16px);
   
         .text-area {
@@ -130,7 +142,7 @@
       }
   
       .home-section {
-        border-top: clamp(1px, 0.3vw, 1.5px) solid var(--color-gray-scale-100);
+        border-top: none;
       }
   
       .more-option {

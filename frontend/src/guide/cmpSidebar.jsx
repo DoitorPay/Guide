@@ -2,7 +2,6 @@ import React, { useState } from "react";
 // 컴포넌트 목록
 import Input from "@/components/Input/input";
 import CmpButton from "@/guide/cmpButton"
-import Login from "@/pages/login";
 import CmpHeader from "@/guide/cmpHeader";
 import MainLayout from "@/pages/mainLayout";
 import Navigation from "@/components/nav/nav"; 
@@ -28,7 +27,14 @@ import MoreOptionGuide from "@/guide/moreOptionGuide";
 import LikeButton from "@/components/button/likeButton";
 import ImageUploader from "@/components/group/ImageUploader";
 import MissionCount from "@/components/group/MissionCount";
-import GroupDetailPopup from "@/components/popupModal/GroupDetailPopup";
+import GroupDetailPopupDemo from "@/guide/GroupDetailPopupDemo";
+import GroupSearchInput from "@/components/group/GroupSearchInput";
+import MissionFeedGuide from "@/guide/MissionFeedGuide";
+import HeartProfile from "@/components/profile/heartProfile";
+import PunishmentContent from "@/components/card/PunishmentContent";
+import ChangeProfileImage from "@/components/profile/changeProfileImage";
+import TopicSelect from "@/components/profile/topicSelect";
+import TossGroupAdminGuide from "@/guide/tossGroupAdminGuide";
 
 const groupedItemList = [
   {
@@ -50,6 +56,9 @@ const groupedItemList = [
       { id: 16, name: '오늘 큰 전진입니다~', path: '@/components/homeProfile', component: <HomeProfile /> },
       { id: 17, name: '오늘의 진행 상황', path: '@/components/progressCard', component: <ProgressCard /> },
       { id: 24, name: '마이페이지 프로필 카드', path: '@/components/profile/ProfileCard', component: <ProfileCard /> },
+      { id: 35, name: '하트 프로필', path: '@/components/profile/heartProfile', component: <HeartProfile /> },
+      { id: 36, name: '프로필 사진 변경', path: '@/components/profile/heartProfile', component: <ChangeProfileImage  /> },
+      { id: 37, name: '스터디 주제 선택(프로필 페이지 내)', path: '@/components/profile/topicSelect', component: <TopicSelect /> }
     ],
   },
   {
@@ -59,14 +68,15 @@ const groupedItemList = [
       { id: 21, name: '그룹 플로팅 버튼', path: '@/components/group/GroupFloatingButton', component: <GroupFloatingButton /> },
       { id: 20, name: '랭킹 컴포넌트', path: '@/components/ranking/-', component: <RankingGuide /> },
       { id: 29, name: '사진 업로드', path: '@/components/group/ImageUploader', component: <ImageUploader /> },
-      { id: 30, name: '미션 개수 증감', path: '@/components/group/ImageUploader', component: <MissionCount /> },
-      { id: 31, name: '그룹 정보 팝업', path: '@/components/group/ImageUploader', component: <GroupDetailPopup /> },
+      { id: 31, name: '미션 개수 증감', path: '@/components/group/MissionCount', component: <MissionCount /> },
+      { id: 32, name: '그룹 정보 팝업', path: '@/guide/GroupDetailPopupDemo', component: <GroupDetailPopupDemo /> },
+      { id: 33, name: '그룹 검색', path: '@/components/group/GroupSearchInput', component: <GroupSearchInput /> },
+      { id: 38, name: '그룹 운영 위임 팝업', path: '@/guide/tossGroupAdminGuide', component: <TossGroupAdminGuide /> }
     ],
   },
   {
     group: '유틸/레이아웃/기타',
     items: [
-      { id: 4, name: '로그인', path: '@/pages/login', component: <Login /> },
       { id: 6, name: '레이아웃', path: '@/pages/mainLayout', component: <MainLayout /> },
       { id: 7, name: '네비게이션', path: '@/components/nav', component: <Navigation /> },
       { id: 9, name: '룰렛', path: '@/components/roulette', component: <Roulette /> },
@@ -78,6 +88,8 @@ const groupedItemList = [
       { id: 25, name: '레벨 프로그레스바', path: '@/components/myPage/LevelProgress', component: <LevelProgress />},
       { id: 26, name: '팝업', path: '@/guide/popupGuide', component: <PopupGuide /> },
       { id: 27, name: '더보기 옵션(모달)', path: '@/guide/moreOptionGuide', component: <MoreOptionGuide /> },
+      { id: 34, name: '그룹, 벌칙 미션피드', path: '@/components/MissionFeed', component: <MissionFeedGuide /> },
+      { id: 30, name: '벌칙 인증 상세', path: '@/components/card/PunishmentContent', component: <PunishmentContent /> },
     ],
   },
 ];

@@ -11,6 +11,10 @@ import app.user.todo as todo
 import app.user.UserInterest as UserInterest
 from app.user import ns_user
 
+import app.group.create as create
+import app.group.punish as punish
+from app.group import ns_group
+
 import os
 from dotenv import load_dotenv
 load_dotenv()
@@ -24,6 +28,7 @@ CORS(server, origins=["http://localhost:5175"])
 
 api.add_namespace(ns_auth)
 api.add_namespace(ns_user)
+api.add_namespace(ns_group)
 
 @api.route('/', defaults={'path': ''})
 @api.route('/<path:path>')

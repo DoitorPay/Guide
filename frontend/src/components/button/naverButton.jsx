@@ -9,7 +9,9 @@ const NaverLoginRedirectButton = () => {
         <button
               type="button"
               onClick={handleLogin}
+              className="signup-button naver"
             >
+              <img src="/icons/naver.svg"/>
               네이버 로그인
             </button>
     )

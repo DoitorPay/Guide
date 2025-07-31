@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const HomeIcon = ({ fill }) => {
   return (
@@ -38,35 +39,45 @@ const MyPageIcon = ({ fill }) => {
 }
 
 const navItems = [
-  { id: 'home', label: '홈', icon: HomeIcon },
-  { id: 'todo', label: '투두리스트', icon: TodoIcon },
-  { id: 'group', label: '그룹', icon: GroupIcon },
-  { id: 'penalty', label: '벌칙', icon: PenaltyIcon },
-  { id: 'mypage', label: '마이페이지', icon: MyPageIcon },
-]
+  { id: 'home', label: '홈', icon: HomeIcon, matchPath: '/main', navigatePath: '/main' },
+  { id: 'todo', label: '투두리스트', icon: TodoIcon, matchPath: '/todolist', navigatePath: '/todolist' },
+  { id: 'group', label: '그룹', icon: GroupIcon, matchPath: '/group', navigatePath: '/group' }, 
+  { id: 'penalty', label: '벌칙', icon: PenaltyIcon, matchPath: '/penalty', navigatePath: '/penalty' },
+  { id: 'mypage', label: '마이페이지', icon: MyPageIcon, matchPath: '/mypage', navigatePath: '/mypage' },
+];
 
 const Navigation = () => {
-  const [activeId, setActiveId] = useState('home')
+  const location = useLocation();
+  const navigate = useNavigate();
 
   return (
-    <nav className='nav-wrapper'>
+    <nav className="nav-wrapper">
       <ul>
         {navItems.map((item) => {
-          const isActive = item.id === activeId
-          const Icon = item.icon
+          let isActive;
+
+          if (item.id === 'mypage') {
+            isActive = ['/mypage', '/notice', '/help', '/terms', '/privacy'].some((path) =>
+              location.pathname.startsWith(path)
+            );
+          } else {
+            isActive = location.pathname.startsWith(item.matchPath);
+          }
+
+          const Icon = item.icon;
+
           return (
-            <li
-              key={item.id}
-              onClick={() => setActiveId(item.id)}
-            >
+            <li key={item.id} onClick={() => navigate(item.navigatePath)}>
               <Icon fill={isActive ? 'var(--color-primary)' : 'var(--color-gray-scale-200)'} />
-              <span style={{ color: isActive ? 'var(--color-gray-scale-black)' : 'var(--color-gray-scale-200)' }}>{item.label}</span>
+              <span style={{ color: isActive ? 'var(--color-gray-scale-black)' : 'var(--color-gray-scale-200)' }}>
+                {item.label}
+              </span>
             </li>
-          )
+          );
         })}
       </ul>
     </nav>
-  )
-}
+  );
+};
 
-export default Navigation
+export default Navigation;

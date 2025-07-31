@@ -1,0 +1,25 @@
+.topic-select-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(8px, 2vw, 12px);
+}
+
+.topic-label {
+  font-size: calc(var(--typo-size-body-4) / 16 * 1rem);
+  font-weight: var(--typo-weight-semibold);
+  color: var(--color-gray-scale-black);
+}
+
+.topic-inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+
+  &__list {
+    font-size: clamp(14px, 2vw, 16px);
+    font-weight: 500;
+    color: var(--color-gray-scale-500);
+  }
+}

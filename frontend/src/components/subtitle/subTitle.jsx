@@ -11,7 +11,8 @@ const SubTitle = ({
   info,
   linkIcon = 'arrow-right-gray',
   more = '전체보기',
-  onClickMore
+  onClickMore,
+  date,
 }) => {
   const currentDate = new Date();
   const today = format(currentDate, 'M월 d일', { locale: ko });
@@ -22,7 +23,11 @@ const SubTitle = ({
 
   return (
     <div className={`sub-title sub-title--${type}`}>
-      <h2 className="sub-title__heading">{title}</h2>
+    {type === 'title-lg' ? (
+        <h2 className="sub-title__heading --title-lg">{title}</h2>
+      ) : type !== 'sideinfo' && (
+        <h2 className="sub-title__heading">{title}</h2>
+      )}
 
       {type === 'link' && link && (
         <Link to={link} className="sub-title__link" onClick={onClickMore}>
@@ -36,7 +41,7 @@ const SubTitle = ({
       )}
 
       {type === 'date' && (
-        <span className="sub-title__date">{today}</span>
+        <span className="sub-title__date">{date ? format(date, 'M월 d일', { locale: ko }) : today}</span>
       )}
 
       {type === 'week' && (
@@ -46,6 +51,24 @@ const SubTitle = ({
       {type === 'desc' && desc && (
         <p className="sub-title__desc">{desc}</p>
       )}
+      
+      {type === 'title-lg' && (
+        <h2 className="sub-title__heading --title-lg"></h2>
+        )}
+
+     {type === 'sideinfo' && (
+  <div className="sub-title__wrap">
+    <h2 className="sub-title__heading">{title}</h2>
+    <div className="sub-title__meta-row">
+      <span className="sub-title__date-range">{info}</span>
+      <span className="sub-title__remain-time">{desc}</span>
+    </div>
+  </div>
+)}
+
+
+
+
     </div>
   );
 };

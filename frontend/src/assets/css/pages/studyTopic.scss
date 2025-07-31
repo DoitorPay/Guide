@@ -1,0 +1,14 @@
+.study-topic-wrapper {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  .study-topic-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(20px, 2vw, 24px);
+    padding-bottom: clamp(24px, 4vw, 40px); 
+  }
+
+}

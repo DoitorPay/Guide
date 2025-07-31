@@ -19,10 +19,11 @@
   }
 
  &.user-vertical {
+  width: 60px;
+  display: inline-flex;
   flex-direction: column;
- // width 값 지정해야될듯        
-  flex: 0 0 auto;    
   text-align: center;
+  align-items: center;
 
   .user-info {
     font-size: 0.875rem;
@@ -38,8 +39,8 @@
       flex-direction: column;
 
       .user-date {
-        font-size: 0.75rem;
-        color: var(--color-gray-scale-200);
+        font-size: var(--typo-size-body-5);
+        color: var(--color-gray-scale-400);
       }
     }
   }

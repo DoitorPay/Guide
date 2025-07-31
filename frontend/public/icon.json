@@ -11,6 +11,7 @@
     { "name": "person", "path": "/icons/person.svg" },
     { "name": "arrow-left", "path": "/icons/arrow-left.svg" },
     { "name": "arrow-right", "path": "/icons/arrow-right.svg" },
+    { "name": "arrow-right-white", "path": "/icons/arrow-right-white.svg" },
     { "name": "arrow-right-gray", "path": "/icons/arrow-right-gray.svg" },
     { "name": "arrow-right-orange", "path": "/icons/arrow-right-orange.svg" },
     { "name": "arrow-top", "path": "/icons/arrow-top.svg" },
@@ -20,12 +21,15 @@
       "path": "/icons/arrow-bottom-gray.svg"
     },
     { "name": "add", "path": "/icons/add.svg" },
+    { "name": "add-gray", "path": "/icons/add-gray.svg" },
     { "name": "clear", "path": "/icons/clear.svg" },
+    { "name": "clear-white", "path": "/icons/clear-white.svg" },
     { "name": "done", "path": "/icons/done.svg" },
     { "name": "done-red", "path": "/icons/done-red.svg" },
     { "name": "done-gray", "path": "/icons/done-gray.svg" },
     { "name": "refresh", "path": "/icons/refresh.svg" },
     { "name": "search", "path": "/icons/search.svg" },
+    { "name": "search-gray", "path": "/icons/search-gray.svg" },
     { "name": "notifications", "path": "/icons/notifications.svg" },
     {
       "name": "notifications-none",
@@ -43,6 +47,7 @@
       "path": "/icons/brightness-high-gray.svg"
     },
     { "name": "error", "path": "/icons/error.svg" },
+    { "name": "error-gray", "path": "/icons/error-gray.svg" },
     { "name": "error-outline", "path": "/icons/error-outline.svg" },
     { "name": "delete-outline", "path": "/icons/delete-outline.svg" },
     { "name": "chat", "path": "/icons/chat.svg" },
@@ -57,6 +62,7 @@
     { "name": "download", "path": "/icons/download.svg" },
     { "name": "upload", "path": "/icons/upload.svg" },
     { "name": "heart-empty", "path": "/icons/heart-empty.svg" },
-    { "name": "heart-filled", "path": "/icons/heart-filled.svg" }
+    { "name": "heart-filled", "path": "/icons/heart-filled.svg" },
+    { "name": "ic-edit-orange", "path": "/icons/ic-edit-orange.svg" }
   ]
 }

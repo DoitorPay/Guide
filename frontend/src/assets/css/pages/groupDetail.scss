@@ -1,70 +1,98 @@
 .group-detail-page {
-  // background-color: var(--color-gray-scale-50);
-  min-height: 100vh;
+  margin-top: calc(-1 * clamp(30px, 5vw, 34px));
 }
 
-.back-btn {
-  background: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
+.full-bleed {
+  margin-left: calc(-1 * clamp(12px, 5vw, 20px));
+  margin-right: calc(-1 * clamp(12px, 5vw, 20px));
+  width: auto;
 }
 
 
 // 대표 이미지
 .hero-image {
-  width: 100%;
-  height: 200px;
+  position: relative;
   overflow: hidden;
 
   img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    display: block;
+  }
+
+  .gradient {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100px; 
+    background: linear-gradient(180deg, transparent 0%, #fff 100%);
+    pointer-events: none;
   }
 }
 
 // 그룹 정보
 .group-info {
-  padding: clamp(16px, 5vw, 20px);
-  background: linear-gradient(180deg, transparent 0%, #ffffff 100%);
+  background-color: var(--color-gray-scale-white);
+  padding: clamp(24px, 5vw, 28px);
 }
 
 .group-title {
-  font-size: 20px;
-  font-weight: bold;
-  margin-bottom: 12px;
-  color: #333;
+  font-size: var(--typo-size-heading-2);
+  font-weight: var(--typo-weight-bold);
+  color: var(--color-gray-scale-800);
 }
 
 .group-meta {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: clamp(4px, 5vw, 6px);
 
-  .category, .info, .period {
-    font-size: 14px;
-    color: #666;
+  .meta-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  line-height: 1.5;
+  color: #666;
+
+  .label {
+    font-weight: 500;
+    color: var(--color-gray-scale-600);
+    white-space: nowrap; 
+    flex-shrink: 0;   
   }
+
+  .value {
+    font-weight: var(--typo-weight-semibold);
+    color: var(--color-gray-scale-700);
+    word-break: keep-all;
+    line-height: 1.6;
+    flex: 1;                
+  }
+}
+ 
 }
 
 // 탭
 .tabs {
   display: flex;
   background: white;
+  padding-left: clamp(30px, 4vw, 28px); 
+  padding-right: clamp(30px, 4vw, 28px); 
   border-bottom: 1px solid #eee;
 }
 
 .tab {
   flex: 1;
-  padding: 16px;
+  padding: clamp(12px, 5vw, 16px);
   background: none;
   border: none;
-  font-size: 16px;
-  font-weight: 500;
-  color: var(--color-gray-scale-500);
+  font-size: var(--typo-size-heading-3);
+  font-weight: var(--typo-weight-bold);
+  color: var(--color-gray-scale-300);
   cursor: pointer;
-  border-bottom: 2px solid transparent;
+  border-bottom: 3px solid transparent;
 
   &.active {
     color: var(--color-gray-scale-black);
@@ -73,43 +101,71 @@
 }
 
 // 콘텐츠 영역
+
 .tab-content {
-  padding: clamp(12px, 5vw, 20px);
-}
-
-// 공통 섹션
-.section {
-  margin-bottom: 32px;
-}
-
-.section-title {
-  font-size: 18px;
-  font-weight: bold;
-  margin: 24px 0 16px;
-  color: #333;
-}
-
-// 멤버 리스트 (가로 스크롤)
-.member-grid {
   display: flex;
-  gap: 1rem;
+  flex-direction: column;
+  // row-gap: clamp(24px, 5vw, 28px);
+  padding-top: clamp(24px, 5vw, 28px);
+}
+
+.mission-header {
+  display: flex;
+  flex-direction: column;
+
+  .section-title {
+    font-size: var(--typo-size-heading-6);
+    font-weight: var(--typo-weight-bold);
+    color: #000;
+  }
+
+  .mission-info {
+  display: flex;
+  // margin-top: -8px;
+  justify-content: space-between;
+  align-items: center;
+
+  .period {
+    font-size: 14px;
+    color: var(--color-gray-scale-600);
+  }
+}
+}
+.group-section {
+padding-top: clamp(24px, 5vw, 28px);
+}
+
+
+
+.horizontal-scroll {
+  display: flex;
+  flex-direction: row;
+  margin-right: calc(-1 * clamp(12px, 5vw, 20px));
+  gap: clamp(24px, 5vw, 28px);
   overflow-x: auto;
-  padding-bottom: 0.75rem;
+  scroll-snap-type: x mandatory;
 
   &::-webkit-scrollbar {
     display: none;
   }
+
+  -webkit-overflow-scrolling: touch;
+
+  cursor: grab;
+
+  > * {
+    scroll-snap-align: start; 
+    flex-shrink: 0; 
+  }
+
+  &.horizontal-scroll--tight {
+    gap: clamp(8px, 3vw, 12px);
+  }
 }
 
-.member-item {
+.ranking-section {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 8px;
+  gap: clamp(12px, 5vw, 16px);
 
-  .member-avatar {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-  }
 }
