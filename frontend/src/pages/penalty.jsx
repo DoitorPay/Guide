@@ -11,8 +11,6 @@ const dummyData = [
   { title: '벌칙 C', groupName: '그룹 C', deadline: '2025.07.12', isCertified: false },
 ];
 
-const punishments = ['엉덩이로 이름 쓰기', '벌칙2', '벌칙3'];
-
 const PenaltyPage = () => {
   const [sortFilter, setSortFilter] = useState('전체');
   const [sortPopupOpen, setSortPopupOpen] = useState(false);

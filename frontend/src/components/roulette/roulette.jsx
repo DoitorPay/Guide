@@ -99,7 +99,7 @@ const Roulette = ({ items = [] }) => {
         setPopup={showCompletePopup}
         icon="done-gray"
         title="면제 카드를 사용했어요."
-        subtitle="이번 벌칙은 넘어감? (멘트 필요)"
+        subtitle="이번 벌칙은 면제입니다"
         buttonName="닫기"
         onClick={() => setShowCompletePopup(false)}
       />
