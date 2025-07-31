@@ -21,7 +21,7 @@ const MainPage = () => {
         <ProgressCard/>
         <div>
             <SubTitle title="투두리스트" type="link" link="/todolist" />
-            <TodoList type='home'/>
+            <TodoList type='home' selectedDate={new Date().toISOString().slice(0, 10)}/>
         </div>
         <div onClick={() => navigate('/group')} style={{cursor: 'pointer'}}>
             <SubTitle title="그룹"/>
