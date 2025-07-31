@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import Checkbox from '@/components/input/checkBox';
 import MoreOption from '@/components/popupModal/moreOption';
 
-const TodoList = ({ type }) => {
+const TodoList = ({ type, selectedDate }) => {
     // 투두 목록 상태
     const [todoItems, setTodoItems] = useState([]);
     const [groupTodos, setGroupTodos] = useState([
@@ -38,11 +38,16 @@ const TodoList = ({ type }) => {
             console.log(JSON.stringify(data, null, 2));
             console.log("-------------------");
             if (data && data.todo && Array.isArray(data.todo)) {
-                const formattedTodos = data.todo.map((item) => ({
-                    text: item.item,
-                    id: item.id,
-                    completed: String(item.done).toLowerCase() === 'true' // 백엔드에서 받은 값을 소문자 문자열 'true'와 비교
-                }));
+                const formattedTodos = data.todo.map((item) => {
+                    const itemDate = new Date(item.exec_date);
+                    const selected = new Date(selectedDate);
+                    return {
+                        text: item.item,
+                        id: item.id,
+                        completed: String(item.done).toLowerCase() === 'true',
+                        exec_date: itemDate.toISOString().slice(0, 10) === selected.toISOString().slice(0, 10)
+                    };
+                });
                 setTodoItems(formattedTodos);
             } else {
                 setTodoItems([]); // 유효하지 않은 데이터 형식일 경우 빈 배열로.
@@ -51,7 +56,7 @@ const TodoList = ({ type }) => {
             console.error('네트워크 에러 또는 서버 응답 문제:', error);
             // alert('서버와 통신 중 오류가 발생했습니다. 네트워크 연결을 확인해주세요.');
         }
-    }, []);
+    }, [selectedDate]);
 
     // 체크박스 변경 핸들러
     const handleCheckboxChange = useCallback(async (item, checked) => {
@@ -69,12 +74,13 @@ const TodoList = ({ type }) => {
                 id: item.id,
                 item: item.text,
                 done: checked, // 이미 불리언 값
+                exec_date: selectedDate
             };
 
             const response = await fetch('http://localhost:8000/user/user-todo', {
                 method: 'PUT',
                 headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({ list: updatedTodoData }),
+                body: JSON.stringify({ item: updatedTodoData }),
             });
 
             if (!response.ok) {
@@ -113,7 +119,8 @@ const TodoList = ({ type }) => {
 
                 try {
                     const todoData = {
-                        list: [newTodoText.trim()],
+                        item: newTodoText.trim(),
+                        exec_date: selectedDate
                     };
                     console.log("----- 폼 데이터 -----");
                     console.log(JSON.stringify(todoData, null, 2));
@@ -208,13 +215,14 @@ const TodoList = ({ type }) => {
                 const updatedTodoData = {
                     id: editingTodoId,
                     item: editingText.trim(),
-                    done: originalTodo.completed // 기존 완료 상태 유지
+                    done: originalTodo.completed, // 기존 완료 상태 유지
+                    exec_date: originalTodo.exec_date
                 };
 
                 fetch('http://localhost:8000/user/user-todo', {
                     method: 'PUT',
                     headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({ list: updatedTodoData }),
+                    body: JSON.stringify({ item: updatedTodoData }),
                 })
                 .then(response => {
                     if (!response.ok) {
@@ -330,7 +338,9 @@ const TodoList = ({ type }) => {
                     (todoItems.length > 0 || isAddingTodo) && (type === 'home' || type === 'page-todolist') && (
                         <div className="todo-box">
                             {
-                                todoItems.map((item) => (
+                                todoItems.filter((item) => {
+                                    return item.exec_date === true;
+                                }).map((item) => (
                                     <div key={item.id} className="todo-box__item">
                                         <div className="list">
                                             <Checkbox 
