@@ -45,7 +45,8 @@ const TodoList = ({ type, selectedDate }) => {
                         text: item.item,
                         id: item.id,
                         completed: String(item.done).toLowerCase() === 'true',
-                        exec_date: itemDate.toISOString().slice(0, 10) === selected.toISOString().slice(0, 10)
+                        exec_date: item.exec_date, // 원본 날짜 문자열을 그대로 저장
+                        isCurrentDate: itemDate.toISOString().slice(0, 10) === selected.toISOString().slice(0, 10) // 렌더링 필터링용 속성
                     };
                 });
                 setTodoItems(formattedTodos);
@@ -74,7 +75,7 @@ const TodoList = ({ type, selectedDate }) => {
                 id: item.id,
                 item: item.text,
                 done: checked, // 이미 불리언 값
-                exec_date: selectedDate
+                exec_date: item.exec_date // 불리언 대신 원본 날짜 문자열을 전달
             };
 
             const response = await fetch('http://localhost:8000/user/user-todo', {
@@ -145,14 +146,17 @@ const TodoList = ({ type, selectedDate }) => {
                     console.log('---------------------------');
 
                     // 프론트에서 고유ID 부여 및 상태 업데이트
-                    const newIdForFrontend = addedTodo && addedTodo.id ? addedTodo.id : `${Date.now()}-${todoItems.length}`;
+                    const newIdForFrontend = addedTodo?.id || `${Date.now()}-${todoItems.length}`;
                     const newTodoItem = {
                         id: newIdForFrontend,
                         text: newTodoText.trim(),
-                        completed: false
+                        completed: false,
+                        exec_date: selectedDate, // 날짜 문자열로 저장
+                        isCurrentDate: true // 새로 추가된 투두는 항상 현재 날짜 투두로 표시
                     };
                     setTodoItems([...todoItems, newTodoItem]);
                     setNewTodoText('');
+                    fetchTodos(); // 투두 추가 후 목록 새로고침
                 } catch (error) {
                     console.error('네트워크 에러 또는 서버 응답 문제:', error);
                     // alert('서버와 통신 중 오류가 발생했습니다. 네트워크 연결을 확인해주세요.');
@@ -216,7 +220,7 @@ const TodoList = ({ type, selectedDate }) => {
                     id: editingTodoId,
                     item: editingText.trim(),
                     done: originalTodo.completed, // 기존 완료 상태 유지
-                    exec_date: originalTodo.exec_date
+                    exec_date: originalTodo.exec_date // 불리언 대신 원본 날짜 문자열을 전달
                 };
 
                 fetch('http://localhost:8000/user/user-todo', {
@@ -316,18 +320,37 @@ const TodoList = ({ type, selectedDate }) => {
 
             <div className="cmp-todolist__inner">
                 {
-                    ((type === 'group' || type === 'group-detail' ? groupTodos.length === 0 : todoItems.length === 0) || type === 'example-todo') && (
-                        <p className="no-todo">
-                            {(type === 'group' || type === 'group-detail') ? '이번주 그룹 미션이 아직 생성되지 않았어요.' : '설정된 목표가 없습니다.'}<br></br>
-                            {(type === 'group' || type === 'group-detail') ? '' : '목표를 추가해 보세요.'}
-                        </p>
-                    )
+                    (() => {
+                        const filteredPersonalTodos = todoItems.filter(item => item.isCurrentDate === true);
+                        if (type === 'group' || type === 'group-detail') {
+                            return groupTodos.length === 0 && (
+                                <p className="no-todo">
+                                    이번주 그룹 미션이 아직 생성되지 않았어요.<br></br>
+                                </p>
+                            );
+                        } else if (type === 'home' || type === 'page-todolist') {
+                            return filteredPersonalTodos.length === 0 && !isAddingTodo && (
+                                <p className="no-todo">
+                                    설정된 목표가 없습니다.<br></br>
+                                    목표를 추가해 보세요.
+                                </p>
+                            );
+                        } else if (type === 'example-todo') {
+                            return (
+                                <p className="no-todo">
+                                    설정된 목표가 없습니다.<br></br>
+                                    목표를 추가해 보세요.
+                                </p>
+                            );
+                        }
+                        return null;
+                    })()
                 }
 
                 {
                     (type === 'home' && todoItems.length > 0) && (
                         <p className="day-goal">
-                            오늘의 목표 ({todoItems.filter(item => item.completed).length}/{todoItems.length})
+                            오늘의 목표 ({todoItems.filter(item => item.isCurrentDate === true && item.completed).length}/{todoItems.filter(item => item.isCurrentDate === true).length})
                         </p>
                     )
                 }
@@ -339,7 +362,7 @@ const TodoList = ({ type, selectedDate }) => {
                         <div className="todo-box">
                             {
                                 todoItems.filter((item) => {
-                                    return item.exec_date === true;
+                                    return item.isCurrentDate === true;
                                 }).map((item) => (
                                     <div key={item.id} className="todo-box__item">
                                         <div className="list">
@@ -463,7 +486,6 @@ const TodoList = ({ type, selectedDate }) => {
                                                 <span className={`title ${item.completed ? 'done' : ''}`}>{item.text}</span>
                                             )}
                                         </div>
-                                        {/* 더보기 옵션 임시 주석처리ㄴㄴㄴㄴㄴ */}
                                         {editingTodoId === item.id && editingTodoType === 'group' ? (
                                             <div className="actions">
                                                 <button className="action-btn save" onClick={saveEditedTodo}>
@@ -519,27 +541,6 @@ const TodoList = ({ type, selectedDate }) => {
                                                 <span className={`title ${item.completed ? 'done' : ''}`}>{item.text}</span>
                                             )}
                                         </div>
-                                        {/* 더보기 옵션 임시 주석처리ㄴㄴㄴㄴㄴ */}
-                                        {/* {editingTodoId === item.id && editingTodoType === 'group' ? (
-                                            <div className="actions">
-                                                <button className="action-btn save" onClick={saveEditedTodo}>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25">
-                                                        <path d="M9 16.7L5.5 13.2C5.11 12.81 4.49 12.81 4.1 13.2C3.71 13.59 3.71 14.21 4.1 14.6L8.29 18.79C8.68 19.18 9.31 19.18 9.7 18.79L20.3 8.20001C20.69 7.81001 20.69 7.19001 20.3 6.80001C19.91 6.41001 19.29 6.41001 18.9 6.80001L9 16.7Z" fill="#4C4C4C"/>
-                                                    </svg>
-                                                </button>
-                                                <button className="action-btn cancel" onClick={cancelEdit}>
-                                                    <svg width="14" height="15" viewBox="0 0 14 15" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M13.3 1.20997C12.91 0.819971 12.28 0.819971 11.89 1.20997L7 6.08997L2.11 1.19997C1.72 0.809971 1.09 0.809971 0.700001 1.19997C0.310001 1.58997 0.310001 2.21997 0.700001 2.60997L5.59 7.49997L0.700001 12.39C0.310001 12.78 0.310001 13.41 0.700001 13.8C1.09 14.19 1.72 14.19 2.11 13.8L7 8.90997L11.89 13.8C12.28 14.19 12.91 14.19 13.3 13.8C13.69 13.41 13.69 12.78 13.3 12.39L8.41 7.49997L13.3 2.60997C13.68 2.22997 13.68 1.58997 13.3 1.20997Z" fill="#4C4C4C"/>
-                                                    </svg>
-                                                </button>
-                                            </div>
-                                        ) : (
-                                            <div className="more" onClick={() => handleMoreClick(item.id, 'group')}>
-                                                <svg width="16" height="5" viewBox="0 0 16 5" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M2 0.5C0.9 0.5 0 1.4 0 2.5C0 3.6 0.9 4.5 2 4.5C3.1 4.5 4 3.6 4 2.5C4 1.4 3.1 0.5 2 0.5ZM14 0.5C12.9 0.5 12 1.4 12 2.5C12 3.6 12.9 4.5 14 4.5C15.1 4.5 16 3.6 16 2.5C16 1.4 15.1 0.5 14 0.5ZM8 0.5C6.9 0.5 6 1.4 6 2.5C6 3.6 6.9 4.5 8 4.5C9.1 4.5 10 3.6 10 2.5C10 1.4 9.1 0.5 8 0.5Z"/>
-                                                </svg>
-                                            </div>
-                                        )} */}
                                     </div>
                                 ))
                             }
