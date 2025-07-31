@@ -6,7 +6,7 @@ import TodoList from '@/components/todo/todoList';
 import PanaltyNoti from '@/components/panalty/panaltyNoti';
 
 const TodoListPage = () => {
-    const [selectedDate, setSelectedDate] = useState(new Date());
+    const [selectedDate, setSelectedDate] = useState(new Date().toISOString().slice(0, 10));
 
     const handleDateSelect = (date) => {
         setSelectedDate(date);

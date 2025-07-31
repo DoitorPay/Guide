@@ -39,14 +39,14 @@ const TodoList = ({ type, selectedDate }) => {
             console.log("-------------------");
             if (data && data.todo && Array.isArray(data.todo)) {
                 const formattedTodos = data.todo.map((item) => {
-                    const itemDate = new Date(item.exec_date);
-                    const selected = new Date(selectedDate);
+                    const itemDate = new Date(item.exec_date).toISOString().slice(0, 10);
+                    // const selected = new Date(selectedDate);
                     return {
                         text: item.item,
                         id: item.id,
                         completed: String(item.done).toLowerCase() === 'true',
-                        exec_date: item.exec_date, // 원본 날짜 문자열을 그대로 저장
-                        isCurrentDate: itemDate.toISOString().slice(0, 10) === selected.toISOString().slice(0, 10) // 렌더링 필터링용 속성
+                        exec_date: item.exec_date,
+                        isCurrentDate: itemDate === selectedDate
                     };
                 });
                 setTodoItems(formattedTodos);
@@ -74,8 +74,8 @@ const TodoList = ({ type, selectedDate }) => {
             const updatedTodoData = {
                 id: item.id,
                 item: item.text,
-                done: checked, // 이미 불리언 값
-                exec_date: item.exec_date // 불리언 대신 원본 날짜 문자열을 전달
+                done: checked,
+                exec_date: item.exec_date
             };
 
             const response = await fetch('http://localhost:8000/user/user-todo', {
@@ -121,7 +121,7 @@ const TodoList = ({ type, selectedDate }) => {
                 try {
                     const todoData = {
                         item: newTodoText.trim(),
-                        exec_date: selectedDate
+                        exec_date: new Date(selectedDate).toISOString().slice(0, 10)
                     };
                     console.log("----- 폼 데이터 -----");
                     console.log(JSON.stringify(todoData, null, 2));
@@ -219,8 +219,8 @@ const TodoList = ({ type, selectedDate }) => {
                 const updatedTodoData = {
                     id: editingTodoId,
                     item: editingText.trim(),
-                    done: originalTodo.completed, // 기존 완료 상태 유지
-                    exec_date: originalTodo.exec_date // 불리언 대신 원본 날짜 문자열을 전달
+                    done: originalTodo.completed,
+                    exec_date: originalTodo.exec_date
                 };
 
                 fetch('http://localhost:8000/user/user-todo', {

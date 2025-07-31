@@ -67,7 +67,7 @@ const WeekCalendar = ({ type = 'default', onDateSelect }) => {
       })
     );
     if (onDateSelect) {
-      onDateSelect(new Date(targetDate));
+      onDateSelect(new Date(targetDate).toISOString().slice(0, 10));
     }
   };
   
