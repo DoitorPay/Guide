@@ -8,7 +8,11 @@
     box-shadow: 0px 0px 20px 0px #9696963D;
     padding: clamp(12px, 3vw, 16px);
     margin-bottom: clamp(12px, 3vw, 16px);
-    
+    cursor: default;
+
+    &.clickable {
+      cursor: pointer;
+    }
   
     &__image-box {
       width: clamp(80px, 20vw, 107px);
