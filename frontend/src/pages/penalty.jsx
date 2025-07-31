@@ -20,6 +20,7 @@ const PenaltyPage = () => {
     { title: '벌칙 B', groupName: '그룹 B', deadline: '2025.07.11', image: 'https://picsum.photos/300/300', isCertified: true },
     { title: '벌칙 C', groupName: '그룹 C', deadline: '2025.07.12', isCertified: false },
   ]);
+  const [selectedGroupId, setSelectedGroupId] = useState(null);
 
   React.useEffect(() => {
     if (state?.punishment) {
@@ -34,10 +35,14 @@ const PenaltyPage = () => {
   }, [state]);
 
   const filteredData = useMemo(() => {
-    if (sortFilter === '인증') return dummyData.filter(d => d.isCertified);
-    if (sortFilter === '미인증') return dummyData.filter(d => !d.isCertified);
-    return dummyData;
-  }, [sortFilter, dummyData]);
+    let filtered = [...dummyData];
+    if (selectedGroupId !== null) {
+      filtered = filtered.filter(d => d.groupName === selectedGroupId);
+    }
+    if (sortFilter === '인증') return filtered.filter(d => d.isCertified);
+    if (sortFilter === '미인증') return filtered.filter(d => !d.isCertified);
+    return filtered;
+  }, [sortFilter, selectedGroupId, dummyData]);
 
   const handleOptionClick = (option) => {
     setSortFilter(option);
@@ -45,8 +50,9 @@ const PenaltyPage = () => {
   };
 
   const members = [
-    { id: 1, name: '그룹 이름', avatar: 'https://picsum.photos/40/40', progress: 80 },
-    { id: 2, name: '그룹 이름', avatar: 'https://picsum.photos/40/40', progress: 80 },
+    { id: 1, name: '그룹 A', avatar: 'https://picsum.photos/40/40', progress: 80 },
+    { id: 2, name: '그룹 B', avatar: 'https://picsum.photos/40/40', progress: 80 },
+    { id: 3, name: '그룹 C', avatar: 'https://picsum.photos/40/40', progress: 80 },
   ];
 
   const feeds = [
@@ -72,15 +78,20 @@ const PenaltyPage = () => {
       <div className="section">
         <div className="horizontal-scroll">
           {members.map((member) => (
-            <UserProfileRow
+            <div
               key={member.id}
-              variant="vertical"
-              size={60}
-              src={member.avatar}
-              name={member.name}
-              border
-              isLeader={member.isLeader}
-            />
+              style={{ opacity: selectedGroupId === null || selectedGroupId === member.name ? 1 : 0.3 }}
+              onClick={() => setSelectedGroupId(prev => prev === member.name ? null : member.name)}
+            >
+              <UserProfileRow
+                name={member.name}
+                src={member.avatar}
+                variant="vertical"
+                size={60}
+                border
+                isLeader={member.isLeader}
+              />
+            </div>
           ))}
         </div>
       </div>
@@ -113,11 +124,7 @@ const PenaltyPage = () => {
             deadline={item.deadline}
             image={item.image || null}
             isCertified={item.isCertified}
-            onClick={() => {
-              if (!item.isCertified) {
-                navigate('/penaltyupload', { state: { punishment: item.title } });
-              }
-            }}
+            onClick={!item.isCertified ? () => navigate('/penaltyupload', { state: { punishment: item.title } }) : undefined}
           />
         ))}
 

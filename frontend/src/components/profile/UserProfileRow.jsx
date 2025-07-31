@@ -18,6 +18,7 @@ const UserProfileRow = ({
   border = false,
   isLeader = false,
   nameWeight = 'default',
+  onClick, 
 }) => {
   const displayName = isLeader ? `${name}(그룹장)` : name;
 
@@ -27,7 +28,7 @@ const UserProfileRow = ({
       : null;
 
   return (
-    <div className={`user-profile user-${variant}`}>
+    <div className={`user-profile user-${variant}`} onClick={onClick}> 
       <ProfileImage src={src} size={size} border={border} />
       <div className="user-info">
         <ProfileName name={displayName} size="md" weight={nameWeight} />
@@ -38,6 +39,7 @@ const UserProfileRow = ({
     </div>
   );
 };
+
 
 
 export default UserProfileRow;
