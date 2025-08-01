@@ -12,12 +12,8 @@ class UpdateInterest(Resource):
         with driver.session() as neo_session:
             neo_session.run(
                 '''
-                    MATCH (n:Person {id: $id})
-                    WHERE n.sns = $sns
-                    WITH n, COALESCE(n.interest, []) + $interest AS combinedInterests
-                    UNWIND combinedInterests AS interest
-                    WITH n, COLLECT(DISTINCT interest) AS uniqueInterests
-                    SET n.interest = uniqueInterests
+                    MATCH (p:Person {id: $id, sns: $sns})
+                    SET p.topics = $topics
                 '''
                 , interest=topics['topics']
                 , sns = session['user_data']['sns']
