@@ -59,7 +59,7 @@ class UserTodo(Resource):
 
             todo_list = todo_list[0] if todo_list[0] is not None else []
             for todo in todo_list:
-                if item in todo.split("///"):
+                if item in todo.split("///") and exec_date in todo.split("///"):
                     return 200
 
             todo_list.append(f"{item}///{exec_date}///{str(uuid.uuid4())}///false")
