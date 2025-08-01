@@ -21,7 +21,6 @@ const ProfileCard = ({ onClick }) => {
     fetchNickname();
   }, []);
 
-      // 상태메시지 불러오기
       const [quote, setQuote] = useState('');
       useEffect(() => {
           const fetchQuote = async() => {

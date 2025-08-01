@@ -11,10 +11,7 @@ const Group = () => {
   const [showFinished, setShowFinished] = useState(false);
 
   useEffect(() => {
-    const init = async () => {
-      await fetchUserInfo(); // 유저 정보 먼저 받아오기
-    };
-    init();
+    fetchUserInfo();
   }, []);
 
   useEffect(() => {
@@ -23,51 +20,87 @@ const Group = () => {
     }
   }, [userId]);
 
-  // 임의 로직: 그룹 상태 분류
-  const ongoingGroups = groups.filter(g => g.name.includes("운영"));
-  const participatingGroups = groups.filter(g => g.name.includes("참여"));
-  const finishedGroups = groups.filter(g => g.name.includes("종료"));
+  const now = new Date();
+
+  const isGroupFinished = (group) => new Date(group.end_date) < now;
+
+  const ongoingGroups = groups.filter(
+    (group) => group.leader_id === userId && !isGroupFinished(group)
+  );
+
+  const participatingGroups = groups.filter(
+    (group) => group.leader_id !== userId && !isGroupFinished(group)
+  );
+
+  const finishedGroups = groups.filter((group) => isGroupFinished(group));
 
   return (
     <MainLayout
       contentBg="var(--color-gray-scale-white)"
-      headerProps={{ title: "그룹", type: "header-a", icon1: "none" }}
+      headerProps={{ title: '그룹', type: 'header-a', icon1: 'none' }}
       showFab={true}
     >
       <div>
         <SubTitle title={`운영 중인 그룹 (${ongoingGroups.length})`} />
-        {ongoingGroups.map(group => (
+        {ongoingGroups.map((group) => (
           <GroupCardLarge
             key={group.gid}
             title={group.name}
             category={group.category}
-            period={group.duration}
+            period={`${group.time_created?.split('T')[0]} ~ ${group.end_date?.split('T')[0]}`}
             thumbnailUrl="https://picsum.photos/400/400"
-            members={group.members.length}
+            members={group.members?.length || 0}
             progress={50}
-            dueDate="5월 20일"
-            avatarList={group.members.slice(0, 3).map((m, idx) =>
-              m.profile && m.profile !== " " ? m.profile : `https://i.pravatar.cc/24?img=${idx + 1}`
+            dueDate={group.end_date?.split('-').slice(1).join('월 ') + '일'}
+            avatarList={group.members?.slice(0, 3).map((m, idx) =>
+              m.profile && m.profile !== ' '
+                ? m.profile
+                : `https://i.pravatar.cc/24?img=${idx + 1}`
             )}
           />
         ))}
 
         <SubTitle title={`참여 중인 그룹 (${participatingGroups.length})`} />
-        {participatingGroups.map(group => (
+        {participatingGroups.map((group) => (
           <GroupCardLarge
             key={group.gid}
             title={group.name}
             category={group.category}
-            period={group.duration}
+            period={`${group.time_created?.split('T')[0]} ~ ${group.end_date?.split('T')[0]}`}
             thumbnailUrl="https://picsum.photos/400/400"
-            members={group.members.length}
+            members={group.members?.length || 0}
             progress={50}
-            dueDate="6월 10일"
-            avatarList={group.members.slice(0, 3).map((m, idx) =>
-              m.profile && m.profile !== " " ? m.profile : `https://i.pravatar.cc/24?img=${idx + 4}`
+            dueDate={group.end_date?.split('-').slice(1).join('월 ') + '일'}
+            avatarList={group.members?.slice(0, 3).map((m, idx) =>
+              m.profile && m.profile !== ' '
+                ? m.profile
+                : `https://i.pravatar.cc/24?img=${idx + 4}`
             )}
           />
         ))}
+
+        {showFinished && (
+          <>
+            <SubTitle title={`종료된 그룹 (${finishedGroups.length})`} />
+            {finishedGroups.map((group) => (
+              <GroupCardLarge
+                key={group.gid}
+                title={group.name}
+                category={group.category}
+                period={`${group.time_created?.split('T')[0]} ~ ${group.end_date?.split('T')[0]}`}
+                thumbnailUrl="https://picsum.photos/400/400"
+                members={group.members?.length || 0}
+                progress={100}
+                dueDate="종료됨"
+                avatarList={group.members?.slice(0, 3).map((m, idx) =>
+                  m.profile && m.profile !== ' '
+                    ? m.profile
+                    : `https://i.pravatar.cc/24?img=${idx + 7}`
+                )}
+              />
+            ))}
+          </>
+        )}
       </div>
     </MainLayout>
   );
