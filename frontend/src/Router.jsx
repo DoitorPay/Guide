@@ -89,7 +89,13 @@ const Router = () => {
           {/* 얘넨 냅두시고 */}
           <Route path="/landing" element={<Landing />} />
           <Route path="/additRegister" element={<SignUp />} />
+          
           <Route path="/topic-select" element={<TopicSelect mode="group-topic" />} />
+          <Route path="/study-topic" element={<TopicSelect mode="study-topic" />} />
+          <Route path="/my-topic" element={<TopicSelect mode="signup" />} />
+          <Route path="/profile-topic" element={<TopicSelect mode="profile" />} />
+          <Route path="/penalty-select" element={<TopicSelect mode="penalty-topic" />} />
+
           {/* 얘네 주석 해제하세요 */}
           <Route path="/groupdetailguide" element={<GroupDetail />} />
           <Route path="/main" element={<MainPage />} />
