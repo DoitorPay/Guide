@@ -14,15 +14,15 @@ const PenaltyPage = () => {
   const navigate = useNavigate();
   const { userId, fetchUserInfo } = useUserStore();
   const {
-    activeGroups, // 종료되지 않은 그룹만
+    activeGroups,
     fetchUserGroups,
   } = useUserGroupStore();
 
   const [selectedGroupName, setSelectedGroupName] = useState(null);
   const [sortFilter, setSortFilter] = useState('전체');
   const [sortPopupOpen, setSortPopupOpen] = useState(false);
-  const [feeds, setFeeds] = useState([]); // 인증 피드
-  const [penalties, setPenalties] = useState([]); // 벌칙 히스토리
+  const [feeds, setFeeds] = useState([]);
+  const [penalties, setPenalties] = useState([]);
 
   useEffect(() => {
     fetchUserInfo();
@@ -39,6 +39,7 @@ const PenaltyPage = () => {
         groupName: group.name,
         deadline: group.end_date?.split('T')[0] || '',
         isCertified: Math.random() > 0.5,
+        thumbnailUrl: group.thumbnailUrl,
       }))
     );
     setPenalties(examplePenalties);
