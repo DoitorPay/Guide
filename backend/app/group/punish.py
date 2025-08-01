@@ -41,6 +41,8 @@ class PunishSelect(Resource):
     @ns_group.expect(parser)
     @ns_group.response(200, '성공: 선택된 벌칙 문자열')
     def get(self):
+        user_info = session.get('user_data')
+
         gid = parser.parse_args().get('id')
         if not gid:
             return "요청한 그룹을 찾을 수 없습니다", 404
@@ -52,4 +54,10 @@ class PunishSelect(Resource):
             """, gid=gid)
             punish = list(dict(results.single()['g'])['punish'])
             punish_selected = random.choice(punish)
+
+            neo_session.run("""
+                MATCH(p:Person {id:$id, sns:$sns})
+                SET p.punish = COALESCE(p.punish, []) + $punish
+            """, id=user_info['id'], sns=user_info['sns'], punish=punish_selected)
+
             return punish_selected
