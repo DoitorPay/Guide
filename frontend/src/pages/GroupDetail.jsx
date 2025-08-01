@@ -12,7 +12,6 @@ const GroupDetail = () => {
   const [activeTab, setActiveTab] = useState("활동");
   const [groupData, setGroupData] = useState(null);
 
-  // 예시용 내 정보, 추후 로그인 정보와 연동
   const myInfo = {
     name: "가나",
     progress: 32,
@@ -50,7 +49,7 @@ const GroupDetail = () => {
   useEffect(() => {
     const fetchGroupData = async () => {
       try {
-        const res = await axios.get("http://127.0.0.1:8000/group?id=1");
+        const res = await axios.get("http://localhost:8000/group?id=1");
         const data = res.data[0];
         setGroupData({
           title: data.name,
