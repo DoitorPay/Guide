@@ -34,7 +34,7 @@ class Create(Resource):
                     n.conf_date = $conf_date,
                     n.gid = $gid,
                     n.duration = $duration,
-                    n.time_created = datetime(),
+                    n.time_created = toString(datetime()),
                     n.end_date = $end_date""",
                 name=info['name'], description=info['description'], topic=info['topic'],
                 num_goals=info['num_goals'], conf_date=info['conf_date'],duration=info['duration'],gid=gid,
