@@ -9,6 +9,7 @@ app/auth/UserForm.py
 app/auth/__init__.py
 app/group/__init__.py
 app/group/create.py
+app/group/punish.py
 app/user/UserInterest.py
 app/user/__init__.py
 app/user/level.py
