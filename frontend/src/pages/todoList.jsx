@@ -4,12 +4,14 @@ import WeekCalendar from '@/components/calendar/WeekCalendar';
 import SubTitle from '@/components/subtitle/SubTitle';
 import TodoList from '@/components/todo/todoList';
 import PanaltyNoti from '@/components/panalty/panaltyNoti';
+import { format } from 'date-fns';
 
 const TodoListPage = () => {
-    const [selectedDate, setSelectedDate] = useState(new Date().toISOString().slice(0, 10));
+    const [selectedDate, setSelectedDate] = useState(format(new Date(), 'yyyy-MM-dd'));
+    const [completedDates, setCompletedDates] = useState({});
 
     const handleDateSelect = (date) => {
-        setSelectedDate(date);
+        setSelectedDate(format(new Date(date), 'yyyy-MM-dd'));
     };
 
     return (
@@ -20,11 +22,11 @@ const TodoListPage = () => {
                 icon1: "notifications",
             }}
         >
-            <WeekCalendar type="todolist" onDateSelect={handleDateSelect} />
+            <WeekCalendar type="todolist" onDateSelect={handleDateSelect} completedDates={completedDates} selectedDate={selectedDate} />
 
             <div>
                 <SubTitle title="오늘의 목표" type="date" date={selectedDate} />
-                <TodoList type="page-todolist" selectedDate={selectedDate} />
+                <TodoList type="page-todolist" selectedDate={selectedDate} onAllTodosChange={setCompletedDates} />
             </div>
 
             <div>

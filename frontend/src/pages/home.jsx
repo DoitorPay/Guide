@@ -7,16 +7,11 @@ import GroupCard from "@/components/group/GroupCard";
 import WeekCalendar from "@/components/calendar/WeekCalendar";
 import SubTitle from '@/components/subtitle/subTitle';
 import { useNavigate } from 'react-router-dom';
+import { format } from 'date-fns';
 
 const MainPage = () => {
   const navigate = useNavigate();
-  const [totalGoals, setTotalGoals] = React.useState(0);
-  const [completedGoals, setCompletedGoals] = React.useState(0);
-
-  const handleTodoProgressChange = (total, completed) => {
-    setTotalGoals(total);
-    setCompletedGoals(completed);
-  };
+  const [completedDates, setCompletedDates] = React.useState({});
 
   return (
     <MainLayout
@@ -29,7 +24,7 @@ const MainPage = () => {
         <ProgressCard/>
         <div>
             <SubTitle title="투두리스트" type="link" link="/todolist" />
-            <TodoList type='home' selectedDate={new Date().toISOString().slice(0, 10)} onTodoProgressChange={handleTodoProgressChange}/>
+            <TodoList type='home' selectedDate={format(new Date(), 'yyyy-MM-dd')} onAllTodosChange={setCompletedDates}/>
         </div>
         <div onClick={() => navigate('/group')} style={{cursor: 'pointer'}}>
             <SubTitle title="그룹"/>
@@ -37,7 +32,7 @@ const MainPage = () => {
         </div>
         <div>
             <SubTitle title="주간 진행 상태" type="desc" desc="7일 연속 불타는 중🔥(상황에 따라 다른 말) " />
-            <WeekCalendar type="default" isTodayGoalCompleted={totalGoals > 0 && totalGoals === completedGoals} />
+            <WeekCalendar type="default" completedDates={completedDates} />
         </div>
     </MainLayout>
   );
