@@ -1,6 +1,10 @@
 import { create } from 'zustand';
 import axios from 'axios';
 
+// 여기는 group search store
+// 이 스토어는 db 전체 group 데이터를 가져와서 검색할 수 있게 할 예정
+
+
 export const useGroupStore = create((set) => ({
   groups: [],
   fetchGroupsForUser: async (userId) => {

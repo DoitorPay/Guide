@@ -14,6 +14,32 @@ const Profile = () => {
     const navigate = useNavigate(); // useNavigate 훅 추가
 
     const [nickname, setNickname] = useState("");
+    const [quote, setQuote] = useState('');
+
+    const putModify = async() => {
+        const modifiedData = {
+            nickname: nickname,
+            quote: quote,
+        }
+        console.log("----- PUT 데이터 -----");
+        console.log(JSON.stringify(modifiedData, null, 2));
+        console.log("-------------------");
+        try {
+            const response = await fetch("http://localhost:8000/user/change-info", {
+                method: 'PUT',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({modifiedData})
+            });
+            if(!response.ok) {
+                throw new Error(`오류!: ${response.status}`);
+            }
+            
+        } catch (error) {
+            console.error('수정사항 저장 실패:', error);
+            alert('수정사항 저장 중 오류가 발생했습니다.');
+        }
+    };
+
     useEffect(() => {
         const fetchNickname = async () => {
         try {
@@ -51,17 +77,14 @@ const Profile = () => {
     };
 
     const handleTopicSelectClick = () => {
-        navigate('/studytopic');
+        navigate('/profile-topic');
     };
 
     const handleGoBack = () => {
         navigate(-1);
     };
 
-
-    
     // 상태메시지 불러오기
-    const [quote, setQuote] = useState('');
     useEffect(() => {
         const fetchQuote = async() => {
             try {
@@ -84,6 +107,8 @@ const Profile = () => {
 
         fetchQuote();
     }, []);
+
+
 
     return (
         <SignupLayout
@@ -126,10 +151,11 @@ const Profile = () => {
                 <div className="message-warp">
                     <Input
                         label="상태메시지"
-                        name="nickname"
-                        maxLength={10}
+                        name="quote"
+                        maxLength={20}
                         placeholder="상태메시지를 입력해주세요."
                         value={quote}
+                        onChange={(e) => setQuote(e.target.value)}
                     />
                 </div>
 
@@ -145,6 +171,7 @@ const Profile = () => {
                 <Button
                     type="primary"
                     buttonName="수정사항 저장하기"
+                    onClick={putModify}
                 />
             </div>
         </div>

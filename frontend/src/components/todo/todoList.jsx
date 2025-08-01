@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import Checkbox from '@/components/input/checkBox';
 import MoreOption from '@/components/popupModal/moreOption';
 
-const TodoList = ({ type, selectedDate }) => {
+const TodoList = ({ type, selectedDate, onTodoProgressChange }) => {
     // 투두 목록 상태
     const [todoItems, setTodoItems] = useState([]);
     const [groupTodos, setGroupTodos] = useState([
@@ -39,7 +39,8 @@ const TodoList = ({ type, selectedDate }) => {
             console.log("-------------------");
             if (data && data.todo && Array.isArray(data.todo)) {
                 const formattedTodos = data.todo.map((item) => {
-                    const itemDate = new Date(item.exec_date).toISOString().slice(0, 10);
+                    // const itemDate = new Date(item.exec_date).toISOString().slice(0, 10);
+                    const itemDate = item.exec_date ? new Date(item.exec_date).toISOString().slice(0, 10) : '';
                     // const selected = new Date(selectedDate);
                     return {
                         text: item.item,
@@ -50,14 +51,20 @@ const TodoList = ({ type, selectedDate }) => {
                     };
                 });
                 setTodoItems(formattedTodos);
+
+                if (onTodoProgressChange) {
+                    const todayTodos = formattedTodos.filter(item => item.isCurrentDate === true);
+                    const completedTodayTodos = todayTodos.filter(item => item.completed).length;
+                    onTodoProgressChange(todayTodos.length, completedTodayTodos);
+                }
             } else {
-                setTodoItems([]); // 유효하지 않은 데이터 형식일 경우 빈 배열로.
+                setTodoItems([]);
             }
         } catch (error) {
             console.error('네트워크 에러 또는 서버 응답 문제:', error);
             // alert('서버와 통신 중 오류가 발생했습니다. 네트워크 연결을 확인해주세요.');
         }
-    }, [selectedDate]);
+    }, [selectedDate, onTodoProgressChange]);
 
     // 체크박스 변경 핸들러
     const handleCheckboxChange = useCallback(async (item, checked) => {
@@ -69,6 +76,12 @@ const TodoList = ({ type, selectedDate }) => {
             todo.id === item.id ? { ...todo, completed: checked } : todo
         );
         setTodoItems(updatedItems);
+
+        if (onTodoProgressChange) {
+            const todayTodos = updatedItems.filter(todo => todo.isCurrentDate === true);
+            const completedTodayTodos = todayTodos.filter(todo => todo.completed).length;
+            onTodoProgressChange(todayTodos.length, completedTodayTodos);
+        }
 
         try {
             const updatedTodoData = {
@@ -101,7 +114,7 @@ const TodoList = ({ type, selectedDate }) => {
             console.error('네트워크 에러 또는 서버 응답 문제:', error);
             alert('서버와 통신 중 오류가 발생했습니다. 네트워크 연결을 확인해주세요.');
         }
-    }, [todoItems]); // todoItems가 변경될 때마다 함수를 새로 생성
+    }, [todoItems, onTodoProgressChange]); // todoItems가 변경될 때마다 함수를 새로 생성
 
     useEffect(() => {
         fetchTodos();

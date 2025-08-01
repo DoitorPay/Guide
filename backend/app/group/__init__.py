@@ -42,5 +42,4 @@ class Group(Resource):
                             return p, r, g
                         """, gid=gid)
             response["members"] = [dict(record['p']) for record in results]
-
             return jsonify(response)

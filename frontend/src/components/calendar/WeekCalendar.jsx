@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   startOfWeek,
   addDays,
@@ -13,7 +13,7 @@ import checkIconToday from "/icons/done-white.svg";
 import leftArrow from "/icons/arrow-left.svg";
 import rightArrow from "/icons/arrow-right.svg";
 
-const generateWeekDates = (baseDate, type = 'default') => {
+const generateWeekDates = (baseDate, isTodayGoalCompleted = false) => {
     const weekStart = startOfWeek(baseDate, { weekStartsOn: 1 });
     const result = [];
   
@@ -27,7 +27,7 @@ const generateWeekDates = (baseDate, type = 'default') => {
         date: format(date, 'd'),
         fullDate,
         isToday: today,
-        isChecked: type === 'todolist' && today,
+        isChecked: today && isTodayGoalCompleted, // 오늘의 목표와 달성한 목표 값이 같을 때만 오늘 날짜 체크
       });
     }
   
@@ -35,37 +35,37 @@ const generateWeekDates = (baseDate, type = 'default') => {
   };
   
 
-const WeekCalendar = ({ type = 'default', onDateSelect }) => {
+const WeekCalendar = ({ type = 'default', onDateSelect, isTodayGoalCompleted = false }) => {
   const [currentDate, setCurrentDate] = useState(new Date());
-  const [days, setDays] = useState(generateWeekDates(new Date(), type));
+  const [days, setDays] = useState([]); // 초기 상태 빈 배열로 설정
+
+  useEffect(() => {
+    setDays(generateWeekDates(currentDate, isTodayGoalCompleted));
+  }, [currentDate, type, isTodayGoalCompleted]);
 
   const goPrevWeek = () => {
     const newDate = subWeeks(currentDate, 1);
     setCurrentDate(newDate);
-    setDays(generateWeekDates(newDate, type));
   };
 
   const goNextWeek = () => {
     const newDate = addWeeks(currentDate, 1);
     setCurrentDate(newDate);
-    setDays(generateWeekDates(newDate, type));
   };
 
   const toggleCheck = (targetDate) => {
-    setDays((prev) =>
-      prev.map((day) => {
-        if (type === 'todolist') {
-          return {
-            ...day,
-            isChecked: day.fullDate === targetDate,
-          };
-        } else {
-          return day.fullDate === targetDate
-            ? { ...day, isChecked: !day.isChecked }
-            : day;
-        }
-      })
-    );
+    if (type === 'todolist') {
+      setDays((prev) =>
+        prev.map((day) => ({
+          ...day,
+          isChecked: day.fullDate === targetDate,
+        }))
+      );
+    } else {
+      // type이 'default'일 경우, isChecked 상태를 직접 변경하지 않음
+      // 오늘 날짜의 체크 상태는 isTodayGoalCompleted prop에 의해 제어됨
+    }
+
     if (onDateSelect) {
       onDateSelect(new Date(targetDate).toISOString().slice(0, 10));
     }

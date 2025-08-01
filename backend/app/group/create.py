@@ -1,4 +1,5 @@
 import uuid
+from tkinter.scrolledtext import example
 
 from flask_restx import Resource, fields
 from flask import request, session
@@ -14,6 +15,7 @@ group_model = ns_group.model('group creation form', {
     'conf_date': fields.String,
     'duration': fields.Integer,
     'end_date': fields.DateTime ,
+    'punish': fields.List(fields.String, example=['엉덩이맞기', '머리를 뜨극뜨극 밀기'])
 })
 
 @ns_group.route('/create')
@@ -34,11 +36,12 @@ class Create(Resource):
                     n.conf_date = $conf_date,
                     n.gid = $gid,
                     n.duration = $duration,
-                    n.time_created = datetime(),
-                    n.end_date = $end_date""",
+                    n.time_created = toString(datetime()),
+                    n.end_date = $end_date,
+                    n.punish = $punish""",
                 name=info['name'], description=info['description'], topic=info['topic'],
                 num_goals=info['num_goals'], conf_date=info['conf_date'],duration=info['duration'],gid=gid,
-                end_date=info['end_date']
+                end_date=info['end_date'], punish=info['punish']
             )
 
             user_info = session['user_info']
