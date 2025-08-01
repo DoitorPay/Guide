@@ -48,7 +48,12 @@ const LayoutWithHeader = ({ children }) => {
                      location.pathname.startsWith("/help") ||
                      location.pathname.startsWith("/terms") ||
                      location.pathname.startsWith("/privacy") ||
-                     location.pathname.startsWith("/penaltyupload");
+                     location.pathname.startsWith("/penaltyupload")||
+                     location.pathname.startsWith("/penalty-select") ||
+                      location.pathname.startsWith("/profile-topic") ||
+                      location.pathname.startsWith("/study-topic") ||
+                      location.pathname.startsWith("/my-topic") ||
+                      location.pathname.startsWith("/group-select") ;
 
   return (
     <>
@@ -95,6 +100,7 @@ const Router = () => {
           <Route path="/my-topic" element={<TopicSelect mode="signup" />} />
           <Route path="/profile-topic" element={<TopicSelect mode="profile" />} />
           <Route path="/penalty-select" element={<TopicSelect mode="penalty-topic" />} />
+          <Route path="/group-select" element={<TopicSelect mode="group-topic" />} />
 
           {/* 얘네 주석 해제하세요 */}
           <Route path="/groupdetailguide" element={<GroupDetail />} />

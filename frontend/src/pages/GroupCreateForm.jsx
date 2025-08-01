@@ -29,39 +29,41 @@ const GroupCreateForm = () => {
   });
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    const payload = {
-      name: formData.groupName,
-      description: formData.groupDescription,
-      topic: formData.studyTopic,
-      num_goals: Number(formData.missionCount),
-      conf_date: formData.missionDay,
-      duration: isChecked ? 0 : formData.duration_weeks,
-      end_date: isChecked ? null : formData.end_date,
-      punish: [formData.penaltyTopic],
-      thumbnail: formData.thumbnail,
-    };
-
-    try {
-      const res = await fetch('http://localhost:8000/group/create', {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include',
-        body: JSON.stringify(payload),
-      });
-
-      if (!res.ok) throw new Error('그룹 생성 실패');
-
-      alert('그룹이 성공적으로 생성되었습니다!');
-      navigate('/group');
-    } catch (error) {
-      console.error('그룹 생성 오류:', error);
-      alert('그룹 생성 중 오류가 발생했습니다.');
-    }
+  const payload = {
+    name: formData.groupName,
+    description: formData.groupDescription,
+    num_goals: Number(formData.missionCount),
+    conf_date: formData.missionDay,
+    duration: isChecked ? 0 : formData.duration_weeks,
+    end_date: isChecked ? null : formData.end_date,
+    punish: [], 
+    thumbnail: formData.thumbnail,
   };
+
+  console.log('최종 전송 payload:', payload); 
+
+  try {
+    const res = await fetch('http://localhost:8000/group/create', {
+      method: 'POST', 
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      body: JSON.stringify(payload),
+    });
+
+    if (!res.ok) throw new Error('그룹 생성 실패');
+
+    alert('그룹이 성공적으로 생성되었습니다!');
+    navigate('/group');
+  } catch (error) {
+    console.error('그룹 생성 오류:', error);
+    alert('그룹 생성 중 오류가 발생했습니다.');
+  }
+};
+
 
   const handleImageUpload = async (file) => {
     const form = new FormData();
@@ -72,7 +74,7 @@ const GroupCreateForm = () => {
         method: 'POST',
         body: form,
       });
-      const text = await res.text(); // 서버에서 link만 내려주는 경우
+      const text = await res.text(); 
       setFormData((prev) => ({ ...prev, thumbnail: text }));
     } catch (error) {
       console.error('썸네일 업로드 실패:', error);
@@ -131,7 +133,7 @@ const GroupCreateForm = () => {
             label="스터디 주제"
             name="studyTopic"
             value={formData.studyTopic}
-            onClick={() => navigate('/study-topic')}
+            onClick={() => navigate('/group-select')}
           />
         </div>
 
@@ -140,7 +142,7 @@ const GroupCreateForm = () => {
             label="벌칙 주제"
             name="penaltyTopic"
             value={formData.penaltyTopic}
-            onClick={() => navigate('/penalty-topic')}
+            onClick={() => navigate('/penalty-select')}
           />
         </div>
 
