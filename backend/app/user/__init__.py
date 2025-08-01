@@ -76,3 +76,25 @@ class ParticipatingGroups(Resource):
             response['leader'] = [dict(record["g"]) for record in result]
 
             return jsonify(response)
+
+
+userInfoChangingModel = ns_user.model('유저 정보 수정 모델, 이미지는 별도 서버에서 처리', {
+    'nickname': fields.String,
+    'quote': fields.String,
+    'interest': fields.List(fields.String)
+})
+@ns_user.route('/change-info')
+class ChangeInfo(Resource):
+    @ns_user.expect(userInfoChangingModel)
+    def put(self):
+        info = request.get_json()
+        user_data = session['user_data']
+
+        with driver.session() as neo_session:
+            neo_session.run("""
+                MATCH(p:Person {sns:$sns, id:$id}) SET 
+                p.nickname = $nickname,
+                p.quote = $quote,
+                p.interest = $interest
+            """, sns=user_data['sns'], id = user_data['id'],
+            nickname = info['nickname'], quote = info['quote'], interest = info['interest'])
