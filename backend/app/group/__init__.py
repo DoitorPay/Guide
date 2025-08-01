@@ -26,25 +26,46 @@ group_model = ns_group.model('Group', {
 @ns_group.route('')
 class Group(Resource):
     @ns_group.expect(parser)
-    @ns_group.marshal_with(group_model)
     def get(self):
         gid = parser.parse_args().get('id')
-        if not gid:
-            return "요청한 그룹을 찾을 수 없습니다", 404
 
-        with driver.session() as neo_session:
-            results = neo_session.run("""
-                MATCH (p:Person)-[r]->(g:Group {gid: $gid})
-                return p, r, g
-            """, gid=gid)
-            response = dict(results.single()['g'])
+        with driver.session() as session:
+            if gid:
+                # 개별 그룹 조회
+                results = session.run("""
+                    MATCH (p:Person)-[r]->(g:Group {gid: $gid})
+                    RETURN p, r, g
+                """, gid=gid)
 
-            results = neo_session.run("""
-                            MATCH (p:Person)-[r]->(g:Group {gid: $gid})
-                            return p, r, g
-                        """, gid=gid)
-            response["members"] = [dict(record['p']) for record in results]
-            return jsonify(response)
+                group = results.single()
+                if not group:
+                    return "요청한 그룹을 찾을 수 없습니다", 404
+
+                response = dict(group['g'])
+
+                results = session.run("""
+                    MATCH (p:Person)-[r]->(g:Group {gid: $gid})
+                    RETURN p
+                """, gid=gid)
+                response["members"] = [dict(record['p']) for record in results]
+                return jsonify(response)
+
+            else:
+                # gid 없으면 전체 그룹 반환
+                results = session.run("""
+                    MATCH (g:Group)
+                    OPTIONAL MATCH (p:Person)-[:Member|Leader]->(g)
+                    WITH g, collect(p) AS members
+                    RETURN g, members
+                """)
+
+                response = []
+                for record in results:
+                    group_data = dict(record["g"])
+                    group_data["members"] = [dict(m) for m in record["members"]]
+                    response.append(group_data)
+
+                return response
 
 delegateModel = ns_group.model('리더 위임 모델', {
     'new_leader': fields.String(description="새 리더의 닉네임")
