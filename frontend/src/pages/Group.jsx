@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useUserStore } from '@/stores/useUserStore';
-import { useGroupStore } from '@/stores/useGroupStore';
 import MainLayout from '@/pages/MainLayout';
 import SubTitle from '@/components/subtitle/subTitle';
 import GroupCardLarge from '@/components/group/GroupCardLarge';
 
 const Group = () => {
   const { userId, fetchUserInfo } = useUserStore();
-  const { groups, fetchGroupsForUser } = useGroupStore();
+  const [leaderGroups, setLeaderGroups] = useState([]);
+  const [memberGroups, setMemberGroups] = useState([]);
   const [showFinished, setShowFinished] = useState(false);
 
   useEffect(() => {
@@ -15,24 +15,54 @@ const Group = () => {
   }, []);
 
   useEffect(() => {
-    if (userId) {
-      fetchGroupsForUser(userId);
-    }
+    const fetchThumbnail = async (gid) => {
+      try {
+        const res = await fetch(`http://13.209.6.223:8080/`);
+        const link = await res.text(); 
+        return link || ''; 
+      } catch (err) {
+        console.error(`썸네일 요청 실패: ${gid}`, err);
+        return '';
+      }
+    };
+
+    const fetchGroups = async () => {
+      if (!userId) return;
+
+      try {
+        const res = await fetch('http://localhost:8000/user/group-participating', {
+          credentials: 'include',
+        });
+        const data = await res.json();
+        const now = new Date();
+
+        const markFinishedAndAddThumbnail = async (group) => {
+          const isFinished = new Date(group.end_date) < now;
+          const thumbnailUrl = await fetchThumbnail(group.gid);
+          return { ...group, isFinished, thumbnailUrl };
+        };
+
+        const leaderProcessed = await Promise.all(
+          (data.leader || []).map(markFinishedAndAddThumbnail)
+        );
+        const memberProcessed = await Promise.all(
+          (data.member || []).map(markFinishedAndAddThumbnail)
+        );
+
+        setLeaderGroups(leaderProcessed);
+        setMemberGroups(memberProcessed);
+      } catch (err) {
+        console.error('그룹 정보 불러오기 실패:', err);
+      }
+    };
+
+    fetchGroups();
   }, [userId]);
 
-  const now = new Date();
-
-  const isGroupFinished = (group) => new Date(group.end_date) < now;
-
-  const ongoingGroups = groups.filter(
-    (group) => group.leader_id === userId && !isGroupFinished(group)
-  );
-
-  const participatingGroups = groups.filter(
-    (group) => group.leader_id !== userId && !isGroupFinished(group)
-  );
-
-  const finishedGroups = groups.filter((group) => isGroupFinished(group));
+  const formatDate = (dateStr) => {
+    const date = new Date(dateStr);
+    return `${date.getMonth() + 1}월 ${date.getDate()}일`;
+  };
 
   return (
     <MainLayout
@@ -41,18 +71,19 @@ const Group = () => {
       showFab={true}
     >
       <div>
-        <SubTitle title={`운영 중인 그룹 (${ongoingGroups.length})`} />
-        {ongoingGroups.map((group) => (
+        {/* 운영 중인 그룹 */}
+        <SubTitle title={`운영 중인 그룹 (${leaderGroups.filter(g => !g.isFinished).length})`} />
+        {leaderGroups.filter(g => !g.isFinished).map((group) => (
           <GroupCardLarge
             key={group.gid}
             title={group.name}
             category={group.category}
             period={`${group.time_created?.split('T')[0]} ~ ${group.end_date?.split('T')[0]}`}
-            thumbnailUrl="https://picsum.photos/400/400"
-            members={group.members?.length || 0}
+            thumbnailUrl={group.thumbnailUrl}
+            members={group.member_count || 0}
             progress={50}
-            dueDate={group.end_date?.split('-').slice(1).join('월 ') + '일'}
-            avatarList={group.members?.slice(0, 3).map((m, idx) =>
+            dueDate={group.end_date ? formatDate(group.end_date) : ''}
+            avatarList={(group.members || []).slice(0, 3).map((m, idx) =>
               m.profile && m.profile !== ' '
                 ? m.profile
                 : `https://i.pravatar.cc/24?img=${idx + 1}`
@@ -60,18 +91,19 @@ const Group = () => {
           />
         ))}
 
-        <SubTitle title={`참여 중인 그룹 (${participatingGroups.length})`} />
-        {participatingGroups.map((group) => (
+        {/* 참여 중인 그룹 */}
+        <SubTitle title={`참여 중인 그룹 (${memberGroups.filter(g => !g.isFinished).length})`} />
+        {memberGroups.filter(g => !g.isFinished).map((group) => (
           <GroupCardLarge
             key={group.gid}
             title={group.name}
-            category={group.category}
-            period={`${group.time_created?.split('T')[0]} ~ ${group.end_date?.split('T')[0]}`}
-            thumbnailUrl="https://picsum.photos/400/400"
-            members={group.members?.length || 0}
+            category={group.category || ''}
+            period={`~ ${group.end_date?.split('T')[0]}`}
+            thumbnailUrl={group.thumbnailUrl}
+            members={group.member_count || 0}
             progress={50}
-            dueDate={group.end_date?.split('-').slice(1).join('월 ') + '일'}
-            avatarList={group.members?.slice(0, 3).map((m, idx) =>
+            dueDate={group.end_date ? formatDate(group.end_date) : ''}
+            avatarList={(group.members || []).slice(0, 3).map((m, idx) =>
               m.profile && m.profile !== ' '
                 ? m.profile
                 : `https://i.pravatar.cc/24?img=${idx + 4}`
@@ -79,26 +111,29 @@ const Group = () => {
           />
         ))}
 
+        {/* 종료된 그룹 */}
         {showFinished && (
           <>
-            <SubTitle title={`종료된 그룹 (${finishedGroups.length})`} />
-            {finishedGroups.map((group) => (
-              <GroupCardLarge
-                key={group.gid}
-                title={group.name}
-                category={group.category}
-                period={`${group.time_created?.split('T')[0]} ~ ${group.end_date?.split('T')[0]}`}
-                thumbnailUrl="https://picsum.photos/400/400"
-                members={group.members?.length || 0}
-                progress={100}
-                dueDate="종료됨"
-                avatarList={group.members?.slice(0, 3).map((m, idx) =>
-                  m.profile && m.profile !== ' '
-                    ? m.profile
-                    : `https://i.pravatar.cc/24?img=${idx + 7}`
-                )}
-              />
-            ))}
+            <SubTitle title={`종료된 그룹 (${[...leaderGroups, ...memberGroups].filter(g => g.isFinished).length})`} />
+            {[...leaderGroups, ...memberGroups]
+              .filter(g => g.isFinished)
+              .map((group, idx) => (
+                <GroupCardLarge
+                  key={group.gid}
+                  title={group.name}
+                  category={group.category || ''}
+                  period={`${group.time_created?.split('T')[0]} ~ ${group.end_date?.split('T')[0]}`}
+                  thumbnailUrl={group.thumbnailUrl}
+                  members={group.member_count || 0}
+                  progress={100}
+                  dueDate="종료됨"
+                  avatarList={(group.members || []).slice(0, 3).map((m, i) =>
+                    m.profile && m.profile !== ' '
+                      ? m.profile
+                      : `https://i.pravatar.cc/24?img=${i + 7}`
+                  )}
+                />
+              ))}
           </>
         )}
       </div>

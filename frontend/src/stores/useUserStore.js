@@ -10,14 +10,16 @@ export const useUserStore = create((set) => ({
   fetchUserInfo: async () => {
     set({ isLoading: true });
     try {
-      const res = await axios.get('http://localhost:8000/user/user_properties', { withCredentials: true });
+      const res = await axios.get('http://localhost:8000/user/user_properties', {
+        withCredentials: true,
+      });
 
-      console.log('백엔드 응답:', res.data);
+      const user = Array.isArray(res.data) ? res.data[0] : res.data;
 
       set({
-        userId: res.data.id,
-        profile: res.data.profile || '',
-        nickname: res.data.nickname || '',
+        userId: user?.id || null,
+        profile: user?.profile || '',
+        nickname: user?.nickname || '',
         isLoading: false,
       });
     } catch (err) {
