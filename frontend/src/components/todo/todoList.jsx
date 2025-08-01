@@ -51,7 +51,7 @@ const TodoList = ({ type, selectedDate }) => {
                 });
                 setTodoItems(formattedTodos);
             } else {
-                setTodoItems([]); // 유효하지 않은 데이터 형식일 경우 빈 배열로.
+                setTodoItems([]);
             }
         } catch (error) {
             console.error('네트워크 에러 또는 서버 응답 문제:', error);
