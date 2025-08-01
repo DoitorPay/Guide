@@ -94,6 +94,10 @@ const Router = () => {
           <Route path="/study-topic" element={<TopicSelect mode="study-topic" />} />
           <Route path="/my-topic" element={<TopicSelect mode="signup" />} />
           <Route path="/profile-topic" element={<TopicSelect mode="profile" />} />
+          <Route path="/topic-select" element={<TopicSelect mode="group-topic" />} />
+          <Route path="/study-topic" element={<TopicSelect mode="study-topic" />} />
+          <Route path="/my-topic" element={<TopicSelect mode="signup" />} />
+          <Route path="/profile-topic" element={<TopicSelect mode="profile" />} />
           <Route path="/penalty-select" element={<TopicSelect mode="penalty-topic" />} />
 
           {/* 얘네 주석 해제하세요 */}

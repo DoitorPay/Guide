@@ -46,13 +46,11 @@ const WeekCalendar = ({ type = 'default', onDateSelect, isTodayGoalCompleted = f
   const goPrevWeek = () => {
     const newDate = subWeeks(currentDate, 1);
     setCurrentDate(newDate);
-    // setDays는 useEffect에서 처리되므로 여기서는 제거
   };
 
   const goNextWeek = () => {
     const newDate = addWeeks(currentDate, 1);
     setCurrentDate(newDate);
-    // setDays는 useEffect에서 처리되므로 여기서는 제거
   };
 
   const toggleCheck = (targetDate) => {
