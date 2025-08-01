@@ -1,3 +1,5 @@
+from urllib import request
+
 from flask import jsonify
 from flask_restx import Namespace, Resource, reqparse, fields
 
@@ -43,3 +45,25 @@ class Group(Resource):
                         """, gid=gid)
             response["members"] = [dict(record['p']) for record in results]
             return jsonify(response)
+
+delegateModel = ns_group.model('리더 위임 모델', {
+    'new_leader': fields.String(description="새 리더의 닉네임")
+})
+
+@ns_group.route('/delegate-leader')
+class DelegateLeader(Resource):
+    @ns_group.expect(parser, delegateModel)
+    def update(self):
+        gid = parser.parse_args().get('id')
+        new_leader = request.get_json()['new_leader']
+        user_info = request.get_json()['user_data']
+
+        with driver.session() as neo_session:
+            neo_session.run("""
+                MATCH (p:Person {id:$id, sns:$sns})-[leader]->(g:Group {gid: $gid})
+                MATCH (new_leader: Person {nickname: $new_leader})-[member]->(g:Group {gid: $gid})
+                DELETE leader, member
+                CREATE (p)-[r:Member]->(g)
+                CREATE (p)-[r:Leader]->(new_leader)
+            """, id=user_info['id'], sns=user_info['sns'], gid=gid,
+            new_leader=new_leader)
