@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import Checkbox from '@/components/input/checkBox';
 import MoreOption from '@/components/popupModal/moreOption';
 
-const TodoList = ({ type, selectedDate, onTodoProgressChange }) => {
+const TodoList = ({ type, selectedDate, onTodoProgressChange, onAllTodosChange }) => {
     // 투두 목록 상태
     const [todoItems, setTodoItems] = useState([]);
     const [groupTodos, setGroupTodos] = useState([
@@ -57,6 +57,23 @@ const TodoList = ({ type, selectedDate, onTodoProgressChange }) => {
                     const completedTodayTodos = todayTodos.filter(item => item.completed).length;
                     onTodoProgressChange(todayTodos.length, completedTodayTodos);
                 }
+                if (onAllTodosChange) {
+                    const datesCompletion = {};
+                    formattedTodos.forEach(item => {
+                        if (!datesCompletion[item.exec_date]) {
+                            datesCompletion[item.exec_date] = { total: 0, completed: 0 };
+                        }
+                        datesCompletion[item.exec_date].total++;
+                        if (item.completed) {
+                            datesCompletion[item.exec_date].completed++;
+                        }
+                    });
+                    const completedDates = {};
+                    for (const date in datesCompletion) {
+                        completedDates[date] = datesCompletion[date].total > 0 && datesCompletion[date].total === datesCompletion[date].completed;
+                    }
+                    onAllTodosChange(completedDates);
+                }
             } else {
                 setTodoItems([]);
             }
@@ -64,7 +81,7 @@ const TodoList = ({ type, selectedDate, onTodoProgressChange }) => {
             console.error('네트워크 에러 또는 서버 응답 문제:', error);
             // alert('서버와 통신 중 오류가 발생했습니다. 네트워크 연결을 확인해주세요.');
         }
-    }, [selectedDate, onTodoProgressChange]);
+    }, [selectedDate, onTodoProgressChange, onAllTodosChange]);
 
     // 체크박스 변경 핸들러
     const handleCheckboxChange = useCallback(async (item, checked) => {
@@ -83,6 +100,25 @@ const TodoList = ({ type, selectedDate, onTodoProgressChange }) => {
             onTodoProgressChange(todayTodos.length, completedTodayTodos);
         }
 
+        // onAllTodosChange를 통해 전체 투두의 완료 상태를 업데이트합니다.
+        if (onAllTodosChange) {
+            const datesCompletion = {};
+            updatedItems.forEach(item => {
+                if (!datesCompletion[item.exec_date]) {
+                    datesCompletion[item.exec_date] = { total: 0, completed: 0 };
+                }
+                datesCompletion[item.exec_date].total++;
+                if (item.completed) {
+                    datesCompletion[item.exec_date].completed++;
+                }
+            });
+            const completedDates = {};
+            for (const date in datesCompletion) {
+                completedDates[date] = datesCompletion[date].total > 0 && datesCompletion[date].total === datesCompletion[date].completed;
+            }
+            onAllTodosChange(completedDates);
+        }
+
         try {
             const updatedTodoData = {
                 id: item.id,
@@ -98,7 +134,7 @@ const TodoList = ({ type, selectedDate, onTodoProgressChange }) => {
             });
 
             if (!response.ok) {
-                // API 호출 실패 시 UI 롤백 (선택 사항)
+                // API 호출 실패 시 UI 롤백
                 setTodoItems(todoItems); // 원상 복구
                 const errorData = await response.json();
                 console.error('투두 완료 상태 업데이트 에러:', errorData);
@@ -109,12 +145,12 @@ const TodoList = ({ type, selectedDate, onTodoProgressChange }) => {
             console.log('----- 투두 완료 상태 업데이트 성공 -----');
 
         } catch (error) {
-            // 네트워크 에러 시 UI 롤백 (선택 사항)
+            // 네트워크 에러 시 UI 롤백
             setTodoItems(todoItems); // 원상 복구
             console.error('네트워크 에러 또는 서버 응답 문제:', error);
             alert('서버와 통신 중 오류가 발생했습니다. 네트워크 연결을 확인해주세요.');
         }
-    }, [todoItems, onTodoProgressChange]); // todoItems가 변경될 때마다 함수를 새로 생성
+    }, [todoItems, onTodoProgressChange]);
 
     useEffect(() => {
         fetchTodos();
@@ -245,7 +281,7 @@ const TodoList = ({ type, selectedDate, onTodoProgressChange }) => {
                     if (!response.ok) {
                         throw new Error('투두 수정 실패');
                     }
-                    return response.json(); // 응답이 JSON이 아닐 경우 대비
+                    return response.json();
                 })
                 .then(() => {
                     fetchTodos(); // 수정 후 목록 새로고침
@@ -361,7 +397,7 @@ const TodoList = ({ type, selectedDate, onTodoProgressChange }) => {
                 }
 
                 {
-                    (type === 'home' && todoItems.length > 0) && (
+                    (type === 'home' && todoItems.filter(item => item.isCurrentDate === true).length > 0) && (
                         <p className="day-goal">
                             오늘의 목표 ({todoItems.filter(item => item.isCurrentDate === true && item.completed).length}/{todoItems.filter(item => item.isCurrentDate === true).length})
                         </p>
@@ -573,8 +609,4 @@ const TodoList = ({ type, selectedDate, onTodoProgressChange }) => {
         </div>
     )
 }
-
-
-
-
 export default TodoList;

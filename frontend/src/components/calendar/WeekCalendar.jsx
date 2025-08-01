@@ -13,7 +13,7 @@ import checkIconToday from "/icons/done-white.svg";
 import leftArrow from "/icons/arrow-left.svg";
 import rightArrow from "/icons/arrow-right.svg";
 
-const generateWeekDates = (baseDate, isTodayGoalCompleted = false) => {
+const generateWeekDates = (baseDate, completedDates = {}, selectedDateForTodolist = null) => {
     const weekStart = startOfWeek(baseDate, { weekStartsOn: 1 });
     const result = [];
   
@@ -27,7 +27,8 @@ const generateWeekDates = (baseDate, isTodayGoalCompleted = false) => {
         date: format(date, 'd'),
         fullDate,
         isToday: today,
-        isChecked: today && isTodayGoalCompleted, // 오늘의 목표와 달성한 목표 값이 같을 때만 오늘 날짜 체크
+        // todolist 타입에서는 selectedDateForTodolist가 우선, 아니면 completedDates
+        isChecked: selectedDateForTodolist ? (fullDate === selectedDateForTodolist) : (completedDates[fullDate] || false),
       });
     }
   
@@ -35,13 +36,14 @@ const generateWeekDates = (baseDate, isTodayGoalCompleted = false) => {
   };
   
 
-const WeekCalendar = ({ type = 'default', onDateSelect, isTodayGoalCompleted = false }) => {
+const WeekCalendar = ({ type = 'default', onDateSelect, completedDates = {}, selectedDate }) => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [days, setDays] = useState([]); // 초기 상태 빈 배열로 설정
 
   useEffect(() => {
-    setDays(generateWeekDates(currentDate, isTodayGoalCompleted));
-  }, [currentDate, type, isTodayGoalCompleted]);
+    // todolist 타입일 때는 selectedDate를 generateWeekDates에 전달
+    setDays(generateWeekDates(currentDate, completedDates, type === 'todolist' ? selectedDate : null)); 
+  }, [currentDate, type, completedDates, selectedDate]);
 
   const goPrevWeek = () => {
     const newDate = subWeeks(currentDate, 1);
@@ -55,6 +57,7 @@ const WeekCalendar = ({ type = 'default', onDateSelect, isTodayGoalCompleted = f
 
   const toggleCheck = (targetDate) => {
     if (type === 'todolist') {
+      // todolist 타입에서는 클릭된 날짜를 선택된 것으로 표시
       setDays((prev) =>
         prev.map((day) => ({
           ...day,
@@ -62,12 +65,11 @@ const WeekCalendar = ({ type = 'default', onDateSelect, isTodayGoalCompleted = f
         }))
       );
     } else {
-      // type이 'default'일 경우, isChecked 상태를 직접 변경하지 않음
-      // 오늘 날짜의 체크 상태는 isTodayGoalCompleted prop에 의해 제어됨
+      // default 타입에서는 completedDates prop에 의해 제어됨 (여기서는 변경하지 않음)
     }
 
     if (onDateSelect) {
-      onDateSelect(new Date(targetDate).toISOString().slice(0, 10));
+      onDateSelect(targetDate);
     }
   };
   
@@ -96,7 +98,7 @@ const WeekCalendar = ({ type = 'default', onDateSelect, isTodayGoalCompleted = f
             const isAnotherChecked =
                 type === 'todolist' &&
                 day.isToday &&
-                days.some((d) => !d.isToday && d.isChecked);
+                days.some((d) => !d.isToday && d.isChecked); // todolist 타입에서 오늘이 아닌 다른 날짜가 선택되었을 때
 
             const checkImage = day.isToday && day.isChecked ? checkIconToday : checkIcon;
 
