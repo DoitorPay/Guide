@@ -48,54 +48,50 @@ const TopicSelect = ({ mode }) => {
   selectedTopics.length >= 3;
 
 
-  // 'study-topic' 모드일 때 사용자 주제를 가져오는 useEffect 훅 추가
+  // 기존 리스트 불러오기
   useEffect(() => {
     const fetchUserTopics = async () => {
-      if (mode === 'study-topic') {
         try {
-          const response = await fetch('http://localhost:8000/user/topics');
+          const response = await fetch('http://localhost:8000/user/topics', {
+            credentials: "include",
+          });
           if (!response.ok) {
             throw new Error('Failed to fetch user topics');
           }
           const data = await response.json();
-          if (data && data.topics && Array.isArray(data.topics)) {
-            setSelectedTopics(data.topics);
+          console.log('GET 요청 데이터:', data);
+          if (data && Array.isArray(data) && data.length > 0 && Array.isArray(data[0])) {
+            console.log(data.topics)
+            console.log('설정될 토픽:', data[0]);
+            setSelectedTopics(data[0]);
           }
         } catch (error) {
-          console.error('Error fetching user topics:', error);
+          console.error('주제 불러오기 실패:', error);
         }
-      }
     };
 
     fetchUserTopics();
-  }, [mode]);
+  }, []);
+
+  
 
   const handleSubmit = async () => {
 
     if (!isValid) return alert('주제를 1개 이상 선택해주세요.');
 
-    let method = 'POST';
-    let endpoint = '/user/topics';
+    const endpoint =
+      mode === 'signup' ? '/user/topics' :
+      mode === 'penalty-topic' ? '/penalty/topics' :
+      '/user/topics';
 
-    if (mode === 'signup') {
-      endpoint = '/user/topics';
-      method = 'POST';
-    } else if (mode === 'penalty-topic') {
-      endpoint = '/penalty/topics';
-      method = 'POST';
-    } else if (mode === 'profile' || mode === 'study-topic') { // 'profile' 또는 'study-topic' 모드일 때 PUT 요청
-      endpoint = '/user/topics';
-      method = 'POST'; // PUT을 POST로 변경
-    }
-
-    try {
+     try {
       const res = await fetch(`http://localhost:8000${endpoint}`, {
-        method: method,
+        method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ topics: selectedTopics })
       });
 
-      if (!res.ok) throw new Error();
+      if(!res.ok) throw new Error();
       const data = await res.json();
       console.log('성공:', data);
     } catch (e) {
@@ -104,6 +100,8 @@ const TopicSelect = ({ mode }) => {
     }
   };
 
+
+  
   return (
     <SignupLayout
       headerProps={{
@@ -115,7 +113,7 @@ const TopicSelect = ({ mode }) => {
       <div className="study-topic-wrapper">
         <div className="study-topic-body">
           <SubTitle title={subtitleText} desc="추후 변경 가능합니다." type='desc'/>
-          <TagList tags={TOPICS} onChange={setSelectedTopics} />
+          <TagList tags={TOPICS} onChange={setSelectedTopics} value={selectedTopics} />
         </div>
         <div className="study-topic-footer">
           <Button

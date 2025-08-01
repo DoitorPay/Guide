@@ -161,6 +161,7 @@ const Profile = () => {
 
                 <div className="topic-wrap">
                     <TopicSelect 
+                        mode="profile-topic"
                         onClick={handleTopicSelectClick}
                     />
                 </div>

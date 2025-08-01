@@ -1,7 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-const TagList = ({ tags = [], onChange }) => {
-  const [activeTags, setActiveTags] = useState([]);
+const TagList = ({ tags = [], onChange, value = [] }) => {
+  const [activeTags, setActiveTags] = useState(value);
+
+  useEffect(() => {
+    setActiveTags(value);
+  }, [value]);
 
   const toggleTag = (tag) => {
     const updatedTags = activeTags.includes(tag)
