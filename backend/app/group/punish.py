@@ -26,7 +26,6 @@ class PunishList(Resource):
             return "사용자 정보를 확인할 수 없습니다", 403
 
         punish_list = request.get_json()['punish_list']
-        print(punish_list)
 
         with driver.session() as neo_session:
             results = neo_session.run("""
