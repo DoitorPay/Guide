@@ -1,26 +1,20 @@
 import { create } from 'zustand';
 import axios from 'axios';
 
-const useGroupStore = create((set) => ({
-  groupData: null,
-  feeds: [],
-  members: [],
-  activeTab: '활동',
-  setActiveTab: (tab) => set({ activeTab: tab }),
+export const useGroupStore = create((set) => ({
+  groups: [],
+  fetchGroupsForUser: async (userId) => {
+    try {
+      const res = await axios.get('http://localhost:8000/group');
+      const allGroups = res.data;
 
-  fetchGroupData: async () => {
-    // API 엔드포인트 받아와야함
-    const res = await axios.get('/api/group/1');
-    set({ groupData: res.data });
+      const filteredGroups = allGroups.filter(group =>
+        group.members.some(member => member.id === userId)
+      );
+
+      set({ groups: filteredGroups });
+    } catch (err) {
+      console.error('그룹 데이터 불러오기 실패:', err);
+    }
   },
-  fetchFeeds: async () => {
-    const res = await axios.get('/api/group/1/feeds');
-    set({ feeds: res.data });
-  },
-  fetchMembers: async () => {
-    const res = await axios.get('/api/group/1/members');
-    set({ members: res.data });
-  }
 }));
-
-export default useGroupStore;
