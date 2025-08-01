@@ -39,7 +39,8 @@ const TodoList = ({ type, selectedDate }) => {
             console.log("-------------------");
             if (data && data.todo && Array.isArray(data.todo)) {
                 const formattedTodos = data.todo.map((item) => {
-                    const itemDate = new Date(item.exec_date).toISOString().slice(0, 10);
+                    // const itemDate = new Date(item.exec_date).toISOString().slice(0, 10);
+                    const itemDate = item.exec_date ? new Date(item.exec_date).toISOString().slice(0, 10) : '';
                     // const selected = new Date(selectedDate);
                     return {
                         text: item.item,
