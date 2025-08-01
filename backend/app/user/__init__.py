@@ -31,7 +31,6 @@ class NickName(Resource):
             result = neo_session.run("""
                 MATCH(n {sns: $sns, id: $id}) RETURN n.nickname
             """, sns = session['user_data']['sns'], id = session['user_data']['id'])
-            print(result)
             return jsonify({'profile': result.single()[0]})
 
 @ns_user.route('/profile_img')
@@ -87,14 +86,13 @@ userInfoChangingModel = ns_user.model('유저 정보 수정 모델, 이미지는
 class ChangeInfo(Resource):
     @ns_user.expect(userInfoChangingModel)
     def put(self):
-        info = request.get_json()
+        info = request.get_json()['modifiedData']
         user_data = session['user_data']
 
         with driver.session() as neo_session:
             neo_session.run("""
                 MATCH(p:Person {sns:$sns, id:$id}) SET 
                 p.nickname = $nickname,
-                p.quote = $quote,
-                p.interest = $interest
+                p.quote = $quote
             """, sns=user_data['sns'], id = user_data['id'],
-            nickname = info['nickname'], quote = info['quote'], interest = info['interest'])
+            nickname = info['nickname'], quote = info['quote'])
