@@ -1,68 +1,35 @@
 import React, { useEffect, useState } from 'react';
 import { useUserStore } from '@/stores/useUserStore';
+import { useUserGroupStore } from '@/stores/useUserGroupStore';
 import MainLayout from '@/pages/MainLayout';
 import SubTitle from '@/components/subtitle/subTitle';
 import GroupCardLarge from '@/components/group/GroupCardLarge';
 
 const Group = () => {
   const { userId, fetchUserInfo } = useUserStore();
-  const [leaderGroups, setLeaderGroups] = useState([]);
-  const [memberGroups, setMemberGroups] = useState([]);
+  const {
+    leaderGroups,
+    memberGroups,
+    fetchUserGroups,
+    isLoadingGroups
+  } = useUserGroupStore();
   const [showFinished, setShowFinished] = useState(false);
 
   useEffect(() => {
     fetchUserInfo();
+    setShowFinished(true);
   }, []);
 
   useEffect(() => {
-    const fetchThumbnail = async (gid) => {
-      try {
-        const res = await fetch(`http://13.209.6.223:8080/`);
-        const link = await res.text(); 
-        return link || ''; 
-      } catch (err) {
-        console.error(`썸네일 요청 실패: ${gid}`, err);
-        return '';
-      }
-    };
-
-    const fetchGroups = async () => {
-      if (!userId) return;
-
-      try {
-        const res = await fetch('http://localhost:8000/user/group-participating', {
-          credentials: 'include',
-        });
-        const data = await res.json();
-        const now = new Date();
-
-        const markFinishedAndAddThumbnail = async (group) => {
-          const isFinished = new Date(group.end_date) < now;
-          const thumbnailUrl = await fetchThumbnail(group.gid);
-          return { ...group, isFinished, thumbnailUrl };
-        };
-
-        const leaderProcessed = await Promise.all(
-          (data.leader || []).map(markFinishedAndAddThumbnail)
-        );
-        const memberProcessed = await Promise.all(
-          (data.member || []).map(markFinishedAndAddThumbnail)
-        );
-
-        setLeaderGroups(leaderProcessed);
-        setMemberGroups(memberProcessed);
-      } catch (err) {
-        console.error('그룹 정보 불러오기 실패:', err);
-      }
-    };
-
-    fetchGroups();
+    if (userId) fetchUserGroups(userId);
   }, [userId]);
 
   const formatDate = (dateStr) => {
     const date = new Date(dateStr);
     return `${date.getMonth() + 1}월 ${date.getDate()}일`;
   };
+
+  console.log('종료된 그룹 개수', [...leaderGroups, ...memberGroups].filter(g => g.isFinished).length);
 
   return (
     <MainLayout
@@ -71,7 +38,6 @@ const Group = () => {
       showFab={true}
     >
       <div>
-        {/* 운영 중인 그룹 */}
         <SubTitle title={`운영 중인 그룹 (${leaderGroups.filter(g => !g.isFinished).length})`} />
         {leaderGroups.filter(g => !g.isFinished).map((group) => (
           <GroupCardLarge
@@ -91,7 +57,6 @@ const Group = () => {
           />
         ))}
 
-        {/* 참여 중인 그룹 */}
         <SubTitle title={`참여 중인 그룹 (${memberGroups.filter(g => !g.isFinished).length})`} />
         {memberGroups.filter(g => !g.isFinished).map((group) => (
           <GroupCardLarge
@@ -111,7 +76,6 @@ const Group = () => {
           />
         ))}
 
-        {/* 종료된 그룹 */}
         {showFinished && (
           <>
             <SubTitle title={`종료된 그룹 (${[...leaderGroups, ...memberGroups].filter(g => g.isFinished).length})`} />
@@ -132,6 +96,7 @@ const Group = () => {
                       ? m.profile
                       : `https://i.pravatar.cc/24?img=${i + 7}`
                   )}
+                  isFinished={true}
                 />
               ))}
           </>

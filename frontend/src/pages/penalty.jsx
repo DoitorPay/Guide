@@ -1,5 +1,5 @@
-import React, { useState, useMemo } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import React, { useEffect, useState, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 import MainLayout from '@/pages/MainLayout';
 import SubTitle from '@/components/subtitle/subTitle';
 import Roulette from '@/components/roulette/roulette';
@@ -7,68 +7,52 @@ import HistoryCard from '@/components/card/HistoryCard';
 import MoreOption from '@/components/popupModal/moreOption';
 import MissionFeed from '@/components/Group/MissionFeed';
 import UserProfileRow from '@/components/Profile/UserProfileRow';
+import { useUserStore } from '@/stores/useUserStore';
+import { useUserGroupStore } from '@/stores/useUserGroupStore';
 
 const PenaltyPage = () => {
   const navigate = useNavigate();
-  const location = useLocation();
-  const state = location.state;
+  const { userId, fetchUserInfo } = useUserStore();
+  const {
+    activeGroups, // 종료되지 않은 그룹만
+    fetchUserGroups,
+  } = useUserGroupStore();
 
+  const [selectedGroupName, setSelectedGroupName] = useState(null);
   const [sortFilter, setSortFilter] = useState('전체');
   const [sortPopupOpen, setSortPopupOpen] = useState(false);
-  const [dummyData, setDummyData] = useState([
-    { title: '벌칙 A', groupName: '그룹 A', deadline: '2025.07.10', isCertified: false },
-    { title: '벌칙 B', groupName: '그룹 B', deadline: '2025.07.11', image: 'https://picsum.photos/300/300', isCertified: true },
-    { title: '벌칙 C', groupName: '그룹 C', deadline: '2025.07.12', isCertified: false },
-  ]);
-  const [selectedGroupId, setSelectedGroupId] = useState(null);
+  const [feeds, setFeeds] = useState([]); // 인증 피드
+  const [penalties, setPenalties] = useState([]); // 벌칙 히스토리
 
-  React.useEffect(() => {
-    if (state?.punishment) {
-      const newCard = {
-        title: state.punishment,
-        groupName: '그룹 A',
-        deadline: new Date().toISOString().split('T')[0],
-        isCertified: false
-      };
-      setDummyData(prev => [newCard, ...prev]);
-    }
-  }, [state]);
+  useEffect(() => {
+    fetchUserInfo();
+  }, []);
 
-  const filteredData = useMemo(() => {
-    let filtered = [...dummyData];
-    if (selectedGroupId !== null) {
-      filtered = filtered.filter(d => d.groupName === selectedGroupId);
+  useEffect(() => {
+    if (userId) fetchUserGroups(userId);
+  }, [userId]);
+
+  useEffect(() => {
+    const examplePenalties = activeGroups.flatMap((group) =>
+      (group.punish || []).map((p, i) => ({
+        title: p,
+        groupName: group.name,
+        deadline: group.end_date?.split('T')[0] || '',
+        isCertified: Math.random() > 0.5,
+      }))
+    );
+    setPenalties(examplePenalties);
+  }, [activeGroups]);
+
+  const filteredPenalties = useMemo(() => {
+    let filtered = [...penalties];
+    if (selectedGroupName) {
+      filtered = filtered.filter((p) => p.groupName === selectedGroupName);
     }
-    if (sortFilter === '인증') return filtered.filter(d => d.isCertified);
-    if (sortFilter === '미인증') return filtered.filter(d => !d.isCertified);
+    if (sortFilter === '인증') return filtered.filter((p) => p.isCertified);
+    if (sortFilter === '미인증') return filtered.filter((p) => !p.isCertified);
     return filtered;
-  }, [sortFilter, selectedGroupId, dummyData]);
-
-  const handleOptionClick = (option) => {
-    setSortFilter(option);
-    setSortPopupOpen(false);
-  };
-
-  const members = [
-    { id: 1, name: '그룹 A', avatar: 'https://picsum.photos/40/40', progress: 80 },
-    { id: 2, name: '그룹 B', avatar: 'https://picsum.photos/40/40', progress: 80 },
-    { id: 3, name: '그룹 C', avatar: 'https://picsum.photos/40/40', progress: 80 },
-  ];
-
-  const feeds = [
-    {
-      id: 1,
-      user: '닉네임',
-      image: 'https://picsum.photos/300',
-      avatar: 'https://picsum.photos/30/30',
-    },
-    {
-      id: 2,
-      user: '닉네임',
-      image: 'https://picsum.photos/300',
-      avatar: 'https://picsum.photos/30/30',
-    },
-  ];
+  }, [penalties, selectedGroupName, sortFilter]);
 
   return (
     <MainLayout
@@ -77,19 +61,20 @@ const PenaltyPage = () => {
     >
       <div className="section">
         <div className="horizontal-scroll">
-          {members.map((member) => (
+          {activeGroups.map((group) => (
             <div
-              key={member.id}
-              style={{ opacity: selectedGroupId === null || selectedGroupId === member.name ? 1 : 0.3 }}
-              onClick={() => setSelectedGroupId(prev => prev === member.name ? null : member.name)}
+              key={group.gid}
+              style={{ opacity: selectedGroupName === null || selectedGroupName === group.name ? 1 : 0.3 }}
+              onClick={() =>
+                setSelectedGroupName((prev) => (prev === group.name ? null : group.name))
+              }
             >
               <UserProfileRow
-                name={member.name}
-                src={member.avatar}
+                name={group.name}
+                src={group.thumbnailUrl || 'https://picsum.photos/40/40'}
                 variant="vertical"
                 size={60}
                 border
-                isLeader={member.isLeader}
               />
             </div>
           ))}
@@ -116,15 +101,20 @@ const PenaltyPage = () => {
           onClickMore={() => setSortPopupOpen(true)}
         />
 
-        {filteredData.map((item) => (
+        {filteredPenalties.map((item, idx) => (
           <HistoryCard
-            key={item.title + item.deadline}
+            key={item.title + item.groupName + idx}
             title={item.title}
             groupName={item.groupName}
             deadline={item.deadline}
-            image={item.image || null}
             isCertified={item.isCertified}
-            onClick={!item.isCertified ? () => navigate('/penaltyupload', { state: { punishment: item.title } }) : undefined}
+            onClick={
+              !item.isCertified
+                ? () => navigate('/penaltyupload', {
+                    state: { punishment: item.title },
+                  })
+                : undefined
+            }
           />
         ))}
 
@@ -132,11 +122,13 @@ const PenaltyPage = () => {
           title="정렬"
           isOpen={sortPopupOpen}
           onClose={() => setSortPopupOpen(false)}
-          options={[
-            { label: '전체', onClick: () => handleOptionClick('전체') },
-            { label: '미인증', onClick: () => handleOptionClick('미인증') },
-            { label: '인증', onClick: () => handleOptionClick('인증') },
-          ]}
+          options={['전체', '미인증', '인증'].map((label) => ({
+            label,
+            onClick: () => {
+              setSortFilter(label);
+              setSortPopupOpen(false);
+            },
+          }))}
         />
       </div>
     </MainLayout>
