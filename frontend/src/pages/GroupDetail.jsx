@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useParams } from 'react-router-dom';
 import axios from "axios";
 import UserProfileRow from "@/components/Profile/UserProfileRow";
 import MissionFeed from "@/components/Group/MissionFeed";
@@ -10,6 +11,7 @@ import TodoList from "@/components/todo/todoList";
 
 const GroupDetail = () => {
   const [activeTab, setActiveTab] = useState("활동");
+  const { gid } = useParams();
   const [groupData, setGroupData] = useState(null);
 
   const myInfo = {
@@ -47,27 +49,35 @@ const GroupDetail = () => {
   ];
 
   useEffect(() => {
-    const fetchGroupData = async () => {
-      try {
-        const res = await axios.get("http://localhost:8000/group?id=1");
-        const data = res.data[0];
-        setGroupData({
-          title: data.name,
-          category: data.category,
-          period: data.duration,
-          info: data.description,
-          thumbnailUrl: "https://picsum.photos/400/300",
-          memberCount: 8,
-          todos: data.todo,
-          punishments: data.punish,
-        });
-      } catch (err) {
-        console.error("그룹 정보 불러오기 실패:", err);
-      }
-    };
+  const fetchGroupData = async () => {
+    try {
+      const res = await axios.get(`http://localhost:8000/group?id=${gid}`);
+      const data = res.data;
 
-    fetchGroupData();
-  }, []);
+      if (!data || typeof data !== 'object') {
+        console.error("그룹 데이터가 올바르지 않음:", data);
+        return;
+      }
+
+      setGroupData({
+        title: data.name,
+        category: data.category,
+        period: `${data.time_created?.split('T')[0]} ~ ${data.end_date?.split('T')[0]}`,
+        info: data.description,
+        thumbnailUrl: "https://picsum.photos/400/300",
+        memberCount: data.member_count,
+        todos: data.todo,
+        punishments: data.punish,
+        members: data.members || [],
+      });
+    } catch (err) {
+      console.error("그룹 정보 불러오기 실패:", err);
+    }
+  };
+
+  fetchGroupData();
+}, [gid]);
+
 
   if (!groupData) return <p>로딩 중...</p>;
 
@@ -138,15 +148,15 @@ const GroupDetail = () => {
               <div className="group-section">
                 <SubTitle title={`멤버(${groupData.memberCount})`} />
                 <div className="horizontal-scroll">
-                  {members.map((member) => (
+                  {groupData.members.map((member, idx) => (
                     <UserProfileRow
                       key={member.id}
                       variant="vertical"
                       size={60}
-                      src={member.avatar}
-                      name={member.name}
+                      src={member.profile || `https://i.pravatar.cc/60?img=${idx + 1}`}
+                      name={member.nickname}
                       border
-                      isLeader={member.isLeader}
+                      isLeader={idx === 0}
                     />
                   ))}
                 </div>
