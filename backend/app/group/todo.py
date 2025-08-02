@@ -58,7 +58,8 @@ class Todo(Resource):
                 MATCH (g:Group {gid:$gid}) RETURN g.todo as todo
             """, gid=gid)
 
-            todo_list = [dict(todo)['todo'] for todo in result]
+            todo_list = [dict(todo)['todo'] for todo in result][0]
+            print(todo_list)
             for item in todo_list:
                 if new_item in item.split("///"):
                     return 200
@@ -86,7 +87,7 @@ class Todo(Resource):
                 MATCH (g:Group {gid:$gid})
                 RETURN g.todo as todo''',
                 gid = gid)
-            todo_list = [dict(todo)['todo'] for todo in todo_list]
+            todo_list = [dict(todo)['todo'] for todo in todo_list][0]
 
             updated_list = copy.deepcopy(todo_list)
             if todo_list is not None:
