@@ -31,6 +31,7 @@ todo_modify_model = ns_group.model('todo list', {
 
 @ns_group.route('/todo')
 class Todo(Resource):
+    @ns_group.expect(parser)
     def get(self):
         gid = request.args.get('id')
         with driver.session() as neo_session:
@@ -39,13 +40,13 @@ class Todo(Resource):
                 RETURN g.todo as todo
             ''', gid=gid)
 
-            todo = [dict(item['todo']) for item in todo]
+            todo = [item['todo'] for item in todo][0]
             if todo is not None:
-                todo = [{"item": i.split("///")[0], "exec_date": i.split("///")[1], "id": i.split("///")[2], "done": i.split("///")[3]}
+                todo = [{"item": i.split("///")[0], "id": i.split("///")[1], "done": i.split("///")[2]}
                         for i in todo[0]]
-
-            return jsonify({'todo': todo})
-
+                return {"todo": todo}
+            else:
+                return 400
 
     @ns_group.expect(parser, todo_model)
     def post(self):
