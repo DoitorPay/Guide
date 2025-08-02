@@ -1,46 +1,56 @@
 import React, { useState, useEffect } from 'react';
 import Button from '@/components/button/button';
 import Popup from '@/components/popupModal/Popup';
-import useRouletteStore from '@/stores/useRouletteStore';
 
-const Roulette = ({ punishList = [] }) => {
+const Roulette = ({ punishList = [], onSpinRequest }) => {
   const [items, setItems] = useState([]);
   const [selectedIndex, setSelectedIndex] = useState(null);
   const [isSpinning, setIsSpinning] = useState(false);
   const [showConfirmPopup, setShowConfirmPopup] = useState(false);
   const [showCompletePopup, setShowCompletePopup] = useState(false);
-
-  const { setSelectedPunishment } = useRouletteStore();
+  const [finalPenalty, setFinalPenalty] = useState(null);
 
   useEffect(() => {
     setItems(punishList);
+    setSelectedIndex(null);
   }, [punishList]);
 
   const spin = (current, speed, remaining) => {
-    const nextIndex = (current + 1) % items.length;
-
-    if (remaining <= 1) {
-      setSelectedIndex(nextIndex);
+    if (remaining <= 0) {
       setIsSpinning(false);
       setShowConfirmPopup(true);
       return;
     }
-
+    const nextIndex = (current + 1) % items.length;
     setSelectedIndex(nextIndex);
-
-    const nextSpeed = speed + 10;
+    const nextSpeed = remaining < items.length ? speed + 25 : speed;
     setTimeout(() => {
       spin(nextIndex, nextSpeed, remaining - 1);
     }, nextSpeed);
   };
 
-  const handleSpin = () => {
-    if (isSpinning || items.length === 0) return;
-
+  const handleSpin = async () => {
+    if (isSpinning || items.length === 0 || !onSpinRequest) return;
     setIsSpinning(true);
-    const totalSpins = 20 + Math.floor(Math.random() * 10);
-    const startIndex = selectedIndex === null ? 0 : selectedIndex;
-    spin(startIndex, 50, totalSpins);
+
+    const targetPenaltyName = await onSpinRequest();
+
+    if (targetPenaltyName) {
+      const targetIndex = items.findIndex(item => item.title === targetPenaltyName);
+      if (targetIndex !== -1) {
+        setFinalPenalty(items[targetIndex]);
+        const currentIdx = selectedIndex === null ? 0 : selectedIndex;
+        const extraSpins = items.length * 2;
+        const stepsToTarget = (targetIndex - currentIdx + items.length) % items.length;
+        const totalSteps = extraSpins + stepsToTarget;
+        spin(currentIdx, 50, totalSteps);
+      } else {
+        alert("벌칙을 찾을 수 없습니다.");
+        setIsSpinning(false);
+      }
+    } else {
+      setIsSpinning(false);
+    }
   };
 
   const handleUseCard = () => {
@@ -50,8 +60,6 @@ const Roulette = ({ punishList = [] }) => {
 
   const handleSkip = () => {
     setShowConfirmPopup(false);
-    const selected = items[selectedIndex];
-    setSelectedPunishment(selected);
   };
 
   return (
@@ -59,7 +67,7 @@ const Roulette = ({ punishList = [] }) => {
       <div className="roulette-box">
         {items.length === 0 ? (
           <div className="roulette-default-text">
-            수행해야 할 벌칙이 없어요.
+            먼저 그룹을 선택해주세요.
           </div>
         ) : selectedIndex === null && !isSpinning ? (
           <div className="roulette-default-text">
@@ -67,30 +75,18 @@ const Roulette = ({ punishList = [] }) => {
             룰렛을 돌려주세요!
           </div>
         ) : (
-          items.map((item, idx) => {
-            const isActive = idx === selectedIndex;
-            return (
-              <div
-                key={idx}
-                className={`roulette-item ${isActive ? 'active' : ''}`}
-              >
-                {item.title}
-              </div>
-            );
-          })
+          items.map((item, idx) => (
+            <div key={idx} className={`roulette-item ${idx === selectedIndex ? 'active' : ''}`}>
+              {item.title}
+            </div>
+          ))
         )}
       </div>
 
       <div>
         <Button
           type="primary"
-          buttonName={
-            items.length === 0
-              ? '룰렛 돌리기'
-              : isSpinning
-              ? '룰렛 돌리는 중...'
-              : '룰렛 돌리기'
-          }
+          buttonName={isSpinning ? '룰렛 돌리는 중...' : '룰렛 돌리기'}
           onClick={handleSpin}
           disabled={isSpinning || items.length === 0}
           bgColor="var(--color-secondary-indigo)"
@@ -102,9 +98,9 @@ const Roulette = ({ punishList = [] }) => {
         setPopup={showConfirmPopup}
         icon="error-gray"
         title="면제 카드를 사용하시겠습니까?"
-        subtitle="벌칙을 수행하고 싶지 않으면 면제카드를 사용할 수 있어요."
-        buttonName="건너뛰기"
-        button2Name="사용"
+        subtitle={`벌칙 당첨: ${finalPenalty?.title || ''}`}
+        buttonName="사용하지 않기"
+        button2Name="면제카드 사용"
         onClick={handleSkip}
         onSecondClick={handleUseCard}
       />
