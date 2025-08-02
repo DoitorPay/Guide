@@ -13,7 +13,7 @@ class UpdateInterest(Resource):
             neo_session.run(
                 '''
                     MATCH (p:Person {id: $id, sns: $sns})
-                    SET p.topics = $topics
+                    SET p.interest = $topics
                 '''
                 , interest=topics['topics']
                 , sns = session['user_data']['sns']
