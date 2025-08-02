@@ -38,7 +38,7 @@ const GroupSearch = () => {
   });
 
   return (
-    <MainLayout headerProps={{ type: "header-b", title: "그룹 찾기", icon2: "arrow-left" }}>
+    <MainLayout headerProps={{ type: "header-b", title: "ㅤ그룹 찾기", icon1: 'none' }}>
       <div className="group-search-page-content">
         <GroupSearchInput onSearch={setSearchQuery} onSortChange={setSortBy} />
         <div className="group-cards-container">

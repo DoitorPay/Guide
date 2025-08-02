@@ -9,7 +9,7 @@ const ProfileCard = ({ onClick }) => {
   useEffect(() => {
     const fetchNickname = async () => {
       try {
-        const res = await fetch('http://localhost:8000/user/nickname', { credentials: 'include' });
+        const res = await fetch('http://localhost:8000/api/user/nickname', { credentials: 'include' });
         const data = await res.json();
         setNickname(data.profile);
       } catch (error) {

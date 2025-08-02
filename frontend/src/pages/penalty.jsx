@@ -124,15 +124,15 @@ const PenaltyPage = () => {
           deadline={item.deadline}
           isCertified={item.isCertified}
           onClick={
-            !item.isCertified
-              ? () =>
+            item.isCertified
+              ? () => navigate('/penaltycertification')
+              : () =>
                   navigate('/penaltyupload', {
                     state: {
                       punishment: item.title,
                       groupId: item.groupId,
                     },
                   })
-              : undefined
           }
         />
       ))}

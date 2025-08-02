@@ -17,7 +17,7 @@ const PenaltyCertification = () => {
       headerProps={{
         title: "ㅤ",
         type: "header-b",
-        icon1: "arrow-left",
+        icon1: 'none',
       }}
     >
       <div className="punishment-image-box">

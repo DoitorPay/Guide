@@ -11,7 +11,7 @@ const TopicSelect = ({
   useEffect(() => {
     const fetchUserTopics = async () => {
       try {
-        const response = await fetch('http://localhost:8000/user/topics');
+        const response = await fetch('http://localhost:8000/api/user/topics');
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }

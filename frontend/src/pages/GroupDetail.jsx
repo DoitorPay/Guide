@@ -32,7 +32,7 @@ const GroupDetail = () => {
     : {
         title: "ㅤ",
         type: "header-b",
-        icon1: "arrow-left"
+        icon1: 'none'
       };
 
   const myInfo = {

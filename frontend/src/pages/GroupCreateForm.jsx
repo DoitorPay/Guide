@@ -4,7 +4,7 @@ import Input from '@/components/input/Input';
 import Checkbox from '@/components/input/Checkbox';
 import Button from '@/components/button/button.jsx';
 import SubTitle from '@/components/subtitle/subTitle';
-import MainLayout from '@/pages/MainLayout';
+import SignupLayout from '@/pages/signupLayout';
 import ImageUploader from '@/components/group/ImageUploader';
 import MissionCount from '@/components/group/MissionCount';
 import ArrowDown from '/icons/arrow-bottom.svg';
@@ -45,7 +45,7 @@ const GroupCreateForm = () => {
   console.log('최종 전송 payload:', payload);
 
   try {
-    const res = await fetch('http://localhost:8000/group/create', {
+    const res = await fetch('http://localhost:8000/api/group/create', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -83,10 +83,10 @@ const GroupCreateForm = () => {
   };
 
   return (
-    <MainLayout
+    <SignupLayout
       headerProps={{
         type: 'header-b',
-        title: '그룹 생성',
+        title: 'ㅤ그룹 생성',
         icon1: 'none',
       }}
     >
@@ -194,7 +194,7 @@ const GroupCreateForm = () => {
           <Button type="primary" buttonName="생성하기" />
         </div>
       </form>
-    </MainLayout>
+    </SignupLayout>
   );
 };
 

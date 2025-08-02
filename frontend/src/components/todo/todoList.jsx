@@ -1,15 +1,12 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import Checkbox from '@/components/input/checkBox';
 import MoreOption from '@/components/popupModal/moreOption';
+// import { useUserStore } from '@/stores/useUserStore'; // userId 임포트 제거
 
-const TodoList = ({ type, selectedDate, onTodoProgressChange, onAllTodosChange }) => {
+const TodoList = ({ type, selectedDate, onTodoProgressChange, onAllTodosChange, groupId }) => {
     // 투두 목록 상태
     const [todoItems, setTodoItems] = useState([]);
-    const [groupTodos, setGroupTodos] = useState([
-        { id: 1, text: '한 페이지 풀기', completed: false },
-        { id: 2, text: '동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세', completed: true },
-        { id: 3, text: '세 페이지 풀기', completed: false }
-    ]);
+    const [groupTodos, setGroupTodos] = useState([]);
     
     // 투두 추가 관련 상태
     const [newTodoText, setNewTodoText] = useState('');
@@ -23,8 +20,17 @@ const TodoList = ({ type, selectedDate, onTodoProgressChange, onAllTodosChange }
     const [editingTodoType, setEditingTodoType] = useState(null);
     const [editingText, setEditingText] = useState('');
 
-    // 투두 목록 가져오기 함수
-    const fetchTodos = useCallback(async () => {
+    // const { userId, fetchUserInfo } = useUserStore(); // userId 관련 변수 제거
+
+    // selectedDate의 기본값 설정 (props로 전달되지 않을 경우 오늘 날짜)
+    const today = new Date().toISOString().slice(0, 10);
+    const effectiveSelectedDate = selectedDate || today;
+
+
+
+
+    // 투두 목록 가져오기 함수 (개인 투두)
+    const fetchPersonalTodos = useCallback(async () => {
         try {
             const response = await fetch('http://localhost:8000/user/user-todo');
             if (!response.ok) {
@@ -34,7 +40,7 @@ const TodoList = ({ type, selectedDate, onTodoProgressChange, onAllTodosChange }
                 return;
             }
             const data = await response.json();
-            console.log("----- GET -----");
+            console.log("----- 개인 투두 GET -----");
             console.log(JSON.stringify(data, null, 2));
             console.log("-------------------");
             if (data && data.todo && Array.isArray(data.todo)) {
@@ -47,7 +53,7 @@ const TodoList = ({ type, selectedDate, onTodoProgressChange, onAllTodosChange }
                         id: item.id,
                         completed: String(item.done).toLowerCase() === 'true',
                         exec_date: item.exec_date,
-                        isCurrentDate: itemDate === selectedDate
+                        isCurrentDate: itemDate === effectiveSelectedDate
                     };
                 });
                 setTodoItems(formattedTodos);
@@ -81,56 +87,160 @@ const TodoList = ({ type, selectedDate, onTodoProgressChange, onAllTodosChange }
             console.error('네트워크 에러 또는 서버 응답 문제:', error);
             // alert('서버와 통신 중 오류가 발생했습니다. 네트워크 연결을 확인해주세요.');
         }
-    }, [selectedDate, onTodoProgressChange, onAllTodosChange]);
+    }, [effectiveSelectedDate, onTodoProgressChange, onAllTodosChange]);
 
-    // 체크박스 변경 핸들러
-    const handleCheckboxChange = useCallback(async (item, checked) => {
-        const originalTodo = todoItems.find(todo => todo.id === item.id);
-        if (!originalTodo) return;
 
-        // Optimistic UI Update
-        const updatedItems = todoItems.map(todo => 
-            todo.id === item.id ? { ...todo, completed: checked } : todo
-        );
-        setTodoItems(updatedItems);
 
+
+    
+    // 투두 목록 가져오기 함수 (그룹 투두)
+    const fetchGroupTodos = useCallback(async () => {
         try {
-            const updatedTodoData = {
-                id: item.id,
-                item: item.text,
-                done: checked,
-                exec_date: item.exec_date
-            };
-
-            const response = await fetch('http://localhost:8000/user/user-todo', {
-                method: 'PUT',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({ item: updatedTodoData }),
-            });
-
-            if (!response.ok) {
-                // API 호출 실패 시 UI 롤백
-                setTodoItems(todoItems); // 원상 복구
-                const errorData = await response.json();
-                console.error('투두 완료 상태 업데이트 에러:', errorData);
-                alert('투두 완료 상태 업데이트 중 오류가 발생했습니다. 다시 시도해주세요.');
+            // 1. 사용자가 가입된 그룹 ID 목록 가져오기
+            const userGroupsResponse = await fetch('http://localhost:8000/user/group-participating');
+            if (!userGroupsResponse.ok) {
+                const errorData = await userGroupsResponse.json();
+                console.error('사용자 그룹 목록 가져오기 에러:', errorData);
                 return;
             }
+            const userGroupsData = await userGroupsResponse.json();
+            console.log("----- 사용자 참여 그룹 GET -----");
+            console.log(JSON.stringify(userGroupsData, null, 2));
+            console.log("--------------------------");
 
-            console.log('----- 투두 완료 상태 업데이트 성공 -----');
-            fetchTodos(); // 성공 시 투두 목록 새로고침
+            const allGroupTodos = [];
+            const allGroups = [];
+
+            if (userGroupsData.member) {
+                allGroups.push(...userGroupsData.member);
+            }
+            if (userGroupsData.leader) {
+                allGroups.push(...userGroupsData.leader);
+            }
+
+            allGroups.forEach(group => {
+                if (group.todo && Array.isArray(group.todo)) {
+                    group.todo.forEach(todoItem => {
+                        const [text, exec_date, id, done] = todoItem.split("///");
+                        allGroupTodos.push({
+                            text: text,
+                            id: id,
+                            completed: String(done).toLowerCase() === 'true',
+                            exec_date: exec_date, 
+                            groupId: group.gid
+                        });
+                    });
+                }
+            });
+            console.log("----- 처리된 그룹 투두 목록 -----");
+            console.log(JSON.stringify(allGroupTodos, null, 2));
+            console.log("--------------------------");
+            setGroupTodos(allGroupTodos);
 
         } catch (error) {
-            // 네트워크 에러 시 UI 롤백
-            setTodoItems(todoItems); // 원상 복구
             console.error('네트워크 에러 또는 서버 응답 문제:', error);
-            alert('서버와 통신 중 오류가 발생했습니다. 네트워크 연결을 확인해주세요.');
         }
-    }, [todoItems, onTodoProgressChange, fetchTodos]);
+    }, []);
+
+
+
+
 
     useEffect(() => {
-        fetchTodos();
-    }, [fetchTodos]);
+        if (type === 'home' || type === 'page-todolist') {
+            fetchPersonalTodos();
+            if (type === 'home') { // home 타입일 때만 그룹 투두를 가져옴
+                // console.log('Fetching group todos for home type. Current userId:', userId); // userId 관련 로깅 제거
+                fetchGroupTodos();
+            }
+        } else if ((type === 'group' || type === 'group-detail') && groupId) {
+            fetchGroupTodos();
+        }
+    }, [fetchPersonalTodos, fetchGroupTodos, type, groupId]);
+
+    // 체크박스 변경 핸들러
+    const handleCheckboxChange = useCallback(async (item, checked, todoType) => {
+        if (todoType === 'personal') {
+            const originalTodo = todoItems.find(todo => todo.id === item.id);
+            if (!originalTodo) return;
+
+            // Optimistic UI Update
+            const updatedItems = todoItems.map(todo => 
+                todo.id === item.id ? { ...todo, completed: checked } : todo
+            );
+            setTodoItems(updatedItems);
+
+            try {
+                const updatedTodoData = {
+                    id: item.id,
+                    item: item.text,
+                    done: checked,
+                    exec_date: item.exec_date
+                };
+
+                const response = await fetch('http://localhost:8000/user/user-todo', {
+                    method: 'PUT',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({ item: updatedTodoData }),
+                });
+
+                if (!response.ok) {
+                    setTodoItems(todoItems); // UI 롤백
+                    const errorData = await response.json();
+                    console.error('개인 투두 완료 상태 업데이트 에러:', errorData);
+                    alert('개인 투두 완료 상태 업데이트 중 오류가 발생했습니다. 다시 시도해주세요.');
+                    return;
+                }
+
+                console.log('----- 개인 투두 완료 상태 업데이트 성공 -----');
+                fetchPersonalTodos(); // 성공 시 투두 목록 새로고침
+
+            } catch (error) {
+                setTodoItems(todoItems); // UI 롤백
+                console.error('네트워크 에러 또는 서버 응답 문제:', error);
+                alert('서버와 통신 중 오류가 발생했습니다. 네트워크 연결을 확인해주세요.');
+            }
+        } else if (todoType === 'group') {
+            const originalGroupTodo = groupTodos.find(todo => todo.id === item.id);
+            if (!originalGroupTodo) return;
+
+            // Optimistic UI Update
+            const updatedGroupItems = groupTodos.map(todo => 
+                todo.id === item.id ? { ...todo, completed: checked } : todo
+            );
+            setGroupTodos(updatedGroupItems);
+
+            try {
+                const updatedGroupTodoData = {
+                    id: item.id,
+                    item: item.text,
+                    done: checked,
+                    exec_date: originalGroupTodo.exec_date // exec_date가 없으면 빈 문자열 또는 null 처리
+                };
+
+                const response = await fetch(`http://localhost:8000/group/todo?id=${item.groupId}`, { // item.groupId 사용
+                    method: 'PUT',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({ item: updatedGroupTodoData }),
+                });
+
+                if (!response.ok) {
+                    setGroupTodos(groupTodos); // UI 롤백
+                    const errorData = await response.json();
+                    console.error('그룹 투두 완료 상태 업데이트 에러:', errorData);
+                    alert('그룹 투두 완료 상태 업데이트 중 오류가 발생했습니다. 다시 시도해주세요.');
+                    return;
+                }
+
+                console.log('----- 그룹 투두 완료 상태 업데이트 성공 -----');
+                fetchGroupTodos(); // 성공 시 그룹 투두 목록 새로고침
+            } catch (error) {
+                setGroupTodos(groupTodos); // UI 롤백
+                console.error('네트워크 에러 또는 서버 응답 문제:', error);
+                alert('서버와 통신 중 오류가 발생했습니다. 네트워크 연결을 확인해주세요.');
+            }
+        }
+    }, [todoItems, groupTodos, fetchPersonalTodos, fetchGroupTodos]); // groupId는 handleCheckboxChange에서 사용되지 않으므로 제거
 
     // 투두 추가 관련 함수
     async function addTodo() {
@@ -144,44 +254,78 @@ const TodoList = ({ type, selectedDate, onTodoProgressChange, onAllTodosChange }
                 }
 
                 try {
-                    const todoData = {
-                        item: newTodoText.trim(),
-                        exec_date: new Date(selectedDate).toISOString().slice(0, 10)
-                    };
-                    console.log("----- 폼 데이터 -----");
-                    console.log(JSON.stringify(todoData, null, 2));
-                    console.log("-------------------");
+                    if (type === 'personal' || type === 'home' || type === 'page-todolist') {
+                        const todoData = {
+                            item: newTodoText.trim(),
+                            exec_date: new Date(effectiveSelectedDate).toISOString().slice(0, 10) // effectiveSelectedDate 사용
+                        };
+                        console.log("----- 개인 투두 폼 데이터 -----");
+                        console.log(JSON.stringify(todoData, null, 2));
+                        console.log("-------------------");
 
-                    const response = await fetch('http://localhost:8000/user/user-todo', {
-                        method: 'POST',
-                        headers: {'Content-Type': 'application/json'},
-                        body: JSON.stringify(todoData),
-                    });
+                        const response = await fetch('http://localhost:8000/user/user-todo', {
+                            method: 'POST',
+                            headers: {'Content-Type': 'application/json'},
+                            body: JSON.stringify(todoData),
+                        });
 
-                    if (!response.ok) {
-                        const errorData = await response.json();
-                        console.error('투두 추가 에러:', errorData);
-                        alert('투두 추가 중 오류가 발생했습니다. 다시 시도해주세요.');
-                        return;
+                        if (!response.ok) {
+                            const errorData = await response.json();
+                            console.error('개인 투두 추가 에러:', errorData);
+                            alert('개인 투두 추가 중 오류가 발생했습니다. 다시 시도해주세요.');
+                            return;
+                        }
+
+                        const addedTodo = await response.json(); 
+                        console.log('----- 추가된 개인 투두 응답 -----');
+                        console.log(JSON.stringify(addedTodo, null, 2));
+                        console.log('---------------------------');
+
+                        // 프론트에서 고유ID 부여 및 상태 업데이트
+                        const newIdForFrontend = addedTodo?.id || `${Date.now()}-${todoItems.length}`;
+                        const newTodoItem = {
+                            id: newIdForFrontend,
+                            text: newTodoText.trim(),
+                            completed: false,
+                            exec_date: effectiveSelectedDate, // 날짜 문자열로 저장
+                            isCurrentDate: true // 새로 추가된 투두는 항상 현재 날짜 투두로 표시
+                        };
+                        setTodoItems([...todoItems, newTodoItem]);
+                        setNewTodoText('');
+                        fetchPersonalTodos(); // 투두 추가 후 목록 새로고침
+                    } else if (type === 'group' || type === 'group-detail') {
+                        // groupId를 props로 받거나, 추가할 때 어떤 그룹인지 선택하도록 해야 함.
+                        // 현재는 groupId를 props로 받고 있으므로 이를 사용.
+                        if (!groupId) {
+                            alert('그룹 ID가 없습니다. 그룹 투두를 추가하려면 그룹을 선택해야 합니다.');
+                            return;
+                        }
+                        const groupTodoData = {
+                            item: newTodoText.trim()
+                        };
+                        console.log("----- 그룹 투두 폼 데이터 -----");
+                        console.log(JSON.stringify(groupTodoData, null, 2));
+                        console.log("-------------------");
+
+                        const response = await fetch(`http://localhost:8000/group/todo?id=${groupId}`, {
+                            method: 'POST',
+                            headers: {'Content-Type': 'application/json'},
+                            body: JSON.stringify(groupTodoData),
+                        });
+
+                        if (!response.ok) {
+                            const errorData = await response.json();
+                            console.error('그룹 투두 추가 에러:', errorData);
+                            alert('그룹 투두 추가 중 오류가 발생했습니다. 다시 시도해주세요.');
+                            return;
+                        }
+
+                        const addedGroupTodo = await response.json();
+                        console.log('----- 추가된 그룹 투두 응답 -----');
+                        console.log(JSON.stringify(addedGroupTodo, null, 2));
+                        console.log('---------------------------');
+                        fetchGroupTodos(); // 그룹 투두 추가 후 목록 새로고침
                     }
-
-                    const addedTodo = await response.json(); 
-                    console.log('----- 추가된 투두 응답 -----');
-                    console.log(JSON.stringify(addedTodo, null, 2));
-                    console.log('---------------------------');
-
-                    // 프론트에서 고유ID 부여 및 상태 업데이트
-                    const newIdForFrontend = addedTodo?.id || `${Date.now()}-${todoItems.length}`;
-                    const newTodoItem = {
-                        id: newIdForFrontend,
-                        text: newTodoText.trim(),
-                        completed: false,
-                        exec_date: selectedDate, // 날짜 문자열로 저장
-                        isCurrentDate: true // 새로 추가된 투두는 항상 현재 날짜 투두로 표시
-                    };
-                    setTodoItems([...todoItems, newTodoItem]);
-                    setNewTodoText('');
-                    fetchTodos(); // 투두 추가 후 목록 새로고침
                 } catch (error) {
                     console.error('네트워크 에러 또는 서버 응답 문제:', error);
                     // alert('서버와 통신 중 오류가 발생했습니다. 네트워크 연결을 확인해주세요.');
@@ -232,7 +376,6 @@ const TodoList = ({ type, selectedDate, onTodoProgressChange, onAllTodosChange }
 
     function saveEditedTodo() {
         if (editingText.trim()) {
-            // 개인 투두만 API 연동 (그룹 투두는 기존 로직 유지)
             const validation = /[\\/"'*]/;
             if (validation.test(editingText)) {
                 alert("투두 내용에는 \\, /, \", ', * 문자를 포함할 수 없습니다.");
@@ -255,23 +398,49 @@ const TodoList = ({ type, selectedDate, onTodoProgressChange, onAllTodosChange }
                 })
                 .then(response => {
                     if (!response.ok) {
-                        throw new Error('투두 수정 실패');
+                        throw new Error('개인 투두 수정 실패');
                     }
                     return response.json();
                 })
                 .then(() => {
-                    fetchTodos(); // 수정 후 목록 새로고침
+                    fetchPersonalTodos(); // 수정 후 목록 새로고침
                 })
                 .catch(error => {
-                    console.error('투두 수정 에러:', error);
-                    alert('투두 수정 중 오류가 발생했습니다. 다시 시도해주세요.');
+                    console.error('개인 투두 수정 에러:', error);
+                    alert('개인 투두 수정 중 오류가 발생했습니다. 다시 시도해주세요.');
                 });
 
             } else if (editingTodoType === 'group') {
-                const updatedItems = groupTodos.map(item => 
-                    item.id === editingTodoId ? { ...item, text: editingText.trim() } : item
-                );
-                setGroupTodos(updatedItems);
+                const originalGroupTodo = groupTodos.find(item => item.id === editingTodoId);
+                if (!originalGroupTodo || !originalGroupTodo.groupId) {
+                    alert('그룹 ID를 찾을 수 없습니다.');
+                    return;
+                }
+                const updatedGroupTodoData = {
+                    id: editingTodoId,
+                    item: editingText.trim(),
+                    done: originalGroupTodo.completed,
+                    exec_date: originalGroupTodo.exec_date // 그룹 투두도 exec_date가 있을 수 있으므로 포함
+                };
+
+                fetch(`http://localhost:8000/group/todo?id=${originalGroupTodo.groupId}`, {
+                    method: 'PUT',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({ item: updatedGroupTodoData }),
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('그룹 투두 수정 실패');
+                    }
+                    return response.json();
+                })
+                .then(() => {
+                    fetchGroupTodos(); // 수정 후 목록 새로고침
+                })
+                .catch(error => {
+                    console.error('그룹 투두 수정 에러:', error);
+                    alert('그룹 투두 수정 중 오류가 발생했습니다. 다시 시도해주세요.');
+                });
             }
         }
         cancelEdit();
@@ -297,7 +466,7 @@ const TodoList = ({ type, selectedDate, onTodoProgressChange, onAllTodosChange }
                 const deleteData = {
                     list: { id: selectedTodoId },
                 };
-                console.log("----- 폼 데이터 (삭제) -----");
+                console.log("----- 개인 투두 삭제 폼 데이터 -----");
                 console.log(JSON.stringify(deleteData, null, 2));
                 console.log("---------------------------");
 
@@ -309,23 +478,56 @@ const TodoList = ({ type, selectedDate, onTodoProgressChange, onAllTodosChange }
                 
                 if (!response.ok) {
                     const errorData = await response.json();
-                    console.error('투두 삭제 에러:', errorData);
-                    alert('투두 삭제 중 오류가 발생했습니다. 다시 시도해주세요.');
+                    console.error('개인 투두 삭제 에러:', errorData);
+                    alert('개인 투두 삭제 중 오류가 발생했습니다. 다시 시도해주세요.');
                     return;
                 }
 
-                console.log('----- 삭제된 투두 응답 -----');
+                console.log('----- 삭제된 개인 투두 응답 -----');
                 console.log(JSON.stringify(await response.json(), null, 2));
                 console.log('---------------------------');
                 
-                fetchTodos(); // 삭제 후 목록 새로고침
+                fetchPersonalTodos(); // 삭제 후 목록 새로고침
             } catch (error) {
                 console.error('네트워크 에러 또는 서버 응답 문제:', error);
                 alert('서버와 통신 중 오류가 발생했습니다. 네트워크 연결을 확인해주세요.');
             }
         } else if (selectedTodoType === 'group') {
-            const updatedItems = groupTodos.filter(item => item.id !== selectedTodoId);
-            setGroupTodos(updatedItems);
+            const selectedTodo = getSelectedTodo();
+            if (!selectedTodo || !selectedTodo.groupId) {
+                alert('그룹 ID를 찾을 수 없습니다.');
+                return;
+            }
+            try {
+                const deleteData = {
+                    list: { id: selectedTodoId },
+                };
+                console.log("----- 그룹 투두 삭제 폼 데이터 -----");
+                console.log(JSON.stringify(deleteData, null, 2));
+                console.log("---------------------------");
+
+                const response = await fetch(`http://localhost:8000/group/todo?id=${selectedTodo.groupId}`, {
+                    method: 'DELETE',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(deleteData),
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    console.error('그룹 투두 삭제 에러:', errorData);
+                    alert('그룹 투두 삭제 중 오류가 발생했습니다. 다시 시도해주세요.');
+                    return;
+                }
+
+                console.log('----- 삭제된 그룹 투두 응답 -----');
+                console.log(JSON.stringify(await response.json(), null, 2));
+                console.log('---------------------------');
+
+                fetchGroupTodos(); // 삭제 후 목록 새로고침
+            } catch (error) {
+                console.error('네트워크 에러 또는 서버 응답 문제:', error);
+                alert('서버와 통신 중 오류가 발생했습니다. 네트워크 연결을 확인해주세요.');
+            }
         }
         closeMoreOption();
     }
@@ -393,7 +595,7 @@ const TodoList = ({ type, selectedDate, onTodoProgressChange, onAllTodosChange }
                                         <div className="list">
                                             <Checkbox 
                                                 checked={item.completed} 
-                                                onChange={(checked) => handleCheckboxChange(item, checked)} 
+                                                onChange={(checked) => handleCheckboxChange(item, checked, 'personal')} 
                                             />
                                             {editingTodoId === item.id && editingTodoType === 'personal' ? (
                                                 <input 
@@ -468,7 +670,7 @@ const TodoList = ({ type, selectedDate, onTodoProgressChange, onAllTodosChange }
                 }
 
                 {
-                    (type === 'home' || type === 'page-todolist') && (
+                    (type === 'personal' || type === 'home' || type === 'page-todolist') && (
                         <button className="add-todo" onClick={addTodo}>
                             <div className="text-area">
                                 <svg width="14" height="15" viewBox="0 0 14 15" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -480,9 +682,9 @@ const TodoList = ({ type, selectedDate, onTodoProgressChange, onAllTodosChange }
                     )
                 }
                 {
-                    type === 'home' && (
-                        <div className="home-section">
-                            <p className="day-goal day-goal-home">
+                    (type === 'home' || type === 'group' || type === 'group-detail') && groupTodos.length > 0 && (
+                        <div className={`todo-box group-todo-box ${type === 'home' ? 'home-section' : ''}`}>
+                            <p className={`day-goal ${type === 'home' ? 'day-goal-home' : ''}`}>
                                 그룹 목표 ({groupTodos.filter(item => item.completed).length}/{groupTodos.length})
                             </p>
                             {
@@ -491,12 +693,7 @@ const TodoList = ({ type, selectedDate, onTodoProgressChange, onAllTodosChange }
                                         <div className="list">
                                             <Checkbox 
                                                 checked={item.completed} 
-                                                onChange={(checked) => {
-                                                    const updatedItems = groupTodos.map(todo => 
-                                                        todo.id === item.id ? { ...todo, completed: checked } : todo
-                                                    );
-                                                    setGroupTodos(updatedItems);
-                                                }} 
+                                                onChange={(checked) => handleCheckboxChange(item, checked, 'group')} 
                                             />
                                             {editingTodoId === item.id && editingTodoType === 'group' ? (
                                                 <input 
@@ -511,7 +708,7 @@ const TodoList = ({ type, selectedDate, onTodoProgressChange, onAllTodosChange }
                                                 <span className={`title ${item.completed ? 'done' : ''}`}>{item.text}</span>
                                             )}
                                         </div>
-                                        {editingTodoId === item.id && editingTodoType === 'group' ? (
+                                        {/* {editingTodoId === item.id && editingTodoType === 'group' ? (
                                             <div className="actions">
                                                 <button className="action-btn save" onClick={saveEditedTodo}>
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25">
@@ -525,53 +722,22 @@ const TodoList = ({ type, selectedDate, onTodoProgressChange, onAllTodosChange }
                                                 </button>
                                             </div>
                                         ) : (
-                                            <div className="more" onClick={() => handleMoreClick(item.id, 'group')}>
-                                                <svg width="16" height="5" viewBox="0 0 16 5" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M2 0.5C0.9 0.5 0 1.4 0 2.5C0 3.6 0.9 4.5 2 4.5C3.1 4.5 4 3.6 4 2.5C4 1.4 3.1 0.5 2 0.5ZM14 0.5C12.9 0.5 12 1.4 12 2.5C12 3.6 12.9 4.5 14 4.5C15.1 4.5 16 3.6 16 2.5C16 1.4 15.1 0.5 14 0.5ZM8 0.5C6.9 0.5 6 1.4 6 2.5C6 3.6 6.9 4.5 8 4.5C9.1 4.5 10 3.6 10 2.5C10 1.4 9.1 0.5 8 0.5Z"/>
-                                                </svg>
-                                            </div>
-                                        )}
+                                            (type !== 'group') && ( // 'group' 타입일 때는 ... 버튼을 숨깁니다.
+                                                <div className="more" onClick={() => handleMoreClick(item.id, 'group')}>
+                                                    <svg width="16" height="5" viewBox="0 0 16 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M2 0.5C0.9 0.5 0 1.4 0 2.5C0 3.6 0.9 4.5 2 4.5C3.1 4.5 4 3.6 4 2.5C4 1.4 3.1 0.5 2 0.5ZM14 0.5C12.9 0.5 12 1.4 12 2.5C12 3.6 12.9 4.5 14 4.5C15.1 4.5 16 3.6 16 2.5C16 1.4 15.1 0.5 14 0.5ZM8 0.5C6.9 0.5 6 1.4 6 2.5C6 3.6 6.9 4.5 8 4.5C9.1 4.5 10 3.6 10 2.5C10 1.4 9.1 0.5 8 0.5Z"/>
+                                                    </svg>
+                                                </div>
+                                            )
+                                        )} */}
                                     </div>
                                 ))
                             }
                         </div>
                     )
                 }
-                {
-                    (type === 'group' || type === 'group-detail') && (
-                        <div>
-                            {
-                                groupTodos.map((item) => (
-                                    <div key={item.id} className="todo-box__item">
-                                        <div className="list">
-                                            <Checkbox 
-                                                checked={item.completed} 
-                                                onChange={(checked) => {
-                                                    const updatedItems = groupTodos.map(todo => 
-                                                        todo.id === item.id ? { ...todo, completed: checked } : todo
-                                                    );
-                                                    setGroupTodos(updatedItems);
-                                                }} 
-                                            />
-                                            {editingTodoId === item.id && editingTodoType === 'group' ? (
-                                                <input 
-                                                    type="text" 
-                                                    className="title-input" 
-                                                    value={editingText}
-                                                    onChange={(e) => setEditingText(e.target.value)}
-                                                    onKeyDown={handleEditKeyPress}
-                                                    autoFocus
-                                                />
-                                            ) : (
-                                                <span className={`title ${item.completed ? 'done' : ''}`}>{item.text}</span>
-                                            )}
-                                        </div>
-                                    </div>
-                                ))
-                            }
-                        </div>
-                    )
-                }
+                {/* Only render personal todos or group todos based on type */}
+                
             </div>
             <MoreOption
                 title = {getSelectedTodo()?.text || '할 일 옵션'}

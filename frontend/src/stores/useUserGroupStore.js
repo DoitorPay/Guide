@@ -11,7 +11,7 @@ export const useUserGroupStore = create((set) => ({
     set({ isLoadingGroups: true });
 
     try {
-      const res = await fetch('http://localhost:8000/user/group-participating', {
+      const res = await fetch('http://localhost:8000/api/user/group-participating', {
         credentials: 'include',
       });
       const data = await res.json();
@@ -19,7 +19,7 @@ export const useUserGroupStore = create((set) => ({
 
       const fetchThumbnail = async (gid) => {
         try {
-          const res = await fetch(`http://localhost:8000/group/${gid}/thumbnail`);
+          const res = await fetch(`http://localhost:8000/api/group/${gid}/thumbnail`);
           const link = await res.text();
           return link || '';
         } catch (err) {

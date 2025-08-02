@@ -10,7 +10,7 @@ export const useUserStore = create((set) => ({
   fetchUserInfo: async () => {
     set({ isLoading: true });
     try {
-      const res = await axios.get('http://localhost:8000/user/user_properties', {
+      const res = await axios.get('http://localhost:8000/api/user/user_properties', {
         withCredentials: true,
       });
 
