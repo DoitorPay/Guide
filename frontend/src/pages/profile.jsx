@@ -26,7 +26,7 @@ const Profile = () => {
         console.log(JSON.stringify(modifiedData, null, 2));
         console.log("-------------------");
         try {
-            const response = await fetch("http://localhost:8000/user/change-info", {
+            const response = await fetch("http://localhost:8000/api/user/change-info", {
                 method: 'PUT',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({modifiedData})
@@ -46,7 +46,7 @@ const Profile = () => {
     useEffect(() => {
         const fetchNickname = async () => {
         try {
-            const res = await fetch("http://localhost:8000/user/nickname", {
+            const res = await fetch("http://localhost:8000/api/user/nickname", {
             credentials: "include",
             });
             const data = await res.json();
@@ -91,7 +91,7 @@ const Profile = () => {
     useEffect(() => {
         const fetchQuote = async() => {
             try {
-                const response = await fetch("http://localhost:8000/user/user_properties", {
+                const response = await fetch("http://localhost:8000/api/user/user_properties", {
                     credentials: "include",
                     });
                 if (!response.ok) {

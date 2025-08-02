@@ -39,7 +39,7 @@ const PenaltyUpload = () => {
 
     try {
       setLoading(true);
-      await axios.post('http://localhost:8000/user/punishFeed', payload, {
+      await axios.post('http://localhost:8000/api/user/punishFeed', payload, {
         withCredentials: true,
       });
       alert("업로드 완료!");
@@ -56,8 +56,8 @@ const PenaltyUpload = () => {
     <SignupLayout
       headerProps={{
         type: "header-b",
-        title: "벌칙 업로드",
-        icon2: "arrow-left",
+        title: "ㅤ벌칙 업로드",
+        icon1: "none",
       }}
     >
       <div className="penalty-info-box">

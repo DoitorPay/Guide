@@ -91,6 +91,7 @@ const Router = () => {
           <Route path="/help" element={<AuthGuard><HelpPage /></AuthGuard>} />
           <Route path="/terms" element={<AuthGuard><TermsPage /></AuthGuard>} />
           <Route path="/privacy" element={<AuthGuard><PrivacyPage /></AuthGuard>} />
+          <Route path="/group/:gid" element={<GroupDetail />} />
           {/* 얘넨 냅두시고 */}
           <Route path="/landing" element={<Landing />} />
           <Route path="/additRegister" element={<SignUp />} />
@@ -107,7 +108,7 @@ const Router = () => {
 
           {/* 얘네 주석 해제하세요 */}
           {/* <Route path="/groupdetailguide" element={<GroupDetail />} /> */}
-          {/* <Route path="/group/:gid" element={<GroupDetail />} />
+          {/* 
           <Route path="/main" element={<MainPage />} />
           <Route path="/todolist" element={<TodoListPage />} />
           <Route path="/penalty" element={<Penalty />} />
