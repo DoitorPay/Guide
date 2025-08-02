@@ -88,7 +88,7 @@ const TopicSelect = ({ mode }) => {
 
     const endpoint =
       mode === 'signup' ? '/api/user/topics' :
-      mode === 'penalty-topic' ? '/api/penalty/topics' :
+      mode === 'penalty-topic' ? '/api/group/create-punishList' :
       '/api/user/topics';
 
     try {

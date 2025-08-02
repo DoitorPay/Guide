@@ -5,6 +5,11 @@ export const useUserStore = create((set) => ({
   userId: null,
   profile: '',
   nickname: '',
+  quote: '',
+  sns: '',
+  interest: [],
+  todo: [],
+  total_xp: 0,
   isLoading: false,
 
   fetchUserInfo: async () => {
@@ -20,6 +25,11 @@ export const useUserStore = create((set) => ({
         userId: user?.id || null,
         profile: user?.profile || '',
         nickname: user?.nickname || '',
+        quote: user?.quote || '',
+        sns: user?.sns || '',
+        interest: user?.interest || [],
+        todo: user?.todo || [],
+        total_xp: user?.total_xp || 0,
         isLoading: false,
       });
     } catch (err) {
@@ -28,6 +38,11 @@ export const useUserStore = create((set) => ({
         userId: null,
         profile: '',
         nickname: '',
+        quote: '',
+        sns: '',
+        interest: [],
+        todo: [],
+        total_xp: 0,
         isLoading: false,
       });
     }

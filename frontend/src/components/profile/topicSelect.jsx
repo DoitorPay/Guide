@@ -8,27 +8,27 @@ const TopicSelect = ({
 }) => {
   const [currentTopicList, setCurrentTopicList] = useState('');
 
-  useEffect(() => {
-    const fetchUserTopics = async () => {
-      try {
-        const response = await fetch('http://localhost:8000/api/user/topics');
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
-        console.log('Fetched user topics data:', data);
-        console.log('Type of fetched data.topics:', typeof data.topics, ', value:', data.topics);
-        if (data && data[0] && Array.isArray(data[0])) {
-          setCurrentTopicList(data[0].join(', '));
-        }
-      } catch (error) {
-        console.error('Error fetching user topics:', error);
-        setCurrentTopicList('스터디 주제를 불러올 수 없습니다.');
-      }
-    };
+  // useEffect(() => {
+  //   const fetchUserTopics = async () => {
+  //     try {
+  //       const response = await fetch('http://localhost:8000/api/user/topics');
+  //       if (!response.ok) {
+  //         throw new Error(`HTTP error! status: ${response.status}`);
+  //       }
+  //       const data = await response.json();
+  //       console.log('Fetched user topics data:', data);
+  //       console.log('Type of fetched data.topics:', typeof data.topics, ', value:', data.topics);
+  //       if (data && data[0] && Array.isArray(data[0])) {
+  //         setCurrentTopicList(data[0].join(', '));
+  //       }
+  //     } catch (error) {
+  //       console.error('Error fetching user topics:', error);
+  //       setCurrentTopicList('스터디 주제를 불러올 수 없습니다.');
+  //     }
+  //   };
 
-    fetchUserTopics();
-  }, []);
+  //   fetchUserTopics();
+  // }, []);
 
   return (
     <div className={`topic-select-wrapper ${className}`}>

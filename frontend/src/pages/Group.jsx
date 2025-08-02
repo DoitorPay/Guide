@@ -30,7 +30,7 @@ const Group = () => {
 
       await Promise.all(
         allGroups.map(async (group) => {
-          const url = await getImageURL({ reason: 'group', gid: group.gid });
+          const url = await getImageURL({ reason: 'groupProfile', gid: group.gid });
           thumbnailMap[group.gid] = url;
         })
       );
