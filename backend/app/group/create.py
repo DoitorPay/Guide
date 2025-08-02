@@ -1,5 +1,4 @@
 import uuid
-from tkinter.scrolledtext import example
 
 from flask_restx import Resource, fields
 from flask import request, session

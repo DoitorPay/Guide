@@ -9,6 +9,7 @@ from app.auth import ns_auth
 
 import app.user.todo as todo
 import app.user.UserInterest as UserInterest
+import app.user.punishFeed as PunishFeed
 from app.user import ns_user
 
 import app.group.create as create
