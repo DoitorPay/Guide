@@ -4,6 +4,7 @@ import TagList from '@/components/tag/tagList';
 import Button from '@/components/button/Button';
 import SignupLayout from '@/pages/signupLayout';
 import SubTitle from '@/components/subtitle/SubTitle';
+import Popup from '@/components/popupModal/popup';
 
 // Topic mode = 'signup', 'profile', 'penalty-topic', 'group-topic' -> route에서 mode에 따라 다르게 렌더링
 // 'signup' : 회원가입 시 스터디 주제 선택
@@ -94,12 +95,19 @@ const TopicSelect = ({ mode }) => {
       if(!res.ok) throw new Error();
       const data = await res.json();
       console.log('성공:', data);
+      if (mode === 'signup') { // 회원가입일 때 메인으로 이동
+        navigate('/main');
+      } else { 
+        setSetPopup(true);
+      }
     } catch (e) {
       console.error('전송 실패:', e);
       alert('전송 실패');
     }
   };
 
+
+  const [setPopup, setSetPopup] = useState(false);
 
   
   return (
@@ -124,6 +132,13 @@ const TopicSelect = ({ mode }) => {
           />
         </div>
       </div>
+      <Popup
+        icon="done-gray"
+        title="성공적으로 반영되었습니다."
+        buttonName="확인"
+        onClick={() => navigate(-1)}
+        setPopup={setPopup}
+      />
     </SignupLayout>
   );
 };

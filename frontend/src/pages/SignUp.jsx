@@ -46,7 +46,7 @@ const SignUp = () => {
 
       const data = await response.json();
       console.log('회원가입 성공:', data);
-      navigate('/studytopic');
+      navigate('/my-topic');
     } catch (error) {
       console.error('에러 발생:', error);
       alert('회원가입 도중 오류가 발생했습니다.');

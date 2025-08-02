@@ -50,7 +50,7 @@ const GroupCardLarge = ({
           <span className="value bold">| {period}</span>
         </div>
 
-        <div className="thumbnail-wrapper">
+        <div className="thumbnail-wrapper large">
           <img src={thumbnailUrl} alt={`${title} 썸네일`} className="thumbnail" />
           <div className="mission-overlay">
             <div className="mission-item">
