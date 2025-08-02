@@ -22,7 +22,7 @@ const PenaltyPage = () => {
 
   useEffect(() => {
     fetchUserInfo();
-  }, []); 
+  }, []);
 
   useEffect(() => {
     if (userInfo?.id) {
@@ -41,7 +41,6 @@ const PenaltyPage = () => {
         credentials: 'include',
       });
       if (!response.ok) throw new Error('벌칙 추첨 실패');
-
       const resultPenaltyName = await response.json();
       await fetchUserInfo();
       return resultPenaltyName;
@@ -63,7 +62,7 @@ const PenaltyPage = () => {
 
     const certified = (userInfo.punish_history || []).map(p => {
       const [title, content, groupId, deadline] = p.split('///');
-      return { title, groupId, groupName: groupMap.get(groupId) || '알 수 없는 그룹', deadline, isCertified: true };
+      return { title, content, groupId, groupName: groupMap.get(groupId) || '알 수 없는 그룹', deadline, isCertified: true };
     });
 
     return [...uncertified.reverse(), ...certified.reverse()];
@@ -98,6 +97,7 @@ const PenaltyPage = () => {
               style={{
                 opacity:
                   selectedGroupName === null || selectedGroupName === group.name ? 1 : 0.3,
+                transition: 'opacity 0.2s ease-in-out'
               }}
               onClick={() => setSelectedGroupName((prev) => (prev === group.name ? null : group.name))}
             >
@@ -143,7 +143,8 @@ const PenaltyPage = () => {
             isCertified={item.isCertified}
             onClick={
               item.isCertified
-                ? () => navigate('/penaltycertification')
+                // [핵심 수정] 인증된 카드 클릭 시, item 정보를 state에 담아서 전달
+                ? () => navigate('/penaltycertification', { state: { penalty: item } })
                 : () =>
                     navigate('/penaltyupload', {
                       state: { punishment: item.title, groupId: item.groupId },
