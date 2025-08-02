@@ -95,7 +95,7 @@ class Register(Resource):
     def put(self):
         gid = parser.parse_args().get('id')
         user_info = session.get('user_data')
-
+        print(gid, user_info)
         with driver.session() as neo_session:
             neo_session.run("""
                 MATCH(p:Person {id:$id, sns:$sns}), (g:Group {gid: $gid})

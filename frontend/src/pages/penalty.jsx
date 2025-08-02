@@ -13,10 +13,7 @@ import { useUserGroupStore } from '@/stores/useUserGroupStore';
 const PenaltyPage = () => {
   const navigate = useNavigate();
   const { userId, fetchUserInfo } = useUserStore();
-  const {
-    activeGroups,
-    fetchUserGroups,
-  } = useUserGroupStore();
+  const { activeGroups, fetchUserGroups } = useUserGroupStore();
 
   const [selectedGroupName, setSelectedGroupName] = useState(null);
   const [sortFilter, setSortFilter] = useState('전체');
@@ -34,9 +31,10 @@ const PenaltyPage = () => {
 
   useEffect(() => {
     const examplePenalties = activeGroups.flatMap((group) =>
-      (group.punish || []).map((p, i) => ({
+      (group.punish || []).map((p) => ({
         title: p,
         groupName: group.name,
+        groupId: group.gid,
         deadline: group.end_date?.split('T')[0] || '',
         isCertified: Math.random() > 0.5,
         thumbnailUrl: group.thumbnailUrl,
@@ -65,7 +63,10 @@ const PenaltyPage = () => {
           {activeGroups.map((group) => (
             <div
               key={group.gid}
-              style={{ opacity: selectedGroupName === null || selectedGroupName === group.name ? 1 : 0.3 }}
+              style={{
+                opacity:
+                  selectedGroupName === null || selectedGroupName === group.name ? 1 : 0.3,
+              }}
               onClick={() =>
                 setSelectedGroupName((prev) => (prev === group.name ? null : group.name))
               }
@@ -82,56 +83,54 @@ const PenaltyPage = () => {
         </div>
       </div>
 
-      <div>
-        <SubTitle title="벌칙 룰렛 돌리기" type="info" info="면제 카드 2장" />
-        <Roulette />
-      </div>
+      <SubTitle title="벌칙 룰렛 돌리기" type="info" info="면제 카드 2장" />
+      <Roulette />
 
-      <div>
-        <SubTitle title="벌칙 인증 피드" />
-        <MissionFeed feeds={feeds} onClickFeed={() => navigate('/penaltycertification')} />
-      </div>
+      <SubTitle title="벌칙 인증 피드" />
+      <MissionFeed feeds={feeds} onClickFeed={() => navigate('/penaltycertification')} />
 
-      <div>
-        <SubTitle
-          title="벌칙 히스토리"
-          type="link"
-          linkIcon="arrow-bottom-gray"
-          more={sortFilter}
-          link="#"
-          onClickMore={() => setSortPopupOpen(true)}
-        />
+      <SubTitle
+        title="벌칙 히스토리"
+        type="link"
+        linkIcon="arrow-bottom-gray"
+        more={sortFilter}
+        link="#"
+        onClickMore={() => setSortPopupOpen(true)}
+      />
 
-        {filteredPenalties.map((item, idx) => (
-          <HistoryCard
-            key={item.title + item.groupName + idx}
-            title={item.title}
-            groupName={item.groupName}
-            deadline={item.deadline}
-            isCertified={item.isCertified}
-            onClick={
-              !item.isCertified
-                ? () => navigate('/penaltyupload', {
-                    state: { punishment: item.title },
+      {filteredPenalties.map((item, idx) => (
+        <HistoryCard
+          key={item.title + item.groupName + idx}
+          title={item.title}
+          groupName={item.groupName}
+          deadline={item.deadline}
+          isCertified={item.isCertified}
+          onClick={
+            !item.isCertified
+              ? () =>
+                  navigate('/penaltyupload', {
+                    state: {
+                      punishment: item.title,
+                      groupId: item.groupId,
+                    },
                   })
-                : undefined
-            }
-          />
-        ))}
-
-        <MoreOption
-          title="정렬"
-          isOpen={sortPopupOpen}
-          onClose={() => setSortPopupOpen(false)}
-          options={['전체', '미인증', '인증'].map((label) => ({
-            label,
-            onClick: () => {
-              setSortFilter(label);
-              setSortPopupOpen(false);
-            },
-          }))}
+              : undefined
+          }
         />
-      </div>
+      ))}
+
+      <MoreOption
+        title="정렬"
+        isOpen={sortPopupOpen}
+        onClose={() => setSortPopupOpen(false)}
+        options={['전체', '미인증', '인증'].map((label) => ({
+          label,
+          onClick: () => {
+            setSortFilter(label);
+            setSortPopupOpen(false);
+          },
+        }))}
+      />
     </MainLayout>
   );
 };
