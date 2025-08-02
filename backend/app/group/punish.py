@@ -1,5 +1,5 @@
 from flask_restx import Resource, fields
-from flask import request, session
+from flask import request, session, jsonify
 
 import random
 
@@ -61,3 +61,43 @@ class PunishSelect(Resource):
             """, id=user_info['id'], sns=user_info['sns'], punish=punish_to_db)
 
             return punish_selected
+
+@ns_group.route('/member-punish-feed')
+class MemberPunishFeed(Resource):
+    @ns_group.expect(parser)
+    def get(self):
+        user_info = session.get('user_data')
+
+        gid = parser.parse_args().get('id')
+        if not gid:
+            return "요청한 그룹을 찾을 수 없습니다", 404
+
+        with driver.session() as neo_session:
+            results = neo_session.run("""
+                MATCH (p:Person)-[r]->(g:Group {gid: $gid})
+                return p.punish_history as punish_history, p.nickname as nickname,
+                    p.sns as sns, p.id as id
+            """, gid=gid)
+
+            punishes = [dict(punish) for punish in results]
+
+            for punish in punishes:
+                original_history_list = punish.get('punish_history')
+
+                if original_history_list:
+                    punish['punish_history'] = [
+                        {
+                            'punish': parts[0],
+                            'content': parts[1],
+                            'gid': parts[2],
+                            'exec_date': parts[3]
+                        }
+                        # 1. 리스트 안의 유효한 history 문자열만 순회
+                        for history in original_history_list if history
+                        # 2. split 결과를 parts 변수에 할당하고, 그 길이가 4인지 바로 검사
+                        if len(parts := history.split("///")) == 4
+                    ]
+                else:  # punish['punish_history']가 없거나 None, 빈 리스트일 경우
+                    punish['punish_history'] = []
+
+            return jsonify(punishes)
