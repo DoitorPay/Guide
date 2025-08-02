@@ -121,7 +121,7 @@ const Profile = () => {
     return (
         <SignupLayout
         contentBg="var(--color-background)"
-        headerProps={{ title: "프로필", type: "header-b", icon1OnClick: handleGoBack }}
+        headerProps={{ title: "ㅤ프로필", type: "header-b", icon1: 'none' }}
         >
         <div className="profile-wrapper">
                 <ChangeProfileImage />

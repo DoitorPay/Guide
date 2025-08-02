@@ -43,10 +43,9 @@ const GroupManagement = () => {
   return (
     <SignupLayout
       headerProps={{
-        title: "프로필",
+        title: "ㅤ그룹 관리",
         type: "header-b",
-        icon1: "arrow-left",
-        icon1OnClick: handleGoBack }}
+        icon1: 'none' }}
     >
       <form className="group-management-form">
 
