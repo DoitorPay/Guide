@@ -27,5 +27,7 @@ class PunishFeed(Resource):
             result = neo_session.run("""
                 MATCH(p:Person {sns:$sns, id:$id})-[r]->(g:Group {gid:$gid})
                 SET p.punish_history = COALESCE(p.punish_history, []) + $content
-                RETURN r;
+                RETURN p.punish_history as punish_history;
             """, sns=user_data['sns'], id=user_data['id'], gid=user_data['gid'], content=formatted_content)
+
+            result = []
