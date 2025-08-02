@@ -94,31 +94,6 @@ const TodoList = ({ type, selectedDate, onTodoProgressChange, onAllTodosChange }
         );
         setTodoItems(updatedItems);
 
-        if (onTodoProgressChange) {
-            const todayTodos = updatedItems.filter(todo => todo.isCurrentDate === true);
-            const completedTodayTodos = todayTodos.filter(todo => todo.completed).length;
-            onTodoProgressChange(todayTodos.length, completedTodayTodos);
-        }
-
-        // onAllTodosChange를 통해 전체 투두의 완료 상태를 업데이트합니다.
-        if (onAllTodosChange) {
-            const datesCompletion = {};
-            updatedItems.forEach(item => {
-                if (!datesCompletion[item.exec_date]) {
-                    datesCompletion[item.exec_date] = { total: 0, completed: 0 };
-                }
-                datesCompletion[item.exec_date].total++;
-                if (item.completed) {
-                    datesCompletion[item.exec_date].completed++;
-                }
-            });
-            const completedDates = {};
-            for (const date in datesCompletion) {
-                completedDates[date] = datesCompletion[date].total > 0 && datesCompletion[date].total === datesCompletion[date].completed;
-            }
-            onAllTodosChange(completedDates);
-        }
-
         try {
             const updatedTodoData = {
                 id: item.id,
@@ -143,6 +118,7 @@ const TodoList = ({ type, selectedDate, onTodoProgressChange, onAllTodosChange }
             }
 
             console.log('----- 투두 완료 상태 업데이트 성공 -----');
+            fetchTodos(); // 성공 시 투두 목록 새로고침
 
         } catch (error) {
             // 네트워크 에러 시 UI 롤백
@@ -150,7 +126,7 @@ const TodoList = ({ type, selectedDate, onTodoProgressChange, onAllTodosChange }
             console.error('네트워크 에러 또는 서버 응답 문제:', error);
             alert('서버와 통신 중 오류가 발생했습니다. 네트워크 연결을 확인해주세요.');
         }
-    }, [todoItems, onTodoProgressChange]);
+    }, [todoItems, onTodoProgressChange, fetchTodos]);
 
     useEffect(() => {
         fetchTodos();

@@ -13,6 +13,17 @@ const MainPage = () => {
   const navigate = useNavigate();
   const [completedDates, setCompletedDates] = React.useState({});
 
+  const [userPercent, setUserPercent] = React.useState('0');
+
+  const handleTodoProgressChange = (total, completed) => {
+    if (total === 0) {
+      setUserPercent('0');
+    } else {
+      const percent = (completed / total) * 100;
+      setUserPercent(Number.isInteger(percent) ? String(percent) : percent.toFixed(2));
+    }
+  };
+
   return (
     <MainLayout
       headerProps={{
@@ -21,10 +32,10 @@ const MainPage = () => {
       }}
     >
         <HomeProfile/>
-        <ProgressCard/>
+        <ProgressCard percent={userPercent}/>
         <div>
             <SubTitle title="투두리스트" type="link" link="/todolist" />
-            <TodoList type='home' selectedDate={format(new Date(), 'yyyy-MM-dd')} onAllTodosChange={setCompletedDates}/>
+            <TodoList type='home' selectedDate={format(new Date(), 'yyyy-MM-dd')} onAllTodosChange={setCompletedDates} onTodoProgressChange={handleTodoProgressChange}/>
         </div>
         <div onClick={() => navigate('/group')} style={{cursor: 'pointer'}}>
             <SubTitle title="그룹"/>
