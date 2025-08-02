@@ -7,7 +7,10 @@ from app.user import ns_user
 from app.DB.NeoDriver import driver
 
 def TotalExp2Level(total_exp):
-    return (math.sqrt(total_exp*4+225) - 5) // 10
+    level = int((math.sqrt(total_exp*4+225) - 5) // 10)
+    exp_req = 25*(level**2) + 25*level - 50
+    print(exp_req)
+    return (level, total_exp-exp_req)
 
 
 @ns_user.route('/level', methods=['GET'])
@@ -22,7 +25,7 @@ class LevelResource(Resource):
                 MATCH(p:Person {id:$id, sns:$sns}) return p
                 ''', id=user_info['id'], sns=user_info['sns']
             )
-            result = [dict(p["p"]) for p in result]
+            result = [p["p"] for p in result]
 
             if len(result) != 1:
                 return "사용자 정보를 확인할 수 없습니다", 403
@@ -31,5 +34,8 @@ class LevelResource(Resource):
                 MATCH(p:Person {id:$id, sns:$sns}) return p.total_xp as total_xp
                 ''', id=user_info['id'], sns=user_info['sns']
             )
-            result = [dict(p["total_xp"]) for p in result]
-            return jsonify({"level": TotalExp2Level(result[0])})
+            result = [p["total_xp"] for p in result]
+            level, exp = TotalExp2Level(result[0])
+            print(level, exp)
+            return {"level": level,
+                    "exp": exp if exp > 0 else 0}, 200

@@ -100,4 +100,6 @@ class Register(Resource):
             neo_session.run("""
                 MATCH(p:Person {id:$id, sns:$sns}), (g:Group {gid: $gid})
                 MERGE (p)-[r:Member]->(g)
+                return p,r,g
             """, id=user_info['id'], sns=user_info['sns'], gid=gid)
+            return {'message': '가입 완료'}, 200

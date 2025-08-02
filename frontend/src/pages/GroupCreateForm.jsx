@@ -28,25 +28,25 @@ const GroupCreateForm = () => {
     end_date: '',
   });
 
-  const handleSubmit = async (e) => {
+ const handleSubmit = async (e) => {
   e.preventDefault();
 
   const payload = {
     name: formData.groupName,
     description: formData.groupDescription,
+    topic: formData.studyTopic,
     num_goals: Number(formData.missionCount),
     conf_date: formData.missionDay,
     duration: isChecked ? 0 : formData.duration_weeks,
-    end_date: isChecked ? null : formData.end_date,
-    punish: [], 
-    thumbnail: formData.thumbnail,
+    end_date: isChecked || !formData.end_date ? null : formData.end_date,
+    punish: [],
   };
 
-  console.log('최종 전송 payload:', payload); 
+  console.log('최종 전송 payload:', payload);
 
   try {
     const res = await fetch('http://localhost:8000/group/create', {
-      method: 'POST', 
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
@@ -63,6 +63,7 @@ const GroupCreateForm = () => {
     alert('그룹 생성 중 오류가 발생했습니다.');
   }
 };
+
 
 
   const handleImageUpload = async (file) => {

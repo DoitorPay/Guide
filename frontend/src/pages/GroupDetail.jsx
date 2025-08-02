@@ -1,18 +1,39 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from "axios";
 import UserProfileRow from "@/components/Profile/UserProfileRow";
 import MissionFeed from "@/components/Group/MissionFeed";
-import MainLayout from "@/pages/MainLayout";
+import SignupLayout from "@/pages/signupLayout";
 import MyRanking from "@/components/ranking/MyRanking";
 import RankingList from "@/components/ranking/RankingList";
 import SubTitle from "@/components/subtitle/subTitle";
 import TodoList from "@/components/todo/todoList";
+import { useUserStore } from "@/stores/useUserStore";
+import { useUserGroupStore } from "@/stores/useUserGroupStore";
 
 const GroupDetail = () => {
   const [activeTab, setActiveTab] = useState("활동");
   const { gid } = useParams();
+  const navigate = useNavigate();
   const [groupData, setGroupData] = useState(null);
+
+  const { userId } = useUserStore();
+  const { leaderGroups } = useUserGroupStore();
+
+  const isLeader = leaderGroups.some((group) => String(group.gid) === String(gid));
+
+  const headerProps = isLeader
+    ? {
+        title: "ㅤ",
+        type: "header-b",
+        icon1: "brightness-high-gray",
+        icon1OnClick: () => navigate("/groupmanage"),
+      }
+    : {
+        title: "ㅤ",
+        type: "header-b",
+        icon1: "arrow-left"
+      };
 
   const myInfo = {
     name: "가나",
@@ -49,46 +70,39 @@ const GroupDetail = () => {
   ];
 
   useEffect(() => {
-  const fetchGroupData = async () => {
-    try {
-      const res = await axios.get(`http://localhost:8000/group?id=${gid}`);
-      const data = res.data;
+    const fetchGroupData = async () => {
+      try {
+        const res = await axios.get(`http://localhost:8000/group?id=${gid}`);
+        const data = res.data;
 
-      if (!data || typeof data !== 'object') {
-        console.error("그룹 데이터가 올바르지 않음:", data);
-        return;
+        if (!data || typeof data !== 'object') {
+          console.error("그룹 데이터가 올바르지 않음:", data);
+          return;
+        }
+
+        setGroupData({
+          title: data.name,
+          category: data.category,
+          period: `${data.time_created?.split('T')[0]} ~ ${data.end_date?.split('T')[0]}`,
+          info: data.description,
+          thumbnailUrl: "https://picsum.photos/400/300",
+          memberCount: data.member_count,
+          todos: data.todo,
+          punishments: data.punish,
+          members: data.members || [],
+        });
+      } catch (err) {
+        console.error("그룹 정보 불러오기 실패:", err);
       }
+    };
 
-      setGroupData({
-        title: data.name,
-        category: data.category,
-        period: `${data.time_created?.split('T')[0]} ~ ${data.end_date?.split('T')[0]}`,
-        info: data.description,
-        thumbnailUrl: "https://picsum.photos/400/300",
-        memberCount: data.member_count,
-        todos: data.todo,
-        punishments: data.punish,
-        members: data.members || [],
-      });
-    } catch (err) {
-      console.error("그룹 정보 불러오기 실패:", err);
-    }
-  };
-
-  fetchGroupData();
-}, [gid]);
-
+    fetchGroupData();
+  }, [gid]);
 
   if (!groupData) return <p>로딩 중...</p>;
 
   return (
-    <MainLayout
-      contentBg="var(--color-background)"
-      headerProps={{
-        title: "그룹 상세",
-        type: "header-b",
-      }}
-    >
+    <SignupLayout contentBg="var(--color-background)" headerProps={headerProps}>
       <div className="group-detail-page">
         <div className="hero-image full-bleed">
           <img src={groupData.thumbnailUrl} alt="그룹 이미지" />
@@ -135,7 +149,7 @@ const GroupDetail = () => {
                 title="이번주 그룹 미션"
                 type="sideinfo"
                 info={groupData.period}
-                desc="5일 21시간 34분 남음" // ← 나중에 실제 계산으로 대체
+                desc="5일 21시간 34분 남음"
               />
 
               <TodoList type="group-detail" todos={groupData.todos} />
@@ -172,7 +186,7 @@ const GroupDetail = () => {
           )}
         </div>
       </div>
-    </MainLayout>
+    </SignupLayout>
   );
 };
 
