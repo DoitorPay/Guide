@@ -43,7 +43,7 @@ class Create(Resource):
                 end_date=info['end_date'], punish=info['punish']
             )
 
-            user_info = session['user_info']
+            user_info = session['user_data']
             neo_session.run("""
                 MATCH(n:Group{gid: $gid}), (n:Person{id: $id, sns: $sns})
                 MERGE (a)-[r:Leader]->(b)""",
