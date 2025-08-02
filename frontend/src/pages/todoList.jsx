@@ -31,7 +31,7 @@ const TodoListPage = () => {
 
             <div>
                 <SubTitle title="그룹1 목표" type="week"/>
-                <TodoList type="group" />
+                <TodoList type="group" groupId="1" />
             </div>
             <PanaltyNoti />
         </MainLayout>

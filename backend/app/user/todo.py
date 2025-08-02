@@ -90,10 +90,20 @@ class UserTodo(Resource):
             updated_list = copy.deepcopy(todo_list[0])
             if todo_list[0] is not None:
                 for idx, x in enumerate(todo_list[0]):
-                    item, exec_date, id, done = x.split("///")
+                    item, exec_date, id, origin_done = x.split("///")
                     if id == update_item["id"]:
                         item = update_item["item"]
                         done = update_item["done"]
+
+                        if origin_done == "false" and done == "true":
+                            neo_session.run("""
+                                MATCH(n:Person {id:$id, sns: $sns}) SET n.total_xp = n.total_xp + 5
+                            """)
+                        elif origin_done == "true" and done == "false":
+                            neo_session.run("""
+                                MATCH(n:Person {id:$id, sns: $sns}) SET n.total_xp = n.total_xp - 5
+                            """)
+
                         exec_date = update_item["exec_date"]
                         updated_list[idx] = f"{item}///{exec_date}///{id}///{done}"
                         break

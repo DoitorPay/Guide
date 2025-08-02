@@ -50,10 +50,16 @@ const TopicSelect = ({ mode }) => {
 
 
   // 기존 리스트 불러오기
+  const endpoint =
+  mode === 'profile-topic' ? '/user/topics' :
+  mode === 'penalty-topic' ? '/group/punish-select' :
+  mode === 'study-topic' ? '/group/punish-select' :
+  '/user/topics';
+  
   useEffect(() => {
     const fetchUserTopics = async () => {
         try {
-          const response = await fetch('http://localhost:8000/user/topics', {
+          const response = await fetch(`http://localhost:8000${endpoint}`, {
             credentials: "include",
           });
           if (!response.ok) {
@@ -85,7 +91,7 @@ const TopicSelect = ({ mode }) => {
       mode === 'penalty-topic' ? '/penalty/topics' :
       '/user/topics';
 
-     try {
+    try {
       const res = await fetch(`http://localhost:8000${endpoint}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
