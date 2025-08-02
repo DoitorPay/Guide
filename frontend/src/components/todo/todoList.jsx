@@ -32,7 +32,7 @@ const TodoList = ({ type, selectedDate, onTodoProgressChange, onAllTodosChange, 
     // 투두 목록 가져오기 함수 (개인 투두)
     const fetchPersonalTodos = useCallback(async () => {
         try {
-            const response = await fetch('http://localhost:8000/user/user-todo');
+            const response = await fetch('http://localhost:8000/api/user/user-todo');
             if (!response.ok) {
                 const errorData = await response.json();
                 console.error('투두 목록 가져오기 에러:', errorData);

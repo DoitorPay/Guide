@@ -25,7 +25,7 @@ const ProfileCard = ({ onClick }) => {
       useEffect(() => {
           const fetchQuote = async() => {
               try {
-                  const response = await fetch("http://localhost:8000/user/user_properties", {
+                  const response = await fetch("http://localhost:8000/api/user/user_properties", {
                       credentials: "include",
                       });
                   if (!response.ok) {

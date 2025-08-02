@@ -72,7 +72,7 @@ const GroupDetail = () => {
   useEffect(() => {
     const fetchGroupData = async () => {
       try {
-        const res = await axios.get(`http://localhost:8000/group?id=${gid}`);
+        const res = await axios.get(`http://localhost:8000/api/group?id=${gid}`);
         const data = res.data;
 
         if (!data || typeof data !== 'object') {
