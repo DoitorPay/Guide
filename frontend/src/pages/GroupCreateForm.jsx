@@ -45,7 +45,7 @@ const GroupCreateForm = () => {
   console.log('최종 전송 payload:', payload);
 
   try {
-    const res = await fetch('http://localhost:8000/group/create', {
+    const res = await fetch('http://localhost:8000/api/group/create', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

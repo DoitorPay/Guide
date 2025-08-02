@@ -29,7 +29,7 @@ const GroupDetailPopup = ({ group, setPopup, onClose, onJoin }) => {
  const handleJoin = async () => {
   try {
      const res = await axios.put(
-      `http://localhost:8000/group/register?id=${group.gid}`,
+      `http://localhost:8000/api/group/register?id=${group.gid}`,
       {},
       { withCredentials: true }
     );
