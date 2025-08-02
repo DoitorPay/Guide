@@ -11,8 +11,28 @@ punishFeedModel = ns_user.model('벌칙 인증 모델', {
     'content': fields.String
 })
 
-@ns_user.route('/punishFeed', methods=['POST'])
+@ns_user.route('/punishFeed')
 class PunishFeed(Resource):
+    def get(self):
+        user_data = session.get('user_data')
+
+        with driver.session() as neo_session:
+            result = neo_session.run("""
+                MATCH(p:Person {sns:$sns, id:$id}) RETURN p.punish_history AS punish_history;
+            """, id=user_data['id'], sns=user_data['sns']).single()
+
+            if result['punish_history'] is None:
+                return jsonify([])
+
+            response = [{
+                'punish': history.split("///")[0],
+                'content': history.split("///")[1],
+                'gid': history.split("///")[2],
+                'exec_date': history.split("///")[3]
+            } for history in result['punish_history']]
+            return jsonify(response)
+
+
     @ns_user.expect(punishFeedModel)
     def post(self):
         user_data = session.get('user_data')
