@@ -58,14 +58,13 @@ class Todo(Resource):
                 MATCH (g:Group {gid:$gid}) RETURN g.todo as todo
             """, gid=gid)
 
-            todo_list = [dict(todo)['todo'] for todo in result][0]
+            todo_list = [dict(todo)['todo'] for todo in result]
 
-            if todo_list is not None:
-                for item in todo_list:
-                    if new_item in item.split("///"):
-                        return 200
-            else:
-                todo_list = []
+            todo_list = todo_list[0] if todo_list[0] is not None else []
+
+            for item in todo_list:
+                if new_item in item.split("///"):
+                    return 200
             todo_list.append(f"{item}///{str(uuid.uuid4())}///false")
 
             try:
