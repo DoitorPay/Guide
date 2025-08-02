@@ -1,5 +1,5 @@
 from flask_restx import Resource, fields
-from flask import request, session
+from flask import request, session, jsonify
 
 import uuid
 import copy
@@ -31,6 +31,22 @@ todo_modify_model = ns_group.model('todo list', {
 
 @ns_group.route('/todo')
 class Todo(Resource):
+    def get(self):
+        gid = request.args.get('id')
+        with driver.session() as neo_session:
+            todo = neo_session.run('''
+                MATCH (g:Group {gid:$gid})
+                RETURN g.todo as todo
+            ''', gid=gid)
+
+           todo = [dict(item['todo']) for item in todo]
+            if todo is not None:
+                todo = [{"item": i.split("///")[0], "exec_date": i.split("///")[1], "id": i.split("///")[2], "done": i.split("///")[3]}
+                        for i in todo[0]]
+
+            return jsonify({'todo': todo})
+
+
     @ns_group.expect(parser, todo_model)
     def post(self):
         gid = request.args.get('id')
