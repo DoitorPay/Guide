@@ -8,9 +8,6 @@
   box-shadow: 0px 0px 20px 0px rgba(150, 150, 150, 0.2392156863);
   padding: clamp(12px, 3vw, 16px);
   margin-bottom: clamp(12px, 3vw, 16px);
-  cursor: default;
-}
-.historycard.clickable {
   cursor: pointer;
 }
 .historycard__image-box {
