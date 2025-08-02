@@ -9,7 +9,7 @@ from app.group import ns_group
 group_model = ns_group.model('group creation form', {
     'name': fields.String,
     'description': fields.String,
-    'topic': fields.String,
+    'topic': fields.List(fields.String),
     'num_goals': fields.Integer,
     'conf_date': fields.String,
     'duration': fields.Integer,
