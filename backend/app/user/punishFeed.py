@@ -49,5 +49,5 @@ class PunishFeed(Resource):
                 SET p.punish_history = COALESCE(p.punish_history, []) + $content,
                 p.punish = [punish IN p.punish WHERE punish <> $punish+"///"+$gid]
                 RETURN p.punish_history as punish_history, p.punish as punish
-            """, sns=user_data['sns'], id=user_data['id'], gid=group_id, content=formatted_content)
+            """, sns=user_data['sns'], id=user_data['id'], gid=group_id, content=formatted_content, punish=punish)
 
