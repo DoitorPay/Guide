@@ -8,7 +8,6 @@ import MyRanking from "@/components/ranking/MyRanking";
 import RankingList from "@/components/ranking/RankingList";
 import SubTitle from "@/components/subtitle/subTitle";
 import TodoList from "@/components/todo/todoList";
-import { useUserStore } from "@/stores/useUserStore";
 import { useUserGroupStore } from "@/stores/useUserGroupStore";
 
 const GroupDetail = () => {
@@ -17,7 +16,6 @@ const GroupDetail = () => {
   const navigate = useNavigate();
   const [groupData, setGroupData] = useState(null);
 
-  const { userId } = useUserStore();
   const { leaderGroups } = useUserGroupStore();
 
   const isLeader = leaderGroups.some((group) => String(group.gid) === String(gid));
@@ -154,7 +152,7 @@ const GroupDetail = () => {
                 desc="5일 21시간 34분 남음"
               />
 
-              <TodoList type="group-detail" todos={groupData.todos} />
+              <TodoList type="group-detail" todos={groupData.todos} groupId={gid} isLeader='true' />
 
               <div className="group-section">
                 <SubTitle title="미션 인증 피드" />
