@@ -8,59 +8,38 @@ const useAuthStore = create((set) => ({
   isAuthLoading: true,
 
   checkLoginStatus: async () => {
-    set({ isAuthLoading: true });
     try {
-      const res = await axios.get('http://localhost:8000/auth/check-login', {
+      const resCheck = await axios.get('http://localhost:8000/auth/check-login', {
         withCredentials: true,
       });
 
-      const data = res.data;
-      let userData = null;
-      let loggedInStatus = false;
-
-      if (data && typeof data === 'object' && data.id) {
-        userData = data;
-        loggedInStatus = true;
-      } else if (data === true) {
-        userData = { id: 'anonymous' };
-        loggedInStatus = true;
+      if (resCheck.data === true) {
+        const resUser = await axios.get('http://localhost:8000/api/user/user_properties', {
+          withCredentials: true,
+        });
+        const user = Array.isArray(resUser.data) ? resUser.data[0] : resUser.data;
+        if (user && user.id) {
+          set({ user, isLoggedIn: true, isAuthLoading: false });
+          useUserStore.setState({ userInfo: user, userId: user.id, nickname: user.nickname, profile: user.profile, isLoading: false });
+        } else {
+          throw new Error('로그인 상태이나 유저 정보를 가져오지 못했습니다.');
+        }
+      } else {
+        set({ user: null, isLoggedIn: false, isAuthLoading: false });
+        useUserStore.setState({ userInfo: null, userId: null, nickname: '', profile: '', isLoading: false });
       }
-
-      set({
-        user: userData,
-        isLoggedIn: loggedInStatus,
-        isAuthLoading: false,
-      });
-
-      useUserStore.setState({
-        userInfo: userData,
-        userId: userData?.id,
-        nickname: userData?.nickname,
-        profile: userData?.profile,
-        isLoading: false,
-      });
-
     } catch (err) {
       console.error('[checkLoginStatus] 에러:', err);
-      // 1. useAuthStore 자신의 상태를 업데이트
-      set({
-        user: null,
-        isLoggedIn: false,
-        isAuthLoading: false,
-      });
-      // 2. [핵심] useUserStore의 상태도 똑같이 업데이트
-      useUserStore.setState({
-        userInfo: null,
-        userId: null,
-        nickname: '',
-        profile: '',
-        isLoading: false,
-      });
+      set({ user: null, isLoggedIn: false, isAuthLoading: false });
+      useUserStore.setState({ userInfo: null, userId: null, nickname: '', profile: '', isLoading: false });
     }
   },
 
   setUser: (user) => set({ user, isLoggedIn: true }),
-  logout: () => set({ user: null, isLoggedIn: false }),
+  logout: () => {
+    set({ user: null, isLoggedIn: false });
+    useUserStore.setState({ userInfo: null, userId: null, nickname: '', profile: '', isLoading: false });
+  },
 }));
 
 export default useAuthStore;
