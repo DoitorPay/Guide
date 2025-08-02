@@ -28,6 +28,4 @@ class PunishFeed(Resource):
                 MATCH(p:Person {sns:$sns, id:$id})-[r]->(g:Group {gid:$gid})
                 SET p.punish_history = COALESCE(p.punish_history, []) + $content
                 RETURN p.punish_history as punish_history;
-            """, sns=user_data['sns'], id=user_data['id'], gid=user_data['gid'], content=formatted_content)
-
-            result = []
+            """, sns=user_data['sns'], id=user_data['id'], gid=group_id, content=formatted_content)
