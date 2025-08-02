@@ -74,7 +74,9 @@ const GroupDetail = () => {
       try {
         const res = await axios.get(`http://localhost:8000/api/group?id=${gid}`);
         const data = res.data;
-
+        console.log("----- 그룹상세 GET -----");
+        console.log(JSON.stringify(data, null, 2));
+        console.log("--------------------------");
         if (!data || typeof data !== 'object') {
           console.error("그룹 데이터가 올바르지 않음:", data);
           return;
