@@ -7,6 +7,7 @@ import Input from "@/components/Input/input";
 import TopicSelect from "@/components/profile/topicSelect";
 import Button from "@/components/button/button";
 import { useNavigate } from 'react-router-dom';
+import Popup from '@/components/popupModal/popup';
 
 const Profile = () => {
     const [nicknameAvailable, setNicknameAvailable] = useState(null);
@@ -32,6 +33,8 @@ const Profile = () => {
             });
             if(!response.ok) {
                 throw new Error(`오류!: ${response.status}`);
+            } else {
+                setSetPopup(true);
             }
             
         } catch (error) {
@@ -109,6 +112,11 @@ const Profile = () => {
     }, []);
 
 
+    const [setPopup, setSetPopup] = useState(false);
+    function toggleSetPopup() {
+        setSetPopup(!setPopup);
+    }
+
 
     return (
         <SignupLayout
@@ -176,6 +184,13 @@ const Profile = () => {
                 />
             </div>
         </div>
+        <Popup
+            icon="done-gray"
+            title="프로필 수정이 완료되었습니다."
+            buttonName="확인"
+            onClick={toggleSetPopup}
+            setPopup={setPopup}
+        />
         </SignupLayout>
     );
 };
