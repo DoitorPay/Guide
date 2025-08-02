@@ -5,11 +5,13 @@ import MainLayout from '@/pages/MainLayout';
 import SubTitle from '@/components/subtitle/subTitle';
 import GroupCardLarge from '@/components/group/GroupCardLarge';
 import { useNavigate } from 'react-router-dom';
+import { getImageURL } from '@/utils/getImageURL'; 
 
 const Group = () => {
   const { userId, fetchUserInfo } = useUserStore();
   const { leaderGroups, memberGroups, fetchUserGroups } = useUserGroupStore();
   const [showFinished, setShowFinished] = useState(false);
+  const [groupThumbnails, setGroupThumbnails] = useState({});
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -21,10 +23,50 @@ const Group = () => {
     if (userId) fetchUserGroups(userId);
   }, [userId]);
 
+  useEffect(() => {
+    const fetchThumbnails = async () => {
+      const allGroups = [...leaderGroups, ...memberGroups];
+      const thumbnailMap = {};
+
+      await Promise.all(
+        allGroups.map(async (group) => {
+          const url = await getImageURL({ reason: 'group', gid: group.gid });
+          thumbnailMap[group.gid] = url;
+        })
+      );
+
+      setGroupThumbnails(thumbnailMap);
+    };
+
+    if (leaderGroups.length || memberGroups.length) {
+      fetchThumbnails();
+    }
+  }, [leaderGroups, memberGroups]);
+
   const formatDate = (dateStr) => {
     const date = new Date(dateStr);
     return `${date.getMonth() + 1}월 ${date.getDate()}일`;
   };
+
+  const renderGroupCard = (group, isFinished = false, fallbackOffset = 0) => (
+    <GroupCardLarge
+      key={group.gid}
+      title={group.name}
+      category={group.category || ''}
+      period={`${group.time_created?.split('T')[0]} ~ ${group.end_date?.split('T')[0]}`}
+      thumbnailUrl={groupThumbnails[group.gid] || '/images/default-group.png'} 
+      members={group.member_count || 0}
+      progress={isFinished ? 100 : 50}
+      dueDate={isFinished ? '종료됨' : formatDate(group.end_date)}
+      avatarList={(group.members || []).slice(0, 3).map((m, idx) =>
+        m.profile && m.profile !== ' '
+          ? m.profile
+          : `https://i.pravatar.cc/24?img=${idx + fallbackOffset}`
+      )}
+      isFinished={isFinished}
+      onClick={() => navigate(`/group/${group.gid}`)}
+    />
+  );
 
   return (
     <MainLayout
@@ -34,69 +76,17 @@ const Group = () => {
     >
       <div>
         <SubTitle title={`운영 중인 그룹 (${leaderGroups.filter(g => !g.isFinished).length})`} />
-        {leaderGroups.filter(g => !g.isFinished).map((group) => (
-          <GroupCardLarge
-            key={group.gid}
-            title={group.name}
-            category={group.category}
-            period={`${group.time_created?.split('T')[0]} ~ ${group.end_date?.split('T')[0]}`}
-            thumbnailUrl={group.thumbnailUrl}
-            members={group.member_count || 0}
-            progress={50}
-            dueDate={group.end_date ? formatDate(group.end_date) : ''}
-            avatarList={(group.members || []).slice(0, 3).map((m, idx) =>
-              m.profile && m.profile !== ' '
-                ? m.profile
-                : `https://i.pravatar.cc/24?img=${idx + 1}`
-            )}
-            onClick={() => navigate(`/group/${group.gid}`)}
-          />
-        ))}
+        {leaderGroups.filter(g => !g.isFinished).map((g) => renderGroupCard(g, false, 1))}
 
         <SubTitle title={`참여 중인 그룹 (${memberGroups.filter(g => !g.isFinished).length})`} />
-        {memberGroups.filter(g => !g.isFinished).map((group) => (
-          <GroupCardLarge
-            key={group.gid}
-            title={group.name}
-            category={group.category || ''}
-            period={`${group.time_created?.split('T')[0]} ~ ${group.end_date?.split('T')[0]}`}
-            thumbnailUrl={group.thumbnailUrl}
-            members={group.member_count || 0}
-            progress={50}
-            dueDate={group.end_date ? formatDate(group.end_date) : ''}
-            avatarList={(group.members || []).slice(0, 3).map((m, idx) =>
-              m.profile && m.profile !== ' '
-                ? m.profile
-                : `https://i.pravatar.cc/24?img=${idx + 4}`
-            )}
-            onClick={() => navigate(`/group/${group.gid}`)}
-          />
-        ))}
+        {memberGroups.filter(g => !g.isFinished).map((g) => renderGroupCard(g, false, 4))}
 
         {showFinished && (
           <>
             <SubTitle title={`종료된 그룹 (${[...leaderGroups, ...memberGroups].filter(g => g.isFinished).length})`} />
             {[...leaderGroups, ...memberGroups]
               .filter(g => g.isFinished)
-              .map((group, idx) => (
-                <GroupCardLarge
-                  key={group.gid}
-                  title={group.name}
-                  category={group.category || ''}
-                  period={`${group.time_created?.split('T')[0]} ~ ${group.end_date?.split('T')[0]}`}
-                  thumbnailUrl={group.thumbnailUrl}
-                  members={group.member_count || 0}
-                  progress={100}
-                  dueDate="종료됨"
-                  avatarList={(group.members || []).slice(0, 3).map((m, i) =>
-                    m.profile && m.profile !== ' '
-                      ? m.profile
-                      : `https://i.pravatar.cc/24?img=${i + 7}`
-                  )}
-                  isFinished={true}
-                  onClick={() => navigate(`/group/${group.gid}`)}
-                />
-              ))}
+              .map((g) => renderGroupCard(g, true, 7))}
           </>
         )}
       </div>

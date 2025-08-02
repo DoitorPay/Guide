@@ -51,10 +51,10 @@ const TopicSelect = ({ mode }) => {
 
   // 기존 리스트 불러오기
   const endpoint =
-  mode === 'profile-topic' ? '/user/topics' :
-  mode === 'penalty-topic' ? '/group/punish-select' :
-  mode === 'study-topic' ? '/group/punish-select' :
-  '/user/topics';
+  mode === 'profile-topic' ? '/api/user/topics' :
+  mode === 'penalty-topic' ? '/api/group/punish-select' :
+  mode === 'study-topic' ? '/api/group/punish-select' :
+  '/api/user/topics';
   
   useEffect(() => {
     const fetchUserTopics = async () => {
@@ -87,9 +87,9 @@ const TopicSelect = ({ mode }) => {
     if (!isValid) return alert('주제를 1개 이상 선택해주세요.');
 
     const endpoint =
-      mode === 'signup' ? '/user/topics' :
-      mode === 'penalty-topic' ? '/penalty/topics' :
-      '/user/topics';
+      mode === 'signup' ? '/api/user/topics' :
+      mode === 'penalty-topic' ? '/api/penalty/topics' :
+      '/api/user/topics';
 
     try {
       const res = await fetch(`http://localhost:8000${endpoint}`, {

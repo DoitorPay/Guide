@@ -6,6 +6,7 @@ import uuid
 
 from app.DB.NeoDriver import driver
 from app.user import ns_user
+from app.user.level import TotalExp2Level
 
 todo_model = ns_user.model('todo list', {
     'item': fields.String(
@@ -99,9 +100,17 @@ class UserTodo(Resource):
                             neo_session.run("""
                                 MATCH(n:Person {id:$id, sns: $sns}) SET n.total_xp = n.total_xp + 5
                             """)
+                            neo_session.run("""
+                                MATCH(n:Person {id:$id, sns: $sns})
+                                WITH n, n.total_xp as total_xp
+                                WITH n, total_exp, floor((sqrt(total_exp * 4 + 225) - 5) / 10) AS level
+                                WHERE (total_exp - (25 * level^2 + 25 * level - 50)) <= 4
+                                SET n.exception_card = COALESCE(n.exception_card, 0) + 1
+                                """, id=user_data['id'], sns=user_data['sns'])
                         elif origin_done == "true" and done == "false":
                             neo_session.run("""
-                                MATCH(n:Person {id:$id, sns: $sns}) SET n.total_xp = n.total_xp - 5
+                                MATCH(n:Person {id:$id, sns: $sns}) SET 
+                                n.total_xp = n.total_xp - 5
                             """)
 
                         exec_date = update_item["exec_date"]

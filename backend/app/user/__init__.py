@@ -80,6 +80,7 @@ class ParticipatingGroups(Resource):
 userInfoChangingModel = ns_user.model('유저 정보 수정 모델, 이미지는 별도 서버에서 처리', {
     'nickname': fields.String,
     'quote': fields.String,
+    'profile': fields.String,
     'interest': fields.List(fields.String)
 })
 @ns_user.route('/change-info')
@@ -93,6 +94,20 @@ class ChangeInfo(Resource):
             neo_session.run("""
                 MATCH(p:Person {sns:$sns, id:$id}) SET 
                 p.nickname = $nickname,
-                p.quote = $quote
+                p.quote = $quote,
+                REMOVE p.profile
             """, sns=user_data['sns'], id = user_data['id'],
             nickname = info['nickname'], quote = info['quote'])
+            session['user_data'].pop('profile')
+
+
+@ns_user.route('/exception-card')
+class ExceptionCard(Resource):
+    def put(self):
+        user_data = session['user_data']
+
+        with driver.session() as neo_session:
+            neo_session.run("""
+                MATCH(p:Person {sns:$sns, id:$id}) WHERE p.exception_card >= 1
+                SET p.exception_card = p.exception_card - 1
+            """, sns=user_data['sns'], id = user_data['id'])
