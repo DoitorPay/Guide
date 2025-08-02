@@ -12,14 +12,38 @@ const useAuthStore = create((set) => ({
         withCredentials: true,
       });
 
-      if (res.data && res.data.id) {
-        set({ user: res.data, isLoggedIn: true, isAuthLoading: false });
-      } else {
-        set({ user: null, isLoggedIn: false, isAuthLoading: false });
+      console.log('[checkLoginStatus] 응답 데이터:', res.data);
+
+      const data = res.data;
+
+      if (data && typeof data === 'object' && data.id) {
+        set({
+          user: data,
+          isLoggedIn: true,
+          isAuthLoading: false,
+        });
+      }
+      else if (data === true) {
+        set({
+          user: { id: 'anonymous' }, 
+          isLoggedIn: true,
+          isAuthLoading: false,
+        });
+      }
+      else {
+        set({
+          user: null,
+          isLoggedIn: false,
+          isAuthLoading: false,
+        });
       }
     } catch (err) {
-      console.error('로그인 확인 실패:', err);
-      set({ user: null, isLoggedIn: false, isAuthLoading: false });
+      console.error('[checkLoginStatus] 에러:', err);
+      set({
+        user: null,
+        isLoggedIn: false,
+        isAuthLoading: false,
+      });
     }
   },
 

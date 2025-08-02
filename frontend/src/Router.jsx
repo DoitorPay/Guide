@@ -74,7 +74,7 @@ const Router = () => {
           <Route path="/pubGuide" element={<PubGuide />} />
           <Route path="/frontGuide" element={<FrontGuide />} />
           {/* 로그인 없이 화면 보고 싶으면 얘네 주석 처리하세요 */}
-          {/* <Route path="/groupdetailguide" element={<AuthGuard><GroupDetail /></AuthGuard>} />
+          <Route path="/groupdetailguide" element={<AuthGuard><GroupDetail /></AuthGuard>} />
           <Route path="/main" element={<AuthGuard><MainPage /></AuthGuard>} />
           <Route path="/todolist" element={<AuthGuard><TodoListPage /></AuthGuard>} />
           <Route path="/penalty" element={<AuthGuard><Penalty /></AuthGuard>} />
@@ -90,7 +90,7 @@ const Router = () => {
           <Route path="/notice" element={<AuthGuard><NoticePage /></AuthGuard>} />
           <Route path="/help" element={<AuthGuard><HelpPage /></AuthGuard>} />
           <Route path="/terms" element={<AuthGuard><TermsPage /></AuthGuard>} />
-          <Route path="/privacy" element={<AuthGuard><PrivacyPage /></AuthGuard>} /> */}
+          <Route path="/privacy" element={<AuthGuard><PrivacyPage /></AuthGuard>} />
           {/* 얘넨 냅두시고 */}
           <Route path="/landing" element={<Landing />} />
           <Route path="/additRegister" element={<SignUp />} />
@@ -107,7 +107,7 @@ const Router = () => {
 
           {/* 얘네 주석 해제하세요 */}
           {/* <Route path="/groupdetailguide" element={<GroupDetail />} /> */}
-          <Route path="/group/:gid" element={<GroupDetail />} />
+          {/* <Route path="/group/:gid" element={<GroupDetail />} />
           <Route path="/main" element={<MainPage />} />
           <Route path="/todolist" element={<TodoListPage />} />
           <Route path="/penalty" element={<Penalty />} />
@@ -124,7 +124,7 @@ const Router = () => {
           <Route path="/notice" element={<NoticePage />} />
           <Route path="/help" element={<HelpPage />} />
           <Route path="/terms" element={<TermsPage />} />
-          <Route path="/privacy" element={<PrivacyPage />} />
+          <Route path="/privacy" element={<PrivacyPage />} /> */}
 
           
         </Routes>
