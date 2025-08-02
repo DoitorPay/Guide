@@ -1,9 +1,13 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import Checkbox from '@/components/input/checkBox';
 import MoreOption from '@/components/popupModal/moreOption';
+import Button from '@/components/button/button';
+import { useNavigate } from 'react-router-dom';
 // import { useUserStore } from '@/stores/useUserStore'; // userId 임포트 제거
 
 const TodoList = ({ type, selectedDate, onTodoProgressChange, onAllTodosChange, groupId, isLeader }) => {
+    const navigate = useNavigate();
+
     // 투두 목록 상태
     const [todoItems, setTodoItems] = useState([]);
     const [groupTodos, setGroupTodos] = useState([]);
@@ -181,10 +185,9 @@ const TodoList = ({ type, selectedDate, onTodoProgressChange, onAllTodosChange, 
     useEffect(() => {
         if (type === 'home' || type === 'page-todolist') {
             fetchPersonalTodos();
-            // if (type === 'home') { // home 타입일 때만 그룹 투두를 가져옴
-            //     // console.log('Fetching group todos for home type. Current userId:', userId); // userId 관련 로깅 제거
-            //     fetchGroupTodos();
-            // }
+            if (type === 'home') { // home 타입일 때만 그룹 투두를 가져옴
+                fetchGroupTodos();
+            }
         } else if ((type === 'group' || type === 'group-detail') && groupId) {
             fetchGroupTodos();
         }
@@ -582,11 +585,21 @@ const TodoList = ({ type, selectedDate, onTodoProgressChange, onAllTodosChange, 
                     (() => {
                         const filteredPersonalTodos = todoItems.filter(item => item.isCurrentDate === true);
                         if (type === 'group' || type === 'group-detail') {
-                            return groupTodos.length === 0 && (
-                                <p className="no-todo">
-                                    이번주 그룹 미션이 아직 생성되지 않았어요.<br></br>
-                                </p>
-                            );
+                            if (groupTodos.length === 0) {
+                                if (isLeader) {
+                                    return (
+                                        <p className="no-todo">
+                                            이번주 그룹 미션을 생성해봐요.<br></br>
+                                        </p>
+                                    );
+                                } else {
+                                    return (
+                                        <p className="no-todo">
+                                            이번주 그룹 미션이 아직 생성되지 않았어요.<br></br>
+                                        </p>
+                                    );
+                                }
+                            }
                         } else if (type === 'home' || type === 'page-todolist') {
                             return filteredPersonalTodos.length === 0 && !isAddingTodo && (
                                 <p className="no-todo">
@@ -701,7 +714,7 @@ const TodoList = ({ type, selectedDate, onTodoProgressChange, onAllTodosChange, 
                     )
                 }
 
-                {(type === 'personal' || type === 'home' || type === 'page-todolist' || (type === 'group-detail' && isLeader)) && (
+                {(type === 'personal' || type === 'home' || type === 'page-todolist') && (
                         <button className="add-todo" onClick={addTodo}>
                             <div className="text-area">
                                 <svg width="14" height="15" viewBox="0 0 14 15" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -712,11 +725,20 @@ const TodoList = ({ type, selectedDate, onTodoProgressChange, onAllTodosChange, 
                         </button>
                     )
                 }
-                {(type === 'group' || type === 'group-detail') && groupTodos.length > 0 && (
+                {isLeader && (
+                    <Button
+                        type="primary"
+                        buttonName="그룹 미션 생성하기기"
+                        onClick={() => {navigate(`/groupmissionform/${groupId}`)}}
+                    />
+                )}
+                {(type === 'group' || type === 'group-detail' || type === 'home') && groupTodos.length > 0 && (
                         <div className={`todo-box group-todo-box`}>
+                            {(type !== 'group' && type !== 'group-detail') && (
                             <p className={`day-goal`}>
                                 그룹 목표 ({groupTodos.filter(item => item.completed).length}/{groupTodos.length})
                             </p>
+                            )}
                             {
                                 groupTodos.map((item) => (
                                     <div key={item.id} className="todo-box__item">
@@ -766,7 +788,6 @@ const TodoList = ({ type, selectedDate, onTodoProgressChange, onAllTodosChange, 
                         </div>
                     )
                 }
-                {/* Only render personal todos or group todos based on type */}
                 
             </div>
             <MoreOption
