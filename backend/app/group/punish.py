@@ -53,10 +53,11 @@ class PunishSelect(Resource):
             """, gid=gid)
             punish = list(dict(results.single()['g'])['punish'])
             punish_selected = random.choice(punish)
+            punish_to_db = punish_selected + f"///{gid}"
 
             neo_session.run("""
                 MATCH(p:Person {id:$id, sns:$sns})
                 SET p.punish = COALESCE(p.punish, []) + $punish
-            """, id=user_info['id'], sns=user_info['sns'], punish=punish_selected)
+            """, id=user_info['id'], sns=user_info['sns'], punish=punish_to_db)
 
             return punish_selected
