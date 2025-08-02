@@ -17,12 +17,8 @@ const PunishmentContent =  ({
             <span className="info-value">{groupName}</span>
           </div>
           <div className="info-row">
-            <span className="info-label">마감 날짜</span>
+            <span className="info-label">벌칙 수행</span>
             <span className="info-value">{deadline}</span>
-          </div>
-          <div className="info-row">
-            <span className="info-label">해당 미션</span>
-            <span className="info-value">{description}</span>
           </div>
         </div>
       </div>

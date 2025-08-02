@@ -95,6 +95,7 @@ class ChangeInfo(Resource):
                 MATCH(p:Person {sns:$sns, id:$id}) SET 
                 p.nickname = $nickname,
                 p.quote = $quote
+                p.nickname = $nickname, p.quote = $quote
                 REMOVE p.profile
             """, sns=user_data['sns'], id = user_data['id'],
             nickname = info['nickname'], quote = info['quote'])

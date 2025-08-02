@@ -9,7 +9,7 @@ from app.group import ns_group
 group_model = ns_group.model('group creation form', {
     'name': fields.String,
     'description': fields.String,
-    'topic': fields.String,
+    'topic': fields.List(fields.String),
     'num_goals': fields.Integer,
     'conf_date': fields.String,
     'duration': fields.Integer,
@@ -43,10 +43,10 @@ class Create(Resource):
                 end_date=info['end_date'], punish=info['punish']
             )
 
-            user_info = session['user_info']
+            user_info = session['user_data']
             neo_session.run("""
-                MATCH(n:Group{gid: $gid}), (n:Person{id: $id, sns: $sns})
-                MERGE (a)-[r:Leader]->(b)""",
+                MATCH(g:Group{gid: $gid}), (p:Person{id: $id, sns: $sns})
+                MERGE (p)-[r:Leader]->(g)""",
                 gid=gid, id=user_info['id'], sns=user_info['sns'])
 
             return gid, 200

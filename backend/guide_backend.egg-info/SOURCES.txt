@@ -10,9 +10,11 @@ app/auth/__init__.py
 app/group/__init__.py
 app/group/create.py
 app/group/punish.py
+app/group/todo.py
 app/user/UserInterest.py
 app/user/__init__.py
 app/user/level.py
+app/user/punishFeed.py
 app/user/todo.py
 guide_backend.egg-info/PKG-INFO
 guide_backend.egg-info/SOURCES.txt

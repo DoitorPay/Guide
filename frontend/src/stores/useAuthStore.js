@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import axios from 'axios';
+import { useUserStore } from './useUserStore';
 
 const useAuthStore = create((set) => ({
   user: null,
@@ -8,47 +9,37 @@ const useAuthStore = create((set) => ({
 
   checkLoginStatus: async () => {
     try {
-      const res = await axios.get('http://localhost:8000/auth/check-login', {
+      const resCheck = await axios.get('http://localhost:8000/auth/check-login', {
         withCredentials: true,
       });
 
-      console.log('[checkLoginStatus] 응답 데이터:', res.data);
-
-      const data = res.data;
-
-      if (data && typeof data === 'object' && data.id) {
-        set({
-          user: data,
-          isLoggedIn: true,
-          isAuthLoading: false,
+      if (resCheck.data === true) {
+        const resUser = await axios.get('http://localhost:8000/api/user/user_properties', {
+          withCredentials: true,
         });
-      }
-      else if (data === true) {
-        set({
-          user: { id: 'anonymous' }, 
-          isLoggedIn: true,
-          isAuthLoading: false,
-        });
-      }
-      else {
-        set({
-          user: null,
-          isLoggedIn: false,
-          isAuthLoading: false,
-        });
+        const user = Array.isArray(resUser.data) ? resUser.data[0] : resUser.data;
+        if (user && user.id) {
+          set({ user, isLoggedIn: true, isAuthLoading: false });
+          useUserStore.setState({ userInfo: user, userId: user.id, nickname: user.nickname, profile: user.profile, isLoading: false });
+        } else {
+          throw new Error('로그인 상태이나 유저 정보를 가져오지 못했습니다.');
+        }
+      } else {
+        set({ user: null, isLoggedIn: false, isAuthLoading: false });
+        useUserStore.setState({ userInfo: null, userId: null, nickname: '', profile: '', isLoading: false });
       }
     } catch (err) {
       console.error('[checkLoginStatus] 에러:', err);
-      set({
-        user: null,
-        isLoggedIn: false,
-        isAuthLoading: false,
-      });
+      set({ user: null, isLoggedIn: false, isAuthLoading: false });
+      useUserStore.setState({ userInfo: null, userId: null, nickname: '', profile: '', isLoading: false });
     }
   },
 
   setUser: (user) => set({ user, isLoggedIn: true }),
-  logout: () => set({ user: null, isLoggedIn: false }),
+  logout: () => {
+    set({ user: null, isLoggedIn: false });
+    useUserStore.setState({ userInfo: null, userId: null, nickname: '', profile: '', isLoading: false });
+  },
 }));
 
 export default useAuthStore;

@@ -44,6 +44,12 @@ class Group(Resource):
                 response = dict(group['g'])
 
                 results = session.run("""
+                    MATCH (p:Person)-[r:Leader]->(g:Group {gid: $gid})
+                    RETURN p
+                """, gid=gid)
+                response["leader"] = [dict(record['p']) for record in results]
+
+                results = session.run("""
                     MATCH (p:Person)-[r]->(g:Group {gid: $gid})
                     RETURN p
                 """, gid=gid)
@@ -95,7 +101,7 @@ class Register(Resource):
     def put(self):
         gid = parser.parse_args().get('id')
         user_info = session.get('user_data')
-        print(gid, user_info)
+
         with driver.session() as neo_session:
             neo_session.run("""
                 MATCH(p:Person {id:$id, sns:$sns}), (g:Group {gid: $gid})
@@ -103,3 +109,15 @@ class Register(Resource):
                 return p,r,g
             """, id=user_info['id'], sns=user_info['sns'], gid=gid)
             return {'message': '가입 완료'}, 200
+
+@ns_group.route('/dismiss')
+class Dismiss(Resource):
+    @ns_group.expect(parser)
+    def delete(self):
+        gid = parser.parse_args().get('id')
+
+        with driver.session() as neo_session:
+            neo_session.run("""
+                MATCH(g:Group {gid: $gid})
+                DETACH DELETE g
+            """, gid=gid)

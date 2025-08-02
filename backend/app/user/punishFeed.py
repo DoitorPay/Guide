@@ -46,6 +46,8 @@ class PunishFeed(Resource):
         with driver.session() as neo_session:
             result = neo_session.run("""
                 MATCH(p:Person {sns:$sns, id:$id})-[r]->(g:Group {gid:$gid})
-                SET p.punish_history = COALESCE(p.punish_history, []) + $content
-                RETURN p.punish_history as punish_history;
-            """, sns=user_data['sns'], id=user_data['id'], gid=group_id, content=formatted_content)
+                SET p.punish_history = COALESCE(p.punish_history, []) + $content,
+                p.punish = [punish IN p.punish WHERE punish <> $punish+"///"+$gid]
+                RETURN p.punish_history as punish_history, p.punish as punish
+            """, sns=user_data['sns'], id=user_data['id'], gid=group_id, content=formatted_content, punish=punish)
+

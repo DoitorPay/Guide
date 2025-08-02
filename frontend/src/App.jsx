@@ -1,15 +1,13 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Router from "@/Router";
 import useAuthStore from "@/stores/useAuthStore";
 
 function App() {
-  const { checkLoginStatus, isAuthLoading } = useAuthStore();
+  const isAuthLoading = useAuthStore((state) => state.isAuthLoading);
 
-  useEffect(() => {
-    checkLoginStatus();
-  }, []);
-
-  if (isAuthLoading) return null; 
+  if (isAuthLoading) {
+    return null;
+  }
 
   return (
     <div className="App">

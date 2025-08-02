@@ -43,7 +43,7 @@ const LayoutWithHeader = ({ children }) => {
                      location.pathname.startsWith("/todolist") ||
                      location.pathname.startsWith("/penalty") ||
                      location.pathname.startsWith("/profile") ||
-                     location.pathname.startsWith("/PenaltyCertification") ||
+                     location.pathname.startsWith("/penaltycertification") ||
                      location.pathname.startsWith("/notice") ||
                      location.pathname.startsWith("/help") ||
                      location.pathname.startsWith("/terms") ||
@@ -73,7 +73,7 @@ const Router = () => {
           <Route path="/cssGuide" element={<CssGuide />} />
           <Route path="/pubGuide" element={<PubGuide />} />
           <Route path="/frontGuide" element={<FrontGuide />} />
-          {/* 로그인 없이 화면 보고 싶으면 얘네 주석 처리하세요 */}
+          
           <Route path="/groupdetailguide" element={<AuthGuard><GroupDetail /></AuthGuard>} />
           <Route path="/main" element={<AuthGuard><MainPage /></AuthGuard>} />
           <Route path="/todolist" element={<AuthGuard><TodoListPage /></AuthGuard>} />
@@ -92,42 +92,15 @@ const Router = () => {
           <Route path="/terms" element={<AuthGuard><TermsPage /></AuthGuard>} />
           <Route path="/privacy" element={<AuthGuard><PrivacyPage /></AuthGuard>} />
           <Route path="/group/:gid" element={<GroupDetail />} />
-          {/* 얘넨 냅두시고 */}
+          
           <Route path="/landing" element={<Landing />} />
           <Route path="/additRegister" element={<SignUp />} />
           
-
-        
           <Route path="/my-topic" element={<TopicSelect mode="signup" />} />
           <Route path="/profile-topic" element={<TopicSelect mode="profile" />} />
           <Route path="/study-topic" element={<TopicSelect mode="study-topic" />} />
-          <Route path="/my-topic" element={<TopicSelect mode="signup" />} />
-          <Route path="/profile-topic" element={<TopicSelect mode="profile" />} />
           <Route path="/penalty-select" element={<TopicSelect mode="penalty-topic" />} />
           <Route path="/group-select" element={<TopicSelect mode="group-topic" />} />
-
-          {/* 얘네 주석 해제하세요 */}
-          {/* <Route path="/groupdetailguide" element={<GroupDetail />} /> */}
-          {/* 
-          <Route path="/main" element={<MainPage />} />
-          <Route path="/todolist" element={<TodoListPage />} />
-          <Route path="/penalty" element={<Penalty />} />
-          <Route path="/groupcreateform" element={<GroupCreateForm />} />
-          <Route path="/mypage" element={<MyPage />} />
-          <Route path="/groupmissionform" element={<GroupMissionForm />} />
-          <Route path="/groupmanage" element={<GroupManagement />} />
-          <Route path="/groupsearch" element={<GroupSearch />} />
-          <Route path="/landing" element={<Landing />} />
-          <Route path="/group" element={<Group />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/penaltyupload" element={<PenaltyUpload />} />
-          <Route path="/penaltycertification" element={<PenaltyCertification />} />
-          <Route path="/notice" element={<NoticePage />} />
-          <Route path="/help" element={<HelpPage />} />
-          <Route path="/terms" element={<TermsPage />} />
-          <Route path="/privacy" element={<PrivacyPage />} /> */}
-
-          
         </Routes>
       </LayoutWithHeader>
     </BrowserRouter>

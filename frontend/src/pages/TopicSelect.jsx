@@ -52,13 +52,26 @@ const TopicSelect = ({ mode }) => {
   // 기존 리스트 불러오기
   const endpoint =
   mode === 'profile-topic' ? '/api/user/topics' :
-  mode === 'penalty-topic' ? '/api/group/punish-select' :
-  mode === 'study-topic' ? '/api/group/punish-select' :
   '/api/user/topics';
   
   useEffect(() => {
     const fetchUserTopics = async () => {
         try {
+          const localStorageKey = mode === 'penalty-topic' ? 'penaltyTopics' :
+                                  mode === 'group-topic' ? 'groupTopics' :
+                                  'userTopics';
+
+          const storedTopics = localStorage.getItem(localStorageKey);
+          if (storedTopics) {
+            setSelectedTopics(JSON.parse(storedTopics));
+            return;
+          }
+
+          // 벌칙 주제 또는 그룹 주제 모드일 경우, 로컬 스토리지에 없으면 초기 선택 없이 바로 반환
+          if (mode === 'penalty-topic' || mode === 'group-topic') {
+            return; // setSelectedTopics는 초기 useState([])에 의해 빈 배열로 유지됨
+          }
+
           const response = await fetch(`http://localhost:8000${endpoint}`, {
             credentials: "include",
           });
@@ -71,6 +84,7 @@ const TopicSelect = ({ mode }) => {
             console.log(data.topics)
             console.log('설정될 토픽:', data[0]);
             setSelectedTopics(data[0]);
+            localStorage.setItem(localStorageKey, JSON.stringify(data[0]));
           }
         } catch (error) {
           console.error('주제 불러오기 실패:', error);
@@ -78,13 +92,25 @@ const TopicSelect = ({ mode }) => {
     };
 
     fetchUserTopics();
-  }, []);
+  }, [mode]);
 
   
 
   const handleSubmit = async () => {
 
     if (!isValid) return alert('주제를 1개 이상 선택해주세요.');
+
+    const localStorageKey =
+      mode === 'penalty-topic' ? 'penaltyTopics' :
+      mode === 'group-topic' ? 'groupTopics' :
+      'userTopics';
+
+    if (mode === 'penalty-topic' || mode === 'group-topic') {
+      localStorage.setItem(localStorageKey, JSON.stringify(selectedTopics));
+      setSetPopup(true); // 성공 팝업을 띄우기 위해
+      // navigate(-1); // 팝업 확인 버튼으로 이동하므로 바로 이동하지 않음
+      return;
+    }
 
     const endpoint =
       mode === 'signup' ? '/api/user/topics' :
@@ -101,6 +127,10 @@ const TopicSelect = ({ mode }) => {
       if(!res.ok) throw new Error();
       const data = await res.json();
       console.log('성공:', data);
+      localStorage.setItem(
+        localStorageKey,
+        JSON.stringify(selectedTopics)
+      );
       if (mode === 'signup') { // 회원가입일 때 메인으로 이동
         navigate('/main');
       } else { 

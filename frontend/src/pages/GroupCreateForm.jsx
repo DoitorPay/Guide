@@ -22,7 +22,7 @@ const GroupCreateForm = () => {
     studyTopic: '',
     penaltyTopic: '',
     thumbnail: '',
-    missionCount: 0,
+    missionCount: 1,
     missionDay: '',
     duration_weeks: null,
     end_date: '',
@@ -31,18 +31,23 @@ const GroupCreateForm = () => {
  const handleSubmit = async (e) => {
   e.preventDefault();
 
+  const groupTopics = JSON.parse(localStorage.getItem('groupTopics')) || [];
+  const penaltyTopics = JSON.parse(localStorage.getItem('penaltyTopics')) || [];
+
   const payload = {
     name: formData.groupName,
     description: formData.groupDescription,
-    topic: formData.studyTopic,
+    topic: groupTopics,
     num_goals: Number(formData.missionCount),
     conf_date: formData.missionDay,
     duration: isChecked ? 0 : formData.duration_weeks,
     end_date: isChecked || !formData.end_date ? null : formData.end_date,
-    punish: [],
+    punish: penaltyTopics,
   };
 
-  console.log('최종 전송 payload:', payload);
+  console.log("----- 최종전송 Payload -----");
+  console.log(JSON.stringify(payload, null, 2));
+  console.log("--------------------------");
 
   try {
     const res = await fetch('http://localhost:8000/api/group/create', {
@@ -135,6 +140,7 @@ const GroupCreateForm = () => {
             name="studyTopic"
             value={formData.studyTopic}
             onClick={() => navigate('/group-select')}
+            mode="group-topic" // Add mode prop
           />
         </div>
 
@@ -144,11 +150,13 @@ const GroupCreateForm = () => {
             name="penaltyTopic"
             value={formData.penaltyTopic}
             onClick={() => navigate('/penalty-select')}
+            mode="penalty-topic" // Add mode prop
           />
         </div>
 
         <div className="form-section">
           <MissionCount
+            value={formData.missionCount}
             onChange={(e) =>
               setFormData((prev) => ({
                 ...prev,
