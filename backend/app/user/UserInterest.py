@@ -13,7 +13,7 @@ class UpdateInterest(Resource):
             neo_session.run(
                 '''
                     MATCH (p:Person {id: $id, sns: $sns})
-                    SET p.interest = $topics
+                    SET p.interest = $interest
                 '''
                 , interest=topics['topics']
                 , sns = session['user_data']['sns']
@@ -24,7 +24,7 @@ class UpdateInterest(Resource):
         with driver.session() as neo_session:
             res = neo_session.run(
                 '''
-                    MATCH (n:Person {id: $id})
+                    MATCH (n:Person {id: $id, sns: $sns})
                     WHERE n.sns = $sns
                     return n.interest
                 '''
