@@ -4,16 +4,13 @@ import { useUserGroupStore } from '@/stores/useUserGroupStore';
 import MainLayout from '@/pages/MainLayout';
 import SubTitle from '@/components/subtitle/subTitle';
 import GroupCardLarge from '@/components/group/GroupCardLarge';
+import { useNavigate } from 'react-router-dom';
 
 const Group = () => {
   const { userId, fetchUserInfo } = useUserStore();
-  const {
-    leaderGroups,
-    memberGroups,
-    fetchUserGroups,
-    isLoadingGroups
-  } = useUserGroupStore();
+  const { leaderGroups, memberGroups, fetchUserGroups } = useUserGroupStore();
   const [showFinished, setShowFinished] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchUserInfo();
@@ -28,8 +25,6 @@ const Group = () => {
     const date = new Date(dateStr);
     return `${date.getMonth() + 1}월 ${date.getDate()}일`;
   };
-
-  console.log('종료된 그룹 개수', [...leaderGroups, ...memberGroups].filter(g => g.isFinished).length);
 
   return (
     <MainLayout
@@ -54,6 +49,7 @@ const Group = () => {
                 ? m.profile
                 : `https://i.pravatar.cc/24?img=${idx + 1}`
             )}
+            onClick={() => navigate(`/group/${group.gid}`)}
           />
         ))}
 
@@ -73,6 +69,7 @@ const Group = () => {
                 ? m.profile
                 : `https://i.pravatar.cc/24?img=${idx + 4}`
             )}
+            onClick={() => navigate(`/group/${group.gid}`)}
           />
         ))}
 
@@ -97,6 +94,7 @@ const Group = () => {
                       : `https://i.pravatar.cc/24?img=${i + 7}`
                   )}
                   isFinished={true}
+                  onClick={() => navigate(`/group/${group.gid}`)}
                 />
               ))}
           </>

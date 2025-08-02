@@ -95,11 +95,10 @@ const Router = () => {
           <Route path="/landing" element={<Landing />} />
           <Route path="/additRegister" element={<SignUp />} />
           
-          <Route path="/topic-select" element={<TopicSelect mode="group-topic" />} />
-          <Route path="/study-topic" element={<TopicSelect mode="study-topic" />} />
+
+        
           <Route path="/my-topic" element={<TopicSelect mode="signup" />} />
           <Route path="/profile-topic" element={<TopicSelect mode="profile" />} />
-          <Route path="/topic-select" element={<TopicSelect mode="group-topic" />} />
           <Route path="/study-topic" element={<TopicSelect mode="study-topic" />} />
           <Route path="/my-topic" element={<TopicSelect mode="signup" />} />
           <Route path="/profile-topic" element={<TopicSelect mode="profile" />} />
@@ -107,7 +106,8 @@ const Router = () => {
           <Route path="/group-select" element={<TopicSelect mode="group-topic" />} />
 
           {/* 얘네 주석 해제하세요 */}
-          <Route path="/groupdetailguide" element={<GroupDetail />} />
+          {/* <Route path="/groupdetailguide" element={<GroupDetail />} /> */}
+          <Route path="/group/:gid" element={<GroupDetail />} />
           <Route path="/main" element={<MainPage />} />
           <Route path="/todolist" element={<TodoListPage />} />
           <Route path="/penalty" element={<Penalty />} />
