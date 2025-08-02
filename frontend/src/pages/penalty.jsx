@@ -8,12 +8,11 @@ import MoreOption from '@/components/popupModal/moreOption';
 import MissionFeed from '@/components/Group/MissionFeed';
 import UserProfileRow from '@/components/Profile/UserProfileRow';
 import useAuthStore from '@/stores/useAuthStore';
-import { useUserGroupStore } from '@/stores/useUserGroupStore'; // [핵심] 오타 수정
+import { useUserGroupStore } from '@/stores/useUserGroupStore';
 
 const PenaltyPage = () => {
   const navigate = useNavigate();
   const { user: userInfo } = useAuthStore();
-  // [핵심] 오타 수정: useUserGroupGroupStore -> useUserGroupStore
   const { activeGroups, fetchUserGroups } = useUserGroupStore();
 
   const [selectedGroupName, setSelectedGroupName] = useState(null);
@@ -26,6 +25,57 @@ const PenaltyPage = () => {
       fetchUserGroups(userInfo.id);
     }
   }, [userInfo?.id, fetchUserGroups]);
+
+  useEffect(() => {
+    const fetchGroupFeeds = async () => {
+      if (!selectedGroupName) {
+        setFeeds([]);
+        return;
+      }
+
+      const selectedGroup = activeGroups.find(g => g.name === selectedGroupName);
+      if (!selectedGroup) return;
+
+      try {
+        const response = await fetch(`http://localhost:8000/api/group/member-punish-feed?id=${selectedGroup.gid}`);
+        if (!response.ok) {
+          throw new Error('그룹의 벌칙 피드를 불러오는데 실패했습니다.');
+        }
+        
+        const membersData = await response.json();
+        
+        // [핵심 수정] 데이터 가공 방식을 .split() 대신 객체 속성 접근으로 변경
+        const processedFeeds = membersData.flatMap(member => 
+          (member.punish_history || []).map(historyItem => {
+            // historyItem은 { punish: '제목', content: '내용', gid: '1', exec_date: '날짜' } 형태의 객체
+            return {
+              id: `${member.id}-${historyItem.punish}-${historyItem.exec_date}`, 
+              image: `https://picsum.photos/seed/${member.id}${historyItem.exec_date}/200/300`,
+              user: member.nickname,
+              avatar: member.profile || `https://picsum.photos/seed/${member.id}/50`,
+              date: historyItem.exec_date,
+              originalPenalty: { 
+                title: historyItem.punish, 
+                content: historyItem.content, 
+                groupId: historyItem.gid, 
+                deadline: historyItem.exec_date, 
+                groupName: selectedGroup.name 
+              }
+            };
+          })
+        );
+        
+        processedFeeds.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+        setFeeds(processedFeeds);
+      } catch (error) {
+        console.error("그룹 피드 로딩 실패:", error);
+        setFeeds([]);
+      }
+    };
+
+    fetchGroupFeeds();
+  }, [selectedGroupName, activeGroups]);
 
   const handleRouletteApiCall = async () => {
     const selectedGroup = activeGroups.find(g => g.name === selectedGroupName);
@@ -120,7 +170,7 @@ const PenaltyPage = () => {
 
       <div>
         <SubTitle title="벌칙 인증 피드" />
-        <MissionFeed feeds={feeds} onClickFeed={() => navigate('/penaltycertification')} />
+        <MissionFeed feeds={feeds} onClickFeed={(feed) => navigate('/penaltycertification', { state: { penalty: feed.originalPenalty, feedUser: { nickname: feed.user, profile: feed.avatar }, image: feed.image } })} />
       </div>
 
       <div>
@@ -141,7 +191,7 @@ const PenaltyPage = () => {
             isCertified={item.isCertified}
             onClick={
               item.isCertified
-                ? () => navigate('/penaltycertification', { state: { penalty: item } })
+                ? () => navigate('/penaltycertification', { state: { penalty: item, feedUser: userInfo } })
                 : () =>
                     navigate('/penaltyupload', {
                       state: { punishment: item.title, groupId: item.groupId },

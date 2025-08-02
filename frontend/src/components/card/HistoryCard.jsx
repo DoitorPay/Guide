@@ -33,7 +33,7 @@ const HistoryCard = ({
           <span className="value">{groupName}</span>
         </div>
         <div className="historycard__meta">
-          <span className="label">벌칙 수행일</span>
+          <span className="label">벌칙 수행</span>
           <span className="value">{deadline}</span>
         </div>
       </div>
