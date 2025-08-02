@@ -10,18 +10,19 @@ import UserProfileRow from '@/components/Profile/UserProfileRow';
 import { useUserStore } from '@/stores/useUserStore';
 import { useUserGroupStore } from '@/stores/useUserGroupStore';
 import useRouletteStore from '@/stores/useRouletteStore';
+import usePenaltyStore from '@/stores/usePenaltyStore'; 
 
 const PenaltyPage = () => {
   const navigate = useNavigate();
   const { userId, fetchUserInfo } = useUserStore();
   const { activeGroups, fetchUserGroups } = useUserGroupStore();
   const { selectedPunishment } = useRouletteStore();
+  const { penalties, fetchPenalties } = usePenaltyStore(); 
 
   const [selectedGroupName, setSelectedGroupName] = useState(null);
   const [sortFilter, setSortFilter] = useState('전체');
   const [sortPopupOpen, setSortPopupOpen] = useState(false);
   const [feeds, setFeeds] = useState([]);
-  const [penalties, setPenalties] = useState([]);
 
   useEffect(() => {
     fetchUserInfo();
@@ -31,22 +32,14 @@ const PenaltyPage = () => {
     if (userId) fetchUserGroups(userId);
   }, [userId]);
 
-  useEffect(() => {
-    const examplePenalties = activeGroups.flatMap((group) =>
-      (group.punish || []).map((p) => ({
-        title: p,
-        groupName: group.name,
-        groupId: group.gid,
-        deadline: group.end_date?.split('T')[0] || '',
-        isCertified: Math.random() > 0.5,
-        thumbnailUrl: group.thumbnailUrl,
-      }))
-    );
-    setPenalties(examplePenalties);
-  }, [activeGroups]);
+useEffect(() => {
+    if (activeGroups.length > 0) {
+      fetchPenalties();
+    }
+  }, [activeGroups, fetchPenalties]);
 
   const filteredPenalties = useMemo(() => {
-    let filtered = [...penalties];
+    let filtered = [...penalties]; // 로컬 state 대신 스토어의 penalties 사용
     if (selectedGroupName) {
       filtered = filtered.filter((p) => p.groupName === selectedGroupName);
     }
@@ -66,6 +59,14 @@ const PenaltyPage = () => {
     }
     return base;
   }, [filteredPenalties, selectedPunishment]);
+
+  const roulettePenalties = useMemo(() => 
+    activeGroups.flatMap((group) =>
+      (group.punish || []).map((p) => ({
+        title: p,
+        groupName: group.name,
+      }))
+    ), [activeGroups]);
 
   return (
     <MainLayout
@@ -96,47 +97,46 @@ const PenaltyPage = () => {
           ))}
         </div>
       </div>
-    <div>
-      <SubTitle title="벌칙 룰렛 돌리기" type="info" info="면제 카드 2장" />
-      <Roulette punishList={penalties} />
-    </div>
+      <div>
+        <SubTitle title="벌칙 룰렛 돌리기" type="info" info="면제 카드 2장" />
+        <Roulette punishList={roulettePenalties} />
+      </div>
 
-    <div>
-          <SubTitle title="벌칙 인증 피드" />
-          <MissionFeed feeds={feeds} onClickFeed={() => navigate('/penaltycertification')} />
-    </div>
-
-
-    <div>
-      <SubTitle
-        title="벌칙 히스토리"
-        type="link"
-        linkIcon="arrow-bottom-gray"
-        more={sortFilter}
-        link="#"
-        onClickMore={() => setSortPopupOpen(true)}
-      />
-      {mergedPenalties.map((item, idx) => (
-        <HistoryCard
-          key={item.title + item.groupName + idx}
-          title={item.title}
-          groupName={item.groupName}
-          deadline={item.deadline}
-          isCertified={item.isCertified}
-          onClick={
-            item.isCertified
-              ? () => navigate('/penaltycertification')
-              : () =>
-                  navigate('/penaltyupload', {
-                    state: {
-                      punishment: item.title,
-                      groupId: item.groupId,
-                    },
-                  })
-          }
+      <div>
+        <SubTitle title="벌칙 인증 피드" />
+        <MissionFeed feeds={feeds} onClickFeed={() => navigate('/penaltycertification')} />
+      </div>
+      
+      <div>
+        <SubTitle
+          title="벌칙 히스토리"
+          type="link"
+          linkIcon="arrow-bottom-gray"
+          more={sortFilter}
+          link="#"
+          onClickMore={() => setSortPopupOpen(true)}
         />
-      ))}
-    </div>
+        {mergedPenalties.map((item, idx) => (
+          <HistoryCard
+            key={`${item.title}-${item.groupId}-${idx}`} // key를 더 고유하게 변경
+            title={item.title}
+            groupName={item.groupName}
+            deadline={item.deadline}
+            isCertified={item.isCertified}
+            onClick={
+              item.isCertified
+                ? () => navigate('/penaltycertification')
+                : () =>
+                    navigate('/penaltyupload', {
+                      state: {
+                        punishment: item.title,
+                        groupId: item.groupId, // groupId도 같이 넘겨주기
+                      },
+                    })
+            }
+          />
+        ))}
+      </div>
       <MoreOption
         title="정렬"
         isOpen={sortPopupOpen}
