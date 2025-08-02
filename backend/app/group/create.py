@@ -45,8 +45,8 @@ class Create(Resource):
 
             user_info = session['user_data']
             neo_session.run("""
-                MATCH(n:Group{gid: $gid}), (n:Person{id: $id, sns: $sns})
-                MERGE (a)-[r:Leader]->(b)""",
+                MATCH(g:Group{gid: $gid}), (p:Person{id: $id, sns: $sns})
+                MERGE (p)-[r:Leader]->(g)""",
                 gid=gid, id=user_info['id'], sns=user_info['sns'])
 
             return gid, 200
