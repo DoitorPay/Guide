@@ -3,7 +3,7 @@ import Input from '@/components/input/Input';
 import SubTitle from '@/components/subtitle/subTitle';
 import Button from '@/components/button/button.jsx';
 import SignupLayout from '@/pages/signupLayout';
-import ImageUploader from '@/components/group/ImageUploader';
+// import ImageUploader from '@/components/group/ImageUploader';
 
 
 const GroupMissionForm = () => {
@@ -16,7 +16,7 @@ const GroupMissionForm = () => {
                 icon1: 'none',
               }}
             >
-        <form className="group-create-form">
+        <form className="group-create-form"></form>
 
           <div className="form-section">
               <SubTitle title="설정된 그룹 미션 개수 : 2개"/>

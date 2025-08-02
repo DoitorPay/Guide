@@ -97,7 +97,7 @@ const TodoList = ({ type, selectedDate, onTodoProgressChange, onAllTodosChange, 
     const fetchGroupTodos = useCallback(async () => {
         try {
             // 1. 사용자가 가입된 그룹 ID 목록 가져오기
-            const userGroupsResponse = await fetch('http://localhost:8000/user/group-participating');
+            const userGroupsResponse = await fetch('http://localhost:8000/api/user/group-participating');
             if (!userGroupsResponse.ok) {
                 const errorData = await userGroupsResponse.json();
                 console.error('사용자 그룹 목록 가져오기 에러:', errorData);
@@ -178,7 +178,7 @@ const TodoList = ({ type, selectedDate, onTodoProgressChange, onAllTodosChange, 
                     exec_date: item.exec_date
                 };
 
-                const response = await fetch('http://localhost:8000/user/user-todo', {
+                const response = await fetch('http://localhost:8000/api/user/user-todo', {
                     method: 'PUT',
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify({ item: updatedTodoData }),
@@ -263,7 +263,7 @@ const TodoList = ({ type, selectedDate, onTodoProgressChange, onAllTodosChange, 
                         console.log(JSON.stringify(todoData, null, 2));
                         console.log("-------------------");
 
-                        const response = await fetch('http://localhost:8000/user/user-todo', {
+                        const response = await fetch('http://localhost:8000/api/user/user-todo', {
                             method: 'POST',
                             headers: {'Content-Type': 'application/json'},
                             body: JSON.stringify(todoData),
@@ -391,7 +391,7 @@ const TodoList = ({ type, selectedDate, onTodoProgressChange, onAllTodosChange, 
                     exec_date: originalTodo.exec_date
                 };
 
-                fetch('http://localhost:8000/user/user-todo', {
+                fetch('http://localhost:8000/api/user/user-todo', {
                     method: 'PUT',
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify({ item: updatedTodoData }),
@@ -470,7 +470,7 @@ const TodoList = ({ type, selectedDate, onTodoProgressChange, onAllTodosChange, 
                 console.log(JSON.stringify(deleteData, null, 2));
                 console.log("---------------------------");
 
-                const response = await fetch('http://localhost:8000/user/user-todo', {
+                const response = await fetch('http://localhost:8000/api/user/user-todo', {
                     method: 'DELETE',
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify(deleteData),
