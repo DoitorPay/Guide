@@ -96,3 +96,15 @@ class ChangeInfo(Resource):
                 p.quote = $quote
             """, sns=user_data['sns'], id = user_data['id'],
             nickname = info['nickname'], quote = info['quote'])
+
+
+@ns_user.route('/exception-card')
+class ExceptionCard(Resource):
+    def put(self):
+        user_data = session['user_data']
+
+        with driver.session() as neo_session:
+            neo_session.run("""
+                MATCH(p:Person {sns:$sns, id:$id}) WHERE p.exception_card >= 1
+                SET p.exception_card = p.exception_card - 1
+            """, sns=user_data['sns'], id = user_data['id'])
