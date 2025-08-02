@@ -22,7 +22,7 @@ const PenaltyPage = () => {
 
   useEffect(() => {
     fetchUserInfo();
-  }, []); 
+  }, []);
 
   useEffect(() => {
     if (userInfo?.id) {
@@ -95,9 +95,11 @@ const PenaltyPage = () => {
           {activeGroups.map((group) => (
             <div
               key={group.gid}
+              // [핵심 수정] 아래 style 속성으로 opacity를 제어
               style={{
                 opacity:
                   selectedGroupName === null || selectedGroupName === group.name ? 1 : 0.3,
+                transition: 'opacity 0.2s ease-in-out' // 부드러운 효과를 위한 트랜지션
               }}
               onClick={() => setSelectedGroupName((prev) => (prev === group.name ? null : group.name))}
             >
