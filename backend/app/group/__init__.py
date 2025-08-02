@@ -44,7 +44,13 @@ class Group(Resource):
                 response = dict(group['g'])
 
                 results = session.run("""
-                    MATCH (p:Person)-[r]->(g:Group {gid: $gid})
+                    MATCH (p:Person)-[r:Leader]->(g:Group {gid: $gid})
+                    RETURN p
+                """, gid=gid)
+                response["leader"] = [dict(record['p']) for record in results]
+
+                results = session.run("""
+                    MATCH (p:Person)-[r:Member]->(g:Group {gid: $gid})
                     RETURN p
                 """, gid=gid)
                 response["members"] = [dict(record['p']) for record in results]
