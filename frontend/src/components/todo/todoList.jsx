@@ -121,14 +121,46 @@ const TodoList = ({ type, selectedDate, onTodoProgressChange, onAllTodosChange, 
             allGroups.forEach(group => {
                 if (group.todo && Array.isArray(group.todo)) {
                     group.todo.forEach(todoItem => {
-                        const [text, exec_date, id, done] = todoItem.split("///");
-                        allGroupTodos.push({
-                            text: text,
-                            id: id,
-                            completed: String(done).toLowerCase() === 'true',
-                            exec_date: exec_date, 
-                            groupId: group.gid
-                        });
+                        let parsedTodo = null;
+                        let jsonString = '';
+
+                        // 문자열이 '///'를 포함하는 경우 JSON 부분을 추출합니다.
+                        if (typeof todoItem === 'string' && todoItem.includes('///')) {
+                            jsonString = todoItem.split('///')[0];
+                        } else if (typeof todoItem === 'string') {
+                            // '///'가 없는 경우, 전체 문자열이 JSON 부분이라고 가정합니다.
+                            jsonString = todoItem;
+                        }
+
+                        if (jsonString) {
+                            try {
+                                // 유효한 JSON 파싱을 위해 작은따옴표를 큰따옴표로 바꿉니다.
+                                const validJsonString = jsonString.replace(/'/g, '"');
+                                parsedTodo = JSON.parse(validJsonString);
+                            } catch (e) {
+                                console.error("그룹 투두 JSON 파싱 에러:", e, "원시 문자열:", todoItem, "파싱 시도 문자열:", jsonString);
+                                // JSON 파싱이 여전히 실패하는 경우 기존 "///" 형식으로 대체합니다.
+                                const parts = todoItem.split("///");
+                                if (parts.length >= 4) { // item, exec_date, id, done
+                                    const [text, exec_date, id, done] = parts;
+                                    parsedTodo = { todos: [{ id: id, item: text, done: done, exec_date: exec_date }] };
+                                } else {
+                                    console.warn("알 수 없는 형식의 그룹 투두:", todoItem);
+                                }
+                            }
+                        }
+
+                        if (parsedTodo && parsedTodo.todos && Array.isArray(parsedTodo.todos)) {
+                            parsedTodo.todos.forEach(innerTodo => {
+                                allGroupTodos.push({
+                                    text: innerTodo.item,
+                                    id: innerTodo.id,
+                                    completed: String(innerTodo.done).toLowerCase() === 'true',
+                                    groupId: group.gid,
+                                    exec_date: innerTodo.exec_date || '' // exec_date가 없을 경우 빈 문자열로 처리하여 일관성을 유지합니다.
+                                });
+                            });
+                        }
                     });
                 }
             });
