@@ -40,7 +40,6 @@
 @import '@/assets/css/components/group/tossGroupAdmin.scss';
 @import '@/assets/css/components/group/missionCount.scss';
 @import '@/assets/css/components/popupModal/GroupDetailPopup.scss';
-@import '@/assets/css/components/group/groupManagement.scss';
 
 /* profile components */
 @import '@/assets/css/components/profile/profileImage.scss';
@@ -57,3 +56,4 @@
 @import '@/assets/css/pages/groupForm.scss';
 @import '@/assets/css/pages/profile.scss';
 @import '@/assets/css/pages/penaltyUpload.scss';
+@import '@/assets/css/pages/groupManagement.scss';
