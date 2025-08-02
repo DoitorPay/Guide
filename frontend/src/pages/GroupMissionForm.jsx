@@ -3,7 +3,9 @@ import Input from '@/components/input/Input';
 import SubTitle from '@/components/subtitle/subTitle';
 import Button from '@/components/button/button.jsx';
 import MainLayout from '@/pages/MainLayout';
+import ImageUploader from '@/components/group/ImageUploader';
 
+// 개발 일정상 미션 인증 업로드 로직은 제외
 
 const GroupMissionForm = () => {
     

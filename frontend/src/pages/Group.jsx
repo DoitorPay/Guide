@@ -59,7 +59,7 @@ const Group = () => {
             key={group.gid}
             title={group.name}
             category={group.category || ''}
-            period={`~ ${group.end_date?.split('T')[0]}`}
+            period={`${group.time_created?.split('T')[0]} ~ ${group.end_date?.split('T')[0]}`}
             thumbnailUrl={group.thumbnailUrl}
             members={group.member_count || 0}
             progress={50}
