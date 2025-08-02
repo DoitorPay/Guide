@@ -39,7 +39,7 @@ class Todo(Resource):
                 RETURN g.todo as todo
             ''', gid=gid)
 
-           todo = [dict(item['todo']) for item in todo]
+            todo = [dict(item['todo']) for item in todo]
             if todo is not None:
                 todo = [{"item": i.split("///")[0], "exec_date": i.split("///")[1], "id": i.split("///")[2], "done": i.split("///")[3]}
                         for i in todo[0]]
