@@ -62,7 +62,7 @@ function Header({
           </>
         )}
 
-        {(type === "default" || type === "header-a") && (
+        {(type === "default" || type === "header-a" || type === "header-b") && (
           <>
             {type === "default" && (
               <div className="logo">
@@ -78,30 +78,32 @@ function Header({
               </div>
             )}
 
-            <div className="menu">
-              <ul className="menu__list">
-                <li>
-                  <i
-                    onClick={handleIconClick(icon1, icon1OnClick)}
-                    className="ico"
-                    style={{
-                      background: `url(/icons/${icon1}.svg) no-repeat center center`,
-                    }}
-                  ></i>
-                </li>
-                {icon2 && (
+            {(type !== "header-b" || (type === "header-b" && (icon1 !== "center-focus-strong" || icon2))) && (
+              <div className="menu">
+                <ul className="menu__list">
                   <li>
                     <i
-                      onClick={handleIconClick(icon2, icon2OnClick)}
+                      onClick={handleIconClick(icon1, icon1OnClick)}
                       className="ico"
                       style={{
-                        background: `url(/icons/${icon2}.svg) no-repeat center center`,
+                        background: `url(/icons/${icon1}.svg) no-repeat center center`,
                       }}
                     ></i>
                   </li>
-                )}
-              </ul>
-            </div>
+                  {icon2 && (
+                    <li>
+                      <i
+                        onClick={handleIconClick(icon2, icon2OnClick)}
+                        className="ico"
+                        style={{
+                          background: `url(/icons/${icon2}.svg) no-repeat center center`,
+                        }}
+                      ></i>
+                    </li>
+                  )}
+                </ul>
+              </div>
+            )}
           </>
         )}
       </nav>
