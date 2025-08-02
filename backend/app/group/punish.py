@@ -95,7 +95,7 @@ class MemberPunishFeed(Resource):
                         # 1. 리스트 안의 유효한 history 문자열만 순회
                         for history in original_history_list if history
                         # 2. split 결과를 parts 변수에 할당하고, 그 길이가 4인지 바로 검사
-                        if len(parts := history.split("///")) == 4
+                        if len(parts := history.split("///")) == 4 and parts[2] == gid
                     ]
                 else:  # punish['punish_history']가 없거나 None, 빈 리스트일 경우
                     punish['punish_history'] = []
