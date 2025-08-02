@@ -50,7 +50,7 @@ class Group(Resource):
                 response["leader"] = [dict(record['p']) for record in results]
 
                 results = session.run("""
-                    MATCH (p:Person)-[r:Member]->(g:Group {gid: $gid})
+                    MATCH (p:Person)-[r]->(g:Group {gid: $gid})
                     RETURN p
                 """, gid=gid)
                 response["members"] = [dict(record['p']) for record in results]
