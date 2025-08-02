@@ -8,6 +8,7 @@ import WeekCalendar from "@/components/calendar/WeekCalendar";
 import SubTitle from '@/components/subtitle/subTitle';
 import { useNavigate } from 'react-router-dom';
 import { format } from 'date-fns';
+import { useCallback } from 'react';
 
 const MainPage = () => {
   const navigate = useNavigate();
@@ -15,14 +16,14 @@ const MainPage = () => {
 
   const [userPercent, setUserPercent] = React.useState('0');
 
-  const handleTodoProgressChange = (total, completed) => {
+  const handleTodoProgressChange = useCallback((total, completed) => {
     if (total === 0) {
       setUserPercent('0');
     } else {
       const percent = (completed / total) * 100;
       setUserPercent(Number.isInteger(percent) ? String(percent) : percent.toFixed(2));
     }
-  };
+  }, []);
 
   return (
     <MainLayout
