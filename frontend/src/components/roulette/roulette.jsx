@@ -1,42 +1,31 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import Button from '@/components/button/button';
 import Popup from '@/components/popupModal/Popup';
+import useRouletteStore from '@/stores/useRouletteStore';
 
-const Roulette = () => {
+const Roulette = ({ punishList = [] }) => {
   const [items, setItems] = useState([]);
   const [selectedIndex, setSelectedIndex] = useState(null);
   const [isSpinning, setIsSpinning] = useState(false);
   const [showConfirmPopup, setShowConfirmPopup] = useState(false);
   const [showCompletePopup, setShowCompletePopup] = useState(false);
 
-  const navigate = useNavigate();
-  const hasItems = items.length > 0;
+  const { setSelectedPunishment } = useRouletteStore();
 
   useEffect(() => {
-    const fetchPunishments = async () => {
-      try {
-        const res = await fetch('http://127.0.0.1:8000/group?id=1');
-        const data = await res.json();
-        if (Array.isArray(data) && data.length > 0 && Array.isArray(data[0].punish)) {
-          setItems(data[0].punish);
-        }
-      } catch (err) {
-        console.error('벌칙 데이터 불러오기 실패:', err);
-      }
-    };
-
-    fetchPunishments();
-  }, []);
+    setItems(punishList);
+  }, [punishList]);
 
   const spin = (current, speed, remaining) => {
-    if (remaining <= 0) {
+    const nextIndex = (current + 1) % items.length;
+
+    if (remaining <= 1) {
+      setSelectedIndex(nextIndex);
       setIsSpinning(false);
       setShowConfirmPopup(true);
       return;
     }
 
-    const nextIndex = (current + 1) % items.length;
     setSelectedIndex(nextIndex);
 
     const nextSpeed = speed + 10;
@@ -46,7 +35,7 @@ const Roulette = () => {
   };
 
   const handleSpin = () => {
-    if (isSpinning || !hasItems) return;
+    if (isSpinning || items.length === 0) return;
 
     setIsSpinning(true);
     const totalSpins = 20 + Math.floor(Math.random() * 10);
@@ -61,21 +50,14 @@ const Roulette = () => {
 
   const handleSkip = () => {
     setShowConfirmPopup(false);
-  
-    // 당첨된 벌칙 값을 가져옴
-    const selectedPunishment = items[selectedIndex];
-  
-    navigate('/penaltyupload', {
-      state: {
-        punishment: selectedPunishment
-      }
-    });
+    const selected = items[selectedIndex];
+    setSelectedPunishment(selected);
   };
 
   return (
     <div className="roulette-wrap">
       <div className="roulette-box">
-        {!hasItems ? (
+        {items.length === 0 ? (
           <div className="roulette-default-text">
             수행해야 할 벌칙이 없어요.
           </div>
@@ -92,7 +74,7 @@ const Roulette = () => {
                 key={idx}
                 className={`roulette-item ${isActive ? 'active' : ''}`}
               >
-                {item}
+                {item.title}
               </div>
             );
           })
@@ -103,14 +85,14 @@ const Roulette = () => {
         <Button
           type="primary"
           buttonName={
-            !hasItems
+            items.length === 0
               ? '룰렛 돌리기'
               : isSpinning
               ? '룰렛 돌리는 중...'
               : '룰렛 돌리기'
           }
           onClick={handleSpin}
-          disabled={isSpinning || !hasItems}
+          disabled={isSpinning || items.length === 0}
           bgColor="var(--color-secondary-indigo)"
           aria="룰렛 돌리기 버튼"
         />

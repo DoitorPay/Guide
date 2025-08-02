@@ -9,11 +9,13 @@ import MissionFeed from '@/components/Group/MissionFeed';
 import UserProfileRow from '@/components/Profile/UserProfileRow';
 import { useUserStore } from '@/stores/useUserStore';
 import { useUserGroupStore } from '@/stores/useUserGroupStore';
+import useRouletteStore from '@/stores/useRouletteStore';
 
 const PenaltyPage = () => {
   const navigate = useNavigate();
   const { userId, fetchUserInfo } = useUserStore();
   const { activeGroups, fetchUserGroups } = useUserGroupStore();
+  const { selectedPunishment } = useRouletteStore();
 
   const [selectedGroupName, setSelectedGroupName] = useState(null);
   const [sortFilter, setSortFilter] = useState('전체');
@@ -53,6 +55,18 @@ const PenaltyPage = () => {
     return filtered;
   }, [penalties, selectedGroupName, sortFilter]);
 
+  const mergedPenalties = useMemo(() => {
+    const base = [...filteredPenalties];
+    if (selectedPunishment) {
+      base.unshift({
+        ...selectedPunishment,
+        groupName: selectedPunishment.groupName || '룰렛 당첨',
+        isCertified: false,
+      });
+    }
+    return base;
+  }, [filteredPenalties, selectedPunishment]);
+
   return (
     <MainLayout
       contentBg="var(--color-background)"
@@ -82,13 +96,18 @@ const PenaltyPage = () => {
           ))}
         </div>
       </div>
-
+    <div>
       <SubTitle title="벌칙 룰렛 돌리기" type="info" info="면제 카드 2장" />
-      <Roulette />
+      <Roulette punishList={penalties} />
+    </div>
 
-      <SubTitle title="벌칙 인증 피드" />
-      <MissionFeed feeds={feeds} onClickFeed={() => navigate('/penaltycertification')} />
+    <div>
+          <SubTitle title="벌칙 인증 피드" />
+          <MissionFeed feeds={feeds} onClickFeed={() => navigate('/penaltycertification')} />
+    </div>
 
+
+    <div>
       <SubTitle
         title="벌칙 히스토리"
         type="link"
@@ -97,8 +116,7 @@ const PenaltyPage = () => {
         link="#"
         onClickMore={() => setSortPopupOpen(true)}
       />
-
-      {filteredPenalties.map((item, idx) => (
+      {mergedPenalties.map((item, idx) => (
         <HistoryCard
           key={item.title + item.groupName + idx}
           title={item.title}
@@ -118,7 +136,7 @@ const PenaltyPage = () => {
           }
         />
       ))}
-
+    </div>
       <MoreOption
         title="정렬"
         isOpen={sortPopupOpen}
