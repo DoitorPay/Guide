@@ -65,7 +65,7 @@ class Todo(Resource):
             for item in todo_list:
                 if new_item in item.split("///"):
                     return 200
-            todo_list.append(f"{item}///{str(uuid.uuid4())}///false")
+            todo_list.append(f"{new_item}///{str(uuid.uuid4())}///false")
 
             try:
                  neo_session.run(
