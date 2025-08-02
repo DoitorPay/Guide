@@ -1,6 +1,6 @@
 from urllib import request
 
-from flask import jsonify
+from flask import jsonify, session
 from flask_restx import Namespace, Resource, reqparse, fields
 
 from app.DB.NeoDriver import driver
@@ -77,7 +77,7 @@ class DelegateLeader(Resource):
     def update(self):
         gid = parser.parse_args().get('id')
         new_leader = request.get_json()['new_leader']
-        user_info = request.get_json()['user_data']
+        user_info = session.get('user_data')
 
         with driver.session() as neo_session:
             neo_session.run("""
@@ -88,3 +88,16 @@ class DelegateLeader(Resource):
                 CREATE (p)-[r:Leader]->(new_leader)
             """, id=user_info['id'], sns=user_info['sns'], gid=gid,
             new_leader=new_leader)
+
+@ns_group.route('/register')
+class Register(Resource):
+    @ns_group.expect(parser)
+    def put(self):
+        gid = parser.parse_args().get('id')
+        user_info = session.get('user_data')
+
+        with driver.session() as neo_session:
+            neo_session.run("""
+                MATCH(p:Person {id:$id, sns:$sns}), (g:Group {gid: $gid})
+                MERGE (p)-[r:Member]->(g)
+            """, id=user_info['id'], sns=user_info['sns'], gid=gid)
