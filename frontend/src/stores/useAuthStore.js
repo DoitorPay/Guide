@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import axios from 'axios';
+import { useUserStore } from './useUserStore';
 
 const useAuthStore = create((set) => ({
   user: null,
@@ -7,42 +8,53 @@ const useAuthStore = create((set) => ({
   isAuthLoading: true,
 
   checkLoginStatus: async () => {
+    set({ isAuthLoading: true });
     try {
       const res = await axios.get('http://localhost:8000/auth/check-login', {
         withCredentials: true,
       });
 
-      console.log('[checkLoginStatus] 응답 데이터:', res.data);
-
       const data = res.data;
+      let userData = null;
+      let loggedInStatus = false;
 
       if (data && typeof data === 'object' && data.id) {
-        set({
-          user: data,
-          isLoggedIn: true,
-          isAuthLoading: false,
-        });
+        userData = data;
+        loggedInStatus = true;
+      } else if (data === true) {
+        userData = { id: 'anonymous' };
+        loggedInStatus = true;
       }
-      else if (data === true) {
-        set({
-          user: { id: 'anonymous' }, 
-          isLoggedIn: true,
-          isAuthLoading: false,
-        });
-      }
-      else {
-        set({
-          user: null,
-          isLoggedIn: false,
-          isAuthLoading: false,
-        });
-      }
+
+      set({
+        user: userData,
+        isLoggedIn: loggedInStatus,
+        isAuthLoading: false,
+      });
+
+      useUserStore.setState({
+        userInfo: userData,
+        userId: userData?.id,
+        nickname: userData?.nickname,
+        profile: userData?.profile,
+        isLoading: false,
+      });
+
     } catch (err) {
       console.error('[checkLoginStatus] 에러:', err);
+      // 1. useAuthStore 자신의 상태를 업데이트
       set({
         user: null,
         isLoggedIn: false,
         isAuthLoading: false,
+      });
+      // 2. [핵심] useUserStore의 상태도 똑같이 업데이트
+      useUserStore.setState({
+        userInfo: null,
+        userId: null,
+        nickname: '',
+        profile: '',
+        isLoading: false,
       });
     }
   },

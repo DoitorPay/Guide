@@ -4,7 +4,7 @@ import SignupLayout from "@/pages/SignupLayout";
 import ImageUploader from "@/components/group/ImageUploader";
 import Input from "@/components/Input/input";
 import Button from "@/components/button/button";
-import { useUserStore } from "@/stores/useUserStore";
+import useAuthStore from "@/stores/useAuthStore";
 
 const PenaltyUpload = () => {
   const navigate = useNavigate();
@@ -14,7 +14,6 @@ const PenaltyUpload = () => {
     groupId: null,
   };
   
-  const { fetchUserInfo } = useUserStore();
   const [content, setContent] = useState("");
   const [isImageUploaded, setIsImageUploaded] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -49,7 +48,7 @@ const PenaltyUpload = () => {
       }
       
       alert("업로드 완료!");
-      await fetchUserInfo();
+      await useAuthStore.getState().checkLoginStatus();
       navigate(-1);
     } catch (error) {
       console.error("벌칙 업로드 실패:", error);

@@ -7,22 +7,19 @@ import HistoryCard from '@/components/card/HistoryCard';
 import MoreOption from '@/components/popupModal/moreOption';
 import MissionFeed from '@/components/Group/MissionFeed';
 import UserProfileRow from '@/components/Profile/UserProfileRow';
-import { useUserStore } from '@/stores/useUserStore';
-import { useUserGroupStore } from '@/stores/useUserGroupStore';
+import useAuthStore from '@/stores/useAuthStore';
+import { useUserGroupStore } from '@/stores/useUserGroupStore'; // [핵심] 오타 수정
 
 const PenaltyPage = () => {
   const navigate = useNavigate();
-  const { userInfo, fetchUserInfo } = useUserStore();
+  const { user: userInfo } = useAuthStore();
+  // [핵심] 오타 수정: useUserGroupGroupStore -> useUserGroupStore
   const { activeGroups, fetchUserGroups } = useUserGroupStore();
 
   const [selectedGroupName, setSelectedGroupName] = useState(null);
   const [sortFilter, setSortFilter] = useState('전체');
   const [sortPopupOpen, setSortPopupOpen] = useState(false);
   const [feeds, setFeeds] = useState([]);
-
-  useEffect(() => {
-    fetchUserInfo();
-  }, []);
 
   useEffect(() => {
     if (userInfo?.id) {
@@ -41,8 +38,9 @@ const PenaltyPage = () => {
         credentials: 'include',
       });
       if (!response.ok) throw new Error('벌칙 추첨 실패');
+
       const resultPenaltyName = await response.json();
-      await fetchUserInfo();
+      await useAuthStore.getState().checkLoginStatus();
       return resultPenaltyName;
     } catch (error) {
       console.error(error);
@@ -143,7 +141,6 @@ const PenaltyPage = () => {
             isCertified={item.isCertified}
             onClick={
               item.isCertified
-                // [핵심 수정] 인증된 카드 클릭 시, item 정보를 state에 담아서 전달
                 ? () => navigate('/penaltycertification', { state: { penalty: item } })
                 : () =>
                     navigate('/penaltyupload', {

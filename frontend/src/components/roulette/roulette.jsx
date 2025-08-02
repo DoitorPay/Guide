@@ -99,7 +99,7 @@ const Roulette = ({ punishList = [], onSpinRequest }) => {
         icon="error-gray"
         title="면제 카드를 사용하시겠습니까?"
         subtitle={`벌칙 당첨: ${finalPenalty?.title || ''}`}
-        buttonName="사용하지 않기"
+        buttonName="수행하기"
         button2Name="면제카드 사용"
         onClick={handleSkip}
         onSecondClick={handleUseCard}
