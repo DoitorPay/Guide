@@ -5,7 +5,7 @@ import datetime
 from app.DB.NeoDriver import driver
 from app.user import ns_user
 
-punishFeedModel = ns_user.Model('벌칙 인증 모델', {
+punishFeedModel = ns_user.model('벌칙 인증 모델', {
     'punish': fields.String,
     'group_id': fields.String,
     'content': fields.String
