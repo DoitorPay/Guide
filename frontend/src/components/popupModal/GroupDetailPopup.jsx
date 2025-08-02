@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Button from '@/components/button/Button';
 import Popup from '@/components/popupModal/Popup';
+import axios from 'axios';
 import { useUserStore } from '@/stores/useUserStore';
 import { useUserGroupStore } from '@/stores/useUserGroupStore';
 
@@ -11,6 +12,8 @@ const GroupDetailPopup = ({ group, setPopup, onClose, onJoin }) => {
 
   const [isMember, setIsMember] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
+
+  const { fetchUserGroups } = useUserGroupStore();
 
   useEffect(() => {
     if (group && group.gid) {
@@ -23,10 +26,22 @@ const GroupDetailPopup = ({ group, setPopup, onClose, onJoin }) => {
     }
   }, [group, memberGroups, leaderGroups]);
 
-  const handleJoin = () => {
-    onJoin();
+ const handleJoin = async () => {
+  try {
+     const res = await axios.put(
+      `http://localhost:8000/group/register?id=${group.gid}`,
+      {},
+      { withCredentials: true }
+    );
+
+    console.log('가입 성공:', res);
+
+    await fetchUserGroups();  
     setShowConfirm(true);
-  };
+  } catch (error) {
+    console.error('그룹 가입 실패:', error);
+  }
+};
 
   if (!group) return null;
 
@@ -88,7 +103,7 @@ const GroupDetailPopup = ({ group, setPopup, onClose, onJoin }) => {
 
       {showConfirm && (
         <Popup
-          icon="check"
+          icon="done-gray.svg"
           title={`${group?.name} 그룹에 가입하셨습니다.`}
           subtitle="그룹탭에서 확인할 수 있어요."
           buttonName="확인"
