@@ -96,8 +96,13 @@ class Register(Resource):
         gid = parser.parse_args().get('id')
         user_info = session.get('user_data')
 
+        print(f"[DEBUG] 받은 gid: {gid} (type: {type(gid)})")
+        print(f"[DEBUG] 받은 user_info: {user_info}")
+
         with driver.session() as neo_session:
             neo_session.run("""
                 MATCH(p:Person {id:$id, sns:$sns}), (g:Group {gid: $gid})
                 MERGE (p)-[r:Member]->(g)
+                return p,r,g
             """, id=user_info['id'], sns=user_info['sns'], gid=gid)
+            return {'message': '가입 완료'}, 200
