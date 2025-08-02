@@ -152,7 +152,7 @@ const GroupDetail = () => {
                 desc="5일 21시간 34분 남음"
               />
 
-              <TodoList type="group-detail" todos={groupData.todos} groupId={gid} isLeader='true' />
+              <TodoList type="group-detail" todos={groupData.todos} groupId={gid} isLeader={isLeader} />
 
               <div className="group-section">
                 <SubTitle title="미션 인증 피드" />
