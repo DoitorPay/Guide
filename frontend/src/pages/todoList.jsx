@@ -28,12 +28,34 @@ const TodoListPage = () => {
         }
     }, [userId, fetchUserGroups]);
 
-    // 첫 번째 활성 그룹의 이름과 ID를 가져오기
+    // end_date가 가장 임박한 활성 그룹의 이름과 ID를 가져오기
+    const [groupStartDate, setGroupStartDate] = useState(null);
+    
     useEffect(() => {
         if (activeGroups && activeGroups.length > 0) {
-            const firstGroup = activeGroups[0];
-            setGroupName(`${firstGroup.name} 목표`);
-            setGroupId(firstGroup.gid);
+            const currentDate = new Date();
+            
+            // end_date가 가장 임박한 그룹 찾기
+            const mostImminentGroup = activeGroups.reduce((closest, current) => {
+                const currentEndDate = new Date(current.end_date);
+                const closestEndDate = new Date(closest.end_date);
+                
+                // 현재 날짜보다 미래인 그룹들 중에서 가장 가까운 것 선택
+                if (currentEndDate > currentDate && closestEndDate > currentDate) {
+                    return currentEndDate < closestEndDate ? current : closest;
+                } else if (currentEndDate > currentDate) {
+                    return current;
+                } else if (closestEndDate > currentDate) {
+                    return closest;
+                } else {
+                    // 둘 다 과거인 경우 더 최근 것 선택
+                    return currentEndDate > closestEndDate ? current : closest;
+                }
+            });
+            
+            setGroupName(`${mostImminentGroup.name} 목표`);
+            setGroupId(mostImminentGroup.gid);
+            setGroupStartDate(mostImminentGroup.time_created);
         }
     }, [activeGroups]);
 
@@ -53,7 +75,7 @@ const TodoListPage = () => {
             </div>
 
             <div>
-                <SubTitle title={groupName} type="week"/>
+                <SubTitle title={groupName} type="week" groupStartDate={groupStartDate}/>
                 <TodoList type="group" groupId={groupId} />
             </div>
             <PanaltyNoti />

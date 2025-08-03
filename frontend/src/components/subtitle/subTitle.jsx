@@ -13,13 +13,38 @@ const SubTitle = ({
   more = '전체보기',
   onClickMore,
   date,
+  groupStartDate,
 }) => {
   const currentDate = new Date();
   const today = format(currentDate, 'M월 d일', { locale: ko });
 
-  const weekStart = startOfWeek(currentDate, { weekStartsOn: 1, locale: ko });
-  const weekEnd = endOfWeek(currentDate, { weekStartsOn: 1, locale: ko });
+  // 그룹 시작 날짜가 있으면 해당 날짜를 기준으로, 없으면 현재 날짜를 기준으로 주차 계산
+  const baseDate = groupStartDate ? new Date(groupStartDate) : currentDate;
+  
+  const weekStart = startOfWeek(baseDate, { weekStartsOn: 1, locale: ko });
+  const weekEnd = endOfWeek(baseDate, { weekStartsOn: 1, locale: ko });
   const week = `${format(weekStart, 'M월 d일', { locale: ko })} ~ ${format(weekEnd, 'M월 d일', { locale: ko })}`;
+
+  // 그룹 기준 주차 계산
+  const getGroupWeek = () => {
+    if (!groupStartDate) return week;
+    
+    const startDate = new Date(groupStartDate);
+    const currentDate = new Date();
+    
+    // 그룹 시작일부터 현재까지의 일수 계산
+    const daysDiff = Math.floor((currentDate - startDate) / (1000 * 60 * 60 * 24));
+    const weeksDiff = Math.floor(daysDiff / 7);
+    
+    // 현재 주차의 시작과 끝 날짜 계산 (그룹 시작일부터 정확히 7일씩)
+    const currentWeekStart = new Date(startDate);
+    currentWeekStart.setDate(startDate.getDate() + (weeksDiff * 7));
+    
+    const currentWeekEnd = new Date(currentWeekStart);
+    currentWeekEnd.setDate(currentWeekStart.getDate() + 6);
+    
+    return `${format(currentWeekStart, 'M월 d일', { locale: ko })} ~ ${format(currentWeekEnd, 'M월 d일', { locale: ko })}`;
+  };
 
   return (
     <div className={`sub-title sub-title--${type}`}>
@@ -45,7 +70,7 @@ const SubTitle = ({
       )}
 
       {type === 'week' && (
-        <span className="sub-title__date">{week}</span>
+        <span className="sub-title__date">{getGroupWeek()}</span>
       )}
 
       {type === 'desc' && desc && (
@@ -65,9 +90,6 @@ const SubTitle = ({
     </div>
   </div>
 )}
-
-
-
 
     </div>
   );
