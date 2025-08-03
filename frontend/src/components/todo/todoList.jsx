@@ -3,6 +3,7 @@ import Checkbox from '@/components/input/checkBox';
 import MoreOption from '@/components/popupModal/moreOption';
 import Button from '@/components/button/button';
 import { useNavigate } from 'react-router-dom';
+import group from "@/pages/Group.jsx";
 // import { useUserStore } from '@/stores/useUserStore'; // userId 임포트 제거
 
 const TodoList = ({ type, selectedDate, onTodoProgressChange, onAllTodosChange, groupId, isLeader }) => {
@@ -101,83 +102,23 @@ const TodoList = ({ type, selectedDate, onTodoProgressChange, onAllTodosChange, 
     const fetchGroupTodos = useCallback(async () => {
         try {
             // 1. 사용자가 가입된 그룹 ID 목록 가져오기
-            const userGroupsResponse = await fetch('http://localhost:8000/api/user/group-participating');
-            if (!userGroupsResponse.ok) {
-                const errorData = await userGroupsResponse.json();
-                console.error('사용자 그룹 목록 가져오기 에러:', errorData);
-                return;
-            }
-            const userGroupsData = await userGroupsResponse.json();
-            console.log("----- 사용자 참여 그룹 GET -----");
-            console.log(JSON.stringify(userGroupsData, null, 2));
-            console.log("--------------------------");
+            const response = await fetch(`http://localhost:8000/api/group/todo?id=${groupId}`);
+            const groupTodos = await response.json();
+            console.log("그룹투두")
+            console.log(groupTodos, typeof(groupTodos))
+            console.log("+==============")
 
-            const allGroupTodos = [];
-            const allGroups = [];
-
-            if (userGroupsData.member) {
-                allGroups.push(...userGroupsData.member);
-            }
-            if (userGroupsData.leader) {
-                allGroups.push(...userGroupsData.leader);
-            }
-
-            allGroups.forEach(group => {
-                // groupId가 전달된 경우 해당 그룹의 투두만 처리
-                if (groupId && String(group.gid) !== String(groupId)) {
-                    return;
-                }
-                
-                if (group.todo && Array.isArray(group.todo)) {
-                    group.todo.forEach(todoItem => {
-                        let parsedTodo = null;
-                        let jsonString = '';
-
-                        // 문자열이 '///'를 포함하는 경우 JSON 부분을 추출합니다.
-                        if (typeof todoItem === 'string' && todoItem.includes('///')) {
-                            jsonString = todoItem.split('///')[0];
-                        } else if (typeof todoItem === 'string') {
-                            // '///'가 없는 경우, 전체 문자열이 JSON 부분이라고 가정합니다.
-                            jsonString = todoItem;
-                        }
-
-                        if (jsonString) {
-                            try {
-                                // 유효한 JSON 파싱을 위해 작은따옴표를 큰따옴표로 바꿉니다.
-                                const validJsonString = jsonString.replace(/'/g, '"');
-                                parsedTodo = JSON.parse(validJsonString);
-                            } catch (e) {
-                                console.error("그룹 투두 JSON 파싱 에러:", e, "원시 문자열:", todoItem, "파싱 시도 문자열:", jsonString);
-                                // JSON 파싱이 여전히 실패하는 경우 기존 "///" 형식으로 대체합니다.
-                                const parts = todoItem.split("///");
-                                if (parts.length >= 4) { // item, exec_date, id, done
-                                    const [text, exec_date, id, done] = parts;
-                                    parsedTodo = { todos: [{ id: id, item: text, done: done, exec_date: exec_date }] };
-                                } else {
-                                    console.warn("알 수 없는 형식의 그룹 투두:", todoItem);
-                                }
-                            }
-                        }
-
-                        if (parsedTodo && parsedTodo.todos && Array.isArray(parsedTodo.todos)) {
-                            parsedTodo.todos.forEach(innerTodo => {
-                                allGroupTodos.push({
-                                    text: innerTodo.item,
-                                    id: innerTodo.id,
-                                    completed: String(innerTodo.done).toLowerCase() === 'true',
-                                    groupId: group.gid,
-                                    exec_date: innerTodo.exec_date || '' // exec_date가 없을 경우 빈 문자열로 처리하여 일관성을 유지합니다.
-                                });
-                            });
-                        }
-                    });
-                }
+            const newGroupTodos = groupTodos.map(todo => {
+                return {
+                    text: todo.item,
+                    id: todo.id,
+                    completed: String(todo.done).toLowerCase() === 'true',
+                    groupId: groupId,
+                    exec_date: todo.exec_date || ''
+                };
             });
-            console.log("----- 처리된 그룹 투두 목록 -----");
-            console.log(JSON.stringify(allGroupTodos, null, 2));
-            console.log("--------------------------");
-            setGroupTodos(allGroupTodos);
 
+            setGroupTodos(newGroupTodos);
         } catch (error) {
             console.error('네트워크 에러 또는 서버 응답 문제:', error);
         }
