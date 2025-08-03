@@ -30,7 +30,6 @@ const GroupDetail = () => {
     : {
         title: "ㅤ",
         type: "header-b",
-        icon1: 'none'
       };
 
   const myInfo = {

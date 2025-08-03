@@ -123,6 +123,11 @@ const TodoList = ({ type, selectedDate, onTodoProgressChange, onAllTodosChange, 
             }
 
             allGroups.forEach(group => {
+                // groupId가 전달된 경우 해당 그룹의 투두만 처리
+                if (groupId && String(group.gid) !== String(groupId)) {
+                    return;
+                }
+                
                 if (group.todo && Array.isArray(group.todo)) {
                     group.todo.forEach(todoItem => {
                         let parsedTodo = null;
@@ -176,7 +181,7 @@ const TodoList = ({ type, selectedDate, onTodoProgressChange, onAllTodosChange, 
         } catch (error) {
             console.error('네트워크 에러 또는 서버 응답 문제:', error);
         }
-    }, []);
+    }, [groupId]);
 
 
 
@@ -250,7 +255,7 @@ const TodoList = ({ type, selectedDate, onTodoProgressChange, onAllTodosChange, 
                 const updatedGroupTodoData = {
                     id: item.id,
                     item: item.text,
-                    done: checked
+                    done: checked.toString()
                 };
                 console.log("----- 업데이트 된 그룹 투두 -----");
                 console.log(JSON.stringify(updatedGroupTodoData, null, 2));
@@ -629,7 +634,7 @@ const TodoList = ({ type, selectedDate, onTodoProgressChange, onAllTodosChange, 
                         </button>
                     )
                 }
-                {isLeader && (
+                {isLeader && groupTodos.length === 0 && (
                     <Button
                         type="primary"
                         buttonName="그룹 미션 생성하기기"
