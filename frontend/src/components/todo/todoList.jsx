@@ -246,14 +246,17 @@ const TodoList = ({ type, selectedDate, onTodoProgressChange, onAllTodosChange, 
             setGroupTodos(updatedGroupItems);
 
             try {
+                // 백엔드가 기대하는 형식: item///id///done
                 const updatedGroupTodoData = {
                     id: item.id,
                     item: item.text,
-                    done: checked,
-                    exec_date: originalGroupTodo.exec_date // exec_date가 없으면 빈 문자열 또는 null 처리
+                    done: checked
                 };
+                console.log("----- 업데이트 된 그룹 투두 -----");
+                console.log(JSON.stringify(updatedGroupTodoData, null, 2));
+                console.log("-------------------");
 
-                const response = await fetch(`http://localhost:8000/group/todo?id=${item.groupId}`, { // item.groupId 사용
+                const response = await fetch(`http://localhost:8000/api/group/todo?id=${item.groupId}`, { // item.groupId 사용
                     method: 'PUT',
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify({ item: updatedGroupTodoData }),
@@ -328,38 +331,6 @@ const TodoList = ({ type, selectedDate, onTodoProgressChange, onAllTodosChange, 
                         setTodoItems([...todoItems, newTodoItem]);
                         setNewTodoText('');
                         fetchPersonalTodos(); // 투두 추가 후 목록 새로고침
-                    } else if (type === 'group' || type === 'group-detail') {
-                        // groupId를 props로 받거나, 추가할 때 어떤 그룹인지 선택하도록 해야 함.
-                        // 현재는 groupId를 props로 받고 있으므로 이를 사용.
-                        if (!groupId) {
-                            alert('그룹 ID가 없습니다. 그룹 투두를 추가하려면 그룹을 선택해야 합니다.');
-                            return;
-                        }
-                        const groupTodoData = {
-                            item: newTodoText.trim()
-                        };
-                        console.log("----- 그룹 투두 폼 데이터 -----");
-                        console.log(JSON.stringify(groupTodoData, null, 2));
-                        console.log("-------------------");
-
-                        const response = await fetch(`http://localhost:8000/group/todo?id=${groupId}`, {
-                            method: 'POST',
-                            headers: {'Content-Type': 'application/json'},
-                            body: JSON.stringify(groupTodoData),
-                        });
-
-                        if (!response.ok) {
-                            const errorData = await response.json();
-                            console.error('그룹 투두 추가 에러:', errorData);
-                            alert('그룹 투두 추가 중 오류가 발생했습니다. 다시 시도해주세요.');
-                            return;
-                        }
-
-                        const addedGroupTodo = await response.json();
-                        console.log('----- 추가된 그룹 투두 응답 -----');
-                        console.log(JSON.stringify(addedGroupTodo, null, 2));
-                        console.log('---------------------------');
-                        fetchGroupTodos(); // 그룹 투두 추가 후 목록 새로고침
                     }
                 } catch (error) {
                     console.error('네트워크 에러 또는 서버 응답 문제:', error);
@@ -445,37 +416,6 @@ const TodoList = ({ type, selectedDate, onTodoProgressChange, onAllTodosChange, 
                     alert('개인 투두 수정 중 오류가 발생했습니다. 다시 시도해주세요.');
                 });
 
-            } else if (editingTodoType === 'group') {
-                const originalGroupTodo = groupTodos.find(item => item.id === editingTodoId);
-                if (!originalGroupTodo || !originalGroupTodo.groupId) {
-                    alert('그룹 ID를 찾을 수 없습니다.');
-                    return;
-                }
-                const updatedGroupTodoData = {
-                    id: editingTodoId,
-                    item: editingText.trim(),
-                    done: originalGroupTodo.completed,
-                    exec_date: originalGroupTodo.exec_date // 그룹 투두도 exec_date가 있을 수 있으므로 포함
-                };
-
-                fetch(`http://localhost:8000/group/todo?id=${originalGroupTodo.groupId}`, {
-                    method: 'PUT',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({ item: updatedGroupTodoData }),
-                })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('그룹 투두 수정 실패');
-                    }
-                    return response.json();
-                })
-                .then(() => {
-                    fetchGroupTodos(); // 수정 후 목록 새로고침
-                })
-                .catch(error => {
-                    console.error('그룹 투두 수정 에러:', error);
-                    alert('그룹 투두 수정 중 오류가 발생했습니다. 다시 시도해주세요.');
-                });
             }
         }
         cancelEdit();
@@ -523,42 +463,6 @@ const TodoList = ({ type, selectedDate, onTodoProgressChange, onAllTodosChange, 
                 console.log('---------------------------');
                 
                 fetchPersonalTodos(); // 삭제 후 목록 새로고침
-            } catch (error) {
-                console.error('네트워크 에러 또는 서버 응답 문제:', error);
-                alert('서버와 통신 중 오류가 발생했습니다. 네트워크 연결을 확인해주세요.');
-            }
-        } else if (selectedTodoType === 'group') {
-            const selectedTodo = getSelectedTodo();
-            if (!selectedTodo || !selectedTodo.groupId) {
-                alert('그룹 ID를 찾을 수 없습니다.');
-                return;
-            }
-            try {
-                const deleteData = {
-                    list: { id: selectedTodoId },
-                };
-                console.log("----- 그룹 투두 삭제 폼 데이터 -----");
-                console.log(JSON.stringify(deleteData, null, 2));
-                console.log("---------------------------");
-
-                const response = await fetch(`http://localhost:8000/group/todo?id=${selectedTodo.groupId}`, {
-                    method: 'DELETE',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify(deleteData),
-                });
-
-                if (!response.ok) {
-                    const errorData = await response.json();
-                    console.error('그룹 투두 삭제 에러:', errorData);
-                    alert('그룹 투두 삭제 중 오류가 발생했습니다. 다시 시도해주세요.');
-                    return;
-                }
-
-                console.log('----- 삭제된 그룹 투두 응답 -----');
-                console.log(JSON.stringify(await response.json(), null, 2));
-                console.log('---------------------------');
-
-                fetchGroupTodos(); // 삭제 후 목록 새로고침
             } catch (error) {
                 console.error('네트워크 에러 또는 서버 응답 문제:', error);
                 alert('서버와 통신 중 오류가 발생했습니다. 네트워크 연결을 확인해주세요.');
