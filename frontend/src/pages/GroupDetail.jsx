@@ -9,6 +9,7 @@ import RankingList from "@/components/ranking/RankingList";
 import SubTitle from "@/components/subtitle/subTitle";
 import TodoList from "@/components/todo/todoList";
 import { useUserGroupStore } from "@/stores/useUserGroupStore";
+import { useUserStore } from "@/stores/useUserStore";
 
 const GroupDetail = () => {
   const [activeTab, setActiveTab] = useState("활동");
@@ -16,7 +17,8 @@ const GroupDetail = () => {
   const navigate = useNavigate();
   const [groupData, setGroupData] = useState(null);
 
-  const { leaderGroups } = useUserGroupStore();
+  const { leaderGroups, fetchUserGroups } = useUserGroupStore();
+  const { userId } = useUserStore();
 
   const isLeader = leaderGroups.some((group) => String(group.gid) === String(gid));
 
@@ -96,7 +98,8 @@ const GroupDetail = () => {
     };
 
     fetchGroupData();
-  }, [gid]);
+    fetchUserGroups(userId);
+  }, [gid, userId, fetchUserGroups]);
 
   if (!groupData) return <p>로딩 중...</p>;
 
