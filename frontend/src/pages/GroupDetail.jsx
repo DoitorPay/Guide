@@ -9,6 +9,7 @@ import RankingList from "@/components/ranking/RankingList";
 import SubTitle from "@/components/subtitle/subTitle";
 import TodoList from "@/components/todo/todoList";
 import { useUserGroupStore } from "@/stores/useUserGroupStore";
+import { useUserStore } from "@/stores/useUserStore";
 
 const GroupDetail = () => {
   const [activeTab, setActiveTab] = useState("활동");
@@ -16,7 +17,8 @@ const GroupDetail = () => {
   const navigate = useNavigate();
   const [groupData, setGroupData] = useState(null);
 
-  const { leaderGroups } = useUserGroupStore();
+  const { leaderGroups, fetchUserGroups } = useUserGroupStore();
+  const { userId } = useUserStore();
 
   const isLeader = leaderGroups.some((group) => String(group.gid) === String(gid));
 
@@ -25,12 +27,11 @@ const GroupDetail = () => {
         title: "ㅤ",
         type: "header-b",
         icon1: "brightness-high-gray",
-        icon1OnClick: () => navigate("/groupmanage"),
+        icon1OnClick: () => navigate(`/groupmanage/${gid}`),
       }
     : {
         title: "ㅤ",
         type: "header-b",
-        icon1: 'none'
       };
 
   const myInfo = {
@@ -87,7 +88,7 @@ const GroupDetail = () => {
           info: data.description,
           thumbnailUrl: "https://picsum.photos/400/300",
           memberCount: data.member_count,
-          todos: data.todo,
+          todos: data.todo || [],
           punishments: data.punish,
           members: data.members || [],
         });
@@ -97,7 +98,8 @@ const GroupDetail = () => {
     };
 
     fetchGroupData();
-  }, [gid]);
+    fetchUserGroups(userId);
+  }, [gid, userId, fetchUserGroups]);
 
   if (!groupData) return <p>로딩 중...</p>;
 
@@ -152,7 +154,7 @@ const GroupDetail = () => {
                 desc="5일 21시간 34분 남음"
               />
 
-              <TodoList type="group-detail" todos={groupData.todos} groupId={gid} isLeader='true' />
+              <TodoList type="group-detail" todos={groupData.todos} groupId={gid} isLeader={isLeader} />
 
               <div className="group-section">
                 <SubTitle title="미션 인증 피드" />

@@ -3,6 +3,7 @@ from flask import request, session, jsonify
 
 import uuid
 import copy
+import json
 
 from app.DB.NeoDriver import driver
 from app.group import ns_group, parser
@@ -36,17 +37,10 @@ class Todo(Resource):
         gid = request.args.get('id')
         with driver.session() as neo_session:
             todo = neo_session.run('''
-                MATCH (g:Group {gid:$gid})
-                RETURN g.todo as todo
-            ''', gid=gid)
-
-            todo = [item['todo'] for item in todo][0]
-            if todo is not None:
-                todo = [{"item": i.split("///")[0], "id": i.split("///")[1], "done": i.split("///")[2]}
-                        for i in todo[0]]
-                return {"todo": todo}
-            else:
-                return 400
+                MATCH (g:Group {gid:$gid}) RETURN g.todo as todo
+            ''', gid=gid).value()
+            todo = json.loads(todo[0].replace("'", '"'))
+            return jsonify(todo)
 
     @ns_group.expect(parser, todo_model)
     def post(self):
@@ -55,24 +49,17 @@ class Todo(Resource):
 
         with driver.session() as neo_session:
             result = neo_session.run("""
-                MATCH (g:Group {gid:$gid}) RETURN g.todo as todo
-            """, gid=gid)
+                MATCH (g:Group {gid:$gid}) RETURN g
+            """, gid=gid).value()
 
-            todo_list = [dict(todo)['todo'] for todo in result]
-
-            todo_list = todo_list[0] if todo_list[0] is not None else []
-
-            for item in todo_list:
-                if new_item in item.split("///"):
-                    return 200
-            todo_list.append(f"{new_item}///{str(uuid.uuid4())}///false")
-
+            if len(result) != 1:
+                return "그룹을 찾을 수 없습니다", 404
             try:
                  neo_session.run(
                     '''MATCH(n:Group {gid:$gid})
                     SET n.todo = $todo
                     RETURN n''',
-                    gid=gid, todo=todo_list
+                    gid=gid, todo=str(new_item)
                 )
                  return 200
             except Exception as e:
@@ -81,31 +68,26 @@ class Todo(Resource):
     @ns_group.expect(parser, todo_modify_model)
     def put(self):
         gid = request.args.get('id')
-        update_item = request.get_json()['item']
+        update_item = request.get_json()
 
         with driver.session() as neo_session:
             todo_list = neo_session.run('''
                 MATCH (g:Group {gid:$gid})
                 RETURN g.todo as todo''',
-                gid = gid)
-            todo_list = [dict(todo)['todo'] for todo in todo_list][0]
-
-            updated_list = copy.deepcopy(todo_list)
-            if todo_list is not None:
-                for idx, x in enumerate(todo_list):
-                    item, id, done = x.split("///")
-                    if id == update_item["id"]:
-                        item = update_item["item"]
-                        done = update_item["done"]
-                        updated_list[idx] = f"{item}///{id}///{done}"
-                        break
+                gid = gid).value()[0]
+            todo = json.loads(todo_list.replace("'", '"'))['todos']
+            for item in todo:
+                if item["id"] == update_item["id"]:
+                    item['id'] = update_item['id']
+                    item['item'] = update_item['item']
+                    item['done'] = update_item['done']
 
             try:
                 neo_session.run(
                     '''MATCH(n:Group {gid: $gid})
                     SET n.todo = $todo
                     RETURN n''',
-                    gid = gid, todo=updated_list)
+                    gid = gid, todo=str(todo))
                 return 200
             except Exception as e:
                 return str(e), 500

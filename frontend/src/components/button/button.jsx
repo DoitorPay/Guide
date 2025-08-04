@@ -8,6 +8,7 @@ function Button({
   disabled = false,
   bgColor,     
   textColor,     
+  htmlType = "button", // html type prop 추가
 }) {
   const customStyle = {
     backgroundColor: bgColor,
@@ -17,6 +18,7 @@ function Button({
   if (type === "close") {
     return (
       <button
+        type={htmlType} // htmlType을 적용
         aria-label="닫기"
         aria-hidden={disabled}
         onClick={onClick}
@@ -31,6 +33,7 @@ function Button({
 
   return (
     <button
+      type={htmlType} // htmlType을 적용
       aria-label={aria}
       aria-hidden={disabled}
       onClick={onClick}

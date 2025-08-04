@@ -81,7 +81,8 @@ const Router = () => {
           <Route path="/groupcreateform" element={<AuthGuard><GroupCreateForm /></AuthGuard>} />
           <Route path="/mypage" element={<AuthGuard><MyPage /></AuthGuard>} />
           <Route path="/groupmissionform" element={<AuthGuard><GroupMissionForm /></AuthGuard>} />
-          <Route path="/groupmanage" element={<AuthGuard><GroupManagement /></AuthGuard>} />
+          <Route path="/groupmissionform/:gid" element={<AuthGuard><GroupMissionForm /></AuthGuard>} />
+          <Route path="/groupmanage/:gid" element={<AuthGuard><GroupManagement /></AuthGuard>} />
           <Route path="/groupsearch" element={<AuthGuard><GroupSearch /></AuthGuard>} />
           <Route path="/group" element={<AuthGuard><Group /></AuthGuard>} />
           <Route path="/profile" element={<AuthGuard><Profile /></AuthGuard>} />
