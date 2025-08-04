@@ -27,7 +27,7 @@ const GroupDetail = () => {
         title: "ㅤ",
         type: "header-b",
         icon1: "brightness-high-gray",
-        icon1OnClick: () => navigate("/groupmanage"),
+        icon1OnClick: () => navigate(`/groupmanage/${gid}`),
       }
     : {
         title: "ㅤ",
@@ -88,7 +88,7 @@ const GroupDetail = () => {
           info: data.description,
           thumbnailUrl: "https://picsum.photos/400/300",
           memberCount: data.member_count,
-          todos: data.todo,
+          todos: data.todo || [],
           punishments: data.punish,
           members: data.members || [],
         });
