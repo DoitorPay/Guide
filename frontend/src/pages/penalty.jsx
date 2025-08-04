@@ -19,6 +19,8 @@ const PenaltyPage = () => {
   const [sortFilter, setSortFilter] = useState('전체');
   const [sortPopupOpen, setSortPopupOpen] = useState(false);
   const [feeds, setFeeds] = useState([]);
+  const [groupTodos, setGroupTodos] = useState([]);
+  const [isTodosLoading, setIsTodosLoading] = useState(false);
 
   useEffect(() => {
     if (userInfo?.id) {
@@ -27,58 +29,59 @@ const PenaltyPage = () => {
   }, [userInfo?.id, fetchUserGroups]);
 
   useEffect(() => {
-    let isCancelled = false;
-
-    const fetchGroupFeeds = async () => {
+    const fetchGroupTodos = async () => {
+      if (!selectedGroupName) {
+        setGroupTodos([]);
+        return;
+      }
       const selectedGroup = activeGroups.find(g => g.name === selectedGroupName);
       if (!selectedGroup) return;
 
+      setIsTodosLoading(true);
       try {
-        const response = await fetch(`http://localhost:8000/api/group/member-punish-feed?id=${selectedGroup.gid}`);
-        if (!response.ok) throw new Error('그룹 피드 로딩 실패');
+        const response = await fetch(`http://localhost:8000/api/group/todo?id=${selectedGroup.gid}`);
+        if (!response.ok) throw new Error('그룹 투두리스트 로딩 실패');
         
-        const membersData = await response.json();
-        
-        if (!isCancelled) {
-          const processedFeeds = membersData.flatMap(member => 
-            (member.punish_history || []).map(historyItem => ({
-              id: `${member.id}-${historyItem.punish}-${historyItem.exec_date}`, 
-              image: `https://picsum.photos/seed/${member.id}${historyItem.exec_date}/200/300`,
-              user: member.nickname,
-              avatar: member.profile || `https://picsum.photos/seed/${member.id}/50`,
-              date: historyItem.exec_date,
-              originalPenalty: { 
-                title: historyItem.punish, 
-                content: historyItem.content, 
-                groupId: historyItem.gid, 
-                deadline: historyItem.exec_date, 
-                groupName: selectedGroup.name 
-              }
-            }))
-          );
-          
-          processedFeeds.sort((a, b) => new Date(b.date) - new Date(a.date));
-          setFeeds(processedFeeds);
-        }
+        const data = await response.json();
+        setGroupTodos(data.todo || []);
       } catch (error) {
-        if (!isCancelled) {
-          console.error("그룹 피드 로딩 실패:", error);
-          setFeeds([]);
-        }
+        console.error(error);
+        setGroupTodos([]);
+      } finally {
+        setIsTodosLoading(false);
       }
     };
 
-    if (selectedGroupName) {
-      setFeeds([]); 
-      fetchGroupFeeds();
-    } else {
-      setFeeds([]); 
+    fetchGroupTodos();
+  }, [selectedGroupName, activeGroups]);
+
+  const rouletteStatus = useMemo(() => {
+    const selectedGroup = activeGroups.find(g => g.name === selectedGroupName);
+    if (!selectedGroup) {
+      return { isDisabled: false, message: '' };
     }
 
-    return () => {
-      isCancelled = true;
-    };
-  }, [selectedGroupName, activeGroups]);
+    const now = new Date();
+    
+    const weeklyDeadline = new Date(now);
+    const dayOfWeek = now.getDay();
+    const daysUntilSunday = dayOfWeek === 0 ? 0 : 7 - dayOfWeek;
+    weeklyDeadline.setDate(now.getDate() + daysUntilSunday);
+    weeklyDeadline.setHours(23, 59, 59, 999); 
+
+    const hasIncompleteTodo = groupTodos.length > 0 && groupTodos.some(todo => todo.done === 'false');
+    if (now < weeklyDeadline) {
+      const deadlineStr = weeklyDeadline.toISOString().split('T')[0];
+      return { isDisabled: true, message: `아직 주간 미션 기간이에요! (${deadlineStr} 마감)` };
+    }
+
+    if (hasIncompleteTodo) {
+      return { isDisabled: false, message: '' };
+    } else {
+      return { isDisabled: true, message: '이번 주 미션을 모두 완료해서 벌칙이 면제됐어요!' };
+    }
+
+  }, [selectedGroupName, activeGroups, groupTodos]);
 
   const handleRouletteApiCall = async () => {
     const selectedGroup = activeGroups.find(g => g.name === selectedGroupName);
@@ -105,17 +108,14 @@ const PenaltyPage = () => {
   const allPenalties = useMemo(() => {
     if (!userInfo || !activeGroups.length) return [];
     const groupMap = new Map(activeGroups.map(g => [g.gid, g.name]));
-
     const uncertified = (userInfo.punish || []).map(p => {
       const [title, groupId] = p.split('///');
       return { title, groupId, groupName: groupMap.get(groupId) || '알 수 없는 그룹', isCertified: false, deadline: '' };
     });
-
     const certified = (userInfo.punish_history || []).map(p => {
       const [title, content, groupId, deadline] = p.split('///');
       return { title, content, groupId, groupName: groupMap.get(groupId) || '알 수 없는 그룹', deadline, isCertified: true };
     });
-
     return [...uncertified.reverse(), ...certified.reverse()];
   }, [userInfo, activeGroups]);
 
@@ -163,8 +163,17 @@ const PenaltyPage = () => {
           ))}
         </div>
       </div>
-      <div>
+      <div style={{ 
+        opacity: rouletteStatus.isDisabled ? 0.4 : 1, 
+        pointerEvents: rouletteStatus.isDisabled ? 'none' : 'auto',
+        transition: 'opacity 0.3s ease-in-out'
+      }}>
         <SubTitle title="벌칙 룰렛 돌리기" type="info" info="면제 카드 2장" />
+        {rouletteStatus.isDisabled && (
+          <div style={{ textAlign: 'center', padding: '1rem 0', color: 'var(--color-gray-scale-500)', fontSize: 'clamp(14px, 3.5vw, 16px)' }}>
+            {rouletteStatus.message}
+          </div>
+        )}
         <Roulette
           punishList={roulettePenalties}
           onSpinRequest={handleRouletteApiCall}
