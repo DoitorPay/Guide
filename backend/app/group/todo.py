@@ -40,7 +40,6 @@ class Todo(Resource):
                 MATCH (g:Group {gid:$gid}) RETURN g.todo as todo
             ''', gid=gid).value()
             todo = json.loads(todo[0].replace("'", '"'))
-            print(todo)
             return jsonify(todo)
 
     @ns_group.expect(parser, todo_model)

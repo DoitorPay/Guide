@@ -104,9 +104,6 @@ const TodoList = ({ type, selectedDate, onTodoProgressChange, onAllTodosChange, 
             // 1. 사용자가 가입된 그룹 ID 목록 가져오기
             const response = await fetch(`http://localhost:8000/api/group/todo?id=${groupId}`);
             const groupTodos = await response.json();
-            console.log("그룹투두")
-            console.log(groupTodos, typeof(groupTodos))
-            console.log("+==============")
 
             const newGroupTodos = groupTodos.map(todo => { // groupTodos.todos로 변경
                 return {
