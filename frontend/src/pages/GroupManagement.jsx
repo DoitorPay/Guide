@@ -68,13 +68,14 @@ const GroupManagement = () => {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       console.log('그룹이 성공적으로 해산되었습니다.');
-      navigate('/main'); // 해산 후 홈으로 이동하거나 다른 페이지로 리디렉션
+      navigate('/group'); // 해산 후 홈으로 이동하거나 다른 페이지로 리디렉션
     } catch (error) {
       console.error('그룹 해산에 실패했습니다:', error);
       // 에러 처리: 예를 들어, 사용자에게 알림을 표시
-    } finally {
-      setDissolvePopup(false); // 팝업 닫기
     }
+    // finally {
+    //   setDissolvePopup(false); // 팝업 닫기
+    // }
   };
 
   // 수정사항 제출
@@ -193,11 +194,13 @@ const GroupManagement = () => {
               type="third"
               buttonName="그룹 해산"
               onClick={toggleDissolvePopup}
+              htmlType="button" // 폼 제출 방지
             />
             <Button
               type="third"
               buttonName="그룹 운영 위임"
               onClick={toggleTossPopup}
+              htmlType="button" // 폼 제출 방지
             />
           </div>
         </div>
@@ -206,6 +209,7 @@ const GroupManagement = () => {
           <Button
             type="primary"
             buttonName="수정 완료"
+            htmlType="submit" // 폼 제출
           />
         </div>
       </form>
