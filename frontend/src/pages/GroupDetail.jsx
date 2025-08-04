@@ -88,7 +88,7 @@ const GroupDetail = () => {
           info: data.description,
           thumbnailUrl: "https://picsum.photos/400/300",
           memberCount: data.member_count,
-          todos: data.todo,
+          todos: data.todo || [],
           punishments: data.punish,
           members: data.members || [],
         });
