@@ -27,7 +27,7 @@ const GroupDetail = () => {
         title: "ㅤ",
         type: "header-b",
         icon1: "brightness-high-gray",
-        icon1OnClick: () => navigate("/groupmanage"),
+        icon1OnClick: () => navigate(`/groupmanage/${gid}`),
       }
     : {
         title: "ㅤ",
