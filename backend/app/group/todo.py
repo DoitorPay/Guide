@@ -68,15 +68,14 @@ class Todo(Resource):
     @ns_group.expect(parser, todo_modify_model)
     def put(self):
         gid = request.args.get('id')
-        update_item = request.get_json()['item']
-        print(update_item)
+        update_item = request.get_json()
+
         with driver.session() as neo_session:
             todo_list = neo_session.run('''
                 MATCH (g:Group {gid:$gid})
                 RETURN g.todo as todo''',
                 gid = gid).value()[0]
-            todo = json.loads(todo_list.replace("'", '"'))
-
+            todo = json.loads(todo_list.replace("'", '"'))['todos']
             for item in todo:
                 if item["id"] == update_item["id"]:
                     item['id'] = update_item['id']
