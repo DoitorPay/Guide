@@ -5,7 +5,7 @@ import axios from 'axios';
 import { useUserStore } from '@/stores/useUserStore';
 import { useUserGroupStore } from '@/stores/useUserGroupStore';
 
-const GroupDetailPopup = ({ group, setPopup, onClose, onJoin }) => {
+const GroupDetailPopup = ({ group, isVisible, onClose, onJoin }) => {
   const userId = useUserStore((state) => state.userId);
   const memberGroups = useUserGroupStore((state) => state.memberGroups);
   const leaderGroups = useUserGroupStore((state) => state.leaderGroups);
@@ -56,7 +56,7 @@ const GroupDetailPopup = ({ group, setPopup, onClose, onJoin }) => {
 
   return (
     <>
-      {setPopup && (
+      {isVisible && (
         <div className="popup">
           <div className="popup__container group-detail-popup">
             <button className="popup__close-btn" onClick={onClose} aria-label="닫기">
@@ -80,6 +80,7 @@ const GroupDetailPopup = ({ group, setPopup, onClose, onJoin }) => {
               <div className="group-detail__mission-box">
                 <p className="group-detail__mission-title">진행 중인 미션</p>
                 <ol className="group-detail__mission-list">
+                  {console.log('GroupDetailPopup - todo:', todo)}
                   {todo.length > 0
                     ? todo.map((mission, idx) => <li key={idx}>{mission}</li>)
                     : <li>등록된 미션이 없습니다</li>}

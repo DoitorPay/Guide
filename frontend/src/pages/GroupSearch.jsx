@@ -9,7 +9,6 @@ import { useUserGroupStore } from '@/stores/useUserGroupStore';
 
 const GroupSearch = () => {
   const [searchQuery, setSearchQuery] = useState('');
-  const [sortBy, setSortBy] = useState('latest');
   const [popupVisible, setPopupVisible] = useState(false);
 
   const groupList = useGroupStore((state) => state.groupList);
@@ -24,7 +23,7 @@ const GroupSearch = () => {
     if (userId) {
       fetchUserGroups(userId); 
     }
-  }, [userId]);
+  }, [userId, fetchUserGroups]);
 
   const filteredGroups = groupList.filter(group => {
     const isFinished = new Date(group.end_date) < new Date();
@@ -40,7 +39,7 @@ const GroupSearch = () => {
   return (
     <MainLayout headerProps={{ type: "header-b", title: "ㅤ그룹 찾기", icon1: 'none' }}>
       <div className="group-search-page-content">
-        <GroupSearchInput onSearch={setSearchQuery} onSortChange={setSortBy} />
+        <GroupSearchInput onSearch={setSearchQuery} onSortChange={() => {}} />
         <div className="group-cards-container">
           {filteredGroups.length > 0 ? (
             filteredGroups.map(group => (
@@ -52,8 +51,14 @@ const GroupSearch = () => {
                 image={group.thumbnail || 'https://picsum.photos/400/300'}
                 isFinished={false}
                 onArrowClick={() => {
-                  setSelectedGroup(group);
+                  const groupWithSafeTodo = {
+                    ...group,
+                    todo: Array.isArray(group.todo) ? group.todo : [],
+                  };
+                  setSelectedGroup(groupWithSafeTodo);
                   setPopupVisible(true);
+                  console.log('Selected Group:', groupWithSafeTodo);
+                  console.log('Popup Visible:', true);
                 }}
               />
             ))
@@ -62,12 +67,14 @@ const GroupSearch = () => {
           )}
         </div>
 
-        <GroupDetailPopup
-          setPopup={popupVisible}
-          onClose={() => setPopupVisible(false)}
-          onJoin={() => console.log('그룹 가입')}
-          group={selectedGroup}
-        />
+        {selectedGroup && (
+          <GroupDetailPopup
+            isVisible={popupVisible}
+            onClose={() => setPopupVisible(false)}
+            onJoin={() => console.log('그룹 가입')}
+            group={selectedGroup}
+          />
+        )}
       </div>
     </MainLayout>
   );
