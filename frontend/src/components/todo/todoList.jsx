@@ -108,7 +108,7 @@ const TodoList = ({ type, selectedDate, onTodoProgressChange, onAllTodosChange, 
             console.log(groupTodos, typeof(groupTodos))
             console.log("+==============")
 
-            const newGroupTodos = groupTodos.map(todo => {
+            const newGroupTodos = groupTodos.todos.map(todo => {
                 return {
                     text: todo.item,
                     id: todo.id,
