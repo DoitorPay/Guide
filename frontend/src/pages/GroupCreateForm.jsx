@@ -199,7 +199,7 @@ const GroupCreateForm = () => {
         </div>
 
         <div className="form-section">
-          <Button type="primary" buttonName="생성하기" />
+          <Button type="primary" buttonName="생성하기" htmlType="submit" />
         </div>
       </form>
     </SignupLayout>
